@@ -1,0 +1,5 @@
+---
+profile: production
+strict: true
+skip_list:
+  - ignore-errors  # Use failed_when and specify error conditions instead of using ignore_errors.
