@@ -1,0 +1,9 @@
+---
+- name: Playbook to provision a new VM from an existing VM on VMware
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_clone_from_template: false
+        provision_vm_clone_from_vm: true

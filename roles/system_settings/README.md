@@ -48,7 +48,7 @@ N/A
   gather_facts: false
 
   roles:
-    - role: redhat_cop.vmware_ops.system_settings
+    - role: cloud.vmware_ops.system_settings
 ```
 ## License
 

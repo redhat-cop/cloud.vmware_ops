@@ -1,4 +1,4 @@
 ---
 - name: Security role
   ansible.builtin.import_role:
-    name: redhat_cop.vmware_ops.security
+    name: cloud.vmware_ops.security
