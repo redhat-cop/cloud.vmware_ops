@@ -15,7 +15,7 @@ To test the image locally using `ansible-runner` execute the image as follows:
 
 ```bash
 $ export USER=yourdockerusername
-$ ansible-runner run --container-image quay.io/$USER/vmware:mytest runner --inventory localhost, -p redhat_cop.vmware_ops.security
+$ ansible-runner run --container-image quay.io/$USER/vmware:mytest runner --inventory localhost, -p cloud.vmware_ops.security
 ```
 
 This will execute the `security.yml` playbook from playbooks directory. You can test with any playbook from this directory.

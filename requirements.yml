@@ -1,0 +1,4 @@
+collections:
+  - name: community.vmware
+  - name: vmware.vmware_rest
+  - name: containers.podman

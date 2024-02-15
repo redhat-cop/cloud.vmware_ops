@@ -1,0 +1,12 @@
+mock_file: "provision_vm_test"
+
+provision_vm_hostname: "127.0.0.1:1080"
+provision_vm_username: "user"
+provision_vm_password: "pass"
+provision_vm_validate_certs: false
+
+provision_vm_vm_name: "vm_test"
+provision_vm_cluster: "cluster_test"
+provision_vm_datacenter: "dc_test"
+provision_vm_folder: "folder_test"
+provision_vm_guest_id: "centos64Guest"

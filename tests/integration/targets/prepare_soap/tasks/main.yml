@@ -1,0 +1,26 @@
+---
+- name: Install dependencies
+  ansible.builtin.pip:
+    name:
+      - requests
+      - pyVmomi
+
+- name: Run soap vcSim
+  containers.podman.podman_container:
+    name: vmwaresoap
+
+    # image: docker.io/vmware/vcsim:latest
+    # due to an issue https://github.com/vmware/govmomi/issues/3337 -
+    # vcsim: vim.VirtualMachine.snapshot property causes runtime error when not set
+    image: quay.io/bardielle/vcsim:fix_vm
+    state: started
+    recreate: yes
+    expose:
+      - 8989
+    ports:
+      - 8989:8989
+#    command: "vcsim -dc 2 -folder 1 -c 2 -ds 4 -pod 1 -nsx 2 -pool 2 -app 1"
+
+- name: Pause
+  ansible.builtin.pause:
+    seconds: 10

@@ -18,13 +18,24 @@ jobs:
         run: |
           set -euxo pipefail
           sudo apt-get update
+          sudo apt-get install podman
 
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          path: ansible_collections/redhat_cop/vmware_ops
+          path: ansible_collections/cloud/vmware_ops
+
+      - name: Install requirements
+        run: |
+          ansible-galaxy collection install -r requirements.yml
+        working-directory: ansible_collections/cloud/vmware_ops
+
+      - name: Install python packages from requirements txt file
+        run: |
+          pip3 install -r requirements.txt
+        working-directory: ansible_collections/cloud/vmware_ops
 
       - name: Run
         run: |
-          make integration
-        working-directory: ansible_collections/redhat_cop/vmware_ops
+          ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python make integration
+        working-directory: ansible_collections/cloud/vmware_ops

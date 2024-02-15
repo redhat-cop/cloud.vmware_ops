@@ -1,4 +1,4 @@
-namespace: redhat_cop
+namespace: cloud
 name: vmware_ops
 version: 1.0.0
 readme: README.md

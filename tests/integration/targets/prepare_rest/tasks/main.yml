@@ -6,9 +6,9 @@
       - aiohttp
 
 - name: Run rest
-  community.docker.docker_container:
+  containers.podman.podman_container:
     name: vmwarest
-    image: mockserver/mockserver
+    image: docker.io/mockserver/mockserver:latest
     state: started
     recreate: yes
     exposed_ports:

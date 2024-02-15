@@ -51,7 +51,7 @@ N/A
   gather_facts: false
 
   roles:
-    - role: redhat_cop.vmware_ops.security
+    - role: cloud.vmware_ops.security
 ```
 ## License
 
