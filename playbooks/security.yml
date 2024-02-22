@@ -1,0 +1,7 @@
+---
+- name: Manage vmware security
+  hosts: all
+  gather_facts: false
+
+  roles:
+    - role: redhat_cop.vmware_ops.security
