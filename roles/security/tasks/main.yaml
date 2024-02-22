@@ -1,0 +1,62 @@
+- name: Enable/Disable the Console CLI
+  vmware.vmware_rest.appliance_access_consolecli:
+    vcenter_hostname: "{{ security_hostname | d(omit) }}"
+    vcenter_password: "{{ security_password | d(omit) }}"
+    vcenter_username: "{{ security_username | d(omit) }}"
+    vcenter_validate_certs: "{{ security_validate_certs | d(omit) }}"
+    enabled: "{{ security_consolecli_enabled | bool }}"
+  when: security_consolecli_enabled is defined
+
+- name: Enable/Disable the Direct Console User Interface
+  vmware.vmware_rest.appliance_access_dcui:
+    vcenter_hostname: "{{ security_hostname | d(omit) }}"
+    vcenter_password: "{{ security_password | d(omit) }}"
+    vcenter_username: "{{ security_username | d(omit) }}"
+    vcenter_validate_certs: "{{ security_validate_certs | d(omit) }}"
+    enabled: "{{ security_dcui_enabled | bool }}"
+  when: security_dcui_enabled is defined
+
+- name: Set the Shell with a timeout
+  vmware.vmware_rest.appliance_access_shell:
+    vcenter_hostname: "{{ security_hostname | d(omit) }}"
+    vcenter_password: "{{ security_password | d(omit) }}"
+    vcenter_username: "{{ security_username | d(omit) }}"
+    vcenter_validate_certs: "{{ security_validate_certs | d(omit) }}"
+    enabled: "{{ security_shell_enabled | d(omit) }}"
+    timeout: "{{ security_shell_timeout | d(omit) }}"
+  when: security_shell_enabled is defined and security_shell_timeout is defined
+
+- name: Enable/Disable the SSH access
+  vmware.vmware_rest.appliance_access_ssh:
+    vcenter_hostname: "{{ security_hostname | d(omit) }}"
+    vcenter_password: "{{ security_password | d(omit) }}"
+    vcenter_username: "{{ security_username | d(omit) }}"
+    vcenter_validate_certs: "{{ security_validate_certs | d(omit) }}"
+    enabled: "{{ security_ssh_enabled | bool }}"
+  when: security_ssh_enabled is defined
+
+- name: Fetch current firewall rules
+  vmware.vmware_rest.appliance_networking_firewall_inbound_info:
+    vcenter_hostname: "{{ security_hostname | d(omit) }}"
+    vcenter_password: "{{ security_password | d(omit) }}"
+    vcenter_username: "{{ security_username | d(omit) }}"
+    vcenter_validate_certs: "{{ security_validate_certs | d(omit) }}"
+  register: __current_rules
+
+- name: Append firewall rules defined by user
+  vmware.vmware_rest.appliance_networking_firewall_inbound:
+    vcenter_hostname: "{{ security_hostname | d(omit) }}"
+    vcenter_password: "{{ security_password | d(omit) }}"
+    vcenter_username: "{{ security_username | d(omit) }}"
+    vcenter_validate_certs: "{{ security_validate_certs | d(omit) }}"
+    rules: "{{ __current_rules.value | community.general.lists_mergeby(security_firewall_rules, 'address') }}"
+  when: security_firewall_rules is defined and security_firewall_rules_append
+
+- name: Set firewall rules defined by user
+  vmware.vmware_rest.appliance_networking_firewall_inbound:
+    vcenter_hostname: "{{ security_hostname | d(omit) }}"
+    vcenter_password: "{{ security_password | d(omit) }}"
+    vcenter_username: "{{ security_username | d(omit) }}"
+    vcenter_validate_certs: "{{ security_validate_certs | d(omit) }}"
+    rules: "{{ security_firewall_rules }}"
+  when: security_firewall_rules is defined and not security_firewall_rules_append | bool
