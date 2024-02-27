@@ -1,0 +1,71 @@
+- name: Set NTP servers
+  when: system_settings_ntp_servers is defined
+  block:
+    - name: Set NTP servers
+      vmware.vmware_rest.appliance_ntp:
+        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+        vcenter_password: "{{ system_settings_password | d(omit) }}"
+        vcenter_username: "{{ system_settings_username | d(omit) }}"
+        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+        state: test
+        servers: "{{ system_settings_ntp_servers }}"
+      register: __ntp_state
+
+    - name: Print the state of NTP servers
+      ansible.builtin.fail:
+        msg: "Server {{ item.server }} status: {{ item.message }}"
+      loop: "{{ __ntp_state.value }}"
+      when: item.status == 'SERVER_UNREACHABLE'
+      ignore_errors: true
+    
+    - name: Set NTP servers
+      vmware.vmware_rest.appliance_ntp:
+        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+        vcenter_password: "{{ system_settings_password | d(omit) }}"
+        vcenter_username: "{{ system_settings_username | d(omit) }}"
+        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+        servers: "{{ system_settings_ntp_servers }}"
+
+    - name: Set the timesync mode
+      vmware.vmware_rest.appliance_timesync:
+        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+        vcenter_password: "{{ system_settings_password | d(omit) }}"
+        vcenter_username: "{{ system_settings_username | d(omit) }}"
+        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+        mode: "NTP"
+
+- name: Set the timesync mode
+  vmware.vmware_rest.appliance_timesync:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    mode: "{{ system_settings_timesync_mode }}"
+  when: system_settings_timesync_mode is defined
+
+- name: Set timezone
+  vmware.vmware_rest.appliance_system_time_timezone:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    name: "{{ system_settings_timezone }}"
+  when: system_settings_timezone is defined
+
+- name: Global FIPS mode
+  vmware.vmware_rest.appliance_system_globalfips:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    enabled: "{{ system_settings_global_fips }}"
+  when: system_settings_global_fips is defined
+
+- name: Resize the storage
+  vmware.vmware_rest.appliance_system_storage:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    state: resize
+  when: "system_settings_resize_storage | bool"
