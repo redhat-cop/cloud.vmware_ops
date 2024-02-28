@@ -1,0 +1,15 @@
+- hosts: localhost
+  gather_facts: no
+  collections:
+    - community.general
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: Vcsim
+      ansible.builtin.import_role:
+        name: prepare_rest
+
+    - name: Import system_settings role
+      ansible.builtin.import_role:
+        name: system_settings_test

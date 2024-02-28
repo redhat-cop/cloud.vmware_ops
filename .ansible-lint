@@ -1,0 +1,9 @@
+---
+profile: production
+strict: true
+
+skip_list:
+  - no-changed-when  # Commands should not change things if nothing needs doing.
+
+exclude_paths:
+  - tests/integration
