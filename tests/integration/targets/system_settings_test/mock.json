@@ -1,0 +1,79 @@
+[
+{
+  "httpRequest": {
+    "method": "POST",
+    "path": "/rest/com/vmware/cis/session"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "body": {"value": "72300ca9ff16c5743fa0a6328c8570ce"}
+  }
+},
+{
+  "httpRequest": {
+    "method": "POST",
+    "path": "/api/appliance/system/storage",
+    "queryStringParameters": {"action": "resize"}
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{}"
+  }
+},
+{
+  "httpRequest": {
+    "method": "POST",
+    "path": "/api/appliance/ntp",
+    "queryStringParameters": {"action": "test"}
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": [{"server": "1.2.3.4", "status": "SERVER_UNREACHABLE", "message": "Unreachable"}]
+  }
+},
+{
+  "httpRequest": {
+    "method": "(PUT|GET)",
+    "path": "/api/appliance/system/(time/timezone|global-fips|storage)"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{}"
+  }
+},
+{
+  "httpRequest": {
+    "method": "PUT",
+    "path": "/api/appliance/(timesync|ntp)"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{}"
+  }
+},
+{
+  "httpRequest": {
+    "method": "GET",
+    "path": "/api/appliance/(ntp|timesync)"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "true"
+  }
+}
+]

@@ -1,0 +1,25 @@
+---
+- name: Install dependencies
+  ansible.builtin.pip:
+    name:
+      - requests
+      - aiohttp
+
+- name: Run rest
+  community.docker.docker_container:
+    name: vmwarest
+    image: mockserver/mockserver
+    state: started
+    recreate: yes
+    exposed_ports:
+      - 1080
+    ports:
+      - 1080:1080
+
+- name: Pause
+  ansible.builtin.pause:
+    seconds: 10
+
+- name: Put data to mockserver
+  ansible.builtin.command:
+    cmd: "curl -v -X PUT --data @../{{ mock_file }}/mock.json http://localhost:1080/mockserver/expectation"

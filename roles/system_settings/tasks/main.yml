@@ -1,7 +1,7 @@
 - name: Set NTP servers
   when: system_settings_ntp_servers is defined
   block:
-    - name: Set NTP servers
+    - name: Test NTP servers
       vmware.vmware_rest.appliance_ntp:
         vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
         vcenter_password: "{{ system_settings_password | d(omit) }}"
@@ -12,12 +12,11 @@
       register: __ntp_state
 
     - name: Print the state of NTP servers
-      ansible.builtin.fail:
-        msg: "Server {{ item.server }} status: {{ item.message }}"
+      ansible.builtin.debug:
+        msg: "Warning: server {{ item.server }} status: {{ item.message }}"
       loop: "{{ __ntp_state.value }}"
       when: item.status == 'SERVER_UNREACHABLE'
-      ignore_errors: true
-    
+
     - name: Set NTP servers
       vmware.vmware_rest.appliance_ntp:
         vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"

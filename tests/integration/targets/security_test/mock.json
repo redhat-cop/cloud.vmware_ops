@@ -1,0 +1,64 @@
+[
+{
+  "httpRequest": {
+    "method": "POST",
+    "path": "/rest/com/vmware/cis/session"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "body": {"value": "72300ca9ff16c5743fa0a6328c8570ce"}
+  }
+},
+{
+  "httpRequest": {
+    "method": "PUT",
+    "path": "/api/appliance/access/(consolecli|dcui|shell|ssh)"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{}"
+  }
+},
+{
+  "httpRequest": {
+    "method": "GET",
+    "path": "/api/appliance/access/(consolecli|dcui|shell|ssh)"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "true"
+  }
+},
+{
+  "httpRequest": {
+    "method" : "GET",
+    "path" : "/api/appliance/networking/firewall/inbound"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": [{}]
+  }
+},
+{
+  "httpRequest": {
+    "method" : "PUT",
+    "path" : "/api/appliance/networking/firewall/inbound"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{}"
+  }
+}
+]
