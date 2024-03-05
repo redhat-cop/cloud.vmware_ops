@@ -25,17 +25,7 @@ jobs:
         with:
           path: ansible_collections/cloud/vmware_ops
 
-      - name: Install requirements
-        run: |
-          ansible-galaxy collection install -r requirements.yml
-        working-directory: ansible_collections/cloud/vmware_ops
-
-      - name: Install python packages from requirements txt file
-        run: |
-          pip3 install -r requirements.txt
-        working-directory: ansible_collections/cloud/vmware_ops
-
       - name: Run
         run: |
-          ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python make integration
+          make integration
         working-directory: ansible_collections/cloud/vmware_ops

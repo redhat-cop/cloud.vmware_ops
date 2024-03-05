@@ -2,8 +2,6 @@
   gather_facts: no
   collections:
     - community.general
-  vars_files:
-    - vars.yml
 
   tasks:
     - name: Vcsim

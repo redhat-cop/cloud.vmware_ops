@@ -1,65 +1,55 @@
 ---
-- name: Fail if provision_vm_cluster and provision_vm_esxi_hostname both weren't set or both were set
-  when: ( provision_vm_cluster is defined and provision_vm_esxi_hostname is defined ) or ( provision_vm_cluster is not defined and provision_vm_esxi_hostname is not defined) # noqa: yaml[line-length]
-  ansible.builtin.fail:
-    msg: provision_vm_esxi_hostname and provision_vm_cluster are mutually exclusive parameters
-
-- name: Create or update the VM
+- name: Manage VM
   community.vmware.vmware_guest:
-    hostname: "{{ provision_vm_hostname }}"
-    username: "{{ provision_vm_username }}"
-    password: "{{ provision_vm_password }}"
-    validate_certs: "{{ omit if provision_vm_validate_certs is not defined else provision_vm_validate_certs }}"
+    hostname: "{{ provision_vm_hostname | d(omit) }}"
+    username: "{{ provision_vm_username | d(omit) }}"
+    password: "{{ provision_vm_password | d(omit) }}"
+    validate_certs: "{{ provision_vm_validate_certs | d(omit) }}"
 
-    port: "{{ omit if provision_vm_port is not defined else provision_vm_port }}"
-    proxy_host: "{{ omit if provision_vm_proxy_host is not defined else provision_vm_proxy_host }}"
-    proxy_port: "{{ omit if provision_vm_proxy_port is not defined else provision_vm_proxy_port }}"
+    port: "{{ provision_vm_port | d(omit) }}"
+    proxy_host: "{{ provision_vm_proxy_host | d(omit) }}"
+    proxy_port: "{{ provision_vm_proxy_port | d(omit) }}"
 
-    name: "{{ provision_vm_vm_name }}"
-    uuid: "{{ omit if provision_vm_uuid is not defined else provision_vm_uuid }}"
+    name: "{{ provision_vm_name | mandatory }}"
+    uuid: "{{ provision_vm_uuid | d(omit) }}"
 
     # compute resource:
-    cluster: "{{ omit if provision_vm_cluster is not defined else provision_vm_cluster }}"
-    esxi_hostname: "{{ omit if provision_vm_esxi_hostname is not defined else provision_vm_esxi_hostname }}"
-    datacenter: "{{ omit if provision_vm_datacenter is not defined else provision_vm_datacenter }}"
-    folder: "{{ omit if provision_vm_folder is not defined else provision_vm_folder }}"
-    datastore: "{{ omit if provision_vm_datastore is not defined else provision_vm_datastore }}"
-    resource_pool: "{{ omit if provision_vm_resource_pool is not defined else provision_vm_resource_pool }}"
+    cluster: "{{ provision_vm_cluster | d(omit) }}"
+    esxi_hostname: "{{ provision_vm_esxi_hostname | d(omit) }}"
+    datacenter: "{{ provision_vm_datacenter | d(omit) }}"
+    folder: "{{ provision_vm_folder | d(omit) }}"
+    datastore: "{{ provision_vm_datastore | d(omit) }}"
+    resource_pool: "{{ provision_vm_resource_pool | d(omit) }}"
 
     # for cloning VM
-    template: "{{ omit if provision_vm_template is not defined else provision_vm_template }}"
-    convert: "{{ omit if provision_vm_convert is not defined else provision_vm_convert }}"
-    linked_clone: "{{ omit if provision_vm_linked_clone is not defined else provision_vm_linked_clone }}"
-    snapshot_src: "{{ omit if provision_vm_snapshot_src is not defined else provision_vm_snapshot_src }}"
+    template: "{{ provision_vm_template | d(omit) }}"
+    convert: "{{ provision_vm_convert | d(omit) }}"
+    linked_clone: "{{ provision_vm_linked_clone | d(omit) }}"
+    snapshot_src: "{{ provision_vm_snapshot_src | d(omit) }}"
 
     # optional:
-    advanced_settings: "{{ omit if provision_vm_advanced_settings is not defined else provision_vm_advanced_settings }}"
-    annotation: "{{ omit if provision_vm_annotation is not defined else provision_vm_annotation }}"
-    cdrom: "{{ omit if provision_vm_cdrom is not defined else provision_vm_cdrom }}"
-    customization: "{{ omit if provision_vm_customization is not defined else provision_vm_customization }}"
-    customization_spec: "{{ omit if provision_vm_customization_spec is not defined else provision_vm_customization_spec }}"
-    customvalues: "{{ omit if provision_vm_customvalues is not defined else provision_vm_customvalues }}"
-    delete_from_inventory: "{{ omit if provision_vm_delete_from_inventory is not defined else provision_vm_delete_from_inventory }}"
-    disk: "{{ omit if provision_vm_disk is not defined else provision_vm_disk }}"
-    encryption: "{{ omit if provision_vm_encryption is not defined else provision_vm_encryption }}"
-    force: "{{ omit if provision_vm_force is not defined else provision_vm_force }}"
-    guest_id: "{{ omit if provision_vm_guest_id is not defined else provision_vm_guest_id }}"
-    hardware: "{{ omit if provision_vm_hardware is not defined else provision_vm_hardware }}"
-    state: "{{ omit if provision_vm_state is not defined else provision_vm_state }}"
-    state_change_timeout: "{{ omit if provision_vm_state_change_timeout is not defined else provision_vm_state_change_timeout }}"
-    vapp_properties: "{{ omit if provision_vm_vapp_properties is not defined else provision_vm_vapp_properties }}"
-    wait_for_customization: "{{ omit if provision_vm_wait_for_customization is not defined else provision_vm_wait_for_customization }}"
-    wait_for_customization_timeout: "{{ omit if provision_vm_wait_for_customization_timeout is not defined else provision_vm_wait_for_customization_timeout }}"
-    wait_for_ip_address: "{{ omit if provision_vm_wait_for_ip_address is not defined else provision_vm_wait_for_ip_address }}"
-    wait_for_ip_address_timeout: "{{ omit if provision_vm_wait_for_ip_address_timeout is not defined else provision_vm_wait_for_ip_address_timeout }}"
-    networks: "{{ omit if provision_vm_networks is not defined else provision_vm_networks }}"
-    nvdimm: "{{ omit if provision_vm_nvdimm is not defined else provision_vm_nvdimm }}"
-    use_instance_uuid: "{{ omit if provision_vm_use_instance_uuid is not defined else provision_vm_use_instance_uuid }}"
-    name_match: "{{ omit if provision_vm_name_match is not defined else provision_vm_name_match }}"
+    advanced_settings: "{{ provision_vm_advanced_settings | d(omit) }}"
+    annotation: "{{ provision_vm_annotation | d(omit) }}"
+    cdrom: "{{ provision_vm_cdrom | d(omit) }}"
+    customization: "{{ provision_vm_customization | d(omit) }}"
+    customization_spec: "{{ provision_vm_customization_spec | d(omit) }}"
+    customvalues: "{{ provision_vm_customvalues | d(omit) }}"
+    delete_from_inventory: "{{ provision_vm_delete_from_inventory | d(omit) }}"
+    disk: "{{ provision_vm_disk | d(omit) }}"
+    encryption: "{{ provision_vm_encryption | d(omit) }}"
+    force: "{{ provision_vm_force | d(omit) }}"
+    guest_id: "{{ provision_vm_guest_id | d(omit) }}"
+    hardware: "{{ provision_vm_hardware | d(omit) }}"
+    state: "{{ provision_vm_state | d(omit) }}"
+    state_change_timeout: "{{ provision_vm_state_change_timeout | d(omit) }}"
+    vapp_properties: "{{ provision_vm_vapp_properties | d(omit) }}"
+    wait_for_customization: "{{ provision_vm_wait_for_customization | d(omit) }}"
+    wait_for_customization_timeout: "{{ provision_vm_wait_for_customization_timeout | d(omit) }}"
+    wait_for_ip_address: "{{ provision_vm_wait_for_ip_address | d(omit) }}"
+    wait_for_ip_address_timeout: "{{ provision_vm_wait_for_ip_address_timeout | d(omit) }}"
+    networks: "{{ provision_vm_networks | d(omit) }}"
+    nvdimm: "{{ provision_vm_nvdimm | d(omit) }}"
+    use_instance_uuid: "{{ provision_vm_use_instance_uuid | d(omit) }}"
+    name_match: "{{ provision_vm_name_match | d(omit) }}"
 
     is_template: false
-  register: my_vm
-
-- name: Print VM information
-  ansible.builtin.debug:
-    var: my_vm

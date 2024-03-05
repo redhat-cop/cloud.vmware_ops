@@ -10,7 +10,7 @@
     provision_vm_cluster: "DC0_C0"
     provision_vm_folder: "/DC0/vm"
     provision_vm_datacenter: "DC0"
-    provision_vm_vm_name: "vm-test"
+    provision_vm_name: "vm-test"
     provision_vm_port: "8989"
     provision_vm_disk:
     - size_gb: 10
@@ -19,3 +19,4 @@
     provision_vm_hardware:
       memory_mb: 512
       num_cpus: 4
+    provision_vm_guest_id: "centos64Guest"

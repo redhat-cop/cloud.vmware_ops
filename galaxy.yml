@@ -17,5 +17,6 @@ build_ignore:
   - .gitignore
   - changelogs/.plugin-cache.yaml
 dependencies: {
-  "vmware.vmware_rest": ">=2.3.1"
+  "vmware.vmware_rest": ">=2.3.1",
+  "community.vmware": ">=4.2.0",
 }
