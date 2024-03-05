@@ -21,28 +21,6 @@ N/A
 - **provision_vm_validate_certs** (boolean)
   - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
 
-### Provisioning a VM
-- **provision_vm_clone_from_vm** (boolean):
-    Create from an existing VM
-
-- **provision_vm_clone_from_template** (boolean):
-    Create from template VM
-
-- **provision_vm_vm_name**  (string, Required):
-    Name of the virtual machine to work with.
-    Virtual machine names in vCenter are not necessarily unique, which may be problematic, see O(name_match).
-    If multiple virtual machines with same name exists, then O(folder) is required parameter to
-    identify uniqueness of the virtual machine.
-    This parameter is required, if (state=poweredon), (state=powered-on), (state=poweredoff), (state=powered-off),
-    (state=present), (state=restarted), (state=suspended) and virtual machine does not exists.
-    This parameter is case sensitive.
-
-- **provision_vm_uuid**  (string):
-    UUID of the virtual machine to manage if known, this is VMware's unique identifier.
-    This is required if O(name) is not supplied.
-    If virtual machine does not exists, then this parameter is ignored.
-    Please note that a supplied UUID will be ignored on virtual machine creation, as VMware creates the UUID internally.
-
 - **provision_vm_port** (integer):
     The port number of the vSphere vCenter or ESXi server.
     If the value is not specified in the task, the value of environment variable VMWARE_PORT will be used instead.
@@ -57,14 +35,30 @@ N/A
     Port of the HTTP proxy that will receive all HTTPS requests and relay them.
     If the value is not specified in the task, the value of environment variable VMWARE_PROXY_PORT will be used instead.
 
+### Provisioning a VM
+- **provision_vm_name**  (string, Required):
+    Name of the virtual machine to work with.
+    Virtual machine names in vCenter are not necessarily unique, which may be problematic, see O(name_match).
+    If multiple virtual machines with same name exists, then O(folder) is required parameter to
+    identify uniqueness of the virtual machine.
+    This parameter is required, if (state=poweredon), (state=powered-on), (state=poweredoff), (state=powered-off),
+    (state=present), (state=restarted), (state=suspended) and virtual machine does not exists.
+    This parameter is case sensitive.
+
+- **provision_vm_uuid**  (string):
+    UUID of the virtual machine to manage if known, this is VMware's unique identifier.
+    This is required if O(name) is not supplied.
+    If virtual machine does not exists, then this parameter is ignored.
+    Please note that a supplied UUID will be ignored on virtual machine creation, as VMware creates the UUID internally.
+
 - **provision_vm_cluster** (String):
     The cluster name where the virtual machine will run.
 
-  - **provision_vm_esxi_hostname** (string):
-      The ESXi hostname where the virtual machine will run.
-      This is a required parameter, if cluster is not set.
-      esxi_hostname and cluster are mutually exclusive parameters.    
-      This parameter is case sensitive.
+- **provision_vm_esxi_hostname** (string):
+    The ESXi hostname where the virtual machine will run.
+    This is a required parameter, if cluster is not set.
+    esxi_hostname and cluster are mutually exclusive parameters.    
+    This parameter is case sensitive.
 
 - **provision_vm_datacenter** (string):
     Destination datacenter for the deploy operation.
@@ -778,9 +772,25 @@ Create a ``playbook.yml`` file like this:
   tasks:
     - name: Provision a VM 
       ansible.builtin.import_role:
-        name: cloud.vmware_ops.provision_virtual_machine
+        name: cloud.vmware_ops.provision_vm
       vars:
-        aa: "{{ }}"
+        provision_vm_hostname: "test"
+        provision_vm_username: "test"
+        provision_vm_password: "test"
+        provision_vm_validate_certs: false
+        provision_vm_cluster: "DC0_C0"
+        provision_vm_folder: "/DC0/vm"
+        provision_vm_datacenter: "DC0"
+        provision_vm_name: "vm-test"
+        provision_vm_port: "8989"
+        provision_vm_disk:
+        - size_gb: 10
+          type: thin
+          datastore: "LocalDS_0"
+        provision_vm_hardware:
+          memory_mb: 512
+          num_cpus: 4
+        provision_vm_guest_id: "centos64Guest"
 ```
 
 Run the playbook:

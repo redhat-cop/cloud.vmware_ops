@@ -1,2 +1,4 @@
 pyVim
-pyVmomi
+pyVmomi>=6.7
+podman
+requests

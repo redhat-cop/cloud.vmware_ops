@@ -1,3 +1,0 @@
-pyVim
-pyVmomi>=6.7
-podman
