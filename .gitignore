@@ -1,3 +1,4 @@
+context/
 /tests/output/
 /changelogs/.plugin-cache.yaml
 execution-environment/context/
