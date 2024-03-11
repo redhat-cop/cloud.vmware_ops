@@ -1,0 +1,20 @@
+- name: Run all playbooks in the scenarios directory
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - name: Include vSphere datacenter creds
+      ansible.builtin.include_vars:
+        file: vault_files/vsphere_creds.yml
+
+    - name: Run provision_vm scenarios
+      ansible.builtin.find:
+        paths: "{{ lookup('env', 'MOLECULE_SCENARIO_NAME') }}/scenarios"
+        recurse: true
+        patterns: "*.yml"
+      register: playbook_files
+
+    - name: Include and run each playbook
+      ansible.builtin.include_tasks:
+        file: "{{ item.path }}"
+      with_items: "{{ playbook_files.files }}"

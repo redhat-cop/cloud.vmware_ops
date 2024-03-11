@@ -1,0 +1,29 @@
+---
+- name: Verify Provisioned VM
+  ansible.builtin.include_vars:
+    file: ../vars/vars.yml
+
+- name: Check VM existence
+  community.vmware.vmware_vm_info:
+    hostname: "{{ provision_vm_hostname }}"
+    username: "{{ provision_vm_username }}"
+    password: "{{ provision_vm_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
+    vm_name: "{{ provision_vm_name }}"
+  register: vm_info
+
+- name: Fail the task if the VM doesn't exist
+  ansible.builtin.fail:
+    msg: "Provisioned VM does not exist"
+  when: vm_info is not defined or vm_info.failed
+
+- name: Validate VM properties
+  ansible.builtin.assert:
+    that:
+      - vm_info.virtual_machines[0].guest_name == provision_vm_name
+      - vm_info.virtual_machines[0].cluster == provision_vm_cluster
+      - vm_info.virtual_machines[0].datacenter == provision_vm_datacenter
+      - vm_info.virtual_machines[0].folder == provision_vm_folder
+      # - vm_info.virtual_machines[0].power_state == provision_vm_state
+      - vm_info.virtual_machines[0].resource_pool == provision_vm_resource_pool
+      - vm_info.virtual_machines[0].datastore_url[0].name == provision_vm_disk[0].datastore
