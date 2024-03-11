@@ -1,0 +1,35 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: instance
+    image: geerlingguy/docker-ubuntu2004-ansible:latest
+    command: /lib/systemd/systemd
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    ansible_connection: ansible
+
+provisioner:
+  name: ansible
+  lint: |
+    set -e
+    echo "Run yamllint"
+    yamllint .
+    echo "Run ansible-lint"
+    ansible-lint
+  env:
+    ANSIBLE_ROLES_PATH: "../../../../roles"
+  config_options:
+    defaults:
+      vault_password_file: ${HOME}/vsphere_crds_vault_pass.txt
+      callback_whitelist: junit
+
+verifier:
+  name: ansible
+  options:
+    junit-xml: ./test-results.xml
