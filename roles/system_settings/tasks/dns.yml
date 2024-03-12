@@ -1,0 +1,59 @@
+- name: Manage DNS servers
+  when: system_settings_dns_mode is defined or system_settings_dns_servers is defined
+  block:
+    - name: Append the DNS servers
+      vmware.vmware_rest.appliance_networking_dns_servers:
+        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+        vcenter_password: "{{ system_settings_password | d(omit) }}"
+        vcenter_username: "{{ system_settings_username | d(omit) }}"
+        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+        mode: "{{ system_settings_dns_mode | d(omit) }}"
+        server: "{{ item }}"
+        state: "add"
+      loop: "{{ system_settings_dns_servers | d([]) }}"
+      when: "system_settings_dns_mode_append"
+
+    - name: Set the DNS servers
+      vmware.vmware_rest.appliance_networking_dns_servers:
+        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+        vcenter_password: "{{ system_settings_password | d(omit) }}"
+        vcenter_username: "{{ system_settings_username | d(omit) }}"
+        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+        mode: "{{ system_settings_dns_mode | d(omit) }}"
+        servers: "{{ system_settings_dns_servers | d(omit) }}"
+        state: "set"
+      when: not system_settings_dns_mode_append
+
+- name: Manage DNS domains
+  when: system_settings_dns_domains is defined
+  block:
+    - name: Append the DNS domains
+      vmware.vmware_rest.appliance_networking_dns_domains:
+        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+        vcenter_password: "{{ system_settings_password | d(omit) }}"
+        vcenter_username: "{{ system_settings_username | d(omit) }}"
+        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+        domain: "{{ item }}"
+        state: "add"
+      loop: "{{ system_settings_dns_domains }}"
+      when: "system_settings_dns_mode_append"
+
+    - name: Set the DNS domains
+      vmware.vmware_rest.appliance_networking_dns_domains:
+        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+        vcenter_password: "{{ system_settings_password | d(omit) }}"
+        vcenter_username: "{{ system_settings_username | d(omit) }}"
+        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+        domains: "{{ system_settings_dns_domains }}"
+        state: "set"
+      when: "not system_settings_dns_mode_append"
+
+- name: Set the DNS hostname
+  vmware.vmware_rest.appliance_networking_dns_hostname:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    name: "{{ system_settings_dns_hostname | d(omit) }}"
+    state: "set"
+  when: "system_settings_dns_hostname is defined"
