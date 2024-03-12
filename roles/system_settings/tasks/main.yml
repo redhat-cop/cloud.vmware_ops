@@ -1,37 +1,11 @@
-- name: Set NTP servers
-  when: system_settings_ntp_servers is defined
-  block:
-    - name: Test NTP servers
-      vmware.vmware_rest.appliance_ntp:
-        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
-        vcenter_password: "{{ system_settings_password | d(omit) }}"
-        vcenter_username: "{{ system_settings_username | d(omit) }}"
-        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
-        state: test
-        servers: "{{ system_settings_ntp_servers }}"
-      register: __ntp_state
+- name: Configure ntpd
+  ansible.builtin.include_tasks: ntpd.yml
 
-    - name: Print the state of NTP servers
-      ansible.builtin.debug:
-        msg: "Warning: server {{ item.server }} status: {{ item.message }}"
-      loop: "{{ __ntp_state.value }}"
-      when: item.status == 'SERVER_UNREACHABLE'
+- name: Configure DNS
+  ansible.builtin.include_tasks: dns.yml
 
-    - name: Set NTP servers
-      vmware.vmware_rest.appliance_ntp:
-        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
-        vcenter_password: "{{ system_settings_password | d(omit) }}"
-        vcenter_username: "{{ system_settings_username | d(omit) }}"
-        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
-        servers: "{{ system_settings_ntp_servers }}"
-
-    - name: Set the timesync mode
-      vmware.vmware_rest.appliance_timesync:
-        vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
-        vcenter_password: "{{ system_settings_password | d(omit) }}"
-        vcenter_username: "{{ system_settings_username | d(omit) }}"
-        vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
-        mode: "NTP"
+- name: Configure proxy
+  ansible.builtin.include_tasks: proxy.yml
 
 - name: Set the timesync mode
   vmware.vmware_rest.appliance_timesync:

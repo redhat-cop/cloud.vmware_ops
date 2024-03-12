@@ -75,5 +75,44 @@
     },
     "body": "true"
   }
+},
+{
+  "httpRequest": {
+    "method": "(POST|PUT|GET)",
+    "path": "/api/appliance/networking/dns/(servers|domains|hostname)"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{}"
+  }
+},
+{
+  "httpRequest": {
+    "method": "(POST|PUT|GET)",
+    "path": "/api/appliance/networking/(proxy|noproxy)"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{}"
+  }
+},
+{
+  "httpRequest": {
+    "method": "(POST|PUT|GET)",
+    "path": "/api/appliance/networking/proxy/(http|https|ftp)"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{}"
+  }
 }
 ]
