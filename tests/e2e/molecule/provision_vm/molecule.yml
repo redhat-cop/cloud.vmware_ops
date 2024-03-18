@@ -28,6 +28,8 @@ provisioner:
     defaults:
       vault_password_file: ${HOME}/vsphere_crds_vault_pass.txt
       callback_whitelist: junit
+  playbooks:
+    converge: ../converge.yml
 
 verifier:
   name: ansible

@@ -5,11 +5,11 @@
   tasks:
     - name: Include vSphere datacenter creds
       ansible.builtin.include_vars:
-        file: ../vault_files/vsphere_creds.yml
+        file: vault_files/vsphere_creds.yml
 
     - name: Run provision_vm scenarios
       ansible.builtin.find:
-        paths: "scenarios"
+        paths: "{{ lookup('env', 'MOLECULE_SCENARIO_NAME') }}/scenarios"
         recurse: true
         patterns: "*.yml"
       register: playbook_files

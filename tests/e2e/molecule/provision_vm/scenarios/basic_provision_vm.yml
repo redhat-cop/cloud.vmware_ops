@@ -1,12 +1,13 @@
----
 - name: Basic Provision VM Scenario
-  ansible.builtin.include_vars:
-    file: ../vars/vars.yml
+  block:
+    - name: Import vars
+      ansible.builtin.include_vars:
+        file: ../vars/vars.yml
 
-- name: Provision a VM
-  ansible.builtin.import_role:
-    name: provision_vm
+    - name: Provision a VM
+      ansible.builtin.import_role:
+        name: provision_vm
 
-- name: Verify Provisioned VM
-  ansible.builtin.include_tasks:
-    file: ../post_validations/verify_vm_post_provisioning.yml
+    - name: Verify Provisioned VM
+      ansible.builtin.include_tasks:
+        file: ../post_validations/verify_vm_post_provisioning.yml
