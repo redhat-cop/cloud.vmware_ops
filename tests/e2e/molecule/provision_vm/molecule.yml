@@ -2,8 +2,8 @@
 dependency:
   name: galaxy
 
-# driver:
-#   name: docker
+driver:
+  name: podman
 
 platforms:
   - name: instance
@@ -26,10 +26,11 @@ provisioner:
     ANSIBLE_ROLES_PATH: "../../../../roles"
   config_options:
     defaults:
-      vault_password_file: ${HOME}/vsphere_crds_vault_pass.txt
+      vault_password_file: ${HOME}/vault.pass
       callback_whitelist: junit
   playbooks:
     converge: ../converge.yml
+    destroy: destroy.yml
 
 verifier:
   name: ansible

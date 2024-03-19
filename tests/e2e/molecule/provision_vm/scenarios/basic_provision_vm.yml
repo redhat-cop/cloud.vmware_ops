@@ -7,6 +7,10 @@
     - name: Provision a VM
       ansible.builtin.import_role:
         name: provision_vm
+      vars:
+        provision_vm_hostname: "{{ vCenter_hostname }}"
+        provision_vm_username: "{{ vCenter_username }}"
+        provision_vm_password: "{{ vCenter_password }}"
 
     - name: Verify Provisioned VM
       ansible.builtin.include_tasks:
