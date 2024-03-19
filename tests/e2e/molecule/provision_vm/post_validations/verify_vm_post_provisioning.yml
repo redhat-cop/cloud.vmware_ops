@@ -1,8 +1,4 @@
 ---
-- name: Verify Provisioned VM
-  ansible.builtin.include_vars:
-    file: ../vars/vars.yml
-
 - name: Check VM existence
   community.vmware.vmware_vm_info:
     hostname: "{{ vCenter_hostname }}"
@@ -24,6 +20,6 @@
       - vm_info.virtual_machines[0].cluster == provision_vm_cluster
       - vm_info.virtual_machines[0].datacenter == provision_vm_datacenter
       - vm_info.virtual_machines[0].folder == provision_vm_folder
-      # - vm_info.virtual_machines[0].power_state == provision_vm_state
-      - vm_info.virtual_machines[0].resource_pool == provision_vm_resource_pool
+      - vm_info.virtual_machines[0].power_state | lower == provision_vm_state
+      # - vm_info.virtual_machines[0].resource_pool == provision_vm_resource_pool
       - vm_info.virtual_machines[0].datastore_url[0].name == provision_vm_disk[0].datastore

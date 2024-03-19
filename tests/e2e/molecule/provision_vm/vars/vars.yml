@@ -1,40 +1,79 @@
 # vars.yaml
+provision_vm_hostname: "{{ vCenter_hostname }}"
+provision_vm_username: "{{ vCenter_username }}"
+provision_vm_password: "{{ vCenter_password }}"
+
 provision_vm_validate_certs: false
 provision_vm_cluster: "nestedcluster"
 provision_vm_folder: "/nesteddatacenter/vm"
 provision_vm_datacenter: "nesteddatacenter"
-provision_vm_name: "qe-provision-vm"
-provision_vm_state: "poweredon"
-provision_vm_cdrom:
-  - controller_number: 0
-    unit_number: 0
-    state: present
-    type: iso
-    iso_path: "[Datastore-host1] rhel-9.3-x86_64-dvd.iso"
-provision_vm_networks:
-  - name: "Network1"
-    device_type: "vmxnet3"
-    mac: "00:50:56:bd:d2:9e"
-    type: "dhcp"
-    # ip: "192.168.168.10"
-    # netmask: "255.255.255.0"
-    # gateway: "10.185.246.1"
-# provision_vm_esxi_hostname: "10.185.246.5"
-# provision_vm_state:
-#   poweredOff: "poweredoff"
-#   poweredOn: "poweredon"
-#   suspended: "suspended"
-provision_vm_resource_pool: null
-# provision_vm_port: "8989"
-provision_vm_disk:
-  - size_gb: 50
-    type: thin
-    datastore: "Datastore-host1"
-provision_vm_hardware:
-  memory_mb: 2000
-  num_cpus: 4
-  boot_firmware: efi
-  secure_boot: true
-provision_vm_guest_id: "rhel9_64Guest"
-provision_vm_datastore: "Datastore-host1"
-# provision_vm_template: "provision-vm-template"
+
+provision_vms:
+# RHEL9 VM
+  - provision_vm_name: "qe-provision-vm-rhel-9"
+    provision_vm_state: "poweredon"
+    provision_vm_cdrom:
+      - controller_number: 0
+        unit_number: 0
+        state: present
+        type: iso
+        iso_path: "[Datastore-host1] rhel-9.3-x86_64-dvd.iso"
+    provision_vm_networks:
+      - name: "Network1"
+        device_type: "vmxnet3"
+        mac: "00:50:56:bd:d2:9e"
+        type: "dhcp"
+        # ip: "192.168.168.10"
+        # netmask: "255.255.255.0"
+        # gateway: "10.185.246.1"
+    # provision_vm_esxi_hostname: "10.185.246.5"
+    # provision_vm_state:
+    #   poweredOff: "poweredoff"
+    #   poweredOn: "poweredon"
+    #   suspended: "suspended"
+    provision_vm_resource_pool: null
+    # provision_vm_port: "8989"
+    provision_vm_disk:
+      - size_gb: 50
+        type: thin
+        datastore: "Datastore-host1"
+    provision_vm_hardware:
+      memory_mb: 2000
+      num_cpus: 4
+      boot_firmware: efi
+      secure_boot: true
+    provision_vm_guest_id: "rhel9_64Guest"
+    provision_vm_datastore: "Datastore-host1"
+    # provision_vm_template: "provision-vm-template"
+# RHEL8 VM
+  - provision_vm_name: "qe-provision-vm-rhel-8"
+    provision_vm_state: "poweredon"
+    provision_vm_cdrom:
+      - controller_number: 0
+        unit_number: 0
+        state: present
+        type: iso
+        iso_path: "[Datastore-host1] rhel-8.1-x86_64-boot.iso"
+    provision_vm_networks:
+      - name: "Network1"
+        device_type: "vmxnet3"
+        mac: "00:50:56:bd:d2:9e"
+        type: "dhcp"
+        # ip: "192.168.168.10"
+        # netmask: "255.255.255.0"
+        # gateway: "10.185.246.1"
+    # provision_vm_esxi_hostname: "10.185.246.5"
+    provision_vm_resource_pool: null
+    # provision_vm_port: "8989"
+    provision_vm_disk:
+      - size_gb: 50
+        type: thin
+        datastore: "Datastore-host1"
+    provision_vm_hardware:
+      memory_mb: 2000
+      num_cpus: 4
+      boot_firmware: efi
+      secure_boot: true
+    provision_vm_guest_id: "rhel8_64Guest"
+    provision_vm_datastore: "Datastore-host1"
+    # provision_vm_template: "provision-vm-template"

@@ -1,17 +1,8 @@
+- name: Import vars
+  ansible.builtin.include_vars:
+    file: ../vars/vars.yml
+
 - name: Basic Provision VM Scenario
-  block:
-    - name: Import vars
-      ansible.builtin.include_vars:
-        file: ../vars/vars.yml
-
-    - name: Provision a VM
-      ansible.builtin.import_role:
-        name: provision_vm
-      vars:
-        provision_vm_hostname: "{{ vCenter_hostname }}"
-        provision_vm_username: "{{ vCenter_username }}"
-        provision_vm_password: "{{ vCenter_password }}"
-
-    - name: Verify Provisioned VM
-      ansible.builtin.include_tasks:
-        file: ../post_validations/verify_vm_post_provisioning.yml
+  loop: "{{ provision_vms }}"
+  ansible.builtin.include_tasks:
+    file: provision_vm/tasks/provision_vm_test.yml

@@ -1,8 +1,0 @@
-# vars.yaml
-provision_vm_validate_certs: false
-provision_vm_cluster: "nestedcluster"
-provision_vm_folder: "/nesteddatacenter/vm"
-provision_vm_datacenter: "nesteddatacenter"
-provision_vm_name: "qe-provision-vm"
-provision_vm_state: "absent"
-provision_vm_force: true
