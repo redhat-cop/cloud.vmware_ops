@@ -1,0 +1,20 @@
+---
+- name: Deprovision VM
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Include vSphere datacenter creds
+      ansible.builtin.include_vars:
+        file: ../vault_files/vsphere_creds.yml
+
+    - name: Include deprovision VM vars
+      ansible.builtin.include_vars:
+        file: vars/deprovision_vm_vars.yml
+
+    - name: Deprovision a VM
+      ansible.builtin.import_role:
+        name: provision_vm
+
+    - name: Verify that VM is absent
+      ansible.builtin.include_tasks:
+        file: post_validations/verify_vm_deprovisioning.yml

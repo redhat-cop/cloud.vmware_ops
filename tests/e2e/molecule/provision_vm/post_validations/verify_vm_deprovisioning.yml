@@ -1,0 +1,22 @@
+---
+- name: Verify Deprovisioned VM
+  ansible.builtin.include_vars:
+    file: ../vars/deprovision_vm_vars.yml
+
+- name: Check that VM does not exist
+  community.vmware.vmware_vm_info:
+    hostname: "{{ provision_vm_hostname }}"
+    username: "{{ provision_vm_username }}"
+    password: "{{ provision_vm_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
+    vm_name: "{{ provision_vm_name }}"
+  register: vm_info
+  ignore_errors: true
+
+- ansible.builtin.debug:
+    var: vm_info
+
+- name: Fail the task if the VM exists
+  ansible.builtin.fail:
+    msg: "Provisioned VM still exists"
+  when: not vm_info.failed

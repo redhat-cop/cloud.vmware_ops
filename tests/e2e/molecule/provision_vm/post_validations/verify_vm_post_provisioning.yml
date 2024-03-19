@@ -1,7 +1,7 @@
 ---
 - name: Verify Provisioned VM
   ansible.builtin.include_vars:
-    file: vars.yml
+    file: ../vars/vars.yml
 
 - name: Check VM existence
   community.vmware.vmware_vm_info:
