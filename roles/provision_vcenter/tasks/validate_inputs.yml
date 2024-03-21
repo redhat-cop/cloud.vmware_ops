@@ -29,28 +29,13 @@
   register: _iso_path_on_remote_check
   failed_when: not _iso_path_on_remote_check.stat.exists
 
-- name: Check Deployment Mode Parameter
+- name: Check vCenter Target Parameters
   ansible.builtin.assert:
     that:
-      - provision_vcenter_mode is defined
-      - provision_vcenter_mode in _accepted_modes
-    fail_msg: provision_vcenter_mode must be one of {{ _accepted_modes | join(', ') }}
+      - provision_vcenter_vc_target_datacenter is defined
+      - provision_vcenter_vc_target_esxi_path is defined
     quiet: true
-  vars:
-    _accepted_modes: >-
-      {{ lookup('ansible.builtin.fileglob', role_path + '/templates/*.j2', wantlist=true) |
-      map('basename') | map('splitext') | map('first') }}
-
-- name: Check vCenter Deployment Mode Parameters
-  ansible.builtin.assert:
-    that:
-      - provision_vcenter_vm_datacenter is defined
-      - provision_vcenter_vm_esxi_target_path is defined
-    quiet: true
-  when: "'_on_vc' in provision_vcenter_mode"
-
-- name: Check Replication Deployment Mode Parameters
-  ansible.builtin.assert:
-    that: provision_vcenter_repliation_partner_hostname is defined
-    quiet: true
-  when: "'replication' in provision_vcenter_mode"
+  tags: foo
+  when: >-
+    provision_vcenter_vc_target_datacenter is defined or
+    provision_vcenter_vc_target_esxi_path is defined

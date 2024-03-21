@@ -1,8 +1,9 @@
 ---
 - name: Template Installer Config JSON
   ansible.builtin.template:
-    src: "{{ provision_vcenter_mode }}.j2"
+    src: vcsa_deployment_config.json.j2
     dest: /tmp/vcsa_deployment_config.json
+    mode: '0744'
 
 - name: Install from ISO
   block:
