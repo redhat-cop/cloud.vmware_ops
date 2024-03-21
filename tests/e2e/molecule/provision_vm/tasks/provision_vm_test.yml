@@ -1,0 +1,22 @@
+- name: Set facts for provision_vm role and verification task
+  set_fact:
+    provision_vm_name: "{{ item.provision_vm_name }}"
+    provision_vm_state: "{{ item.provision_vm_state }}"
+    provision_vm_cdrom: "{{ item.provision_vm_cdrom | default(omit) }}"
+    provision_vm_networks: "{{ item.provision_vm_networks | default(omit) }}"
+    provision_vm_esxi_hostname: "{{ item.provision_vm_esxi_hostname | default(omit) }}"
+    provision_vm_resource_pool: "{{ item.provision_vm_resource_pool | default(omit) }}"
+    provision_vm_port: "{{ item.provision_vm_port | default(omit) }}"
+    provision_vm_disk: "{{ item.provision_vm_disk }}"
+    provision_vm_hardware: "{{ item.provision_vm_hardware }}"
+    provision_vm_guest_id: "{{ item.provision_vm_guest_id | default(omit) }}"
+    provision_vm_datastore: "{{ item.provision_vm_datastore }}"
+    provision_vm_template: "{{ item.provision_vm_template | default(omit) }}"
+
+- name: Provision a VM
+  ansible.builtin.import_role:
+    name: provision_vm
+
+- name: Verify Provisioned VM
+  ansible.builtin.include_tasks:
+    file: ../post_validations/verify_vm_post_provisioning.yml
