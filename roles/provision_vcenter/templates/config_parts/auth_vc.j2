@@ -1,0 +1,17 @@
+"vc": {
+    "__comments": [
+        "'datacenter' must end with a datacenter name, and only with a datacenter name. ",
+        "'target' must end with an ESXi hostname, a cluster name, or a resource pool name. ",
+        "'datastore' must be apecific datastore accessible to the ESXi host or DRS cluster in the 'target' path.",
+        "The item 'Resources' must precede the resource pool name. ",
+        "All names are case-sensitive. ",
+        "For details and examples, refer to template help, i.e. vcsa-deploy {install|upgrade|migrate} --template-help"
+    ],
+    "hostname": "{{ provision_vcenter_auth_hostname }}",
+    "username": "{{ provision_vcenter_auth_username }}",
+    "password": "{{ provision_vcenter_auth_password }}",
+    "deployment_network": "{{ provision_vcenter_vm_network_name }}",
+    "datastore": "{{ provision_vcenter_vm_datastore }}",
+    "datacenter": {{ provision_vcenter_datacenter_name | split('/') | to_json }},
+    "target": {{ provision_vcenter_esxi_target_path | split('/') | to_json }}
+}

@@ -1,0 +1,5 @@
+---
+- name: Provision vCenter Application on ESXi Host
+  hosts: localhost
+  roles:
+    - name: provision_vcenter

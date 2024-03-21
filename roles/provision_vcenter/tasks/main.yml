@@ -1,0 +1,41 @@
+---
+- name: Validate Inputs
+  ansible.builtin.import_tasks: "{{ role_path }}/tasks/validate_inputs.yml"
+
+- name: Check If VCenter Already Exists
+  community.vmware.vmware_guest_info:
+    hostname: "{{ provision_vcenter_auth_hostname }}"
+    username: "{{ provision_vcenter_auth_username }}"
+    password: "{{ provision_vcenter_auth_password }}"
+    port: "{{ provision_vcenter_auth_port | default(omit) }}"
+    validate_certs: "{{ provision_vcenter_auth_validate_certs | default(omit) }}"
+    datacenter: "{{ provision_vcenter_datacenter_name | default('') }}"
+    name: "{{ provision_vcenter_vm_name }}"
+  register: _vcenter_lookup
+  failed_when: false
+
+- name: Create Instance From ISO
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/deploy_from_iso.yml"
+  when: _vcenter_lookup.instance is not defined
+
+- name: Make Sure VCenter Appliance Is Powered On
+  community.vmware.vmware_guest_powerstate:
+    hostname: "{{ provision_vcenter_auth_hostname }}"
+    username: "{{ provision_vcenter_auth_username }}"
+    password: "{{ provision_vcenter_auth_password }}"
+    port: "{{ provision_vcenter_auth_port | default(omit) }}"
+    validate_certs: "{{ provision_vcenter_auth_validate_certs | default(omit) }}"
+    datacenter: "{{ provision_vcenter_datacenter_name | default(omit) }}"
+    name: '{{ provision_vcenter_vm_name }}'
+    state: powered-on
+
+- name: Wait for the VSphere to be Reachable (=~ 180s)
+  ansible.builtin.uri:
+    method: HEAD
+    validate_certs: false
+    url: 'https://{{ provision_vcenter_vm_network_hostname }}'
+  retries: 100
+  delay: 10
+  until: _vcenter_uri_result is succeeded
+  register: _vcenter_uri_result
+
