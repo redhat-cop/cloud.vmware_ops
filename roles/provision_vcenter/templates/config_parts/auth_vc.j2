@@ -12,6 +12,6 @@
     "password": "{{ provision_vcenter_auth_password }}",
     "deployment_network": "{{ provision_vcenter_vm_network_name }}",
     "datastore": "{{ provision_vcenter_vm_datastore }}",
-    "datacenter": {{ provision_vcenter_datacenter_name | split('/') | to_json }},
-    "target": {{ provision_vcenter_esxi_target_path | split('/') | to_json }}
+    "datacenter": {{ provision_vcenter_vc_target_datacenter | split('/') | to_json }},
+    "target": {{ provision_vcenter_vc_target_esxi_path | split('/') | to_json }}
 }

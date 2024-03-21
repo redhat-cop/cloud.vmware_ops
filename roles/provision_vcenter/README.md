@@ -21,28 +21,27 @@ pyvomi
 - **provision_vcenter_auth_validate_certs**:
   - bool, If true then certificates will be validated when connecting to the esxi or vcenter for auth. Optional.
 
-### Deployment Mode
-
-- **provision_vcenter_mode**:
-  - str, The deployment mode for vCenter. Define as an empty string to have the role print supported options. Default is vcsa_on_esxi
+### Replication Options
 
 - **provision_vcenter_replication_partner_hostname**:
-  - str, The hostname of the already existing replication partner for sso. Required if replication is part of the deployment mode selected
+  - str, The hostname of the already existing replication partner for sso. If set, replication will be configured during setup
 
-- **provision_vcenter_datacenter_name**:
-  - str, The datacenter name you want to deploy into. It should be the full path/name. Required if deploying onto an existing vCenter instance
+### Existing vCenter Target Options
 
-- **provision_vcenter_esxi_target_path**:
-  - str, The path or name to the esxi server that you want to deploy the application on.  Required if deploying onto an existing vCenter instance
+- **provision_vcenter_vc_target_datacenter**:
+  - str, The datacenter you want to deploy the appliance into. Only required when deploying into an existing vCenter server.
+
+- **provision_vcenter_vc_target_esxi_path**:
+  - str, The path/name of the ESXi server you want to deploy the appliance into. Only required when deploying into an existing vCenter server.
 
 ### Install Source
 - **provision_vcenter_iso_path**:
-  - str, The local path to the vCenter ISO. Required if `provision_vcenter_import_from_datastore` is not set. 
+  - str, The local path to the vCenter ISO. Required. 
 
 - **provision_vcenter_iso_mount_point**:
   - str, The local path that should be used as a mount point for the vCenter ISO. It will be created if it doesn't exist. Default is `/mnt/vcenter_iso` 
 
-### vCenter VM
+### VCSA VM
 - **provision_vcenter_vm_name**:
   - str, The name for the vcenter vm, as seen in the web gui. Required.
 
