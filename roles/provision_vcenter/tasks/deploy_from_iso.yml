@@ -1,0 +1,28 @@
+---
+- name: Template Installer Config JSON
+  ansible.builtin.template:
+    src: "{{ provision_vcenter_mode }}.j2"
+    dest: /tmp/vcsa_deployment_config.json
+
+- name: Install from ISO
+  block:
+    - name: Mount vCSA ISO as Read-Only
+      ansible.posix.mount:
+        path: "{{ provision_vcenter_iso_mount_point }}"
+        src: "{{ provision_vcenter_iso_path }}"
+        fstype: iso9660
+        opts: ro,noauto
+        state: ephemeral
+      become: true
+    - name: Deploy vCSA With Local Log Written To /tmp/vcsa.log
+      ansible.builtin.shell: >-
+        ./vcsa-deploy install -v --accept-eula --no-ssl-certificate-verification
+        --acknowledge-ceip /tmp/vcsa_deployment_config.json > /tmp/vcsa.log 2>&1
+      args:
+        chdir: "{{ provision_vcenter_iso_mount_point }}/vcsa-cli-installer/lin64"
+  always:
+    - name: Unmount vCSA ISO
+      ansible.posix.mount:
+        path: "{{ provision_vcenter_iso_mount_point }}"
+        state: unmounted
+      become: true

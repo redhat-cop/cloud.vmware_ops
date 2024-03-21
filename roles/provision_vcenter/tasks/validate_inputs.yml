@@ -1,0 +1,56 @@
+---
+- name: Check General Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - provision_vcenter_auth_username is defined
+      - provision_vcenter_auth_password is defined
+      - provision_vcenter_vm_name is defined
+      - provision_vcenter_vm_network_hostname is defined
+      - provision_vcenter_iso_mount_point is defined
+      - provision_vcenter_iso_path is defined
+      - provision_vcenter_vm_network_mode is defined and provision_vcenter_vm_network_mode in ["static", "dhcp"]
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Check Static Network Inputs
+  ansible.builtin.assert:
+    that:
+      - provision_vcenter_vm_network_address is defined
+      - provision_vcenter_vm_network_prefix is defined
+      - provision_vcenter_vm_network_gateway is defined
+      - provision_vcenter_vm_network_dns is defined
+    quiet: true
+    fail_msg: Variable must be set when deploying vcenter with a static IP.
+  when: provision_vcenter_vm_network_mode == "static"
+
+- name: Fail If ISO Does Not Exist On Remote
+  ansible.builtin.stat:
+    path: "{{ provision_vcenter_iso_path }}"
+  register: _iso_path_on_remote_check
+  failed_when: not _iso_path_on_remote_check.stat.exists
+
+- name: Check Deployment Mode Parameter
+  ansible.builtin.assert:
+    that:
+      - provision_vcenter_mode is defined
+      - provision_vcenter_mode in _accepted_modes
+    fail_msg: provision_vcenter_mode must be one of {{ _accepted_modes | join(', ') }}
+    quiet: true
+  vars:
+    _accepted_modes: >-
+      {{ lookup('ansible.builtin.fileglob', role_path + '/templates/*.j2', wantlist=true) |
+      map('basename') | map('splitext') | map('first') }}
+
+- name: Check vCenter Deployment Mode Parameters
+  ansible.builtin.assert:
+    that:
+      - provision_vcenter_vm_datacenter is defined
+      - provision_vcenter_vm_esxi_target_path is defined
+    quiet: true
+  when: "'_on_vc' in provision_vcenter_mode"
+
+- name: Check Replication Deployment Mode Parameters
+  ansible.builtin.assert:
+    that: provision_vcenter_repliation_partner_hostname is defined
+    quiet: true
+  when: "'replication' in provision_vcenter_mode"
