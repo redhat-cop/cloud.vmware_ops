@@ -76,4 +76,8 @@ provision_vms:
       secure_boot: true
     provision_vm_guest_id: "rhel8_64Guest"
     provision_vm_datastore: "Datastore-host1"
-    # provision_vm_template: "provision-vm-template"
+# Provision VM from existing template
+  - provision_vm_name: "qe-provision-vm-from-template"
+    provision_vm_state: "poweredon"
+    provision_vm_template: "provision-vm-template"
+    provision_vm_datastore: "Datastore-host2"

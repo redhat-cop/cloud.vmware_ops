@@ -1,5 +1,5 @@
 
-- name: Deprovision a VM
+- name: Deprovision VM {{ item.provision_vm_name }}
   ansible.builtin.include_role:
     name: provision_vm
   vars:
@@ -7,6 +7,6 @@
     provision_vm_state: "absent"
     provision_vm_force: true
 
-- name: Verify that VM is absent
+- name: Verify that VM {{ item.provision_vm_name }} is absent
   ansible.builtin.include_tasks:
     file: post_validations/verify_vm_deprovisioning.yml
