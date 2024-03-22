@@ -1,5 +1,5 @@
 ---
-- name: Check that VM does not exist
+- name: Check that "{{ item.provision_vm_name }}" VM does not exist
   community.vmware.vmware_vm_info:
     hostname: "{{ vCenter_hostname }}"
     username: "{{ vCenter_username }}"
@@ -9,7 +9,7 @@
   register: vm_info
   ignore_errors: true
 
-- name: Fail the task if the VM exists
+- name: Fail the task if "{{ item.provision_vm_name }}" VM exists
   ansible.builtin.fail:
-    msg: "Provisioned VM still exists"
+    msg: "Provisioned VM {{ item.provision_vm_name }} still exists"
   when: not vm_info.failed
