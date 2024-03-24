@@ -9,10 +9,7 @@
   containers.podman.podman_container:
     name: vmwaresoap
 
-    # image: docker.io/vmware/vcsim:latest
-    # due to an issue https://github.com/vmware/govmomi/issues/3337 -
-    # vcsim: vim.VirtualMachine.snapshot property causes runtime error when not set
-    image: quay.io/bardielle/vcsim:fix_vm
+    image: docker.io/vmware/vcsim:latest
     state: started
     recreate: yes
     expose:
