@@ -406,7 +406,7 @@ N/A
     Set the guest ID.
     This parameter is case sensitive.
     This field is required when creating a virtual machine, not required when creating from the template.
-    Valid values are referenced here: https://code.vmware.com/apis/358/doc/vim.vm.GuestOsDescriptor.GuestOsIdentifier.html
+    Valid values are referenced [here](https://vdc-download.vmware.com/vmwb-repository/dcr-public/184bb3ba-6fa8-4574-a767-d0c96e2a38f4/ba9422ef-405c-47dd-8553-e11b619185b2/SDK/vsphere-ws/docs/ReferenceGuide/vim.vm.GuestOsDescriptor.GuestOsIdentifier.html).
 
 - **provision_vm_hardware** (dictionary):
     Manage virtual machine's hardware attributes.
@@ -556,7 +556,7 @@ N/A
 
 - **provision_vm_vapp_properties** (list):
     A list of vApp properties.
-    For full list of attributes and types refer to: https://code.vmware.com/apis/704/vsphere/vim.vApp.PropertyInfo.html
+    For full list of attributes and types refer to [vApp Properties info](https://vdc-download.vmware.com/vmwb-repository/dcr-public/184bb3ba-6fa8-4574-a767-d0c96e2a38f4/ba9422ef-405c-47dd-8553-e11b619185b2/SDK/vsphere-ws/docs/ReferenceGuide/vim.vApp.PropertyInfo.html)
     Element keys:
     * id:
       type: str
