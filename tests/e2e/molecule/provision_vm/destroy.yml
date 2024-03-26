@@ -12,6 +12,6 @@
         file: vars/vars.yml
 
     - name: Deprovision VM and run checks
-      loop: "{{ provision_vms }}"
+      loop: "{{ provision_vms + provision_vms_template + provision_vms_from_template }}"
       ansible.builtin.include_tasks:
         file: tasks/deprovision_vm.yml
