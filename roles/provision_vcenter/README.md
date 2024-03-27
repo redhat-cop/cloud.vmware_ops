@@ -9,16 +9,16 @@ pyvomi
 ## Role Variables
 
 ### Auth
-- **provision_vcenter_auth_username**:
+- **provision_vcenter_username**:
   - str, The username to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
 
-- **provision_vcenter_auth_password**:
+- **provision_vcenter_password**:
   - str, The password to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
 
-- **provision_vcenter_auth_port**:
+- **provision_vcenter_port**:
   - str or int, The port to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
 
-- **provision_vcenter_auth_validate_certs**:
+- **provision_vcenter_validate_certs**:
   - bool, If true then certificates will be validated when connecting to the esxi or vcenter for auth. Optional.
 
 ### Replication Options
@@ -36,10 +36,10 @@ pyvomi
 
 ### Install Source
 - **provision_vcenter_iso_path**:
-  - str, The local path to the vCenter ISO. Required. 
+  - str, The local path to the vCenter ISO. Required.
 
 - **provision_vcenter_iso_mount_point**:
-  - str, The local path that should be used as a mount point for the vCenter ISO. It will be created if it doesn't exist. Default is `/mnt/vcenter_iso` 
+  - str, The local path that should be used as a mount point for the vCenter ISO. It will be created if it doesn't exist. Default is `/mnt/vcenter_iso`
 
 ### VCSA VM
 - **provision_vcenter_vm_name**:
@@ -78,17 +78,18 @@ pyvomi
 
 ## Example Playbook
 ```yaml
+---
 - hosts: localhost
   roles:
     - role: provision_vcenter
       vars:
-        provision_vcenter_auth_validate_certs: false
-        provision_vcenter_auth_hostname: my-esxi-host.example  # or IP like 192.168.123.5
-        provision_vcenter_auth_username: root
-        provision_vcenter_auth_password: 'password'
+        provision_vcenter_validate_certs: false
+        provision_vcenter_hostname: my-esxi-host.example  # or IP like 192.168.123.5
+        provision_vcenter_username: root
+        provision_vcenter_password: 'password'
 
         provision_vcenter_iso_path: /local/path/to/vcenter.iso
-    
+
         provision_vcenter_vm_network_hostname: new-vcenter.example   # DNS must resolve on localhost
         provision_vcenter_vm_name: new-vcenter
         provision_vcenter_vm_password: 'SuperSecret1!'

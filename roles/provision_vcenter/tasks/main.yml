@@ -4,27 +4,34 @@
 
 - name: Check If VCenter Already Exists
   community.vmware.vmware_guest_info:
-    hostname: "{{ provision_vcenter_auth_hostname }}"
-    username: "{{ provision_vcenter_auth_username }}"
-    password: "{{ provision_vcenter_auth_password }}"
-    port: "{{ provision_vcenter_auth_port | default(omit) }}"
-    validate_certs: "{{ provision_vcenter_auth_validate_certs | default(omit) }}"
+    hostname: "{{ provision_vcenter_hostname }}"
+    username: "{{ provision_vcenter_username }}"
+    password: "{{ provision_vcenter_password }}"
+    port: "{{ provision_vcenter_port | default(omit) }}"
+    validate_certs: "{{ provision_vcenter_validate_certs | default(omit) }}"
     datacenter: "{{ provision_vcenter_vc_target_datacenter | default('') }}"
     name: "{{ provision_vcenter_vm_name }}"
   register: _vcenter_lookup
   failed_when: false
 
+- name: Fail If There Was An Unexpected Error Looking Up The Guest Info
+  ansible.builtin.fail:
+    msg: "{{ _vcenter_lookup.stderr | default(_vcenter_lookup.msg) }}"
+  when: >-
+    _vcenter_lookup.instance is not defined and
+    ('non-existing VM ' + provision_vcenter_vm_name) not in _vcenter_lookup.msg
+
 - name: Create Instance From ISO
   ansible.builtin.include_tasks: deploy_from_iso.yml
-  when: _vcenter_lookup.instance is not defined
+  when: _vcenter_lookup.instance is not defined or not _vcenter_lookup.instance
 
 - name: Make Sure VCenter Appliance Is Powered On
   community.vmware.vmware_guest_powerstate:
-    hostname: "{{ provision_vcenter_auth_hostname }}"
-    username: "{{ provision_vcenter_auth_username }}"
-    password: "{{ provision_vcenter_auth_password }}"
-    port: "{{ provision_vcenter_auth_port | default(omit) }}"
-    validate_certs: "{{ provision_vcenter_auth_validate_certs | default(omit) }}"
+    hostname: "{{ provision_vcenter_hostname }}"
+    username: "{{ provision_vcenter_username }}"
+    password: "{{ provision_vcenter_password }}"
+    port: "{{ provision_vcenter_port | default(omit) }}"
+    validate_certs: "{{ provision_vcenter_validate_certs | default(omit) }}"
     datacenter: "{{ provision_vcenter_vc_target_datacenter | default(omit) }}"
     name: "{{ provision_vcenter_vm_name }}"
     state: powered-on

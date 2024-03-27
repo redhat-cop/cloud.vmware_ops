@@ -3,7 +3,7 @@
   ansible.builtin.template:
     src: vcsa_deployment_config.json.j2
     dest: /tmp/vcsa_deployment_config.json
-    mode: '0744'
+    mode: "0600"
 
 - name: Install from ISO
   block:
@@ -22,6 +22,10 @@
       args:
         chdir: "{{ provision_vcenter_iso_mount_point }}/vcsa-cli-installer/lin64"
   always:
+    - name: Remove The Installer Config JSON
+      ansible.builtin.file:
+        path: /tmp/vcsa_deployment_config.json
+        state: absent
     - name: Unmount vCSA ISO
       ansible.posix.mount:
         path: "{{ provision_vcenter_iso_mount_point }}"

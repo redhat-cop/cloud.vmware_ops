@@ -2,8 +2,8 @@
 - name: Check General Mandatory Variables Are Defined
   ansible.builtin.assert:
     that:
-      - provision_vcenter_auth_username is defined
-      - provision_vcenter_auth_password is defined
+      - provision_vcenter_username is defined
+      - provision_vcenter_password is defined
       - provision_vcenter_vm_name is defined
       - provision_vcenter_vm_network_hostname is defined
       - provision_vcenter_iso_mount_point is defined
@@ -23,7 +23,7 @@
     fail_msg: Variable must be set when deploying vcenter with a static IP.
   when: provision_vcenter_vm_network_mode == "static"
 
-- name: Fail If ISO Does Not Exist On Remote
+- name: Check ISO Is Accessible By Ansible Host
   ansible.builtin.stat:
     path: "{{ provision_vcenter_iso_path }}"
   register: _iso_path_on_remote_check
