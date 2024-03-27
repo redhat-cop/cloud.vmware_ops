@@ -13,7 +13,7 @@
         {% filter indent(width=8, first=false) %}
         {%- include './templates/config_parts/vm.j2' %},
         {% endfilter %}
-        
+
         "sso": {
             {% if provision_vcenter_replication_partner_hostname is defined -%}
             "first_instance": false,
