@@ -1,0 +1,41 @@
+---
+- name: Check General Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - provision_vcenter_username is defined
+      - provision_vcenter_password is defined
+      - provision_vcenter_vm_name is defined
+      - provision_vcenter_vm_network_hostname is defined
+      - provision_vcenter_iso_mount_point is defined
+      - provision_vcenter_iso_path is defined
+      - provision_vcenter_vm_network_mode is defined and provision_vcenter_vm_network_mode in ["static", "dhcp"]
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Check Static Network Inputs
+  ansible.builtin.assert:
+    that:
+      - provision_vcenter_vm_network_address is defined
+      - provision_vcenter_vm_network_prefix is defined
+      - provision_vcenter_vm_network_gateway is defined
+      - provision_vcenter_vm_network_dns is defined
+    quiet: true
+    fail_msg: Variable must be set when deploying vcenter with a static IP.
+  when: provision_vcenter_vm_network_mode == "static"
+
+- name: Check ISO Is Accessible By Ansible Host
+  ansible.builtin.stat:
+    path: "{{ provision_vcenter_iso_path }}"
+  register: _iso_path_on_remote_check
+  failed_when: not _iso_path_on_remote_check.stat.exists
+
+- name: Check vCenter Target Parameters
+  ansible.builtin.assert:
+    that:
+      - provision_vcenter_vc_target_datacenter is defined
+      - provision_vcenter_vc_target_esxi_path is defined
+    quiet: true
+  tags: foo
+  when: >-
+    provision_vcenter_vc_target_datacenter is defined or
+    provision_vcenter_vc_target_esxi_path is defined
