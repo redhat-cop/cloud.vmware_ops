@@ -1,0 +1,29 @@
+- name: License info
+  ansible.builtin.include_tasks: license_info.yml
+  when: info_license
+  tags:
+    - license
+
+- name: Appliance info
+  ansible.builtin.include_tasks: appliance_info.yml
+  when: info_appliance
+  tags:
+    - appliance
+
+- name: Guest info
+  ansible.builtin.include_tasks: guest_info.yml
+  when: info_guest
+  tags:
+    - guest
+
+- name: Cluster info
+  ansible.builtin.include_tasks: cluster_info.yml
+  when: info_cluster
+  tags:
+    - cluster
+
+- name: Storage info
+  ansible.builtin.include_tasks: storage_info.yml
+  when: info_storage
+  tags:
+    - storage

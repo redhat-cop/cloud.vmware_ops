@@ -1,0 +1,26 @@
+info_validate_certs: true
+info_hostport: "{{ info_hostname + ':' + info_port if info_port is defined else info_hostname }}"
+
+# Appliance
+info_appliance_gather: all
+info_appliance_file: "/tmp/appliance-{{ lookup('community.general.random_string', special=false) }}"
+
+# Cluster
+info_datacenters: []
+info_cluster_file: "/tmp/cluster-{{ lookup('community.general.random_string', special=false) }}"
+
+# Guest
+info_guest_file: "/tmp/guest-{{ lookup('community.general.random_string', special=false) }}"
+
+# License
+info_license_file: "/tmp/license-{{ lookup('community.general.random_string', special=false) }}"
+
+# Storage
+info_storage_file: "/tmp/storage-{{ lookup('community.general.random_string', special=false) }}"
+
+# Enable
+info_guest: false
+info_cluster: false
+info_license: false
+info_storage: false
+info_appliance: false

@@ -1,0 +1,15 @@
+- name: Fetch the appliance information
+  vmware.vmware.appliance_info:
+    hostname: "{{ info_hostname }}"
+    username: "{{ info_username }}"
+    password: "{{ info_password }}"
+    port: "{{ info_port | d(omit) }}"
+    validate_certs: "{{ info_validate_certs }}"
+    gather: "{{ info_appliance_gather }}"
+  register: __apliance
+
+- name: Create JSON file from fetched data
+  ansible.builtin.copy:
+    content: "{{ __apliance | map(attribute='appliance') | to_json }}"
+    dest: "{{ info_appliance_file }}"
+    mode: "0644"
