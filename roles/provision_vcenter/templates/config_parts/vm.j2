@@ -1,6 +1,10 @@
 "appliance": {
     "__comments": [
-        "You must provide the 'deployment_option' key with a value, which will affect the vCenter Server Appliance's configuration parameters, such as the vCenter Server Appliance's number of vCPUs, the memory size, the storage size, and the maximum numbers of ESXi hosts and VMs which can be managed. For a list of acceptable values, run the supported deployment sizes help, i.e. vcsa-deploy --supported-deployment-sizes"
+        "You must provide the 'deployment_option' key with a value, which will affect the ",
+        "vCenter Server Appliance's configuration parameters, such as the vCenter Server ",
+        "Appliance's number of vCPUs, the memory size, the storage size, and the maximum numbers ",
+        "of ESXi hosts and VMs which can be managed. ",
+        "For a list of acceptable values, refer to the README.md in this role's templates directory."
     ],
     "thin_disk_mode": true,
     "deployment_option": "{{ provision_vcenter_vm_deployment_option }}",
