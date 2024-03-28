@@ -1,0 +1,4 @@
+---
+- name: Info role
+  ansible.builtin.import_role:
+    name: cloud.vmware_ops.info

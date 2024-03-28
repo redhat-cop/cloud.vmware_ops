@@ -1,0 +1,35 @@
+- name: Get clusters
+  vmware.vmware_rest.vcenter_cluster_info:
+    vcenter_hostname: "{{ info_hostport }}"
+    vcenter_username: "{{ info_username }}"
+    vcenter_password: "{{ info_password }}"
+    vcenter_validate_certs: "{{ info_validate_certs }}"
+  register: __clusters
+  tags:
+    - cluster
+
+- name: Get cluster info
+  community.vmware.vmware_cluster_info:
+    hostname: "{{ info_hostname }}"
+    username: "{{ info_username }}"
+    password: "{{ info_password }}"
+    port: "{{ info_port | d(omit) }}"
+    validate_certs: "{{ info_validate_certs }}"
+    cluster_name: "{{ item.name }}"
+    schema: vsphere
+    properties:
+      - name
+      - configuration.dasConfig.enabled
+      - summary.totalCpu
+  loop: "{{ __clusters.value }}"
+  register: __clusters_info
+  tags:
+    - cluster
+
+- name: Create JSON file from fetched data
+  ansible.builtin.copy:
+    content: "{{ __clusters_info.results | map(attribute='clusters') | to_json }}"
+    dest: "{{ info_cluster_file }}"
+    mode: "0644"
+  tags:
+    - cluster

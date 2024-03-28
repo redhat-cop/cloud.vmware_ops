@@ -1,0 +1,25 @@
+[
+{
+  "httpRequest": {
+    "method": "POST",
+    "path": "/rest/com/vmware/cis/session"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "body": {"value": "72300ca9ff16c5743fa0a6328c8570ce"}
+  }
+},
+{
+  "httpRequest": {
+    "method" : "GET",
+    "path" : "/api/vcenter/cluster"
+  },
+  "httpResponse": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "[{\"drs_enabled\":false,\"cluster\":\"domain-c2808\",\"name\":\"DC0_C0\",\"ha_enabled\":false}]"
+  }
+}
+]
