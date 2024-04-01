@@ -1,0 +1,8 @@
+- name: Restart ntpd
+  vmware.vmware_rest.appliance_services:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    service: ntpd
+    state: restart

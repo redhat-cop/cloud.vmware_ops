@@ -9,3 +9,16 @@ system_settings_ntp_servers: []
 system_settings_timezone: UTC
 system_settings_global_fips: true
 system_settings_resize_storage: true
+
+# DNS
+system_settings_dns_mode: dhcp
+system_settings_dns_domains: [domain.com]
+system_settings_dns_hostname: vcenter.domain.com
+
+# Proxy
+system_settings_noproxy: [1.2.3.4]
+system_settings_proxy:
+  - protocol: http
+    url: http://localhost
+    enabled: true
+    port: 1234
