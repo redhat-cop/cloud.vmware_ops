@@ -1,0 +1,31 @@
+name: Molecule
+
+on:
+  push:
+    branches:
+      - provision_vm_test
+  pull_request:
+    branches:
+      - provision_vm_test
+
+jobs:
+  molecule:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - provision_vm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: provision_vm_test
+          path: "${{ github.repository }}/tests/e2e"
+      - name: Molecule
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_command: test
+          molecule_args: --scenario-name ${{ matrix.scenario }}
+        env:
+          ANSIBLE_FORCE_COLOR: '1'
