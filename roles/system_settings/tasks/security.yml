@@ -1,0 +1,62 @@
+- name: Enable/Disable the Console CLI
+  vmware.vmware_rest.appliance_access_consolecli:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    enabled: "{{ system_settings_consolecli_enabled | bool }}"
+  when: system_settings_consolecli_enabled is defined
+
+- name: Enable/Disable the Direct Console User Interface
+  vmware.vmware_rest.appliance_access_dcui:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    enabled: "{{ system_settings_dcui_enabled | bool }}"
+  when: system_settings_dcui_enabled is defined
+
+- name: Set the Shell with a timeout
+  vmware.vmware_rest.appliance_access_shell:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    enabled: "{{ system_settings_shell_enabled | d(omit) }}"
+    timeout: "{{ system_settings_shell_timeout | d(omit) }}"
+  when: system_settings_shell_enabled is defined and system_settings_shell_timeout is defined
+
+- name: Enable/Disable the SSH access
+  vmware.vmware_rest.appliance_access_ssh:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    enabled: "{{ system_settings_ssh_enabled | bool }}"
+  when: system_settings_ssh_enabled is defined
+
+- name: Fetch current firewall rules
+  vmware.vmware_rest.appliance_networking_firewall_inbound_info:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+  register: __current_rules
+
+- name: Append firewall rules defined by user
+  vmware.vmware_rest.appliance_networking_firewall_inbound:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    rules: "{{ __current_rules.value | community.general.lists_mergeby(system_settings_firewall_rules, 'address') }}"
+  when: system_settings_firewall_rules is defined and system_settings_firewall_rules_append
+
+- name: Set firewall rules defined by user
+  vmware.vmware_rest.appliance_networking_firewall_inbound:
+    vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"
+    vcenter_password: "{{ system_settings_password | d(omit) }}"
+    vcenter_username: "{{ system_settings_username | d(omit) }}"
+    vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
+    rules: "{{ system_settings_firewall_rules }}"
+  when: system_settings_firewall_rules is defined and not system_settings_firewall_rules_append | bool
