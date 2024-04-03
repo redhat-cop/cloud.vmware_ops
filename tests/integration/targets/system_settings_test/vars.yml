@@ -22,3 +22,11 @@ system_settings_proxy:
     url: http://localhost
     enabled: true
     port: 1234
+
+# Security
+system_settings_consolecli_enabled: true
+system_settings_dcui_enabled: true
+system_settings_shell_enabled: true
+system_settings_shell_timeout: 100
+system_settings_ssh_enabled: true
+system_settings_firewall_rules: []

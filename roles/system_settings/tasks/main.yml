@@ -7,6 +7,9 @@
 - name: Configure proxy
   ansible.builtin.include_tasks: proxy.yml
 
+- name: Configure security features
+  ansible.builtin.include_tasks: security.yml
+
 - name: Set the timesync mode
   vmware.vmware_rest.appliance_timesync:
     vcenter_hostname: "{{ system_settings_hostname | d(omit) }}"

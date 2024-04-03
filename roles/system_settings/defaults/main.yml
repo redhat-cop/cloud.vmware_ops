@@ -1,3 +1,4 @@
 system_settings_resize_storage: false
 system_settings_dns_mode_append: false
 system_settings_proxy: []
+system_settings_firewall_rules_append: false
