@@ -79,6 +79,25 @@ Note: NTP service will be restarted if configuration is changed.
     * username: Define `username` for the proxy server if proxy requires authentication.
     * password: Define `password` for the proxy server if proxy requires authentication.
 
+#### Security
+- **system_settings_dcui_enabled**:
+  - Enable/Disable state of Direct Console User Interface (DCUI TTY2).
+
+- **system_settings_shell_enabled**:
+  - Enable/Disable state of BASH, that is, access to BASH from within the controlled CLI.
+
+- **system_settings_shell_timeout**:
+  - The timeout (in seconds) specifies how long you enable the Shell access. The maximum timeout is 86400 seconds(1 day). This parameter is mandatory.
+
+- **system_settings_ssh_enabled**:
+  - Enable/Disable state of the SSH-based controlled CLI.
+
+- **system_settings_firewall_rules**:
+  - Set the ordered list of firewall rules to allow or deny traffic from one or more incoming IP addresses. Within the list of traffic rules, rules are processed in order of appearance, from top to bottom.
+
+- **system_settings_firewall_rules_append**:
+  - If `false` the rules overwrites the existing firewall rules and creates a new rule list. If `true` we append the rules to existing rules. Default is `true`.
+
 ## Dependencies
 
 - vmware.vmware_rest
