@@ -25,7 +25,7 @@
 
 - name: Include New ESXi Hosts Tasks
   when: >-
-    (esxi_host_check.results | selectattr('instance', 'undefined') is any) or
+    (_esxi_host_check.results | selectattr('instance', 'undefined') is any) or
     (_esxi_host_check.results | selectattr('instance', 'defined') | map(attribute='instance') is not all)
   block:
     - name: Check VM Mandatory Variables Are Defined
