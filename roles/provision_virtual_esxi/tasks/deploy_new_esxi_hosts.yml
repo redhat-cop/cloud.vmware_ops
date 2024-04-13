@@ -1,0 +1,73 @@
+---
+- name: Deploy ESXi Hosts
+  ansible.builtin.include_role:
+    name: cloud.vmware_ops.provision_vm
+  vars:
+    provision_vm_hostname: "{{ provision_virtual_esxi_hostname }}"
+    provision_vm_username: "{{ provision_virtual_esxi_username }}"
+    provision_vm_password: "{{ provision_virtual_esxi_password }}"
+    provision_vm_validate_certs: "{{ provision_virtual_esxi_validate_certs | default(omit) }}"
+    provision_vm_cluster: "{{ provision_virtual_esxi_cluster | default(omit) }}"
+    provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter | default(omit) }}"
+    provision_vm_folder: "{{ provision_virtual_esxi_folder | default(omit) }}"
+    provision_vm_resource_pool: "{{ provision_virtual_esxi_resource_pool | default(omit) }}"
+    provision_vm_name: "{{ _result._esxi_name }}"
+    provision_vm_guest_id: vmkernel8Guest
+    provision_vm_state: present
+    provision_vm_cdrom:
+      - controller_number: 0
+        unit_number: 0
+        state: present
+        type: iso
+        iso_path: "{{ provision_virtual_esxi_datastore_iso_path }}"
+    provision_vm_networks: "{{ provision_virtual_esxi_networks }}"
+    provision_vm_disk: "{{ provision_virtual_esxi_disks }}"
+    provision_vm_hardware:
+      memory_mb: "{{ provision_virtual_esxi_memory_mb }}"
+      num_cpus: "{{ provision_virtual_esxi_cpus }}"
+      boot_firmware: bios
+      nested_virt: true
+  when: _result.instance is not defined or not _result.instance
+  loop: "{{ _esxi_host_check.results }}"
+  loop_control:
+    loop_var: _result
+    label: _result._esxi_name
+
+- name: Power On The New ESXi Hosts
+  ansible.builtin.include_role:
+    name: cloud.vmware_ops.provision_vm
+  vars:
+    provision_vm_hostname: "{{ provision_virtual_esxi_hostname }}"
+    provision_vm_username: "{{ provision_virtual_esxi_username }}"
+    provision_vm_password: "{{ provision_virtual_esxi_password }}"
+    provision_vm_validate_certs: "{{ provision_virtual_esxi_validate_certs | default(omit) }}"
+    provision_vm_cluster: "{{ provision_virtual_esxi_cluster | default(omit) }}"
+    provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter | default(omit) }}"
+    provision_vm_folder: "{{ provision_virtual_esxi_folder | default(omit) }}"
+    provision_vm_name: "{{ _result._esxi_name }}"
+    provision_vm_state: poweredon
+  when: _result.instance is not defined or not _result.instance
+  loop: "{{ _esxi_host_check.results }}"
+  loop_control:
+    loop_var: _result
+    label: _result._esxi_name
+
+- name: Wait for New ESXi Hosts to Power Off
+  community.vmware.vmware_guest_info:
+    hostname: "{{ provision_virtual_esxi_hostname }}"
+    username: "{{ provision_virtual_esxi_username }}"
+    password: "{{ provision_virtual_esxi_password }}"
+    datacenter: "{{ provision_virtual_esxi_datacenter | default('') }}"
+    validate_certs: "{{ provision_virtual_esxi_validate_certs | default(omit) }}"
+    name: "{{ _result._esxi_name }}"
+  when: _result.instance is not defined or not _result.instance
+  loop: "{{ _esxi_host_check.results }}"
+  loop_control:
+    loop_var: _result
+    label: _result._esxi_name
+  register: _new_esxi_info
+  until: >-
+    _new_esxi_info.instance is defined and
+    _new_esxi_info.instance.hw_power_status == 'poweredOff'
+  retries: 30
+  delay: 15

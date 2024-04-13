@@ -1,0 +1,6 @@
+provision_virtual_esxi_memory_mb: 18000
+provision_virtual_esxi_cpus: 4
+provision_virtual_esxi_disks:
+  - size_gb: 100
+    type: thin
+    autoselect_datastore: true
