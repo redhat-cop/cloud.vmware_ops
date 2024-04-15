@@ -84,10 +84,10 @@ Note: NTP service will be restarted if configuration is changed.
   - Enable/Disable state of Direct Console User Interface (DCUI TTY2).
 
 - **system_settings_shell_enabled**:
-  - Enable/Disable state of BASH, that is, access to BASH from within the controlled CLI.
+  - Enable/Disable state of BASH, that is, access to BASH from within the controlled CLI. This parameter is mandatory in case `system_settings_shell_timeout` is specified.
 
 - **system_settings_shell_timeout**:
-  - The timeout (in seconds) specifies how long you enable the Shell access. The maximum timeout is 86400 seconds(1 day). This parameter is mandatory.
+  - The timeout (in seconds) specifies how long you enable the Shell access. The maximum timeout is 86400 seconds(1 day). This parameter is mandatory in case `system_settings_shell_enabled` is specified.
 
 - **system_settings_ssh_enabled**:
   - Enable/Disable state of the SSH-based controlled CLI.
