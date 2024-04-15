@@ -63,6 +63,9 @@ pyvomi
 - **provision_vcenter_vm_network_dns**:
   - list(str), A list of DNS servers the vcenter vm should use. Required if network mode is set to 'static'.
 
+- **provision_vcenter_vm_network_ip_family**:
+  - str, The IP family that the VM should use for its network. ipv4 or ipv6. Default is ipv4
+
 - **provision_vcenter_vm_deployment_option**:
   - str, The deployment "size" for the vcenter appliance. See the VMWare documentation for the accepted values and their requirements. Default is tiny.
 

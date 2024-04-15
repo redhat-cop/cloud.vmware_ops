@@ -20,7 +20,7 @@
     "gateway": "{{ provision_vcenter_vm_network_gateway }}",
     "system_name": "{{ provision_vcenter_vm_network_hostname }}",
     {%- endif +%}
-    "ip_family": "ipv4",
+    "ip_family": "{{ provision_vcenter_vm_network_ip_family }}",
     "mode": "{{ provision_vcenter_vm_network_mode }}"
 },
 "os": {

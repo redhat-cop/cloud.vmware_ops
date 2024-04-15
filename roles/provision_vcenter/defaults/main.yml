@@ -4,3 +4,4 @@ provision_vcenter_vm_network_mode: static
 provision_vcenter_vm_enable_ssh: true
 provision_vcenter_vm_enable_ceip: false
 provision_vcenter_iso_mount_point: /mnt/vcenter_iso
+provision_vcenter_vm_network_ip_family: ipv4
