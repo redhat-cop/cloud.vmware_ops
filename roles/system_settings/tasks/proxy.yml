@@ -6,7 +6,6 @@
     vcenter_validate_certs: "{{ system_settings_validate_certs | d(omit) }}"
     servers: "{{ system_settings_noproxy }}"
   when: "system_settings_noproxy is defined"
-  notify: Restart ntpd
 
 - name: Configure the proxy configuration
   vmware.vmware_rest.appliance_networking_proxy:
@@ -18,8 +17,7 @@
     server: "{{ item.url | mandatory }}"
     port: "{{ item.port | mandatory }}"
     protocol: "{{ item.protocol | mandatory }}"
-    state: "{{ item.state | d(omit) }}"
+    state: "{{ 'set' if item.state | d('present') == 'present' else item.state }}"
     username: "{{ item.username | d(omit) }}"
     password: "{{ item.password | d(omit) }}"
   loop: "{{ system_settings_proxy }}"
-  notify: Restart ntpd
