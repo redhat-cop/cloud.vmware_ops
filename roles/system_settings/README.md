@@ -41,14 +41,11 @@ N/A
 - **system_settings_dns_servers**:
   - List of DNS servers to add/set.
 
-- **system_settings_dns_mode_append**
-  - If `true` items from `system_settings_dns_servers` will be added to already configured DNS servers. If `false` servers will be overriden.
-
 - **system_settings_dns_domains**:
   - List of DNS domains to add/set.
 
 - **system_settings_dns_mode_append**
-  - If `true` items from `system_settings_dns_domains` will be added to already configured DNS domains. If `false` domains will be overriden.
+  - If `true` items from `system_settings_dns_domains` and `system_settings_dns_servers` will be added to already configured DNS domains/servers. If `false` domains/servers will be overriden.
 
 - **system_settings_dns_hostname**:
   - Set the hostname of the vcenter.
