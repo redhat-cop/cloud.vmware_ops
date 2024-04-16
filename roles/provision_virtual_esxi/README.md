@@ -33,24 +33,33 @@ pyvomi
 
 
 ### VM Options
-
-- **provision_virtual_esxi_vm_names**:
-  - list(str), A list of names corresponding to esxi hosts you want to manage. If no VM exists with the name, a new VM will be created. VMs are created in booted to save time.
+- **provision_virtual_esxi_vms**:
+  - list(dict), A list of dictionaries describing the esxi hosts you want to manage. If no VM exists with the name, a new VM will be created. VMs are created in booted to save time.
+  - **Members**
+    - name - str, The name of the VM that you want to manage. Required
+    - networks - list(dict), The network definition specific to this VM. If undefined, the value from `provision_virtual_esxi_networks` is used.
+    - disks - list(dict), The disk definition specific to this VM. If undefined, the value from `provision_virtual_esxi_disks` is used.
+    - memory_mb - int, The memory definition specific to this VM. If undefined, the value from `provision_virtual_esxi_memory_mb` is used.
+    - cpus - int, The cpu definition specific to this VM. If undefined, the value from `provision_virtual_esxi_cpus` is used.
 
 - **provision_virtual_esxi_datastore_iso_path**:
   - str, The datastore path to the ESXi ISO file that new VMs should use to boot. For example, a file in the folder ISO on datastore1 might have the path `[datastore1] ISO\my_esxi_8.iso`
 
 - **provision_virtual_esxi_networks**:
   - list(dict), A list of dictionaries describing the network device configs for this VM. Required. You may need to enable promiscuous mode and allow forged transmits on the upstream port group/vSwitch to have a working network downstream. See https://docs.ansible.com/ansible/latest/collections/community/vmware/vmware_guest_module.html#parameter-networks
+  - Default is a DHCP vmxnet3 NIC on 'VM Network'
 
 - **provision_virtual_esxi_disks**:
   - list(dict), A list of dictionaries describing the disk device configs for this VM. See https://docs.ansible.com/ansible/latest/collections/community/vmware/vmware_guest_module.html#parameter-disk
+  - Default is a thin provisioned 100 GB disk
 
 - **provision_virtual_esxi_memory_mb**:
-  - int, The amount of memory to assign to this VM. For example, 18000
+  - int, The amount of memory to assign to this VM.
+  - Default is 18000
 
 - **provision_virtual_esxi_cpus**:
-  - int, The number of vCPUs to assign to this VM. For example, 4
+  - int, The number of vCPUs to assign to this VM.
+  - Default is 4
 
 ## Dependencies
 
@@ -59,7 +68,12 @@ pyvomi
 ## Example Playbook
 ```yaml
 ---
-- hosts: localhost
+# In the playbook below, 3 ESXi hosts are created
+# The first uses the role defaults for hardware
+# The second has extra disks assigned to it
+# The third has extra memory and CPUs
+- name: Provision ESXi Hosts
+  hosts: localhost
   roles:
     - role: cloud.vmware_ops.provision_virtual_esxi
       vars:
@@ -67,16 +81,20 @@ pyvomi
         provision_virtual_esxi_username: "{{ vcenter_username }}"
         provision_virtual_esxi_password: "{{ vcenter_password }}"
         provision_virtual_esxi_folder: ""
-        provision_virtual_esxi_names:
-          - esxi-1
-          - esxi-2
-          - esxi-3
+        provision_virtual_esxi_vms:
+          - name: esxi-1
+          - name: esxi-2
+            disks:
+              - size_gb: 300
+                type: thin
+                autoselect_datastore: true
+              - size_gb: 300
+                type: thin
+                autoselect_datastore: true
+          - name: esxi-3
+            memory_mb: 24000
+            cpus: 12
         provision_virtual_esxi_iso_path: "[nfs-datastore-iso] esxi_8.iso"
-        provision_virtual_esxi_networks:
-          - name: VM Network
-            device_type: "vmxnet3"
-            type: "dhcp"
-
 ```
 
 License

@@ -5,23 +5,25 @@
       - provision_virtual_esxi_username is defined
       - provision_virtual_esxi_password is defined
       - provision_virtual_esxi_hostname is defined
-      - provision_virtual_esxi_vm_names is defined
+      - provision_virtual_esxi_vms is defined
+      - not (provision_virtual_esxi_vms | selectattr('name', 'undefined'))
     quiet: true
     fail_msg: Variable must be set when using this role.
 
-- name: Check If Hosts Exist
+- name: Check For Missing Hosts
   community.vmware.vmware_guest_info:
     hostname: "{{ provision_virtual_esxi_hostname }}"
     username: "{{ provision_virtual_esxi_username }}"
     password: "{{ provision_virtual_esxi_password }}"
     datacenter: "{{ provision_virtual_esxi_datacenter | default('') }}"
     validate_certs: "{{ provision_virtual_esxi_validate_certs | default(omit) }}"
-    name: "{{ _esxi_name }}"
+    name: "{{ _esxi.name }}"
   failed_when: false
   register: _esxi_host_check
-  loop: "{{ provision_virtual_esxi_vm_names }}"
+  loop: "{{ provision_virtual_esxi_vms }}"
   loop_control:
-    loop_var: _esxi_name
+    loop_var: _esxi
+    label: _esxi.name
 
 - name: Include New ESXi Hosts Tasks
   when: >-
@@ -32,11 +34,37 @@
       ansible.builtin.assert:
         that:
           - provision_virtual_esxi_iso_path is defined
-          - provision_virtual_esxi_networks is defined
         quiet: true
         fail_msg: Variable must be set when using this role.
-    - name: Include New ESXi Hosts Tasks
+    - name: Deploy New ESXi Hosts
       ansible.builtin.include_tasks: deploy_new_esxi_hosts.yml
+
+- name: Configure Existing ESXi Hosts
+  ansible.builtin.include_role:
+    name: cloud.vmware_ops.provision_vm
+  vars:
+    provision_vm_hostname: "{{ provision_virtual_esxi_hostname }}"
+    provision_vm_username: "{{ provision_virtual_esxi_username }}"
+    provision_vm_password: "{{ provision_virtual_esxi_password }}"
+    provision_vm_validate_certs: "{{ provision_virtual_esxi_validate_certs | default(omit) }}"
+    provision_vm_cluster: "{{ provision_virtual_esxi_cluster | default(omit) }}"
+    provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter | default(omit) }}"
+    provision_vm_folder: "{{ provision_virtual_esxi_folder | default(omit) }}"
+    provision_vm_resource_pool: "{{ provision_virtual_esxi_resource_pool | default(omit) }}"
+    provision_vm_name: "{{ _esxi.name }}"
+    provision_vm_guest_id: vmkernel8Guest
+    provision_vm_state: present
+    provision_vm_networks: "{{ _esxi.networks | default(provision_virtual_esxi_networks) }}"
+    provision_vm_disk: "{{ _esxi.disks | default(provision_virtual_esxi_disks) }}"
+    provision_vm_hardware:
+      memory_mb: "{{ _esxi.memory_mb | default(provision_virtual_esxi_memory_mb) }}"
+      num_cpus: "{{ _esxi.cpus | default(provision_virtual_esxi_cpus) }}"
+      boot_firmware: "{{ provision_virtual_esxi_boot_firmware }}"
+      nested_virt: true
+  loop: "{{ provision_virtual_esxi_vms }}"
+  loop_control:
+    loop_var: _esxi
+    label: _esxi.name
 
 - name: Power On The ESXi Hosts
   ansible.builtin.include_role:
