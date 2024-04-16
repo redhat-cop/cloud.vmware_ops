@@ -41,8 +41,8 @@ pyvomi
   - If set to `present`, update the location of the host if host already exists.
   - If set to `absent`, remove the host if host is present.
   - If set to `absent`, do nothing if host already does not exists.
-  - If set to `add_or_reconnect`, add the host if it’s absent else reconnect it and update the location.
-  - If set to `reconnect`, then reconnect the host if it’s present and update the location.
+  - If set to `add_or_reconnect`, add the host if it's absent else reconnect it and update the location.
+  - If set to `reconnect`, then reconnect the host if it's present and update the location.
   - If set to `disconnected`, disconnect the host if the host already exists.
 
 - **manage_vcenter_host_connection_add_connected**:
