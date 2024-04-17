@@ -77,8 +77,9 @@
     provision_vm_cluster: "{{ provision_virtual_esxi_cluster | default(omit) }}"
     provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter | default(omit) }}"
     provision_vm_folder: "{{ provision_virtual_esxi_folder | default(omit) }}"
-    provision_vm_name: "{{ _esxi_name }}"
+    provision_vm_name: "{{ _esxi.name }}"
     provision_vm_state: poweredon
-  loop: "{{ provision_virtual_esxi_vm_names }}"
+  loop: "{{ provision_virtual_esxi_vms }}"
   loop_control:
-    loop_var: _esxi_name
+    loop_var: _esxi
+    label: _esxi.name
