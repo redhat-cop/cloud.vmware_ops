@@ -1,0 +1,33 @@
+---
+- name: Manages virtual machines snapshots in vCenter
+  community.vmware.vmware_guest_snapshot:
+    hostname: "{{ snapshot_management_hostname | d(omit) }}"
+    username: "{{ snapshot_management_username | d(omit) }}"
+    password: "{{ snapshot_management_password | d(omit) }}"
+    validate_certs: "{{ snapshot_management_validate_certs | d(omit) }}"
+
+    port: "{{ snapshot_management_port | d(omit) }}"
+    proxy_host: "{{ snapshot_management_proxy_host | d(omit) }}"
+    proxy_port: "{{ snapshot_management_proxy_port | d(omit) }}"
+
+    state: "{{ snapshot_management_state | d(omit) }}"
+    name: "{{ snapshot_management_vm_name | d(omit) }}"
+    name_match: "{{ snapshot_management_vm_name_match | d(omit) }}"
+    uuid: "{{ snapshot_management_uuid | d(omit) }}"
+    moid: "{{ snapshot_management_moid | d(omit) }}"
+    use_instance_uuid: "{{ snapshot_management_use_instance_uuid | d(omit) }}"
+
+    folder: "{{ snapshot_management_folder | d(omit) }}"
+    datacenter: "{{ snapshot_management_datacenter | d(omit) }}"
+    esxi_hostname: "{{ snapshot_management_esxi_hostname | d(omit) }}"
+    datastore: "{{ snapshot_management_datastore | d(omit) }}"
+    resource_pool: "{{ snapshot_management_resource_pool | d(omit) }}"
+
+    snapshot_name: "{{ snapshot_management_snapshot_name | d(omit) }}"
+    new_snapshot_name: "{{ snapshot_management_new_snapshot_name | d(omit) }}"
+    snapshot_id: "{{ snapshot_management_snapshot_id | d(omit) }}"
+    description: "{{ snapshot_management_description | d(omit) }}"
+    quiesce: "{{ snapshot_management_quiesce | d(omit) }}"
+    memory_dump: "{{ snapshot_management_memory_dump | d(omit) }}"
+    remove_children: "{{ snapshot_management_remove_children | d(omit) }}"
+    new_description: "{{ snapshot_management_new_description | d(omit) }}"
