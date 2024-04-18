@@ -16,6 +16,9 @@ issues: https://github.com/redhat-cop/cloud.vmware_ops/issues
 build_ignore:
   - .gitignore
   - changelogs/.plugin-cache.yaml
+  - tmp
+  - context
+  - .idea
 dependencies: {
   "vmware.vmware_rest": ">=2.3.1",
   "community.vmware": ">=4.2.0",
