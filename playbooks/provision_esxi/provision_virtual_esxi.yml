@@ -1,0 +1,6 @@
+---
+- name: Playbook to provision a new Virtual ESXI host on VMware
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - role: cloud.vmware_ops.provision_virtual_esxi

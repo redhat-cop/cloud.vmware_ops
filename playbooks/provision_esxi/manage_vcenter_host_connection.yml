@@ -1,0 +1,6 @@
+---
+- name: Playbook to Manage a Host's Connection to VCenter
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: cloud.vmware_ops.manage_vcenter_host_connection
