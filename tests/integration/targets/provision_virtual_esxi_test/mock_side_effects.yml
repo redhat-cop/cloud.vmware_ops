@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  gather_facts: false
+  vars_files:
+    - "{{ playbook_dir }}/vars/main.yml"
+  tasks:
+    # the esxi ISO usually powers down new hosts when they are done
+    - name: Mock ESXi Host Power Down
+      community.vmware.vmware_guest:
+        name: "{{ item }}"
+        folder: "{{ provision_virtual_esxi_folder }}"
+        datacenter: "{{ provision_virtual_esxi_datacenter }}"
+        cluster: "{{ provision_virtual_esxi_cluster }}"
+        state: poweredoff
+        hostname: "{{ provision_virtual_esxi_hostname }}"
+        username: "{{ provision_virtual_esxi_username }}"
+        password: "{{ provision_virtual_esxi_password }}"
+        validate_certs: false
+        port: "{{ provision_virtual_esxi_port }}"
+      loop: "{{ provision_virtual_esxi_vms | map(attribute='name') }}"
+      delay: 15
+      retries: 20
+      register: _res
+      until: _res is changed

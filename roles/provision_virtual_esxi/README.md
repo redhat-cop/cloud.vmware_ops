@@ -18,6 +18,9 @@ pyvomi
 - **provision_virtual_esxi_validate_certs**:
   - bool, If true then certificates will be validated when connecting to the esxi or vcenter for auth. Optional.
 
+- **provision_virtual_esxi_port**:
+  - int, The port to use when connecting to the esxi or vcenter for auth. Optional.
+
 ### Placement
 - **provision_virtual_esxi_cluster**:
   - str, The name of the cluster in which you want to deploy the new vms.
