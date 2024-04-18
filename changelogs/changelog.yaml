@@ -1,1 +1,12 @@
-releases: {}
+ancestor: null
+releases:
+  1.0.0:
+    changes:
+      major_changes:
+        - provision_vm - added a new role to manage VM lifecycle
+        - system_setting - added a new role to manage system settings
+      release_summary: Initial release
+    fragments:
+      - 100-initial_release.yml
+      - release_summery.yml
+    release_date: '2024-04-18'

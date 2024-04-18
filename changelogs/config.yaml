@@ -27,6 +27,6 @@ sections:
     - Bugfixes
   - - known_issues
     - Known Issues
-title: Cloud.Azure_Ops
+title: Cloud.VMware_Ops
 trivial_section_name: trivial
 use_fqcn: true
