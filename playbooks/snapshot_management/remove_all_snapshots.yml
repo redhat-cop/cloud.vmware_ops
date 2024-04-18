@@ -1,0 +1,9 @@
+---
+- name: Playbook to remove all VM snapshots
+  hosts: all
+  gather_facts: false
+
+  roles:
+    - role: cloud.vmware_ops.snapshot_management
+      vars:
+        snapshot_management_state: remove_all

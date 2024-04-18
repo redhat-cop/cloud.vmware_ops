@@ -1,0 +1,3 @@
+major_changes:
+  - snapshot_management - Add a new role and playbooks to manages virtual machines snapshots in vCenter.
+    (https://github.com/redhat-cop/cloud.vmware_ops/pull/24)
