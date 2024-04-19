@@ -12,6 +12,6 @@
       ansible.builtin.import_role:
         name: prepare_esx
 
-    - name: Import manage_vcenter_host_connection_test
+    - name: Import vcenter_host_connection_test
       ansible.builtin.import_role:
-        name: manage_vcenter_host_connection_test
+        name: vcenter_host_connection_test
