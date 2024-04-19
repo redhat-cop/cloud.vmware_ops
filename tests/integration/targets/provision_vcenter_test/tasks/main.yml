@@ -1,4 +1,9 @@
 ---
+- name: Install dependencies
+  ansible.builtin.pip:
+    name:
+      - pycdlib
+
 - name: Create ISO Mocks
   block:
     - name: Create Mock VCSA Deployment Binary Path

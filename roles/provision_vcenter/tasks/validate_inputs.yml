@@ -6,6 +6,9 @@
       - provision_vcenter_password is defined
       - provision_vcenter_vm_name is defined
       - provision_vcenter_vm_network_hostname is defined
+      - provision_vcenter_vm_password is defined
+      - provision_vcenter_vm_network_name is defined
+      - provision_vcenter_vm_datastore is defined
       - provision_vcenter_iso_mount_point is defined
       - provision_vcenter_iso_path is defined
       - provision_vcenter_vm_network_mode is defined and provision_vcenter_vm_network_mode in ["static", "dhcp"]
@@ -35,7 +38,6 @@
       - provision_vcenter_vc_target_datacenter is defined
       - provision_vcenter_vc_target_esxi_path is defined
     quiet: true
-  tags: foo
   when: >-
     provision_vcenter_vc_target_datacenter is defined or
     provision_vcenter_vc_target_esxi_path is defined
