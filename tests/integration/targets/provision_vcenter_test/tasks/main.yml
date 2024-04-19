@@ -1,11 +1,11 @@
 ---
-- name: Create Mock VCSA ISO
+- name: Create ISO Mocks
   block:
     - name: Create Mock VCSA Deployment Binary Path
       ansible.builtin.file:
         path: /tmp/vcsa-cli-installer/lin64
         state: directory
-    - name: Foo
+    - name: Create Playbook to Create Mock VCenter VM
       ansible.builtin.copy:
         dest: /tmp/vcsa-cli-installer/lin64/playbook.yml
         content: |
