@@ -1,0 +1,18 @@
+---
+provision_virtual_esxi_hostname: "127.0.0.1"
+provision_virtual_esxi_username: "test"
+provision_virtual_esxi_password: "test"
+provision_virtual_esxi_validate_certs: false
+provision_virtual_esxi_port: 8989
+provision_virtual_esxi_cluster: "DC0_C0"
+provision_virtual_esxi_folder: "/DC0/vm"
+provision_virtual_esxi_datacenter: "DC0"
+provision_virtual_esxi_iso_path: ""
+provision_virtual_esxi_vms:
+  - name: esxi-1
+  - name: esxi-2
+provision_virtual_esxi_networks: []
+provision_virtual_esxi_disks:
+  - size_gb: 100
+    type: thin
+    datastore: LocalDS_0

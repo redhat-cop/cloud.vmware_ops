@@ -1,0 +1,13 @@
+- hosts: localhost
+  gather_facts: no
+  collections:
+    - community.general
+
+  tasks:
+    - name: Vcsim
+      ansible.builtin.import_role:
+        name: prepare_soap
+
+    - name: Import provision virtual ESXi role
+      ansible.builtin.import_role:
+        name: provision_virtual_esxi_test
