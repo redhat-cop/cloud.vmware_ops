@@ -1,0 +1,12 @@
+---
+manage_vcenter_host_connection_hostname: "127.0.0.1"
+manage_vcenter_host_connection_username: "test"
+manage_vcenter_host_connection_password: "test"
+manage_vcenter_host_connection_validate_certs: false
+manage_vcenter_host_connection_port: 8989
+manage_vcenter_host_connection_cluster: "DC0_C0"
+manage_vcenter_host_connection_datacenter: "DC0"
+
+manage_vcenter_host_connection_esxi_hostname: "127.0.0.1"
+manage_vcenter_host_connection_esxi_username: test
+manage_vcenter_host_connection_esxi_password: test

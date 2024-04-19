@@ -1,0 +1,17 @@
+- hosts: localhost
+  gather_facts: no
+  collections:
+    - community.general
+
+  tasks:
+    - name: Vcsim
+      ansible.builtin.import_role:
+        name: prepare_soap
+
+    - name: ESXi
+      ansible.builtin.import_role:
+        name: prepare_esx
+
+    - name: Import manage_vcenter_host_connection_test
+      ansible.builtin.import_role:
+        name: manage_vcenter_host_connection_test
