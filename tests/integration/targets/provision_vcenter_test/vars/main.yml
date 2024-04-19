@@ -1,0 +1,19 @@
+---
+provision_vcenter_hostname: "127.0.0.1"
+provision_vcenter_username: "test"
+provision_vcenter_password: "test"
+provision_vcenter_validate_certs: false
+provision_vcenter_port: "8989"
+provision_vcenter_vm_name: "vcenter-test"
+provision_vcenter_vm_network_mode: dhcp
+provision_vcenter_iso_path: /tmp/test.iso
+provision_vcenter_iso_mount_point: /tmp/vcenter-test
+provision_vcenter_vm_network_name: foo
+provision_vcenter_vm_datastore: foo
+provision_vcenter_vm_password: foo
+
+# Usually this it the network-resolvable hostname of the vcenter.
+# Since we are mocking the vcenter VM, we also need to mock this
+# and we do that by using the vcsim soap instance (and abusing
+# this variable by including a port/uri)
+provision_vcenter_vm_network_hostname: 127.0.0.1:8989/about
