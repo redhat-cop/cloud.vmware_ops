@@ -45,6 +45,9 @@ pyvomi
 - **provision_vcenter_vm_name**:
   - str, The name for the vcenter vm, as seen in the web gui. Required.
 
+- **provision_vcenter_vm_uuid**:
+  - str, Specify the full VM UUID if multiple VMs in your cluster have the same name as `provision_vcenter_vm_name`. Optional.
+
 - **provision_vcenter_vm_network_hostname**:
   - str, The network hostname (https://your_hostname) for vCenter. DNS should already resolve on the localhost. Required.
 

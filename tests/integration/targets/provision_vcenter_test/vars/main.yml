@@ -17,3 +17,5 @@ provision_vcenter_vm_password: foo
 # and we do that by using the vcsim soap instance (and abusing
 # this variable by including a port/uri)
 provision_vcenter_vm_network_hostname: 127.0.0.1:8989/about
+
+provision_vcenter_test_mock_binary_root: /tmp/vcsa-cli-installer

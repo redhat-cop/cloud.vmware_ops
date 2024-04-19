@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Provision VM
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_hostname: "{{ provision_vcenter_hostname }}"
+        provision_vm_username: "{{ provision_vcenter_username }}"
+        provision_vm_password: "{{ provision_vcenter_password }}"
+        provision_vm_validate_certs: "{{ provision_vcenter_validate_certs }}"
+        provision_vm_folder: ""
+        provision_vm_datacenter: "DC0"
+        provision_vm_name: "{{ provision_vcenter_vm_name }}"
+        provision_vm_port: "{{ provision_vcenter_port }}"
+        provision_vm_disk:
+          - size_gb: 10
+            type: thin
+            datastore: "LocalDS_0"
+        provision_vm_hardware:
+          memory_mb: 512
+          num_cpus: 4
+        provision_vm_guest_id: "centos64Guest"
