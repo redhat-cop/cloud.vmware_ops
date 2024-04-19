@@ -1,0 +1,12 @@
+---
+- name: Add ESXI Host
+  ansible.builtin.import_role:
+    name: cloud.vmware_ops.manage_vcenter_host_connection
+  vars:
+    manage_vcenter_host_connection_state: present
+
+- name: Remove ESXI Host
+  ansible.builtin.import_role:
+    name: cloud.vmware_ops.manage_vcenter_host_connection
+  vars:
+    manage_vcenter_host_connection_state: absent

@@ -1,0 +1,6 @@
+---
+minor_changes:
+  - added role vcenter_host_connection
+
+trivial:
+  - added integration tests for role vcenter_host_connection

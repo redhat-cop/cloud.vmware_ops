@@ -1,0 +1,47 @@
+---
+- name: Check General Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - vcenter_host_connection_hostname is defined
+      - vcenter_host_connection_username is defined
+      - vcenter_host_connection_password is defined
+      - vcenter_host_connection_datacenter is defined
+      - vcenter_host_connection_cluster is defined or vcenter_host_connection_folder is defined
+      - vcenter_host_connection_esxi_hostname is defined
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Check Mandatory Variables For Adding A Host Are Defined
+  ansible.builtin.assert:
+    that:
+      - vcenter_host_connection_esxi_username is defined
+      - vcenter_host_connection_esxi_password is defined
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+  when: >-
+    vcenter_host_connection_state is not defined or
+    vcenter_host_connection_state in ['present', 'add_or_reconnect']
+
+- name: Manage ESXi Host Connection To vCenter
+  community.vmware.vmware_host:
+    hostname: "{{ vcenter_host_connection_hostname }}"
+    username: "{{ vcenter_host_connection_username }}"
+    password: "{{ vcenter_host_connection_password }}"
+    datacenter_name: "{{ vcenter_host_connection_datacenter }}"
+    cluster_name: "{{ vcenter_host_connection_cluster | default(omit) }}"
+    folder: "{{ vcenter_host_connection_folder | default(omit) }}"
+    port: "{{ vcenter_host_connection_port | default(omit) }}"
+    proxy_host: "{{ vcenter_host_connection_proxy_host | default(omit) }}"
+    proxy_port: "{{ vcenter_host_connection_proxy_port | default(omit) }}"
+    validate_certs: "{{ vcenter_host_connection_validate_certs | default(omit) }}"
+
+    add_connected: "{{ vcenter_host_connection_add_connected | default(omit) }}"
+    force_connection: "{{ vcenter_host_connection_force_connection | default(omit) }}"
+    reconnect_disconnected: "{{ vcenter_host_connection_reconnect_disconnected | default(omit) }}"
+    state: "{{ vcenter_host_connection_state | default(omit) }}"
+
+    esxi_hostname: "{{ vcenter_host_connection_esxi_hostname | default(omit) }}"
+    esxi_username: "{{ vcenter_host_connection_esxi_username | default(omit) }}"
+    esxi_password: "{{ vcenter_host_connection_esxi_password | default(omit) }}"
+    esxi_ssl_thumbprint: "{{ vcenter_host_connection_esxi_ssl_thumbprint | default(omit) }}"
+    fetch_ssl_thumbprint: "{{ vcenter_host_connection_fetch_ssl_thumbprint | default(omit) }}"
