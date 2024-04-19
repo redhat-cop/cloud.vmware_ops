@@ -13,15 +13,15 @@
     "name": "{{ provision_vcenter_vm_name }}"
 },
 "network": {
-    "ip_family": "ipv4",
-    "mode": "{{ provision_vcenter_vm_network_mode }}",
     {%- if provision_vcenter_vm_network_mode == "static" +%}
     "ip": "{{ provision_vcenter_vm_network_address }}",
     "dns_servers": {{ provision_vcenter_vm_network_dns | to_json }},
     "prefix": "{{ provision_vcenter_vm_network_prefix }}",
     "gateway": "{{ provision_vcenter_vm_network_gateway }}",
-    "system_name": "{{ provision_vcenter_vm_network_hostname }}"
+    "system_name": "{{ provision_vcenter_vm_network_hostname }}",
     {%- endif +%}
+    "ip_family": "ipv4",
+    "mode": "{{ provision_vcenter_vm_network_mode }}"
 },
 "os": {
     "password": "{{ provision_vcenter_vm_password }}",
