@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - provision_vcenter - vcenter vm names containing a string marked for no_log no longer trigger an unexpected error when checking if the vm already exists
