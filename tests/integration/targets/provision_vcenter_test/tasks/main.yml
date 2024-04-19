@@ -1,0 +1,51 @@
+---
+- name: Create Mock VCSA ISO
+  block:
+    - name: Create Mock VCSA Deployment Binary Path
+      ansible.builtin.file:
+        path: /tmp/vcsa-cli-installer/lin64
+        state: directory
+    - name: Foo
+      ansible.builtin.copy:
+        dest: /tmp/vcsa-cli-installer/lin64/playbook.yml
+        content: |
+          - hosts: localhost
+            gather_facts: false
+            tasks:
+              - name: Provision VM
+                ansible.builtin.import_role:
+                  name: cloud.vmware_ops.provision_vm
+                vars:
+                  provision_vm_hostname: "{{ provision_vcenter_hostname }}"
+                  provision_vm_username: "{{ provision_vcenter_username }}"
+                  provision_vm_password: "{{ provision_vcenter_password }}"
+                  provision_vm_validate_certs: "{{ provision_vcenter_validate_certs }}"
+                  provision_vm_folder: ""
+                  provision_vm_datacenter: "DC0"
+                  provision_vm_name: "{{ provision_vcenter_vm_name }}"
+                  provision_vm_port: "{{ provision_vcenter_port }}"
+                  provision_vm_disk:
+                    - size_gb: 10
+                      type: thin
+                      datastore: "LocalDS_0"
+                  provision_vm_hardware:
+                    memory_mb: 512
+                    num_cpus: 4
+                  provision_vm_guest_id: "centos64Guest"
+    - name: Create Mock VCSA Deployment Binary
+      ansible.builtin.copy:
+        dest: /tmp/vcsa-cli-installer/lin64/vcsa-deploy
+        content: |
+          #!/bin/sh
+          ansible-playbook playbook.yml
+        mode: "0755"
+    - name: Create Mock VCSA ISO file
+      community.general.iso_create:
+        src_files:
+          - /tmp/vcsa-cli-installer
+        dest_iso: "{{ provision_vcenter_iso_path }}"
+        interchange_level: 4
+
+- name: Provision VCenter
+  ansible.builtin.import_role:
+    name: cloud.vmware_ops.provision_vcenter

@@ -19,7 +19,7 @@
     msg: "{{ _vcenter_lookup.stderr | default(_vcenter_lookup.msg) }}"
   when: >-
     _vcenter_lookup.instance is not defined and
-    ('non-existing VM ' + provision_vcenter_vm_name) not in _vcenter_lookup.msg
+    _vcenter_lookup.msg is not match("Unable to gather information for non-existing VM .*")
 
 - name: Create Instance From ISO
   ansible.builtin.include_tasks: deploy_from_iso.yml
