@@ -1,0 +1,11 @@
+---
+- name: Get info about the updated VM
+  ansible.builtin.include_tasks:
+    file: ../tasks/get_vm_info.yml
+  vars:
+    vm_name: "{{ vm_update_name }}"
+
+- name: Validate that {{ vm_update_name }} VM is in state {{ vm_state }}
+  ansible.builtin.assert:
+    that:
+      - vm_info.virtual_machines[0].power_state | lower == vm_state

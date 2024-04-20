@@ -1,0 +1,8 @@
+- name: Import vars
+  ansible.builtin.include_vars:
+    file: ../vars/vars.yml
+
+- name: Basic Provision VM Scenario
+  loop: "{{ provision_vms }}"
+  ansible.builtin.include_tasks:
+    file: manage_vm/tasks/provision_vm.yml
