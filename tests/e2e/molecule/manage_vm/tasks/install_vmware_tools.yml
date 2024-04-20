@@ -1,0 +1,26 @@
+- name: Install VMware Tools on VM with ID {{ vm_moid }}
+  vmware.vmware_rest.vcenter_vm_tools_installer:
+    vcenter_hostname: "{{ vCenter_hostname }}"
+    vcenter_username: "{{ vCenter_username }}"
+    vcenter_password: "{{ vCenter_password }}"
+    vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
+    vm: "{{ vm_moid }}"
+    state: connect
+  register: wmware_tools_install
+
+- name: print wmware_tools_install
+  ansible.builtin.debug:
+    var: wmware_tools_install
+
+- name: Wait for VMware tools to become available
+  community.vmware.vmware_guest_tools_wait:
+    hostname: "{{ vCenter_hostname }}"
+    username: "{{ vCenter_username }}"
+    password: "{{ vCenter_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
+    moid: "{{ vm_moid }}"
+  register: wait_result
+
+- name: print wait_result
+  ansible.builtin.debug:
+    var: wait_result

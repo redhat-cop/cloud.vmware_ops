@@ -1,0 +1,18 @@
+---
+- name: Check {{ vm_name }} VM existence
+  community.vmware.vmware_vm_info:
+    hostname: "{{ vCenter_hostname }}"
+    username: "{{ vCenter_username }}"
+    password: "{{ vCenter_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
+    vm_name: "{{ vm_name }}"
+  register: vm_info
+
+- name: Fail the task if the VM doesn't exist
+  ansible.builtin.fail:
+    msg: "Provisioned VM does not exist"
+  when: vm_info is not defined or vm_info.failed
+
+- name: print vm_info for {{ vm_name }}
+  ansible.builtin.debug:
+    var: vm_info

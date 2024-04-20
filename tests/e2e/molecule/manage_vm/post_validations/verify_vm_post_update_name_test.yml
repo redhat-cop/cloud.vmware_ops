@@ -1,0 +1,18 @@
+---
+- name: Collect information about VM with ID {{ vm_moid }}
+  vmware.vmware_rest.vcenter_vm_info:
+    vcenter_hostname: "{{ vCenter_hostname }}"
+    vcenter_username: "{{ vCenter_username }}"
+    vcenter_password: "{{ vCenter_password }}"
+    vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
+    vm: '{{ vm_moid }}'
+  register: vm_info_updated_name
+
+- name: print vm_info_updated_name for {{ vm_moid }}
+  ansible.builtin.debug:
+    var: vm_info_updated_name
+
+- name: Validate name of VM with ID {{ vm_moid }}
+  ansible.builtin.assert:
+    that:
+      - vm_info_updated_name.value.name == vm_name

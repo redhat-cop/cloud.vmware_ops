@@ -1,0 +1,23 @@
+- name: Import vars
+  ansible.builtin.include_vars:
+    file: ../vars/vars.yml
+
+- name: Create VMs to use as template
+  loop: "{{ provision_vms_template }}"
+  ansible.builtin.include_tasks:
+    file: manage_vm/tasks/provision_vm.yml
+
+- name: Turn created VMs into templates
+  loop: "{{ provision_vms_template }}"
+  community.vmware.vmware_guest:
+    hostname: "{{ provision_vm_hostname }}"
+    username: "{{ provision_vm_username }}"
+    password: "{{ provision_vm_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
+    name: "{{ item.provision_vm_name }}"
+    is_template: true
+
+- name: Create VMs from template and run validations
+  loop: "{{ provision_vms_from_template }}"
+  ansible.builtin.include_tasks:
+    file: manage_vm/tasks/provision_vm.yml

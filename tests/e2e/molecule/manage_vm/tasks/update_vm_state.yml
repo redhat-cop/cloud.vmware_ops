@@ -1,0 +1,13 @@
+- name: Test changing state of existing VM {{ vm_update_name }} to {{ item }}
+  ansible.builtin.import_role:
+    name: provision_vm
+  vars:
+    provision_vm_name: "{{ vm_update_name }}"
+    provision_vm_state: "{{ item }}"
+    provision_vm_force: true
+
+- name: Verify updated VM state
+  ansible.builtin.include_tasks:
+    file: ../post_validations/verify_vm_post_update_state_test.yml
+  vars:
+    vm_state: "{{ item }}"

@@ -1,0 +1,12 @@
+- name: Update name of existing VM with UUID {{ vm_uuid }}
+  ansible.builtin.import_role:
+    name: provision_vm
+  vars:
+    provision_vm_uuid: "{{ vm_uuid }}"
+    provision_vm_name: "{{ item }}"
+
+- name: Verify updated VM name
+  ansible.builtin.include_tasks:
+    file: ../post_validations/verify_vm_post_update_name_test.yml
+  vars:
+    vm_name: "{{ item }}"

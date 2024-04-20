@@ -1,0 +1,40 @@
+---
+dependency:
+  name: galaxy
+
+# driver:
+#   name: podman
+
+platforms:
+  - name: instance
+    image: ubuntu:latest
+    init: /lib/systemd/systemd
+    security_opt:
+      - label=disable
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    ansible_connection: ansible
+
+provisioner:
+  name: ansible
+  lint: |
+    set -e
+    echo "Run yamllint"
+    yamllint .
+    echo "Run ansible-lint"
+    ansible-lint
+  env:
+    ANSIBLE_ROLES_PATH: "../../../../roles"
+  config_options:
+    defaults:
+      vault_password_file: ${HOME}/vault.pass
+      callback_whitelist: junit
+  playbooks:
+    converge: ../converge.yml
+    destroy: destroy.yml
+
+verifier:
+  name: ansible
+  options:
+    junit-xml: ./test-results.xml

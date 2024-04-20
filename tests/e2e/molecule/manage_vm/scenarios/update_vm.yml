@@ -1,0 +1,103 @@
+- name: Import vars
+  ansible.builtin.include_vars:
+    file: ../vars/vars.yml
+
+- name: Provision VM
+  loop:
+    - "{{ provision_vms[0] }}"
+  ansible.builtin.include_tasks:
+    file: manage_vm/tasks/provision_vm.yml
+
+- name: Get info about the VM to be updated
+  ansible.builtin.include_tasks:
+    file: ../tasks/get_vm_info.yml
+  vars:
+    vm_name: "{{ vm_update_name }}"
+
+- name: Set vm_uuid variable
+  ansible.builtin.set_fact:
+    vm_uuid: "{{ vm_info.virtual_machines[0].uuid }}"
+
+- name: Set vm_moid variable
+  ansible.builtin.set_fact:
+    vm_moid: "{{ vm_info.virtual_machines[0].moid }}"
+
+- name: Test updating name of existing VM
+  loop: "{{ vm_names_to_update }}"
+  ansible.builtin.include_tasks:
+    file: manage_vm/tasks/update_vm_name.yml
+
+# - name: Install VMware Tools on VM with ID {{ vm_moid }}
+#   ansible.builtin.include_tasks:
+#     file: provision_vm/tasks/install_vmware_tools.yml
+
+- name: Test changing state of existing VM {{ vm_update_name }}
+  loop: "{{ vm_states }}"
+  ansible.builtin.include_tasks:
+    file: manage_vm/tasks/update_vm_state.yml
+
+- name: Add Management Network VM Portgroup to all hosts in a cluster
+  community.vmware.vmware_portgroup:
+    hostname: "{{ vCenter_hostname }}"
+    username: "{{ vCenter_username }}"
+    password: "{{ vCenter_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
+    cluster_name: "{{ provision_vm_cluster }}"
+    switch: "{{ vswitch_name }}"
+    portgroup: "{{ portgroup_name }}"
+    security:
+      forged_transmits: true
+      promiscuous_mode: true
+
+- name: Update networks of existing VM {{ vm_update_name }}
+  ansible.builtin.import_role:
+    name: provision_vm
+  vars:
+    provision_vm_name: "{{ vm_update_name }}"
+    provision_vm_networks: "{{ vm_updated_networks }}"
+
+- name: Update VM hardware properties
+  ansible.builtin.import_role:
+    name: provision_vm
+  vars:
+    provision_vm_name: "{{ vm_update_name }}"
+    provision_vm_hardware: "{{ vm_updated_hardware }}"
+
+- name: Enlarge existing disk of existing VM {{ vm_update_name }}
+  ansible.builtin.import_role:
+    name: provision_vm
+  vars:
+    provision_vm_name: "{{ vm_update_name }}"
+    provision_vm_disk: "{{ vm_enlarge_disk }}"
+
+# - name: Add disk to existing VM {{ vm_update_name }}
+#   ansible.builtin.import_role:
+#     name: provision_vm
+#   vars:
+#     provision_vm_name: "{{ vm_update_name }}"
+#     provision_vm_disk: "{{ vm_add_disk }}"
+
+- name: Update guest_id of existing VM {{ vm_update_name }}
+  ansible.builtin.import_role:
+    name: provision_vm
+  vars:
+    provision_vm_name: "{{ vm_update_name }}"
+    provision_vm_guest_id: "{{ vm_updated_guest_id }}"
+    provision_vm_cdrom: "{{ vm_updated_cdrom }}"
+
+# - name: Customize OS of existing VM {{ vm_update_name }}
+#   ansible.builtin.import_role:
+#     name: provision_vm
+#   vars:
+#     provision_vm_name: "{{ vm_update_name }}"
+#     provision_vm_customization: "{{ vm_update_os_customization }}"
+
+- name: Power on the updated VM {{ vm_update_name }}
+  loop:
+    - "poweredon"
+  ansible.builtin.include_tasks:
+    file: manage_vm/tasks/update_vm_state.yml
+
+- name: Verify updated VM settings
+  ansible.builtin.include_tasks:
+    file: manage_vm/post_validations/verify_vm_post_update_settings_test.yml
