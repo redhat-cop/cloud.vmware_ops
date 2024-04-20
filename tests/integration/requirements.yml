@@ -1,4 +1,5 @@
 collections:
   - name: community.vmware
+    version: "4.2.0"
   - name: vmware.vmware_rest
   - name: containers.podman
