@@ -1,0 +1,3 @@
+---
+minor_changes:
+  - provision_virtual_esxi - Added new role for provisioning a VM and installing ESXi on it. Added integration tests for role
