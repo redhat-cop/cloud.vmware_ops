@@ -1,6 +1,0 @@
----
-minor_changes:
-  - added role provision_virtual_esxi
-
-trivial:
-  - added integration tests for role provision_virtual_esxi
