@@ -21,8 +21,8 @@ Click on the name of a role to view that content's documentation:
 ### Roles
 Name | Description
 --- | ---
-[cloud.vmware_ops.provision_vcenter](https://github.com/ansible-collections/cloud.vmware_ops/blob/main/roles/provision_vcenter/README.md)|A role to provison Vcenter on ESXi host.
-[cloud.vmware_ops.provision_vm](https://github.com/ansible-collections/cloud.vmware_ops/blob/main/roles/provision_vm/README.md)|A role to create/manage virtual machines on VMware.
+[cloud.vmware_ops.provision_vcenter](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/roles/provision_vcenter/README.md)|A role to provison Vcenter on ESXi host.
+[cloud.vmware_ops.provision_vm](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/roles/provision_vm/README.md)|A role to create/manage virtual machines on VMware.
 [cloud.vmware_ops.system_settings](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/roles/system_settings/README.md)|A role to manage system settings on VMware.
 
 ### Playbooks
