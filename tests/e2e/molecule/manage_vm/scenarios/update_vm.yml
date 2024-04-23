@@ -36,7 +36,7 @@
   ansible.builtin.include_tasks:
     file: manage_vm/tasks/update_vm_state.yml
 
-- name: Add Management Network VM Portgroup to all hosts in a cluster
+- name: Add port group with network label {{ portgroup_name }}
   community.vmware.vmware_portgroup:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
@@ -45,9 +45,6 @@
     cluster_name: "{{ provision_vm_cluster }}"
     switch: "{{ vswitch_name }}"
     portgroup: "{{ portgroup_name }}"
-    security:
-      forged_transmits: true
-      promiscuous_mode: true
 
 - name: Update networks of existing VM {{ vm_update_name }}
   ansible.builtin.import_role:
