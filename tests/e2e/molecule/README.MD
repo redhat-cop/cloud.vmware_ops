@@ -17,9 +17,9 @@ Additionally, create a password file for the vSphere credentials (vault password
 
 ```yaml
 # vault.yml
-vCenter_hostname: "your_vsphere_hostname"
-vCenter_username: "your_vsphere_username"
-vCenter_password: "your_vsphere_password"
+vcenter_hostname: "your_vsphere_hostname"
+vcenter_username: "your_vsphere_username"
+vcenter_password: "your_vsphere_password"
 
 Those should be encrypted using ansible-vault command and be placed under `vault_files/eco_vsphere_creds.yml`
 The saved password should be placed under `${HOME}/vault.pass`

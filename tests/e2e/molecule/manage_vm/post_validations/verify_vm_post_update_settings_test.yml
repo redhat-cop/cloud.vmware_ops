@@ -7,9 +7,9 @@
 
 - name: Get network info about {{ vm_update_name }} VM
   community.vmware.vmware_guest_network:
-    hostname: "{{ vCenter_hostname }}"
-    username: "{{ vCenter_username }}"
-    password: "{{ vCenter_password }}"
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
     validate_certs: "{{ provision_vm_validate_certs }}"
     uuid: "{{ vm_uuid }}"
     gather_network_info: true
@@ -32,27 +32,27 @@
 
 - name: Retrieve the CPU information from the VM
   vmware.vmware_rest.vcenter_vm_hardware_cpu_info:
-    vcenter_hostname: "{{ vCenter_hostname }}"
-    vcenter_username: "{{ vCenter_username }}"
-    vcenter_password: "{{ vCenter_password }}"
+    vcenter_hostname: "{{ vcenter_hostname }}"
+    vcenter_username: "{{ vcenter_username }}"
+    vcenter_password: "{{ vcenter_password }}"
     vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
     vm: "{{ vm_moid }}"
   register: cpu_info
 
 - name: Retrieve the memory information from the VM
   vmware.vmware_rest.vcenter_vm_hardware_memory_info:
-    vcenter_hostname: "{{ vCenter_hostname }}"
-    vcenter_username: "{{ vCenter_username }}"
-    vcenter_password: "{{ vCenter_password }}"
+    vcenter_hostname: "{{ vcenter_hostname }}"
+    vcenter_username: "{{ vcenter_username }}"
+    vcenter_password: "{{ vcenter_password }}"
     vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
     vm: "{{ vm_moid }}"
   register: memory_info
 
 - name: Retrieve disk information using the disk label
   vmware.vmware_rest.vcenter_vm_hardware_disk_info:
-    vcenter_hostname: "{{ vCenter_hostname }}"
-    vcenter_username: "{{ vCenter_username }}"
-    vcenter_password: "{{ vCenter_password }}"
+    vcenter_hostname: "{{ vcenter_hostname }}"
+    vcenter_username: "{{ vcenter_username }}"
+    vcenter_password: "{{ vcenter_password }}"
     vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
     vm: "{{ vm_moid }}"
     label: Hard disk 1

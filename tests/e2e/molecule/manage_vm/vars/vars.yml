@@ -1,7 +1,7 @@
 # vars.yaml
-provision_vm_hostname: "{{ vCenter_hostname }}"
-provision_vm_username: "{{ vCenter_username }}"
-provision_vm_password: "{{ vCenter_password }}"
+provision_vm_hostname: "{{ vcenter_hostname }}"
+provision_vm_username: "{{ vcenter_username }}"
+provision_vm_password: "{{ vcenter_password }}"
 provision_vm_validate_certs: false
 
 provision_vm_cluster: "Eco-Cluster"

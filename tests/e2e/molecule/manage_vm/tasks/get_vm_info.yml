@@ -1,9 +1,9 @@
 ---
 - name: Check {{ vm_name }} VM existence
   community.vmware.vmware_vm_info:
-    hostname: "{{ vCenter_hostname }}"
-    username: "{{ vCenter_username }}"
-    password: "{{ vCenter_password }}"
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
     validate_certs: "{{ provision_vm_validate_certs }}"
     vm_name: "{{ vm_name }}"
   register: vm_info

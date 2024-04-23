@@ -1,9 +1,9 @@
 ---
 - name: Check that "{{ item.provision_vm_name }}" VM does not exist
   community.vmware.vmware_vm_info:
-    hostname: "{{ vCenter_hostname }}"
-    username: "{{ vCenter_username }}"
-    password: "{{ vCenter_password }}"
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
     validate_certs: "{{ provision_vm_validate_certs }}"
     vm_name: "{{ item.provision_vm_name }}"
   register: vm_info
