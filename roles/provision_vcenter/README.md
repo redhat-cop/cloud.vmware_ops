@@ -27,19 +27,20 @@ pyvomi
 ### Replication Options
 
 - **provision_vcenter_replication_partner_hostname**:
-  - str, The hostname of the already existing replication partner for sso. If set, replication will be configured during setup
+  - str, The hostname of the already existing replication partner for sso. If set, replication will be configured during setup.
 
 ### Existing vCenter Target Options
 
 - **provision_vcenter_vc_target_datacenter**:
-  - str, The datacenter you want to deploy the appliance into. Only required when deploying into an existing vCenter server.
+  - str, The datacenter in which you want to deploy the appliance. Only required when VM does not exist and you are deploying into an existing vCenter server.
 
 - **provision_vcenter_vc_target_esxi_path**:
-  - str, The path/name of the ESXi server you want to deploy the appliance into. Only required when deploying into an existing vCenter server.
+  - str, The path/name of the ESXi server on which you want to deploy the appliance. Only required when VM does not exist and you are deploying into an existing vCenter server.
+  - This value should be the name (or path) found in vcenter, which is not necessarily the same as the hostname
 
 ### Install Source
 - **provision_vcenter_iso_path**:
-  - str, The local path to the vCenter ISO. Required.
+  - str, The local path to the vCenter ISO. Required if the VM does not already exist.
 
 - **provision_vcenter_iso_mount_point**:
   - str, The local path that should be used as a mount point for the vCenter ISO. It will be created if it doesn't exist. Default is `/mnt/vcenter_iso`
@@ -52,7 +53,7 @@ pyvomi
   - str, Specify the full VM UUID if multiple VMs in your cluster have the same name as `provision_vcenter_vm_name`. Optional.
 
 - **provision_vcenter_vm_password**:
-  - str, Specify the password used to access this appliance once its deployed. Required.
+  - str, Specify the password used to access this appliance once its deployed. Required if the VM does not already exist.
   - This password is used for SSH access (username: root) if its enabled, as well as web GUI access (username: administrator@vsphere.local)
 
 - **provision_vcenter_vm_datastore**:
