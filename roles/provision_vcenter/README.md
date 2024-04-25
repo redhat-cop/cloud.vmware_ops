@@ -9,6 +9,9 @@ pyvomi
 ## Role Variables
 
 ### Auth
+- **provision_vcenter_hostname**:
+  - str, The hostname of the esxi or vcenter on which you want to deploy the application. Required.
+
 - **provision_vcenter_username**:
   - str, The username to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
 
@@ -47,6 +50,17 @@ pyvomi
 
 - **provision_vcenter_vm_uuid**:
   - str, Specify the full VM UUID if multiple VMs in your cluster have the same name as `provision_vcenter_vm_name`. Optional.
+
+- **provision_vcenter_vm_password**:
+  - str, Specify the password used to access this appliance once its deployed. Required.
+  - This password is used for SSH access (username: root) if its enabled, as well as web GUI access (username: administrator@vsphere.local)
+
+- **provision_vcenter_vm_datastore**:
+  - str, The name of the datastore that the appliance should use to house its disks. Required if the VM does not already exist.
+  - The amount of required space varies by the appliance size (provision_vcenter_vm_deployment_option) and is always thin provisioned.
+
+- **provision_vcenter_vm_network_name**:
+  - str, The name of the network or portgroup to which this appliance should be connected. Required if the VM does not already exist.
 
 - **provision_vcenter_vm_network_hostname**:
   - str, The network hostname (https://your_hostname) for vCenter. DNS should already resolve on the localhost. Required.
