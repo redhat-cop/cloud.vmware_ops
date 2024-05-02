@@ -1,0 +1,7 @@
+---
+esxi_maintenance_mode_hostname: "127.0.0.1"
+esxi_maintenance_mode_username: "test"
+esxi_maintenance_mode_password: "test"
+esxi_maintenance_mode_validate_certs: false
+esxi_maintenance_mode_port: "8989"
+esxi_maintenance_mode_esxi_hostname: DC0_C0_H2

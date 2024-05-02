@@ -1,0 +1,26 @@
+---
+- name: Check Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - esxi_maintenance_mode_hostname is defined
+      - esxi_maintenance_mode_username is defined
+      - esxi_maintenance_mode_password is defined
+      - esxi_maintenance_mode_esxi_hostname is defined
+      - esxi_maintenance_mode_enable is defined
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Set ESXI Maintenance Mode
+  community.vmware.vmware_maintenancemode:
+    hostname: "{{ esxi_maintenance_mode_hostname }}"
+    username: "{{ esxi_maintenance_mode_username }}"
+    password: "{{ esxi_maintenance_mode_password }}"
+    port: "{{ esxi_maintenance_mode_port | default(omit) }}"
+    validate_certs: "{{ esxi_maintenance_mode_validate_certs | default(omit) }}"
+    proxy_host: "{{ esxi_maintenance_mode_proxy_host | default(omit) }}"
+    proxy_port: "{{ esxi_maintenance_mode_proxy_port | default(omit) }}"
+    esxi_hostname: "{{ esxi_maintenance_mode_esxi_hostname }}"
+    evactuate: "{{ esxi_maintenance_mode_evacuate | default(omit) }}"
+    state: "{{ esxi_maintenance_mode_enable | ternary('present', 'absent') }}"
+    timeout: "{{ esxi_maintenance_mode_timeout | default(omit) }}"
+    vsan: "{{ esxi_maintenance_mode_vsan | default(omit) }}"

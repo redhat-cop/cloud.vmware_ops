@@ -1,0 +1,9 @@
+---
+- name: Playbook To Remove An ESXI Host From VCenter
+  hosts: all
+  gather_facts: False
+
+  roles:
+    - role: cloud.vmware_ops.vcenter_host_connection
+      vars:
+        vcenter_host_connection_state: absent
