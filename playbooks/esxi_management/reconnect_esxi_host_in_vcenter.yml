@@ -1,7 +1,7 @@
 ---
 - name: Playbook To Reconnect An ESXI Host In VCenter
   hosts: all
-  gather_facts: False
+  gather_facts: false
 
   roles:
     - role: cloud.vmware_ops.vcenter_host_connection
