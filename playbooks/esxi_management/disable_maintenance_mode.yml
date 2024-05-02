@@ -1,0 +1,9 @@
+---
+- name: Playbook To Remove An ESXI Host From Maintenance Mode
+  hosts: all
+  gather_facts: False
+
+  roles:
+    - role: cloud.vmware_ops.esxi_maintenance_mode
+      vars:
+        esxi_maintenance_mode_enable: False

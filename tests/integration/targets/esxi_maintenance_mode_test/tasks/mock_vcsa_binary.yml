@@ -1,0 +1,25 @@
+---
+- name: Create Mock VCSA Deployment Binary Path
+  ansible.builtin.file:
+    path: "{{ provision_vcenter_test_mock_binary_root }}/lin64"
+    state: directory
+
+- name: Create Playbook to Create Mock VCenter VM
+  ansible.builtin.template:
+    src: mock_vcsa_bin_playbook.yml
+    dest: "{{ provision_vcenter_test_mock_binary_root }}/lin64/playbook.yml"
+
+- name: Create Mock VCSA Deployment Binary
+  ansible.builtin.copy:
+    dest: "{{ provision_vcenter_test_mock_binary_root }}/lin64/vcsa-deploy"
+    content: |
+      #!/bin/sh
+      ansible-playbook playbook.yml
+    mode: "0755"
+
+- name: Create Mock VCSA ISO file
+  community.general.iso_create:
+    src_files:
+      - "{{ provision_vcenter_test_mock_binary_root }}"
+    dest_iso: "{{ provision_vcenter_iso_path }}"
+    interchange_level: 4
