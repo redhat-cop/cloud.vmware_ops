@@ -5,7 +5,7 @@
   vars:
     vm_name: "{{ item.provision_vm_name }}"
 
-- name: Validate {{ item.provision_vm_name }} VM properties
+- name: "Validate the properties of the following VM: {{ item.provision_vm_name }}"
   ansible.builtin.assert:
     that:
       - vm_info.virtual_machines[0].guest_name == item.provision_vm_name
@@ -15,13 +15,13 @@
       - vm_info.virtual_machines[0].power_state | lower == item.provision_vm_state
       # - vm_info.virtual_machines[0].resource_pool == item.provision_vm_resource_pool
 
-- name: Validate {{ item.provision_vm_name }} VM datastore when datastore was defined in provision_vm_datastore
+- name: "Validate the following VM datastore when datastore was defined in provision_vm_datastore: {{ item.provision_vm_name }}"
   ansible.builtin.assert:
     that:
       - vm_info.virtual_machines[0].datastore_url[0].name == item.provision_vm_datastore
   when: "'provision_vm_datastore' in item"
 
-- name: Validate {{ item.provision_vm_name }} VM datastore when datastore was defined in provision_vm_disk
+- name: "Validate the following VM datastore when datastore was defined in provision_vm_disk: {{ item.provision_vm_name }}"
   ansible.builtin.assert:
     that:
       - vm_info.virtual_machines[0].datastore_url[0].name == item.provision_vm_disk[0].datastore

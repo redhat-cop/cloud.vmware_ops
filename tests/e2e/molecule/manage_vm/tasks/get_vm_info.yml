@@ -1,5 +1,5 @@
 ---
-- name: Check {{ vm_name }} VM existence
+- name: "Check VM existence: {{ vm_name }}"
   community.vmware.vmware_vm_info:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
@@ -13,6 +13,6 @@
     msg: "Provisioned VM does not exist"
   when: vm_info is not defined or vm_info.failed
 
-- name: print vm_info for {{ vm_name }}
+- name: Print vm_info for {{ vm_name }}
   ansible.builtin.debug:
     var: vm_info

@@ -6,6 +6,6 @@
     provision_vm_state: "absent"
     provision_vm_force: true
 
-- name: Verify that VM {{ item.provision_vm_name }} is absent
+- name: "Verify that the following VM is absent: {{ item.provision_vm_name }}"
   ansible.builtin.include_tasks:
     file: post_validations/verify_vm_post_deprovisioning_test.yml

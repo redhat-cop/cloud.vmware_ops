@@ -5,7 +5,7 @@
   vars:
     vm_name: "{{ vm_update_name }}"
 
-- name: Get network info about {{ vm_update_name }} VM
+- name: "Get network info about '{{ vm_update_name }}' VM"
   community.vmware.vmware_guest_network:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
@@ -15,11 +15,11 @@
     gather_network_info: true
   register: vm_network_info
 
-- name: print vm_network_info for {{ vm_update_name }}
+- name: "Print vm_network_info for '{{ vm_update_name }}'"
   ansible.builtin.debug:
     var: vm_network_info
 
-- name: Validate updated network configuration of {{ vm_update_name }} VM
+- name: "Validate updated network configuration of '{{ vm_update_name }}' VM"
   ansible.builtin.assert:
     that:
       - vm_network_info.network_info[index].name == network.name
@@ -58,7 +58,7 @@
     label: Hard disk 1
   register: disk_info
 
-- name: Validate updated configuration of {{ vm_update_name }} VM
+- name: "Validate updated configuration of '{{ vm_update_name }}' VM"
   ansible.builtin.assert:
     that:
       - vm_info.virtual_machines[0].guest_fullname == guest_fullnames[vm_updated_guest_id]
