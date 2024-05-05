@@ -5,7 +5,7 @@
   vars:
     vm_name: "{{ vm_update_name }}"
 
-- name: Validate that {{ vm_update_name }} VM is in state {{ vm_state }}
+- name: "Validate that VM is in state {{ vm_state }}"
   ansible.builtin.assert:
     that:
       - vm_info.virtual_machines[0].power_state | lower == vm_state

@@ -8,7 +8,7 @@
     vm: '{{ vm_moid }}'
   register: vm_info_updated_name
 
-- name: print vm_info_updated_name for {{ vm_moid }}
+- name: Print vm_info_updated_name for {{ vm_moid }}
   ansible.builtin.debug:
     var: vm_info_updated_name
 

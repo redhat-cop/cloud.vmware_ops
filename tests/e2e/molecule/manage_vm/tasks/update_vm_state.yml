@@ -1,4 +1,4 @@
-- name: Test changing state of existing VM {{ vm_update_name }} to {{ item }}
+- name: "Test changing state of existing VM to: {{ item }}"
   ansible.builtin.import_role:
     name: provision_vm
   vars:

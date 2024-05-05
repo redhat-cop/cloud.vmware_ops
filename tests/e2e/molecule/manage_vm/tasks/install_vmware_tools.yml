@@ -8,7 +8,7 @@
     state: connect
   register: wmware_tools_install
 
-- name: print wmware_tools_install
+- name: Print wmware_tools_install
   ansible.builtin.debug:
     var: wmware_tools_install
 
@@ -21,6 +21,6 @@
     moid: "{{ vm_moid }}"
   register: wait_result
 
-- name: print wait_result
+- name: Print wait_result
   ansible.builtin.debug:
     var: wait_result
