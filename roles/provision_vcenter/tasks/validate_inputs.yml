@@ -15,6 +15,20 @@
     quiet: true
     fail_msg: Variable must be set when using this role.
 
+- name: Check VM Password Is Acceptable
+  ansible.builtin.assert:
+    that:
+      - (provision_vcenter_vm_password | length) > 7
+      - (provision_vcenter_vm_password | length) < 21
+      - provision_vcenter_vm_password | regex_search('[A-Z]+')
+      - provision_vcenter_vm_password | regex_search('[a-z]+')
+      - provision_vcenter_vm_password | regex_search('[0-9]+')
+      - provision_vcenter_vm_password | regex_search('[^A-Za-z0-9]+')
+    quiet: true
+    fail_msg: >-
+      provision_vcenter_vm_password must have at least one uppercase, one lowercase,
+      one number, and one special character.
+
 - name: Check Static Network Inputs
   ansible.builtin.assert:
     that:
