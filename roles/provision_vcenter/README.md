@@ -43,7 +43,7 @@ pyvomi
   - str, The local path to the vCenter ISO. Required if the VM does not already exist.
 
 - **provision_vcenter_iso_mount_point**:
-  - str, The local path that should be used as a mount point for the vCenter ISO. It will be created if it doesn't exist. Default is `/mnt/vcenter_iso`
+  - str, The local path that should be used as a mount point for the vCenter ISO. It will be created if it doesn't exist. Default is `/tmp/vcenter_iso`
 
 ### VCSA VM
 - **provision_vcenter_vm_name**:
