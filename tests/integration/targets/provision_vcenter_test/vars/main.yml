@@ -1,7 +1,7 @@
 ---
 provision_vcenter_hostname: "127.0.0.1"
 provision_vcenter_username: "test"
-provision_vcenter_password: "test"
+provision_vcenter_password: "testPass123!"
 provision_vcenter_validate_certs: false
 provision_vcenter_port: "8989"
 provision_vcenter_vm_name: "vcenter-test"
