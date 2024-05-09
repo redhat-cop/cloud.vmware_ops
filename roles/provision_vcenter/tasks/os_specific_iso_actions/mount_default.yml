@@ -1,0 +1,9 @@
+---
+- name: Mount vCSA ISO as Read-Only
+  ansible.posix.mount:
+    path: "{{ provision_vcenter_iso_mount_point }}"
+    src: "{{ provision_vcenter_iso_path }}"
+    fstype: iso9660
+    opts: ro,noauto
+    state: ephemeral
+  become: true

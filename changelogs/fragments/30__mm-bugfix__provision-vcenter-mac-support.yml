@@ -1,0 +1,6 @@
+---
+minor_changes:
+  - >-
+    provision_vcenter - When running the playbook on MacOS, the `iso9660` file system is not supported. Instead, Macs
+    need to mount the ISO as a block device and then mount it as `cd9660`. Added new tasks to perform these actions
+    when the os family is darwin
