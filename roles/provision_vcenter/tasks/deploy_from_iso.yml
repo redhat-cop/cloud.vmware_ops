@@ -16,11 +16,11 @@
     - name: Mount vCSA ISO as Read-Only
       ansible.builtin.include_tasks: "{{ item }}"
       with_first_found:
-        files:
-          - mount_{{ ansible_os_family }}.yml
-          - mount_default.yml
-        paths:
-          - os_specific_iso_actions
+        - files:
+            - mount_{{ ansible_os_family }}.yml
+            - mount_default.yml
+          paths:
+            - os_specific_iso_actions
     - name: Deploy vCSA With Local Log Written To /tmp/vcsa.log
       ansible.builtin.shell: >-
         ./vcsa-deploy install -v --accept-eula --no-ssl-certificate-verification
@@ -35,8 +35,8 @@
     - name: Unmount vCSA ISO
       ansible.builtin.include_tasks: "{{ item }}"
       with_first_found:
-        files:
-          - unmount_{{ ansible_os_family }}.yml
-          - unmount_default.yml
-        paths:
-          - os_specific_iso_actions
+        - files:
+            - unmount_{{ ansible_os_family }}.yml
+            - unmount_default.yml
+          paths:
+            - os_specific_iso_actions
