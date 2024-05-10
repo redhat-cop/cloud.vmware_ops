@@ -22,5 +22,4 @@ build_ignore:
 dependencies: {
   "vmware.vmware_rest": ">=2.3.1",
   "community.vmware": ">=4.2.0",
-  "kubernetes.core": ">=3.0.1",
 }
