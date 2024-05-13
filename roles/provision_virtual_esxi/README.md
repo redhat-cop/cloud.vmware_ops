@@ -105,7 +105,7 @@ pyvomi
           - name: esxi-3
             memory_mb: 24000
             cpus: 12
-        provision_virtual_esxi_iso_path: "[nfs-datastore-iso] esxi_8.iso"
+        provision_virtual_esxi_datastore_iso_path: "[nfs-datastore-iso] esxi_8.iso"
 ```
 
 License
