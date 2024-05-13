@@ -7,7 +7,7 @@ provision_virtual_esxi_port: 8989
 provision_virtual_esxi_cluster: "DC0_C0"
 provision_virtual_esxi_folder: "/DC0/vm"
 provision_virtual_esxi_datacenter: "DC0"
-provision_virtual_esxi_iso_path: ""
+provision_virtual_esxi_datastore_iso_path: ""
 provision_virtual_esxi_vms:
   - name: esxi-1
   - name: esxi-2
