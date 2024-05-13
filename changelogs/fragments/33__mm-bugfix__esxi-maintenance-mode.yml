@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - esxi_maintenance_mode - Fixed typo in the vmware_maintenancemode module's `evacuate`` attribute
