@@ -34,7 +34,7 @@
     - name: Check VM Mandatory Variables Are Defined
       ansible.builtin.assert:
         that:
-          - provision_virtual_esxi_iso_path is defined
+          - provision_virtual_esxi_datastore_iso_path is defined
         quiet: true
         fail_msg: Variable must be set when using this role.
     - name: Deploy New ESXi Hosts

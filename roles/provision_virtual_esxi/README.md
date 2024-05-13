@@ -9,6 +9,9 @@ pyvomi
 ## Role Variables
 
 ### Auth
+- **provision_virtual_esxi_hostname**:
+  - str, The name of the esxi or vcenter on which you want to deploy the vm. Required.
+
 - **provision_virtual_esxi_username**:
   - str, The username to use to authenticate to the esxi or vcenter on which you want to deploy the vm. Required.
 
@@ -63,6 +66,11 @@ pyvomi
 - **provision_virtual_esxi_cpus**:
   - int, The number of vCPUs to assign to this VM.
   - Default is 4
+
+- **provision_virtual_esxi_boot_firmware**:
+  - str, The type of boot firmware that the VM should be configured to use. 'bios' or 'uefi'
+  - Default value is 'bios'
+
 
 ## Dependencies
 
