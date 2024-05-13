@@ -20,7 +20,7 @@
     proxy_host: "{{ esxi_maintenance_mode_proxy_host | default(omit) }}"
     proxy_port: "{{ esxi_maintenance_mode_proxy_port | default(omit) }}"
     esxi_hostname: "{{ esxi_maintenance_mode_esxi_hostname }}"
-    evactuate: "{{ esxi_maintenance_mode_evacuate | default(omit) }}"
+    evacuate: "{{ esxi_maintenance_mode_evacuate | default(omit) }}"
     state: "{{ esxi_maintenance_mode_enable | ternary('present', 'absent') }}"
     timeout: "{{ esxi_maintenance_mode_timeout | default(omit) }}"
     vsan: "{{ esxi_maintenance_mode_vsan | default(omit) }}"
