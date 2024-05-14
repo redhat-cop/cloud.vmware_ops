@@ -7,6 +7,11 @@
     validate_certs: "{{ info_validate_certs }}"
   register: __storage_policy
 
+- name: Make sure directory exists
+  ansible.builtin.file:  # noqa: risky-file-permissions
+    path: "{{ info_storage_file | dirname }}"
+    state: "directory"
+
 - name: Create JSON file from fetched data
   ansible.builtin.copy:
     content: "{{ __storage_policy.spbm_profiles | to_json }}"
