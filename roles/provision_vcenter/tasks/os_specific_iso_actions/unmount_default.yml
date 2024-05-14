@@ -1,0 +1,6 @@
+---
+- name: Unmount vCSA ISO
+  ansible.posix.mount:
+    path: "{{ provision_vcenter_iso_mount_point }}"
+    state: unmounted
+  become: true

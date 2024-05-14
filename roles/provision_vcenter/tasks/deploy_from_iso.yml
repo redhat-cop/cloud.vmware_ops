@@ -1,4 +1,10 @@
 ---
+- name: Gather Required OS Facts
+  ansible.builtin.setup:
+    gather_subset:
+      - system
+  when: ansible_os_family is not defined
+
 - name: Template Installer Config JSON
   ansible.builtin.template:
     src: vcsa_deployment_config.json.j2
@@ -8,13 +14,13 @@
 - name: Install from ISO
   block:
     - name: Mount vCSA ISO as Read-Only
-      ansible.posix.mount:
-        path: "{{ provision_vcenter_iso_mount_point }}"
-        src: "{{ provision_vcenter_iso_path }}"
-        fstype: iso9660
-        opts: ro,noauto
-        state: ephemeral
-      become: true
+      ansible.builtin.include_tasks: "{{ item }}"
+      with_first_found:
+        - files:
+            - mount_{{ ansible_os_family | lower }}.yml
+            - mount_default.yml
+          paths:
+            - os_specific_iso_actions
     - name: Deploy vCSA With Local Log Written To /tmp/vcsa.log
       ansible.builtin.shell: >-
         ./vcsa-deploy install -v --accept-eula --no-ssl-certificate-verification
@@ -27,7 +33,10 @@
         path: /tmp/vcsa_deployment_config.json
         state: absent
     - name: Unmount vCSA ISO
-      ansible.posix.mount:
-        path: "{{ provision_vcenter_iso_mount_point }}"
-        state: unmounted
-      become: true
+      ansible.builtin.include_tasks: "{{ item }}"
+      with_first_found:
+        - files:
+            - unmount_{{ ansible_os_family | lower }}.yml
+            - unmount_default.yml
+          paths:
+            - os_specific_iso_actions

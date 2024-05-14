@@ -1,0 +1,14 @@
+---
+- name: Attach vCSA ISO As Block Device
+  ansible.builtin.command:
+    cmd: "hdiutil attach -nomount {{ provision_vcenter_iso_path }}"
+  register: _attach_iso
+
+- name: Mount vCSA ISO Block Device
+  ansible.posix.mount:
+    src: "{{ _attach_iso.stdout_lines[0] | split(' ') | first }}"
+    path: "{{ provision_vcenter_iso_mount_point }}"
+    fstype: cd9660
+    opts: ro,noauto
+    state: ephemeral
+  become: true
