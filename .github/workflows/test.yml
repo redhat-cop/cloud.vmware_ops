@@ -12,7 +12,7 @@ permissions:
   contents: read
 jobs:
   ansible_integration_test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, X64]
     steps:
       - name: Update pip, git
         run: |
@@ -29,3 +29,7 @@ jobs:
         run: |
           make integration
         working-directory: ansible_collections/cloud/vmware_ops
+        env:
+          vcenter_hostname: ${{ secrets.vcenter_hostname }}
+          vcenter_username: ${{ secrets.vcenter_username }}
+          vcenter_password: ${{ secrets.vcenter_password }}

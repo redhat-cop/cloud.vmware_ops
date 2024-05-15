@@ -4,14 +4,62 @@
     - community.general
 
   tasks:
-    - name: Vcsim
-      ansible.builtin.import_role:
-        name: prepare_soap
+    # - name: Vcsim
+    #   ansible.builtin.import_role:
+    #     name: prepare_soap
 
-    - name: ESXi
-      ansible.builtin.import_role:
-        name: prepare_esx
+    # - name: ESXi
+    #   ansible.builtin.import_role:
+    #     name: prepare_esx
+    - name: Import vars
+      ansible.builtin.include_vars:
+        file: ../vars/main.yml
+
+    # - name: Add VM Network Portgroup
+    #   community.vmware.vmware_portgroup:
+    #     hostname: "{{ vcenter_host_connection_hostname }}"
+    #     username: "{{ vcenter_host_connection_username }}"
+    #     password: "{{ vcenter_host_connection_password }}"
+    #     cluster: "{{ vcenter_host_connection_cluster }}"
+    #     validate_certs: "{{ vcenter_host_connection_validate_certs }}"
+    #     switch: vSwitch0
+    #     portgroup: "{{ network_name }}"
+    #     security:
+    #       forged_transmits: true
+    #       promiscuous_mode: true
+
+    # - name: Add Resource Pool
+    #   community.vmware.vmware_resource_pool:
+    #     hostname: "{{ vcenter_host_connection_hostname }}"
+    #     username: "{{ vcenter_host_connection_username }}"
+    #     password: "{{ vcenter_host_connection_password }}"
+    #     datacenter: "{{ vcenter_host_connection_datacenter }}"
+    #     cluster: "{{ vcenter_host_connection_cluster }}"
+    #     validate_certs: "{{ vcenter_host_connection_validate_certs }}"
+    #     resource_pool: "{{ resource_pool_name }}"
+    #     state: present
+
+    # - name: Deploy virtual Esxi
+    #   ansible.builtin.import_role:
+    #     name: cloud.vmware_ops.provision_virtual_esxi
+
+    - name: Get ESXi Instance Info
+      community.vmware.vmware_guest_info:
+        hostname: "{{ vcenter_host_connection_hostname }}"
+        username: "{{ vcenter_host_connection_username }}"
+        password: "{{ vcenter_host_connection_password }}"
+        datacenter: "{{ vcenter_host_connection_datacenter }}"
+        validate_certs: "{{ vcenter_host_connection_validate_certs }}"
+        name: "{{ _esxi_name }}"
+      loop: "{{ provision_virtual_esxi_vms | map(attribute='name') }}"
+      loop_control:
+        loop_var: _esxi_name
+      register: _esxi_info
+      tags: [config_nested, deploy_vc]
 
     - name: Import vcenter_host_connection_test
-      ansible.builtin.import_role:
+      ansible.builtin.include_role:
         name: vcenter_host_connection_test
+      loop: "{{ _esxi_info.results | map(attribute='instance') | map(attribute='ipv4') }}"
+      vars:
+        vcenter_host_connection_esxi_hostname: "{{ item }}"

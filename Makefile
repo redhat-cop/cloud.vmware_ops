@@ -11,7 +11,7 @@ install-ansible-collections:
 
 .PHONY: integration
 integration: install-python-packages install-ansible-collections
-	ansible-test integration --no-temp-workdir
+	ansible-test integration --no-temp-workdir --start-at vcenter_host_connection_test
 
 .PHONY: ee-clean
 ee-clean:

@@ -1,12 +1,35 @@
 ---
-vcenter_host_connection_hostname: "127.0.0.1"
-vcenter_host_connection_username: "test"
-vcenter_host_connection_password: "test"
+vcenter_host_connection_hostname: "{{ vcenter_hostname }}"
+vcenter_host_connection_username: "{{ vcenter_username }}"
+vcenter_host_connection_password: "{{ vcenter_password }}"
 vcenter_host_connection_validate_certs: false
-vcenter_host_connection_port: 8989
-vcenter_host_connection_cluster: "DC0_C0"
-vcenter_host_connection_datacenter: "DC0"
+# vcenter_host_connection_port: 8989
+vcenter_host_connection_cluster: "Eco-Cluster"
+vcenter_host_connection_datacenter: "Eco-Datacenter"
+resource_pool_name: "smiron-pool"
+network_name: "TestNetwork"
 
-vcenter_host_connection_esxi_hostname: "127.0.0.1"
-vcenter_host_connection_esxi_username: test
-vcenter_host_connection_esxi_password: test
+# vcenter_host_connection_esxi_hostname: "{{ item }}"
+vcenter_host_connection_esxi_username: root
+vcenter_host_connection_esxi_password: ecoadmin12345!
+
+provision_virtual_esxi_hostname: "{{ vcenter_host_connection_hostname }}"
+provision_virtual_esxi_username: "{{ vcenter_host_connection_username }}"
+provision_virtual_esxi_password: "{{ vcenter_host_connection_password }}"
+provision_virtual_esxi_validate_certs: false
+provision_virtual_esxi_datacenter: "{{ vcenter_host_connection_datacenter }}"
+provision_virtual_esxi_folder: ""
+provision_virtual_esxi_vms:
+  - name: esxi-1
+provision_virtual_esxi_resource_pool: "{{ resource_pool_name }}"
+provision_virtual_esxi_networks:
+    - name: "{{ network_name }}"
+      device_type: "vmxnet3"
+      type: "dhcp"
+provision_virtual_esxi_disks:
+    - size_gb: 100
+      type: thin
+      datastore: datastore3
+provision_virtual_esxi_memory_mb: 18000
+provision_virtual_esxi_cpus: 6
+provision_virtual_esxi_datastore_iso_path: "[eco-nfs-datastore-iso] esxi_8.iso"
