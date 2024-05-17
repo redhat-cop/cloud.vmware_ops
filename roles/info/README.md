@@ -21,6 +21,9 @@ N/A
   - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
 
 ### Appliance
+- **info_appliance**
+  - Define whether appliance information should be gathered. Default is `false`.
+
 - **info_appliance_gather**
   - Define the sections of the appliance to gather. By default we gather all appliance information.
 
@@ -28,20 +31,32 @@ N/A
   - File where to store the gathered data. Default is `/tmp/appliance-{random}`
 
 ### License
+- **info_license**
+  - Define whether license information should be gathered. Default is `false`.
+
 - **info_license_file**
-  - File where to store the gathered data. Default is `/tmp/appliance-{random}`
+  - File where to store the gathered data. Default is `/tmp/license-{random}`
 
 ### Cluster
+- **info_cluster**
+  - Define whether cluster information should be gathered. Default is `false`.
+
 - **info_cluster_file**
-  - File where to store the gathered data. Default is `/tmp/appliance-{random}`
+  - File where to store the gathered data. Default is `/tmp/cluster-{random}`
 
 ### Storage
+- **info_storage**
+  - Define whether storage information should be gathered. Default is `false`.
+
 - **info_storage_file**
-  - File where to store the gathered data. Default is `/tmp/appliance-{random}`
+  - File where to store the gathered data. Default is `/tmp/storage-{random}`
 
 ### Guest
+- **info_guest**
+  - Define whether guest information should be gathered. Default is `false`.
+
 - **info_guest_file**
-  - File where to store the gathered data. Default is `/tmp/appliance-{random}`
+  - File where to store the gathered data. Default is `/tmp/guest-{random}`
 
 ## Dependencies
 
