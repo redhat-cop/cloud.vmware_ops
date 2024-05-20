@@ -1,13 +1,4 @@
 ---
-# We ignore unmount errors so the detach command is run no matter what. This prevents
-# the device from being left attached if the mount command was the one that failed.
-- name: Cleanup vCSA ISO Mount
-  block:
-    - name: Unmount vCSA Block Device
-      ansible.posix.mount:
-        path: "{{ provision_vcenter_iso_mount_point }}"
-        state: unmounted
-      become: true
-  always:
-    - name: Detach vCSA ISO Block Device
-      ansible.builtin.command: "hdiutil detach {{ _attach_iso.stdout_lines[0] | split(' ') | first }}"
+- name: Detach vCSA ISO
+  ansible.builtin.command: "hdiutil detach {{ _attach_iso.stdout_lines[0] | split(' ') | first }}"
+  become: true
