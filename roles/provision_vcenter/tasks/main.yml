@@ -22,8 +22,28 @@
     _vcenter_lookup.msg is not match("Unable to gather information for non-existing VM .*")
 
 - name: Create Instance From ISO
-  ansible.builtin.include_tasks: deploy_from_iso.yml
   when: _vcenter_lookup.instance is not defined or not _vcenter_lookup.instance
+  block:
+    - name: Gather Required OS Facts
+      ansible.builtin.setup:
+        gather_subset:
+          - system
+      when: ansible_os_family is not defined
+    - name: Create Instance From ISO
+      ansible.builtin.include_tasks: deploy_from_iso.yml
+  always:
+    - name: Remove The Installer Config JSON
+      ansible.builtin.file:
+        path: /tmp/vcsa_deployment_config.json
+        state: absent
+    - name: Unmount vCSA ISO
+      ansible.builtin.include_tasks: "{{ item }}"
+      with_first_found:
+        - files:
+            - unmount_{{ ansible_os_family | lower }}.yml
+            - unmount_default.yml
+          paths:
+            - os_specific_iso_actions
 
 - name: Make Sure VCenter Appliance Is Powered On
   community.vmware.vmware_guest_powerstate:

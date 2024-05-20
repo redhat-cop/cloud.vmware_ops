@@ -1,0 +1,3 @@
+provision_vcenter_vcsa_iso_bin_dir:
+  darwin: "{{ provision_vcenter_iso_mount_point }}/VMware VCSA/vcsa-cli-installer/mac"
+  default: "{{ provision_vcenter_iso_mount_point }}/vcsa-cli-installer/lin64"
