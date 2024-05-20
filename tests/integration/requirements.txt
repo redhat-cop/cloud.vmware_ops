@@ -1,3 +1,4 @@
+aiohttp
 pyVim
 podman
 requests
@@ -6,4 +7,4 @@ ansible-core
 
 # see the cluster_settings role README.md for an explanation on the <7.0.3 restriction
 pyVmomi>=6.7,<7.0.3
-
+git+https://github.com/vmware/vsphere-automation-sdk-python.git

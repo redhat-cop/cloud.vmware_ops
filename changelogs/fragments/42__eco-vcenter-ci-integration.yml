@@ -1,0 +1,4 @@
+---
+minor_changes:
+  - info_test - adding a CI for validated content repo to run on a real vcenter env,
+    and include this test within the pr
