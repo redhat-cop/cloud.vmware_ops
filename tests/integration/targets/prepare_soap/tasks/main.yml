@@ -4,11 +4,11 @@
     name:
       - requests
       - pyVmomi
+      - git+https://github.com/vmware/vsphere-automation-sdk-python.git
 
 - name: Run soap vcSim
   containers.podman.podman_container:
     name: vmwaresoap
-
     image: docker.io/vmware/vcsim:latest
     state: started
     recreate: yes

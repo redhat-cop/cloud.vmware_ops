@@ -1,3 +1,11 @@
-*       @bardielle
-*       @machacekondra
-*       @mikemorency
+# Default code owners for all files and directories
+*       @bardielle @machacekondra @mikemorency
+
+# Integration tests permissions
+/tests/integration/ @shellymiron @elsapassaro
+
+# Specific workflow file permissions
+.github/workflows/eco-vcenter-ci.yaml @shellymiron @elsapassaro
+
+# Scripts directory permissions
+/scripts/ @shellymiron @elsapassaro
