@@ -52,6 +52,7 @@ N/A
 - **snapshot_management_vm_name**:
   - Name of the virtual machine to work with.
   - This is required parameter, if C(uuid) or C(moid) is not supplied.
+  - This parameter required together with C(snapshot_management_folder).
 
 - **snapshot_management_vm_name_match**: 
   - If multiple VMs matching the name, use the first or last found.
@@ -72,7 +73,7 @@ N/A
 
 - **snapshot_management_folder**: 
   - Destination folder, absolute or relative path to find an existing guest.
-  - This is required parameter, if C(name) is supplied.
+  - This parameter required together with C(snapshot_management_vm_name).
   - The folder should include the datacenter. ESX's datacenter is ha-datacenter.
   - 'Examples:'
     - '   folder: /ha-datacenter/vm'
