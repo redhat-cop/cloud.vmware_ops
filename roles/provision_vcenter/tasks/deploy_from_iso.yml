@@ -14,6 +14,14 @@
     dest: /tmp/vcsa_deployment_config.json
     mode: "0600"
 
+# library libnsl is required but no longer included on
+# rhel 8+
+- name: Install Required Libraries For OVFTool
+  ansible.builtin.package:
+    name: libnsl
+    state: present
+  when: ansible_os_family == 'RedHat'
+
 - name: Deploy vCSA With Local Log Written To /tmp/vcsa.log
   ansible.builtin.shell: >-
     ./vcsa-deploy install -v --accept-eula --no-ssl-certificate-verification
