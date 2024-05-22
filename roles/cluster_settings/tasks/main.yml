@@ -88,15 +88,6 @@
     pdl_response: "{{ cluster_settings_ha_pdl_response | default(omit) }}"
   when: cluster_settings_ha_enable is defined
 
-- name: Command
-  ansible.builtin.shell: pip freeze
-  register: _o
-  changed_when: False
-
-- name: Debug
-  debug:
-    var: _o.stdout
-
 - name: Configure vCLS Datastore Settings
   community.vmware.vmware_cluster_vcls:
     hostname: "{{ cluster_settings_hostname }}"
