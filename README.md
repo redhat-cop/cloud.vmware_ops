@@ -37,7 +37,7 @@ Name | Description
 
 ### Requirements
 
-The [community.vmware](https://github.com/ansible-collections/community.vmware) (>4.3.0), [vmware.vmware_rest](https://github.com/ansible-collections/vmware.vmware_rest), [vmware.vmware](https://github.com/ansible-collections/vmware.vmware) and [community.general](https://github.com/ansible-collections/community.general) collections MUST be installed in order for this collection to work.
+The [community.vmware](https://github.com/ansible-collections/community.vmware) (>=4.4.0), [vmware.vmware_rest](https://github.com/ansible-collections/vmware.vmware_rest), [vmware.vmware](https://github.com/ansible-collections/vmware.vmware) and [community.general](https://github.com/ansible-collections/community.general) collections MUST be installed in order for this collection to work.
 
 ### Installation
 
