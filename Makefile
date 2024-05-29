@@ -7,7 +7,7 @@ install-python-packages:
 
 .PHONY: install-ansible-collections
 install-ansible-collections:
-	ansible-galaxy collection install -r tests/integration/requirements.yml
+	ansible-galaxy collection install --upgrade -r tests/integration/requirements.yml
 
 .PHONY: integration
 integration: install-python-packages install-ansible-collections

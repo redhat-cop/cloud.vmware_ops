@@ -1,0 +1,27 @@
+---
+cluster_settings_hostname: "127.0.0.1"
+cluster_settings_username: "test"
+cluster_settings_password: "test"
+cluster_settings_validate_certs: false
+cluster_settings_port: "8989"
+cluster_settings_cluster_name: "DC0_C0"
+cluster_settings_datacenter_name: "DC0"
+
+# DPM
+cluster_settings_dpm_enable: True
+
+# DRS
+cluster_settings_drs_enable: True
+cluster_settings_drs_apply_recommendations: True
+
+# HA
+cluster_settings_ha_enable: True
+
+# vCLS
+cluster_settings_vcls_allowed_datastores:
+  - LocalDS_0
+#
+# Disabled vSAN tests because they require an SDK
+# from VMWare that is not publically accessible
+# vSAN
+# cluster_settings_vsan_enable: False

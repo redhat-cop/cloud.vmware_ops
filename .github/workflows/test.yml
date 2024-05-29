@@ -1,6 +1,6 @@
 ---
 name: Ansible Integration Test
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   pull_request:
   merge_group:
     branches:
@@ -27,5 +27,9 @@ jobs:
 
       - name: Run
         run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
           make integration
         working-directory: ansible_collections/cloud/vmware_ops
+        env:
+          ANSIBLE_COLLECTIONS_PATH: "${{ github.workspace }}"

@@ -8,6 +8,6 @@ dependencies:
   system:
     - python3-aiohttp [platform:rpm]
   python:
-    - pyvmomi
+    - pyvmomi<7.0.3
   ansible_core:
     package_pip: ansible-core==2.13.13

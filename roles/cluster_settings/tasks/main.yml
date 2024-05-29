@@ -1,0 +1,119 @@
+---
+- name: Check Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - cluster_settings_datacenter_name is defined
+      - cluster_settings_cluster_name is defined
+      - cluster_settings_hostname is defined
+      - cluster_settings_username is defined
+      - cluster_settings_password is defined
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Configure DPM Settings
+  community.vmware.vmware_cluster_dpm:
+    hostname: "{{ cluster_settings_hostname }}"
+    username: "{{ cluster_settings_username }}"
+    password: "{{ cluster_settings_password }}"
+    validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
+    port: "{{ cluster_settings_port | default(omit) }}"
+    proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
+    proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
+    datacenter_name: "{{ cluster_settings_datacenter_name }}"
+    cluster_name: "{{ cluster_settings_cluster_name }}"
+    enable_dpm: "{{ cluster_settings_dpm_enable | bool }}"
+    default_dpm_behaviour: "{{ cluster_settings_dpm_default_behavior | default(omit) }}"
+    host_power_action_rate: "{{ cluster_settings_dpm_host_power_action_rate | default(omit) }}"
+  when: cluster_settings_dpm_enable is defined
+
+- name: Configure DRS Settings
+  community.vmware.vmware_cluster_drs:
+    hostname: "{{ cluster_settings_hostname }}"
+    username: "{{ cluster_settings_username }}"
+    password: "{{ cluster_settings_password }}"
+    validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
+    port: "{{ cluster_settings_port | default(omit) }}"
+    proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
+    proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
+    datacenter_name: "{{ cluster_settings_datacenter_name }}"
+    cluster_name: "{{ cluster_settings_cluster_name }}"
+    enable: "{{ cluster_settings_drs_enable | bool }}"
+    drs_enable_vm_behavior_overrides: "{{ cluster_settings_drs_enable_vm_behavior_overrides | default(omit) }}"
+    drs_default_vm_behavior: "{{ cluster_settings_drs_enable_vm_behavior | default(omit) }}"
+    drs_vmotion_rate: "{{ cluster_settings_drs_vmotion_rate | default(omit) }}"
+    advanced_settings: "{{ cluster_settings_drs_advanced_settings | default(omit) }}"
+    predictive_drs: "{{ cluster_settings_drs_predictive | default(omit) }}"
+  when: cluster_settings_drs_enable is defined
+
+- name: Apply DRS Recommendations for Cluster
+  community.vmware.vmware_cluster:
+    hostname: "{{ cluster_settings_hostname }}"
+    username: "{{ cluster_settings_username }}"
+    password: "{{ cluster_settings_password }}"
+    validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
+    port: "{{ cluster_settings_port | default(omit) }}"
+    proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
+    proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
+    datacenter_name: "{{ cluster_settings_datacenter_name }}"
+    cluster_name: "{{ cluster_settings_cluster_name }}"
+  when: cluster_settings_drs_apply_recommendations
+
+- name: Configure Cluster HA Settings
+  community.vmware.vmware_cluster_ha:
+    hostname: "{{ cluster_settings_hostname }}"
+    username: "{{ cluster_settings_username }}"
+    password: "{{ cluster_settings_password }}"
+    validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
+    port: "{{ cluster_settings_port | default(omit) }}"
+    proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
+    proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
+    datacenter_name: "{{ cluster_settings_datacenter_name }}"
+    cluster_name: "{{ cluster_settings_cluster_name }}"
+    enable: "{{ cluster_settings_ha_enable }}"
+    ha_host_monitoring: "{{ cluster_settings_ha_host_monitoring | default(omit) }}"
+    ha_vm_monitoring: "{{ cluster_settings_ha_vm_monitoring | default(omit) }}"
+    host_isolation_response: "{{ cluster_settings_ha_host_isolation_response | default(omit) }}"
+    slot_based_admission_control: "{{ cluster_settings_ha_slot_based_admission_control | default(omit) }}"
+    reservation_based_admission_control: "{{ cluster_settings_ha_reservation_based_admission_control | default(omit) }}"
+    failover_host_admission_control: "{{ cluster_settings_ha_failover_host_admission_control | default(omit) }}"
+    ha_vm_failure_interval: "{{ cluster_settings_ha_vm_failure_interval | default(omit) }}"
+    ha_vm_min_up_time: "{{ cluster_settings_ha_vm_min_up_time | default(omit) }}"
+    ha_vm_max_failures: "{{ cluster_settings_ha_vm_max_failures | default(omit) }}"
+    ha_vm_max_failure_window: "{{ cluster_settings_ha_vm_max_failure_window | default(omit) }}"
+    ha_restart_priority: "{{ cluster_settings_ha_restart_priority | default(omit) }}"
+    advanced_settings: "{{ cluster_settings_ha_advanced_settings | default(omit) }}"
+    apd_response: "{{ cluster_settings_ha_apd_response | default(omit) }}"
+    apd_delay: "{{ cluster_settings_ha_apd_delay | default(omit) }}"
+    apd_reaction: "{{ cluster_settings_ha_apd_reaction | default(omit) }}"
+    pdl_response: "{{ cluster_settings_ha_pdl_response | default(omit) }}"
+  when: cluster_settings_ha_enable is defined
+
+- name: Configure vCLS Datastore Settings
+  community.vmware.vmware_cluster_vcls:
+    hostname: "{{ cluster_settings_hostname }}"
+    username: "{{ cluster_settings_username }}"
+    password: "{{ cluster_settings_password }}"
+    validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
+    port: "{{ cluster_settings_port | default(omit) }}"
+    proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
+    proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
+    datacenter_name: "{{ cluster_settings_datacenter_name }}"
+    cluster_name: "{{ cluster_settings_cluster_name }}"
+    allowed_datastores: "{{ cluster_settings_vcls_allowed_datastores }}"
+  when: cluster_settings_vcls_allowed_datastores is defined
+
+- name: Configure vSAN Settings
+  community.vmware.vmware_cluster_vsan:
+    hostname: "{{ cluster_settings_hostname }}"
+    username: "{{ cluster_settings_username }}"
+    password: "{{ cluster_settings_password }}"
+    validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
+    port: "{{ cluster_settings_port | default(omit) }}"
+    proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
+    proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
+    datacenter_name: "{{ cluster_settings_datacenter_name }}"
+    cluster_name: "{{ cluster_settings_cluster_name }}"
+    enable: "{{ cluster_settings_vsan_enable }}"
+    vsan_auto_claim_storage: "{{ cluster_settings_vsan_auto_claim_storage | default(omit) }}"
+    advanced_options: "{{ cluster_settings_vsan_advanced_options | default(omit) }}"
+  when: cluster_settings_vsan_enable is defined

@@ -1,0 +1,7 @@
+---
+- name: Manage VMware Cluster Settings
+  hosts: localhost
+  gather_facts: false
+
+  roles:
+    - role: cloud.vmware_ops.cluster_settings
