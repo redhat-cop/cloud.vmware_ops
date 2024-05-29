@@ -1,0 +1,8 @@
+---
+- name: Disable High Availability Mode On A Cluster
+  hosts: localhost
+  gather_facts: false
+
+  roles:
+    - role: cloud.vmware_ops.cluster_settings
+      cluster_settings_ha_enable: false
