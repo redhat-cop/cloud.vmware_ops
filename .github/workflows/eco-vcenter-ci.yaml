@@ -18,7 +18,9 @@ permissions:
 jobs:
   ansible_integration_test:
     runs-on: ["self-hosted", linux, X64]
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/run-integration-on-vcenter'}}
+    if: ${{ github.event_name == 'issue_comment' && 
+         github.event.issue.pull_request && 
+         github.event.comment.body == '/run-integration-on-vcenter'}}
     steps:
       - name: Update pip, git
         if: runner.os == 'Linux' && startsWith(runner.name, 'ubuntu')
