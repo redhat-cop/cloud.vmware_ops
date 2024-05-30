@@ -7,8 +7,14 @@ on:
   pull_request:
     branches:
       - '**'
+  push:
+    branches:
+      - '**'
 permissions:
   contents: read
+  issues: write
+  pull-requests: write
+  checks: write
 jobs:
   ansible_integration_test:
     runs-on: ["self-hosted", linux, X64]
