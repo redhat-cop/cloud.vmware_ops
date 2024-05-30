@@ -1,6 +1,7 @@
 ---
 name: Ansible Eco vCenter Integration Test
 on:
+  workflow_dispatch:
   issue_comment:
     types: [created]
   pull_request:
@@ -21,8 +22,6 @@ jobs:
          github.event.issue.pull_request && 
          github.event.comment.body == '/run-integration-on-vcenter'}}
     steps:
-      - name: Print event payload
-        run: echo "${{ toJson(github.event) }}"
       - name: Update pip, git
         if: runner.os == 'Linux' && startsWith(runner.name, 'ubuntu')
         run: |
