@@ -1,7 +1,6 @@
 ---
 name: Ansible Eco vCenter Integration Test
 on:
-  workflow_dispatch:
   issue_comment:
     types: [created]
   pull_request:
