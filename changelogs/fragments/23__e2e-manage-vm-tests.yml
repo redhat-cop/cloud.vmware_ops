@@ -1,4 +1,3 @@
----
-major_changes:
-  - manage_vm - adding manage vm e2e tests using molecule testing framwork.
+trivial:
+  - manage_vm - adding manage vm e2e tests using molecule testing framework.
     this includes tests for update, delete and adding a vm to the vcenter and validates the outcome of the changes.
