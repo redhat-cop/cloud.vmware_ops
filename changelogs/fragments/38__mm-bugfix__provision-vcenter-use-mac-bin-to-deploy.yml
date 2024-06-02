@@ -1,6 +1,0 @@
----
-minor_changes:
-  - provision_vcenter - Use OS specific binary when deploying the VCSA appliance (mac vs generic linux) instead of always using linux
-  - >-
-    provision_vcenter - Only use hdiutil to mount ISO on mac instead of hdiutil + mount. The new approach provides more consistent results
-    when reading the ISO content as a file system

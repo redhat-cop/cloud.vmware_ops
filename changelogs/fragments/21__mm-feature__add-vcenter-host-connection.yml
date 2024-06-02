@@ -1,3 +1,0 @@
----
-minor_changes:
-  - vcenter_host_connection - Added role to manage the connection status of an ESXI host to a vcenter. Included integration tests for the role

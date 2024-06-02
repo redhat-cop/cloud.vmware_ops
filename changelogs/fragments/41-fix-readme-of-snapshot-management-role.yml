@@ -1,4 +1,0 @@
----
-minor_changes:
-  - Fix the README file of snapshot_management role to be more clear about the parameters `snapshot_management_folder`
-    and  `snapshot_management_vm_name`

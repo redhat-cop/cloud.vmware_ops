@@ -1,6 +1,0 @@
----
-bugfixes:
-  - provision_virtual_esxi - Added missing variable documentation
-  - >-
-    provision_virtual_esxi - Role had redundant variable `provision_virtual_esxi_iso_path` that was left from a name refactor.
-    It was updated to match the new name. The new variable name `provision_virtual_esxi_datastore_iso_path` is already mandatory

@@ -1,8 +1,0 @@
----
-minor_changes:
-  - esxi_maintenance_mode - Added new role for setting an ESXi host's maintenance mode status. Added integration tests for role
-  - add_esxi_host_to_vcenter - Added new playbook to add an ESXi host to a vCenter
-  - disable_maintenance_mode - Added new playbook to disable maintenance mode on an ESXi host
-  - enable_maintenance_mode - Added new playbook to enable maintenance mode on an ESXi host
-  - reconnect_esxi_host_in_vcenter - Added new playbook to reconnect an ESXi host in a vCenter
-  - remove_esxi_host_from_vcenter - Added new playbook to remove an ESXi host from a vCenter
