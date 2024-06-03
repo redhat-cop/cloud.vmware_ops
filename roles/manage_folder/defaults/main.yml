@@ -1,0 +1,4 @@
+---
+manage_folder_state: present
+manage_folder_parent_folder: ""
+manage_folder_parse_name_as_path: true
