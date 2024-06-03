@@ -1,7 +1,0 @@
----
-minor_changes:
-  - disable_high_availability - Added playbook to disable high availbility in  a vcenter cluster
-  - enable_high_availability - Added playbook to enable and configure high availbility in a vcenter cluster
-  - >-
-    manage_all_settings - Renamed and moved ``cluster_settings.yml`` playbook to ``cluster_settings\manage_all_settings.yml``.
-    New location is with other cluster settings related plays

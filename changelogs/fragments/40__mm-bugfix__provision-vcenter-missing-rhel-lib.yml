@@ -1,3 +1,0 @@
----
-bugfixes:
-  - provision_vcenter - Install libnsl if running on rhel flavored OS, since it is not included in OS version 8+ but needed for the vmware ovftool

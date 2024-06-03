@@ -7,4 +7,4 @@ skip_list:
 
 exclude_paths:
   - tests/integration
-  - changelogs/fragments
+  - changelogs/**

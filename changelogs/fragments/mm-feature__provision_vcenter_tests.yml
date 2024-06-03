@@ -1,8 +1,0 @@
----
-bugfixes:
-  - provision_vcenter - vcenter vm names containing a string marked for no_log no longer trigger an unexpected error when checking if the vm already exists
-  - provision_vcenter - the vcsa deploy config was invalid json if dhcp was used. Re-ordered the network section of the config template to fix
-  - provision_vcenter - missing parameters in the validate_inputs tasks. Added them so the user will be alerted sooner if required parameters are missing
-
-trivial:
-  - added integration tests for role provision_vcenter

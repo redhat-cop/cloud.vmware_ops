@@ -1,4 +1,0 @@
----
-minor_changes:
-  - cluster_settings - Added new role for managing different cluster settings including DRM, DRS, vCLS, HA, and vSAN. Added integration tests for role
-  - cluster_settings - Added new playbook to modify cluster settings
