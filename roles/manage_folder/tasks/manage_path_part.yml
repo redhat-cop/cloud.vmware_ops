@@ -1,0 +1,16 @@
+---
+- name: Manage VCenter Folder - {{ (_parent | ternary(_parent + '/', '')) + _child }}
+  community.vmware.vcenter_folder:
+    hostname: "{{ manage_folder_hostname }}"
+    username: "{{ manage_folder_username }}"
+    password: "{{ manage_folder_password }}"
+    validate_certs: "{{ manage_folder_validate_certs | default(omit) }}"
+    port: "{{ manage_folder_port | default(omit) }}"
+    proxy_host: "{{ manage_folder_proxy_host | default(omit) }}"
+    proxy_port: "{{ manage_folder_proxy_port | default(omit) }}"
+    datacenter_name: "{{ manage_folder_datacenter_name }}"
+    folder_type: "{{ manage_folder_folder_type | default(omit) }}"
+    folder_name: "{{ _child }}"
+    parent_folder: "{{ _parent or omit }}"
+    state: "{{ manage_folder_state }}"
+  register: _folder_path_task_output

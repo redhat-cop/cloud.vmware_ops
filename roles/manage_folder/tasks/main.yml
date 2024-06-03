@@ -1,0 +1,43 @@
+---
+- name: Check Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - manage_folder_datacenter_name is defined
+      - manage_folder_folder_name is defined and ((manage_folder_folder_name | length) > 0)
+      - manage_folder_hostname is defined
+      - manage_folder_username is defined
+      - manage_folder_password is defined
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Fail If Folder Path Is Absolute
+  ansible.builtin.fail:
+    msg: Folder name should not be absolute. It should be relative to /<datacenter>/<type>
+  when: manage_folder_folder_name[0] == '/'
+
+- name: Manage Full Folder Path
+  when: manage_folder_parse_name_as_path
+  block:
+    - name: Split Folder Into Parts
+      ansible.builtin.set_fact:
+        _folder_parts: "{{ manage_folder_folder_name | split('/') }}"
+        _folder_path_task_output: false
+    - name: Manage Folder Path Part
+      ansible.builtin.include_tasks: manage_path_part.yml
+      when: manage_folder_state == 'present' or not _folder_path_task_output
+      loop: "{{ _folder_parts }}"
+      loop_control:
+        loop_var: _folder_part
+        index_var: _part_index
+      vars:
+        _child: "{{ _folder_parts[_part_index : _part_index + 1] | first }}"
+        _parent: >-
+          {{ (manage_folder_parent_folder + '/' + (_folder_parts[:_part_index] | join('/'))) |
+          regex_replace('^\/?(.*)\/?$', '\1') }}
+
+- name: Manage Folder Endpoint Only
+  ansible.builtin.include_tasks: manage_path_part.yml
+  when: not manage_folder_parse_name_as_path
+  vars:
+    _child: "{{ manage_folder_folder_name }}"
+    _parent: "{{ manage_folder_parent_folder }}"
