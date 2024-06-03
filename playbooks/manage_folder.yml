@@ -1,0 +1,7 @@
+---
+- name: Manage Folder In VCenter
+  hosts: all
+  gather_facts: false
+
+  roles:
+    - role: cloud.vmware_ops.manage_folder
