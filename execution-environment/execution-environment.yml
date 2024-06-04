@@ -1,13 +1,18 @@
 ---
 version: 3
+images:
+  base_image:
+    name: quay.io/centos/centos:stream9
 additional_build_steps:
   prepend_base:
-    - RUN dnf config-manager --enable epel
+    - RUN dnf install -y git python3-pip
+    - RUN pip install ansible-runner
 dependencies:
   galaxy: requirements.yml
-  system:
-    - python3-aiohttp [platform:rpm]
   python:
     - pyvmomi<7.0.3
+    - aiohttp>=3.6.0
+    - kubernetes
+    - PyYAML
   ansible_core:
-    package_pip: ansible-core==2.13.13
+    package_pip: ansible-core==2.15.12
