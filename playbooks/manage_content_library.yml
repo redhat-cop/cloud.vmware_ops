@@ -1,0 +1,7 @@
+---
+- name: Manage VMWare Content Library
+  hosts: all
+  gather_facts: false
+
+  roles:
+    - role: cloud.vmware_ops.content_library

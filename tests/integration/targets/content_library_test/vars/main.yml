@@ -1,0 +1,10 @@
+---
+content_library_hostname: "127.0.0.1"
+content_library_username: "test"
+content_library_password: "test"
+content_library_validate_certs: false
+content_library_port: "8989"
+
+content_library_datastore_name: "LocalDS_0"
+content_library_type: local
+content_library_name: test-library
