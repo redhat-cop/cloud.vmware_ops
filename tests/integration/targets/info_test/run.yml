@@ -11,6 +11,11 @@
         file: ../../integration_config.yml
       tags: eco-vcenter-ci
 
+    - name: Print info_hostname variable
+      ansible.builtin.debug:
+        msg: "info_hostname:: {{ info_hostname }}"
+      tags: eco-vcenter-ci
+
     - name: Import simulator vars
       ansible.builtin.include_vars:
         file: vars.yml
