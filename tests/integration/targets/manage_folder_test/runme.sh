@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 source ../init.sh
-exec ansible-playbook run.yml -vvvv
+exec ansible-playbook run.yml

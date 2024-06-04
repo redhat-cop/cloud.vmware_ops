@@ -1,13 +1,10 @@
-# Cluster settings role
+# Manage Folder Role
 
-A role to define cluster settings in vCenter.
+A role to create, delete, or update a folder or folder tree in VCenter.
 
 ## Requirements
 
-pyvmomi < 7.0.3
-
-In some cases, the vCLS cluster settings will fail to apply when using pyvmomi version 7.0.3 or greater. If this feature is required, using an earlier version will work.
-Support for version 7.0.3 and higher is planned for the next release of community.vmware (>4.4.0), at which point this restriction will be removed.
+N/A
 
 ## Role Variables
 ### Auth
@@ -28,13 +25,6 @@ Support for version 7.0.3 and higher is planned for the next release of communit
 
 - **manage_folder_port**:
   - str or int, The port to use to authenticate to the vSphere vCenter which contains the cluster to configure.
-
-### Cluster settings
-
-
-### Placement
-- **manage_folder_datacenter_name**:
-  - enter your description here
 
 ### Other
 - **manage_folder_folder_name**:
