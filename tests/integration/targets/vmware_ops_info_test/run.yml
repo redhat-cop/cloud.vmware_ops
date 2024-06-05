@@ -28,7 +28,7 @@
 
     - name: Import info role
       ansible.builtin.import_role:
-        name: info_test
+        name: vmware_ops_info_test
       tags:
         - eco-vcenter-ci
         - integration-ci

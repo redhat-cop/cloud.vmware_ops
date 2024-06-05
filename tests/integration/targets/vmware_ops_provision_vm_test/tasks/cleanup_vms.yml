@@ -1,0 +1,23 @@
+---
+- name: Deprovision VM {{ item.provision_vm_name }}
+  ansible.builtin.include_role:
+    name: cloud.vmware_ops.provision_vm
+  vars:
+    provision_vm_name: "{{ item.provision_vm_name }}"
+    provision_vm_state: "absent"
+    provision_vm_force: true
+
+- name: "Check that the following VM does not exist: {{ item.provision_vm_name }}"
+  community.vmware.vmware_vm_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
+    vm_name: "{{ item.provision_vm_name }}"
+  register: vm_info
+  ignore_errors: true
+
+- name: "Fail the task if the following VM exists: {{ item.provision_vm_name }}"
+  ansible.builtin.fail:
+    msg: "Provisioned VM {{ item.provision_vm_name }} still exists"
+  when: not vm_info.failed
