@@ -1,0 +1,68 @@
+---
+- name: Get info about the updated VM
+  ansible.builtin.include_tasks:
+    file: get_vm_info.yml
+  vars:
+    vm_name: "{{ vm_update_name }}"
+
+- name: "Get network info about '{{ vm_update_name }}' VM"
+  community.vmware.vmware_guest_network:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
+    uuid: "{{ vm_uuid }}"
+    gather_network_info: true
+  register: vm_network_info
+
+- name: "Print vm_network_info for '{{ vm_update_name }}'"
+  ansible.builtin.debug:
+    var: vm_network_info
+
+- name: "Validate updated network configuration of '{{ vm_update_name }}' VM"
+  ansible.builtin.assert:
+    that:
+      - vm_network_info.network_info[index].name == network.name
+      - vm_network_info.network_info[index].device_type == network.device_type
+      - vm_network_info.network_info[index].mac_address == network.mac
+  loop: "{{ vm_updated_networks }}"
+  loop_control:
+    loop_var: network
+    index_var: index
+
+- name: Retrieve the CPU information from the VM
+  vmware.vmware_rest.vcenter_vm_hardware_cpu_info:
+    vcenter_hostname: "{{ vcenter_hostname }}"
+    vcenter_username: "{{ vcenter_username }}"
+    vcenter_password: "{{ vcenter_password }}"
+    vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
+    vm: "{{ vm_moid }}"
+  register: cpu_info
+
+- name: Retrieve the memory information from the VM
+  vmware.vmware_rest.vcenter_vm_hardware_memory_info:
+    vcenter_hostname: "{{ vcenter_hostname }}"
+    vcenter_username: "{{ vcenter_username }}"
+    vcenter_password: "{{ vcenter_password }}"
+    vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
+    vm: "{{ vm_moid }}"
+  register: memory_info
+
+- name: Retrieve disk information using the disk label
+  vmware.vmware_rest.vcenter_vm_hardware_disk_info:
+    vcenter_hostname: "{{ vcenter_hostname }}"
+    vcenter_username: "{{ vcenter_username }}"
+    vcenter_password: "{{ vcenter_password }}"
+    vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
+    vm: "{{ vm_moid }}"
+    label: Hard disk 1
+  register: disk_info
+
+- name: "Validate updated configuration of '{{ vm_update_name }}' VM"
+  ansible.builtin.assert:
+    that:
+      - vm_info.virtual_machines[0].guest_fullname == guest_fullnames[vm_updated_guest_id]
+      - cpu_info.value.count == vm_updated_hardware.num_cpus
+      - cpu_info.value.cores_per_socket == vm_updated_hardware.num_cpu_cores_per_socket
+      - memory_info.value.size_MiB == vm_updated_hardware.memory_mb
+      - disk_info.value.capacity == gib_to_bytes * ( vm_enlarge_disk[0].size_gb | int )

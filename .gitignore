@@ -2,6 +2,7 @@ context/
 /tests/output/
 /changelogs/.plugin-cache.yaml
 execution-environment/context/
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -55,6 +56,9 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+
+# Integration tests
+tests/integration/integration_config.yml
 
 # Translations
 *.mo
