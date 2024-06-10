@@ -5,4 +5,5 @@ manage_folder_password: "test"
 manage_folder_validate_certs: false
 manage_folder_port: "8989"
 manage_folder_datacenter_name: DC0
-manage_folder_folder_type: host
+folder_types:
+  - host

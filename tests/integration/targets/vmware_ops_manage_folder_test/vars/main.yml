@@ -1,0 +1,12 @@
+---
+manage_folder_hostname: "{{ vcenter_hostname }}"
+manage_folder_username: "{{ vcenter_username }}"
+manage_folder_password: "{{ vcenter_password }}"
+manage_folder_validate_certs: false
+manage_folder_port: "443"
+manage_folder_datacenter_name: "Eco-Datacenter"
+folder_types:
+  - host
+  - vm
+  - datastore
+  - network
