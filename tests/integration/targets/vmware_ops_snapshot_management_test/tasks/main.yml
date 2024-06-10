@@ -1,0 +1,48 @@
+---
+- name: Create VM snapshot
+  #Ignore the errors due to an error in the response SOAP call from vcsim
+  ignore_errors: true
+  ansible.builtin.import_role:
+    name: cloud.vmware_ops.snapshot_management
+  tags: integration-ci
+
+- name: Test VM snapshot management role in vCenter Environment
+  block:
+    - name: Setup test - Provision VM
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.provision_vm
+
+    - name: Create snapshot of provisioned VM
+      loop: "{{ vm_snapshots }}"
+      ansible.builtin.include_tasks: manage_snapshot.yml
+
+    - name: Verify snapshots
+      ansible.builtin.include_tasks: verify_snapshot_test.yml
+      vars:
+        snapshots: "{{ vm_snapshots }}"
+        snapshot_names: "{{ snapshots | flatten | map(attribute='snapshot_management_snapshot_name') }}"
+        snapshot_descriptions: "{{ snapshots | flatten | map(attribute='snapshot_management_description') }}"
+
+    - name: Update snapshots
+      loop: "{{ vm_snapshots_updated }}"
+      ansible.builtin.include_tasks: manage_snapshot.yml
+
+    - name: Verify updated snapshots
+      ansible.builtin.include_tasks: verify_snapshot_test.yml
+      vars:
+        snapshots: "{{ vm_snapshots_updated }}"
+        snapshot_names: "{{ snapshots | flatten | map(attribute='snapshot_management_new_snapshot_name') }}"
+        snapshot_descriptions: "{{ snapshots | flatten | map(attribute='snapshot_management_new_description') }}"
+
+    - name: Remove snapshots
+      loop: "{{ vm_snapshots_updated }}"
+      ansible.builtin.include_tasks: remove_snapshot.yml
+
+  always:
+    - name: Remove VM
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_state: absent
+        provision_vm_force: true
+  tags: eco-vcenter-ci

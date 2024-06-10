@@ -1,0 +1,66 @@
+# vars.yaml
+snapshot_management_hostname: "{{ vcenter_hostname }}"
+snapshot_management_username: "{{ vcenter_username }}"
+snapshot_management_password: "{{ vcenter_password }}"
+snapshot_management_validate_certs: false
+
+snapshot_management_folder: "/Eco-Datacenter/vm/e2e-qe"
+snapshot_management_datacenter: "Eco-Datacenter"
+
+vm_snapshots:
+- snapshot_management_snapshot_name: "{{ manage_snapshot_vm_name }}-snapshot-1"
+  snapshot_management_vm_name: "{{ manage_snapshot_vm_name }}"
+  snapshot_management_description: "This is the first snapshot of VM {{ manage_snapshot_vm_name }}"
+- snapshot_management_snapshot_name: "{{ manage_snapshot_vm_name }}-snapshot-2"
+  snapshot_management_vm_name: "{{ manage_snapshot_vm_name }}"
+  snapshot_management_state: present
+  snapshot_management_description: "This is the second snapshot of VM {{ manage_snapshot_vm_name }}"
+
+manage_snapshot_vm_name: "manage-snapshot-vm-rhel-9"
+
+vm_snapshots_updated:
+- snapshot_management_snapshot_name: "{{ manage_snapshot_vm_name }}-snapshot-1"
+  snapshot_management_vm_name: "{{ manage_snapshot_vm_name }}"
+  snapshot_management_new_description: "This is the updated description for snapshot-1-updated"
+  snapshot_management_new_snapshot_name: "snapshot-1-updated"
+- snapshot_management_snapshot_name: "{{ manage_snapshot_vm_name }}-snapshot-2"
+  snapshot_management_vm_name: "{{ manage_snapshot_vm_name }}"
+  snapshot_management_state: present
+  snapshot_management_new_snapshot_name: "snapshot-2-updated"
+  snapshot_management_new_description: "This is the updated description for snapshot-2-updated"
+
+provision_vm_hostname: "{{ snapshot_management_hostname }}"
+provision_vm_username: "{{ snapshot_management_username }}"
+provision_vm_password: "{{ snapshot_management_password }}"
+provision_vm_validate_certs: "{{ snapshot_management_validate_certs }}"
+
+provision_vm_cluster: "Eco-Cluster"
+provision_vm_folder: "{{ snapshot_management_folder }}"
+provision_vm_datacenter: "{{ snapshot_management_datacenter }}"
+
+# RHEL9 VM
+provision_vm_name: "{{ manage_snapshot_vm_name }}"
+provision_vm_state: "poweredon"
+provision_vm_cdrom:
+  - controller_number: 0
+    unit_number: 0
+    state: present
+    type: iso
+    iso_path: "[datastore1] ISO/rhel-9.3-x86_64-dvd.iso"
+provision_vm_networks:
+  - name: "VM Network"
+    device_type: "vmxnet3"
+    mac: "00:50:56:bd:d2:9e"
+    type: "dhcp"
+provision_vm_resource_pool: null
+provision_vm_disk:
+  - size_gb: 50
+    type: thin
+    datastore: "datastore1"
+provision_vm_hardware:
+  memory_mb: 2000
+  num_cpus: 4
+  boot_firmware: efi
+  secure_boot: true
+provision_vm_guest_id: "rhel9_64Guest"
+provision_vm_datastore: "datastore1"

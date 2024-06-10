@@ -1,0 +1,20 @@
+---
+- name: "Check snapshot existence for VM {{ manage_snapshot_vm_name }}"
+  community.vmware.vmware_guest_snapshot_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: "{{ snapshot_management_validate_certs }}"
+    datacenter: "{{ snapshot_management_datacenter }}"
+    folder: "{{ snapshot_management_folder }}"
+    name: "{{ manage_snapshot_vm_name }}"
+  register: snapshot_info
+
+- name: Fail the task if the VM doesn't exist
+  ansible.builtin.fail:
+    msg: "No snapshot is present for VM {{ manage_snapshot_vm_name }}"
+  when: snapshot_info is not defined or snapshot_info.failed
+
+- name: Print snapshot_info for {{ manage_snapshot_vm_name }}
+  ansible.builtin.debug:
+    var: snapshot_info
