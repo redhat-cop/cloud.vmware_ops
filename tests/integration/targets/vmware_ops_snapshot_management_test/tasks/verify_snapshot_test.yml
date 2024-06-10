@@ -1,0 +1,12 @@
+---
+- name: Get info about the snapshot
+  ansible.builtin.include_tasks: get_snapshot_info.yml
+
+- name: "Validate the properties of the snapshots"
+  loop: "{{ snapshots }}"
+  loop_control:
+    index_var: index
+  ansible.builtin.assert:
+    that:
+      - snapshot_info.guest_snapshots.snapshots[index].name == snapshot_names[index]
+      - snapshot_info.guest_snapshots.snapshots[index].description == snapshot_descriptions[index]

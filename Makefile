@@ -21,7 +21,9 @@ integration: install-python-packages install-ansible-collections
 
 .PHONY: eco-vcenter-ci
 eco-vcenter-ci: install-python-packages install-ansible-collections install-pyvmomy-latest
-	ansible-test integration --no-temp-workdir info_test
+	@for dir in $(shell ansible-test integration --list-target --no-temp-workdir | grep 'vmware_ops_'); do \
+	  ansible-test integration --no-temp-workdir $$dir; \
+	done
 
 .PHONY: ee-clean
 ee-clean:
