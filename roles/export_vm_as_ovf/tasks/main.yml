@@ -1,0 +1,35 @@
+---
+- name: Check Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - export_vm_as_ovf_hostname is defined
+      - export_vm_as_ovf_username is defined
+      - export_vm_as_ovf_password is defined
+      - export_vm_as_ovf_export_dir is defined
+      - >-
+        export_vm_as_ovf_vm_name is defined or
+        export_vm_as_ovf_vm_uuid is defined or
+        export_vm_as_ovf_vm_moid is defined
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Export VM As OVF
+  community.vmware.vmware_export_ovf:
+    hostname: "{{ export_vm_as_ovf_hostname }}"
+    username: "{{ export_vm_as_ovf_username }}"
+    password: "{{ export_vm_as_ovf_password }}"
+    validate_certs: "{{ export_vm_as_ovf_validate_certs | default(omit) }}"
+    port: "{{ export_vm_as_ovf_port | default(omit) }}"
+    proxy_host: "{{ export_vm_as_ovf_proxy_host | default(omit) }}"
+    proxy_port: "{{ export_vm_as_ovf_proxy_port | default(omit) }}"
+
+    datacenter: "{{ export_vm_as_ovf_vm_datacenter_name | default(omit) }}"
+    folder: "{{ export_vm_as_ovf_vm_folder | default(omit) }}"
+    name: "{{ export_vm_as_ovf_vm_name | default(omit) }}"
+    uuid: "{{ export_vm_as_ovf_vm_uuid | default(omit) }}"
+    moid: "{{ export_vm_as_ovf_vm_moid | default(omit) }}"
+
+    export_dir: "{{ export_vm_as_ovf_export_dir }}"
+    export_with_images: "{{ export_vm_as_ovf_export_with_images | default(omit) }}"
+    export_with_extraconfig: "{{ export_vm_as_ovf_export_with_extra_config | default(omit) }}"
+    download_timeout: "{{ export_vm_as_ovf_download_timeout | default(omit) }}"
