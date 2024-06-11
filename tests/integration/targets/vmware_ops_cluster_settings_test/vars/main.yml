@@ -1,0 +1,26 @@
+---
+cluster_settings_hostname: "{{ vcenter_hostname }}"
+cluster_settings_username: "{{ vcenter_username }}"
+cluster_settings_password: "{{ vcenter_password }}"
+cluster_settings_validate_certs: false
+cluster_settings_port: "443"
+cluster_settings_cluster_name: "Test-Cluster"
+cluster_settings_datacenter_name: "Eco-Datacenter"
+
+# DPM
+cluster_settings_dpm_enable: True
+
+# DRS - arbitrary values
+cluster_settings_drs_enable: True
+cluster_settings_drs_enable_vm_behavior: "partiallyAutomated"
+cluster_settings_drs_vmotion_rate: 3
+cluster_settings_drs_apply_recommendations: True
+
+# HA - arbitrary values
+cluster_settings_ha_enable: True
+cluster_settings_ha_host_monitoring: enabled
+cluster_settings_ha_vm_monitoring: vmMonitoringOnly
+
+# vCLS
+cluster_settings_vcls_allowed_datastores:
+  - datastore6
