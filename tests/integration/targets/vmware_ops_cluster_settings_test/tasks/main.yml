@@ -1,0 +1,76 @@
+---
+- name: Test cluster settings role on the vCenter simulator
+  ansible.builtin.import_role:
+    name: cloud.vmware_ops.cluster_settings
+  tags: integration-ci
+
+- name: Run cluster settings role on the vCenter Env
+  tags: eco-vcenter-ci
+  block:
+    - name: "Create New Cluster: {{ cluster_settings_cluster_name }}"
+      community.vmware.vmware_cluster:
+        hostname: '{{ cluster_settings_hostname }}'
+        username: '{{ cluster_settings_username }}'
+        password: '{{ cluster_settings_password }}'
+        datacenter_name: "{{ cluster_settings_datacenter_name }}"
+        cluster_name: "{{ cluster_settings_cluster_name }}"
+        validate_certs: false
+
+    - name: Test Cluster Settings
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.cluster_settings
+
+    - name: Post-Deployment Validation
+      block:
+        - name: Retrieve Cluster Info
+          community.vmware.vmware_cluster_info:
+            hostname: "{{ cluster_settings_hostname }}"
+            username: "{{ cluster_settings_username }}"
+            password: "{{ cluster_settings_password }}"
+            validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
+            datacenter: "{{ cluster_settings_datacenter_name }}"
+          register: cluster_info
+
+        - name: Check DRS Settings for Cluster
+          ansible.builtin.assert:
+            that:
+              - "cluster_info.clusters[cluster_settings_cluster_name].enabled_drs == cluster_settings_drs_enable"
+              - "cluster_info.clusters[cluster_settings_cluster_name].drs_default_vm_behavior == cluster_settings_drs_enable_vm_behavior"
+              - "cluster_info.clusters[cluster_settings_cluster_name].drs_vmotion_rate == cluster_settings_drs_vmotion_rate"
+            quiet: true
+            fail_msg: "DRS settings are not configured correctly for {{ cluster_settings_cluster_name }}."
+          when: cluster_settings_drs_enable is defined
+
+        - name: Check HA Settings for Cluster
+          ansible.builtin.assert:
+            that:
+              - "cluster_info.clusters[cluster_settings_cluster_name].enable_ha == cluster_settings_ha_enable"
+              - "cluster_info.clusters[cluster_settings_cluster_name].ha_host_monitoring == cluster_settings_ha_host_monitoring"
+              - "cluster_info.clusters[cluster_settings_cluster_name].ha_vm_monitoring == cluster_settings_ha_vm_monitoring"
+            quiet: true
+            fail_msg: "HA settings are not configured correctly for {{ cluster_settings_cluster_name }}."
+          when: cluster_settings_ha_enable is defined
+
+        - name: Check vSAN Settings for Cluster
+          ansible.builtin.assert:
+            that:
+              - "cluster_info.clusters[cluster_settings_cluster_name].enabled_vsan == cluster_settings_vsan_enable"
+              - "cluster_info.clusters[cluster_settings_cluster_name].vsan_auto_claim_storage == cluster_settings_vsan_auto_claim_storage"
+            quiet: true
+            fail_msg: "vSAN settings are not configured correctly for {{ cluster_settings_cluster_name }}."
+          when: cluster_settings_vsan_enable is defined
+
+        - name: Notify Success
+          ansible.builtin.debug:
+            msg: "All cluster settings for {{ cluster_settings_cluster_name }} have been validated successfully."
+
+  always:
+    - name: "Cleanup Cluster: {{ cluster_settings_cluster_name }}"
+      community.vmware.vmware_cluster:
+        hostname: '{{ cluster_settings_hostname }}'
+        username: '{{ cluster_settings_username }}'
+        password: '{{ cluster_settings_password }}'
+        datacenter_name: "{{ cluster_settings_datacenter_name }}"
+        cluster_name: "{{ cluster_settings_cluster_name }}"
+        state: absent
+        validate_certs: false

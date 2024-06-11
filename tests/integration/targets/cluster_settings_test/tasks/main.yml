@@ -1,4 +1,0 @@
----
-- name: Test Cluster DPM Settings
-  ansible.builtin.import_role:
-    name: cloud.vmware_ops.cluster_settings
