@@ -1,4 +1,0 @@
----
-- name: Test Content Library
-  ansible.builtin.import_role:
-    name: cloud.vmware_ops.content_library

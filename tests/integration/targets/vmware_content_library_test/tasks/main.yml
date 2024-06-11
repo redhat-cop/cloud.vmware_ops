@@ -1,0 +1,14 @@
+---
+- name: Test
+  tags:
+    - eco-vcenter-ci
+  block:
+    - name: Create Content Library
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.content_library
+  always:
+    - name: Destroy Content Library
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.content_library
+      vars:
+        content_library_state: absent

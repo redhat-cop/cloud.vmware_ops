@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  gather_facts: no
+  collections:
+    - community.general
+
+  tasks:
+    - name: Import eco-vcenter credentials
+      ansible.builtin.include_vars:
+        file: ../../integration_config.yml
+      tags: eco-vcenter-ci
+
+    - name: Import Content Library role
+      ansible.builtin.import_role:
+        name: vmware_content_library_test
+      tags:
+        - eco-vcenter-ci
