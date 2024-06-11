@@ -14,7 +14,7 @@
     msg: content_library_datastore_name is required when library state is 'present'
   when: content_library_datastore_name is not defined and content_library_state == 'present'
 
-- name: Create Subscribed Content Library
+- name: Manage Content Library
   community.vmware.vmware_content_library_manager:
     hostname: "{{ content_library_hostname }}"
     username: "{{ content_library_username }}"
