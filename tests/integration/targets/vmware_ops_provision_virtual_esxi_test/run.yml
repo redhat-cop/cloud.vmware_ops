@@ -1,0 +1,28 @@
+- hosts: localhost
+  gather_facts: false
+  collections:
+    - community.general
+
+  tasks:
+
+    - name: Import eco-vcenter credentials
+      ansible.builtin.include_vars:
+        file: ../../integration_config.yml
+      tags: eco-vcenter-ci
+
+    - name: Import simulator vars
+      ansible.builtin.include_vars:
+        file: vars.yml
+      tags: integration-ci
+
+    - name: Vcsim
+      ansible.builtin.import_role:
+        name: prepare_soap
+      tags: integration-ci
+
+    - name: Import provision virtual ESXi role
+      ansible.builtin.include_role:
+        name: vmware_ops_provision_virtual_esxi_test
+      tags:
+        - integration-ci
+        - eco-vcenter-ci
