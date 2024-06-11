@@ -13,14 +13,10 @@
         state: poweredoff
         folder: /Eco-Datacenter/vm/e2e-qe
         datacenter: "{{ export_vm_as_ovf_datacenter_name }}"
-        # networks:
-        #   - name: "VM Network"
-        #     device_type: "vmxnet3"
-        #     type: "dhcp"
         disk:
           - size_gb: 5
             type: thick
-            datastore: "datastore1"
+            autoselect_datastore: True
         hardware:
           memory_mb: 2000
           num_cpus: 2
