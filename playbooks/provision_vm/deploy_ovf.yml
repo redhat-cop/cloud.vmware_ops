@@ -1,0 +1,6 @@
+---
+- name: Playbook to provision a new VM on VMware from OVF
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: cloud.vmware_ops.deploy_ovf

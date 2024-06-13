@@ -1,0 +1,61 @@
+---
+- name: Setup
+  tags:
+    - eco-vcenter-ci
+  block:
+    - name: Create Test VM
+      community.vmware.vmware_guest:
+        hostname: "{{ deploy_ovf_hostname }}"
+        username: "{{ deploy_ovf_username }}"
+        password: "{{ deploy_ovf_password }}"
+        validate_certs: false
+        name: "{{ deploy_ovf_vm_name }}"
+        state: poweredoff
+        folder: "{{ deploy_ovf_folder }}"
+        datacenter: "{{ deploy_ovf_datacenter_name }}"
+        disk:
+          - size_gb: 5
+            type: thick
+            autoselect_datastore: True
+        hardware:
+          memory_mb: 2000
+          num_cpus: 2
+        guest_id: rhel9_64Guest
+    - name: Export VM As OVF
+      community.vmware.vmware_export_ovf:
+        hostname: "{{ deploy_ovf_hostname }}"
+        username: "{{ deploy_ovf_username }}"
+        password: "{{ deploy_ovf_password }}"
+        validate_certs: false
+        name: "{{ deploy_ovf_vm_name }}"
+        export_dir: "{{ vmware_deploy_ovf_test_export_dir }}"
+  always:
+    - name: Destroy Test VM
+      community.vmware.vmware_guest:
+        hostname: "{{ deploy_ovf_hostname }}"
+        username: "{{ deploy_ovf_username }}"
+        password: "{{ deploy_ovf_password }}"
+        validate_certs: false
+        name: "{{ deploy_ovf_vm_name }}"
+        state: absent
+
+- name: Test
+  tags:
+    - eco-vcenter-ci
+  block:
+    - name: Test Deploy OVF
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.deploy_ovf
+  always:
+    - name: Destroy Test VM
+      community.vmware.vmware_guest:
+        hostname: "{{ deploy_ovf_hostname }}"
+        username: "{{ deploy_ovf_username }}"
+        password: "{{ deploy_ovf_password }}"
+        validate_certs: false
+        name: "{{ deploy_ovf_vm_name }}"
+        state: absent
+    - name: Delete OVF
+      ansible.builtin.file:
+        state: absent
+        path: "{{ deploy_ovf_template | dirname }}"

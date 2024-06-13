@@ -1,0 +1,14 @@
+---
+vmware_deploy_ovf_test_export_dir: /tmp
+
+deploy_ovf_hostname: "{{ vcenter_hostname }}"
+deploy_ovf_username: "{{ vcenter_username }}"
+deploy_ovf_password: "{{ vcenter_password }}"
+deploy_ovf_validate_certs: false
+deploy_ovf_datacenter_name: Eco-Datacenter
+deploy_ovf_folder: /Eco-Datacenter/vm/e2e-qe
+
+deploy_ovf_template: "{{ vmware_deploy_ovf_test_export_dir }}/{{ deploy_ovf_vm_name }}/{{ deploy_ovf_vm_name }}.ovf"
+deploy_ovf_vm_name: deploy-ovf-test
+deploy_ovf_datastore: datastore3
+deploy_ovf_power_on: false
