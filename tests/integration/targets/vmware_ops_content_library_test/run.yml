@@ -12,6 +12,6 @@
 
     - name: Import Content Library role
       ansible.builtin.import_role:
-        name: vmware_content_library_test
+        name: vmware_ops_content_library_test
       tags:
         - eco-vcenter-ci
