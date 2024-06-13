@@ -35,7 +35,7 @@ N/A
     If false, the name is treated as a literal string. Default is true.
 
 - **manage_folder_folder_type**:
-  - str, The type of folder to manage. Can be `datacenter`, `host`, `vm`, or `network`. The default is `vm`.
+  - str, The type of folder to manage. Can be `datastore`, `host`, `vm`, or `network`. The default is `vm`.
 
 - **manage_folder_parent_folder**:
   - >-
