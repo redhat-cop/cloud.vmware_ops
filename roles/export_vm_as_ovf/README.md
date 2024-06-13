@@ -21,13 +21,13 @@ N/A
   - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
 
 - **export_vm_as_ovf_cluster_name**:
-  - The name of the cluster in vSphere vCenter to configure.
+  - The name of the cluster in vSphere vCenter that contains the VM.
 
 - **export_vm_as_ovf_datacenter_name**:
-  - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
+  - The name of the datacenter in vSphere vCenter which contains the VM.
 
 - **export_vm_as_ovf_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter which contains the cluster to configure.
+  - str or int, The port to use to authenticate to the vSphere vCenter which contains the VM.
 
 ### VM Options
 - **export_vm_as_ovf_vm_datacenter**:
