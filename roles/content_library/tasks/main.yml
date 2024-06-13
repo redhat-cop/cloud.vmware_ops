@@ -1,0 +1,34 @@
+---
+- name: Check Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - content_library_hostname is defined
+      - content_library_username is defined
+      - content_library_password is defined
+      - content_library_name is defined
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Check Datastore Name Is Defined
+  ansible.builtin.fail:
+    msg: content_library_datastore_name is required when library state is 'present'
+  when: content_library_datastore_name is not defined and content_library_state == 'present'
+
+- name: Manage Content Library
+  community.vmware.vmware_content_library_manager:
+    hostname: "{{ content_library_hostname }}"
+    username: "{{ content_library_username }}"
+    password: "{{ content_library_password }}"
+    validate_certs: "{{ content_library_validate_certs | default(omit) }}"
+    port: "{{ content_library_port | default(omit) }}"
+    proxy_host: "{{ content_library_proxy_host | default(omit) }}"
+    proxy_port: "{{ content_library_proxy_port | default(omit) }}"
+
+    library_name: "{{ content_library_name }}"
+    library_description: "{{ content_library_description | default(omit) }}"
+    library_type: "{{ content_library_type | default(omit) }}"
+    datastore_name: "{{ content_library_datastore_name | default(omit) }}"
+    subscription_url: "{{ content_library_subscription_url | default(omit) }}"
+    ssl_thumbprint: "{{ content_library_ssl_thumbrpint | default(omit) }}"
+    update_on_demand: "{{ content_library_update_on_demand | default(omit) }}"
+    state: "{{ content_library_state }}"
