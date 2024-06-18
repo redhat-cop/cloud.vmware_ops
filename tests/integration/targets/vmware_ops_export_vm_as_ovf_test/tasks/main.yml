@@ -1,0 +1,39 @@
+---
+- name: Test
+  tags:
+    - eco-vcenter-ci
+  block:
+    - name: Create Test VM
+      community.vmware.vmware_guest:
+        hostname: "{{ export_vm_as_ovf_hostname }}"
+        username: "{{ export_vm_as_ovf_username }}"
+        password: "{{ export_vm_as_ovf_password }}"
+        validate_certs: false
+        name: "{{ export_vm_as_ovf_vm_name }}"
+        state: poweredoff
+        folder: /Eco-Datacenter/vm/e2e-qe
+        datacenter: "{{ export_vm_as_ovf_datacenter_name }}"
+        disk:
+          - size_gb: 5
+            type: thick
+            autoselect_datastore: True
+        hardware:
+          memory_mb: 2000
+          num_cpus: 2
+        guest_id: rhel9_64Guest
+    - name: Test Export VM As OVF
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.export_vm_as_ovf
+  always:
+    - name: Destroy Test VM
+      community.vmware.vmware_guest:
+        hostname: "{{ export_vm_as_ovf_hostname }}"
+        username: "{{ export_vm_as_ovf_username }}"
+        password: "{{ export_vm_as_ovf_password }}"
+        validate_certs: false
+        name: "{{ export_vm_as_ovf_vm_name }}"
+        state: absent
+    - name: Delete Exported OVF
+      ansible.builtin.file:
+        state: absent
+        path: "{{ export_vm_as_ovf_export_dir }}"

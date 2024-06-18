@@ -1,0 +1,6 @@
+- name: Export VM as OVF File
+  hosts: all
+  gather_facts: false
+
+  roles:
+    - role: cloud.vmware_ops.export_vm_as_ovf

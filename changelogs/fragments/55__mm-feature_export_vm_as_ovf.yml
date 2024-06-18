@@ -1,0 +1,3 @@
+---
+minor_changes:
+  - export_vm_as_ovf - added role, playbook, tests to export an exisiting VM from VCenter or ESXi as an OVF
