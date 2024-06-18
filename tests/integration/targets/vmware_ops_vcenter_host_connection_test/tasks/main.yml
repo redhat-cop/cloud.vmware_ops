@@ -1,0 +1,100 @@
+---
+- name: Test vCenter host connection role on vCenter env
+  tags: eco-vcenter-ci
+  block:
+    - name: Add Resource Pool
+      ansible.builtin.include_tasks: manage_resource_pool.yml
+      vars:
+        required_state: present
+
+    - name: Provision ESXI VM and set ESXI hostname
+      ansible.builtin.include_tasks: provision_esxi.yml
+
+    - name: Add ESXI Host to vCenter Cluster
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.vcenter_host_connection
+      vars:
+        vcenter_host_connection_state: present
+
+    - name: Gather ESXI Host facts
+      community.vmware.vmware_host_facts:
+        hostname: "{{ vcenter_host_connection_hostname }}"
+        username: "{{ vcenter_host_connection_username }}"
+        password: "{{ vcenter_host_connection_password }}"
+        validate_certs: false
+        esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
+      register: _host_facts
+
+    - name: Verify ESXI Host connected to vCenter Cluster
+      ansible.builtin.assert:
+        that:
+          - _host_facts.ansible_facts.cluster == cluster_name
+          - _host_facts.ansible_facts.ansible_host_connection_state == 'connected'
+
+    - name: Remove ESXI Host from vCenter Cluster
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.vcenter_host_connection
+      vars:
+        vcenter_host_connection_state: absent
+
+    - name: Ensure ESXI Host removed from vCenter Cluster
+      block:
+        - name: Gather ESXI Host facts
+          community.vmware.vmware_host_facts:
+            hostname: "{{ vcenter_host_connection_hostname }}"
+            username: "{{ vcenter_host_connection_username }}"
+            password: "{{ vcenter_host_connection_password }}"
+            validate_certs: false
+            esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
+          register: _no_host_facts
+
+        - name: Force failure if ESXI Host was found
+          ansible.builtin.fail:
+            msg: "'{{ vcenter_host_connection_esxi_hostname }}' host exists, collected info is '{{ _no_host_facts }}'"
+
+      rescue:
+        - name: ESXI Host doesn't exist as expected
+          when: _no_host_facts.msg is contains 'not found'
+          ansible.builtin.debug:
+            msg: ESXI Host doesn't exist as expected
+
+  always:
+    - name: Remove ESXI Host from vCenter Cluster to cleanup env
+      community.vmware.vmware_host:
+        hostname: "{{ vcenter_host_connection_hostname }}"
+        username: "{{ vcenter_host_connection_username }}"
+        password: "{{ vcenter_host_connection_password }}"
+        datacenter: "{{ vcenter_host_connection_datacenter }}"
+        cluster: "{{ vcenter_host_connection_cluster }}"
+        validate_certs: false
+        esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
+        esxi_username: "{{ vcenter_host_connection_esxi_username }}"
+        esxi_password: "{{ vcenter_host_connection_esxi_password }}"
+        state: absent
+
+    - name: Remove ESXI VM to cleanup env
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_state: absent
+        provision_vm_force: true
+
+    - name: Remove Resource Pool to cleanup env
+      ansible.builtin.include_tasks: manage_resource_pool.yml
+      vars:
+        required_state: absent
+
+- name: Test vCenter host connection role on simulator
+  tags: integration-ci
+  block:
+    - name: Add ESXI Host to vCenter Cluster
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.vcenter_host_connection
+      vars:
+        vcenter_host_connection_state: present
+
+    - name: Remove ESXI Host from vCenter Cluster
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.vcenter_host_connection
+      vars:
+        vcenter_host_connection_state: absent

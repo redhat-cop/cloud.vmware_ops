@@ -1,0 +1,48 @@
+---
+- name: Provision Virtual ESXI
+  ansible.builtin.import_role:
+    name: cloud.vmware_ops.provision_virtual_esxi
+
+- name: Wait until ESXI VM is powered off after OS installation
+  community.vmware.vmware_guest_info:
+    hostname: "{{ provision_virtual_esxi_hostname }}"
+    username: "{{ provision_virtual_esxi_username }}"
+    password: "{{ provision_virtual_esxi_password }}"
+    datacenter: "{{ provision_virtual_esxi_datacenter }}"
+    validate_certs: false
+    name: "{{ provision_virtual_esxi_vms[0].name }}"
+  register: _esxi_power_status
+  until: _esxi_power_status.instance.hw_power_status == 'poweredOff'
+  retries: 30
+  delay: 20
+
+- name: Power on ESXI VM after provisioning
+  ansible.builtin.include_role:
+    name: cloud.vmware_ops.provision_vm
+  vars:
+    provision_vm_state: poweredon
+
+- name: Wait until ESXI VM has an IP address
+  community.vmware.vmware_guest_info:
+    hostname: "{{ provision_virtual_esxi_hostname }}"
+    username: "{{ provision_virtual_esxi_username }}"
+    password: "{{ provision_virtual_esxi_password }}"
+    datacenter: "{{ provision_virtual_esxi_datacenter }}"
+    validate_certs: false
+    name: "{{ provision_virtual_esxi_vms[0].name }}"
+  register: esxi_host_info
+  until: esxi_host_info.instance.ipv4 is defined and esxi_host_info.instance.ipv4 is not none
+  retries: 30
+  delay: 10
+
+- name: Check if ESXI is up
+  wait_for:
+    host: "{{ esxi_host_info.instance.ipv4 }}"
+    port: 22
+    delay: 10
+    timeout: 300
+    state: started
+
+- name: Set ESXI hostname
+  ansible.builtin.set_fact:
+    vcenter_host_connection_esxi_hostname: "{{ esxi_host_info.instance.ipv4 }}"
