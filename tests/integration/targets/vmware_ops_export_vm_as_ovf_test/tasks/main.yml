@@ -21,9 +21,20 @@
           memory_mb: 2000
           num_cpus: 2
         guest_id: rhel9_64Guest
+
     - name: Test Export VM As OVF
       ansible.builtin.import_role:
         name: cloud.vmware_ops.export_vm_as_ovf
+
+    - name: Check that OVF file is present
+      ansible.builtin.stat:
+        path: "{{ export_vm_as_ovf_export_dir }}/{{ export_vm_as_ovf_vm_name }}/{{ export_vm_as_ovf_vm_name }}.ovf"
+      register: ovf_path
+
+    - name: Fail if OVF file is not present
+      ansible.builtin.assert:
+        that: ovf_path.stat.exists
+
   always:
     - name: Destroy Test VM
       community.vmware.vmware_guest:
@@ -33,6 +44,7 @@
         validate_certs: false
         name: "{{ export_vm_as_ovf_vm_name }}"
         state: absent
+
     - name: Delete Exported OVF
       ansible.builtin.file:
         state: absent
