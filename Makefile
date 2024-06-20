@@ -9,6 +9,13 @@ install-python-packages:
 install-ansible-collections:
 	ansible-galaxy collection install --upgrade -r tests/integration/requirements.yml
 
+# this playbook aims to create a symlink for the runme.sh script
+# for each integration target so that ansible-test will recognize it for the target
+# and the script will run the test
+.PHONY: prepare_symlinks
+prepare_symlinks:
+	ansible-playbook tools/prepare_symlinks.yml
+
 # workaround pyvmomy issue till latest version
 # is available to use in requirements.txt
 .PHONY: install-pyvmomy-latest
@@ -16,11 +23,11 @@ install-pyvmomy-latest:
 	pip3 install pyVmomi --force
 
 .PHONY: integration
-integration: install-python-packages install-ansible-collections
+integration: install-python-packages install-ansible-collections prepare_symlinks
 	ansible-test integration --no-temp-workdir
 
 .PHONY: eco-vcenter-ci
-eco-vcenter-ci: install-python-packages install-ansible-collections install-pyvmomy-latest
+eco-vcenter-ci: install-python-packages install-ansible-collections prepare_symlinks install-pyvmomy-latest
 	@for dir in $(shell ansible-test integration --list-target --no-temp-workdir | grep 'vmware_ops_'); do \
 	  ansible-test integration --no-temp-workdir $$dir; \
 	done
