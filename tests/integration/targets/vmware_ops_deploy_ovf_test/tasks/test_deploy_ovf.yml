@@ -1,0 +1,26 @@
+---
+- name: Get VM Info
+  community.vmware.vmware_guest_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ deploy_ovf_datacenter_name }}"
+    name: "{{ item }}"
+    validate_certs: false
+  register: guest_info
+
+- name: Check Properties Of VM {{ item }}
+  ansible.builtin.assert:
+    that:
+      - guest_info.instance.hw_cluster == deploy_ovf_cluster_name
+      - guest_info.instance.hw_folder == deploy_ovf_folder
+      - guest_info.instance.hw_name == item
+      - guest_info.instance.hw_datastores == [deploy_ovf_datastore]
+      - guest_info.instance.hw_memtotal_mb == test_vm_hardware.memory_mb
+      - guest_info.instance.hw_processor_count == test_vm_hardware.num_cpus
+
+- name: Check Power Status Of VM Deployed From Local OVF File
+  ansible.builtin.assert:
+    that:
+      - guest_info.instance.hw_power_status == vm_power_status
+  when: item == vm_name_local_ovf
