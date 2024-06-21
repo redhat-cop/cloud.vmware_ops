@@ -1,0 +1,7 @@
+---
+- name: Playbook to provision a new Template on VMware
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: cloud.vmware_ops.provision_vm
+      provison_vm_template: true
