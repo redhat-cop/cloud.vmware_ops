@@ -17,7 +17,7 @@
     validate_certs: false
     library_name: "{{ ovf_library }}"
     library_type: local
-    datastore_name: datastore3
+    datastore_name: "{{ deploy_ovf_datastore }}"
     state: present
 
 - name: Get list of content libraries IDs
