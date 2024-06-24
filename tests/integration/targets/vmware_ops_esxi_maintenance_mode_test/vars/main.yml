@@ -1,0 +1,58 @@
+---
+# General vars
+resource_prefix: host-maintenance 
+resource_pool_name: "{{ resource_prefix }}-pool"
+cluster_name: "Eco-Cluster"
+datacenter_name: "Eco-Datacenter"
+network_name: "TestNetwork"
+
+# Vars for cloud.vmware_ops.provision_virtual_esxi role
+provision_virtual_esxi_hostname: "{{ vcenter_hostname }}"
+provision_virtual_esxi_username: "{{ vcenter_username }}"
+provision_virtual_esxi_password: "{{ vcenter_password }}"
+provision_virtual_esxi_validate_certs: false
+provision_virtual_esxi_port: 443
+provision_virtual_esxi_cluster: "{{ cluster_name }}"
+provision_virtual_esxi_datacenter: "{{ datacenter_name }}"
+provision_virtual_esxi_folder: ""
+provision_virtual_esxi_resource_pool: "{{ resource_pool_name }}"
+provision_virtual_esxi_datastore_iso_path: "[eco-nfs-datastore-iso] custom_esxi_8.iso"
+provision_virtual_esxi_vms:
+  - name: ci-vcenter-maintenance-test
+provision_virtual_esxi_networks:
+    - name: "{{ network_name }}"
+      device_type: "vmxnet3"
+      type: "dhcp"
+      mac: "00:50:56:8b:93:a5"
+provision_virtual_esxi_disks:
+  - size_gb: 100
+    type: thin
+    datastore: datastore1
+
+# Vars for cloud.vmware_ops.vcenter_host_connection role
+vcenter_host_connection_hostname: "{{ vcenter_hostname }}"
+vcenter_host_connection_username: "{{ vcenter_username }}"
+vcenter_host_connection_password: "{{ vcenter_password }}"
+vcenter_host_connection_validate_certs: false
+vcenter_host_connection_port: 443
+vcenter_host_connection_cluster: "{{ cluster_name }}"
+vcenter_host_connection_datacenter: "{{ datacenter_name }}"
+vcenter_host_connection_esxi_username: "root"
+vcenter_host_connection_esxi_password: "!#%135qEt"
+
+# Var for cloud.vmware_ops.provision_vm role
+provision_vm_hostname: "{{ provision_virtual_esxi_hostname }}"
+provision_vm_username: "{{ provision_virtual_esxi_username }}"
+provision_vm_password: "{{ provision_virtual_esxi_password }}"
+provision_vm_validate_certs: false
+provision_vm_port: "{{ provision_virtual_esxi_port }}"
+provision_vm_cluster: "{{ provision_virtual_esxi_cluster }}"
+provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter }}"
+provision_vm_name: "{{ provision_virtual_esxi_vms[0].name }}"
+
+# Vars for esxi_maintenance_mode role
+esxi_maintenance_mode_hostname: "{{ vcenter_hostname }}"
+esxi_maintenance_mode_username: "{{ vcenter_username }}"
+esxi_maintenance_mode_password: "{{ vcenter_password }}"
+esxi_maintenance_mode_validate_certs: false
+esxi_maintenance_mode_port: "443"

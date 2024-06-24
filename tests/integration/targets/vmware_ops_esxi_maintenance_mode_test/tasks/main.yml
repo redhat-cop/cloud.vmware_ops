@@ -1,0 +1,140 @@
+---
+- name: Test esxi maintenance on simulator
+  tags: integration-ci
+  block:
+    - name: Enable Maintenance Mode
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.esxi_maintenance_mode
+      vars:
+        esxi_maintenance_mode_enable: True
+
+    - name: Disable Maintenance Mode
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.esxi_maintenance_mode
+      vars:
+        esxi_maintenance_mode_enable: False
+
+- name: Test esxi maintenance mode on vcenter env
+  tags: eco-vcenter-ci
+  block:
+    - name: Run task for adding resource pool
+      ansible.builtin.include_tasks: add_or_remove_resource_pool.yml
+      vars:
+        state: present
+
+    - name: Provision Virtual Esxi
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.provision_virtual_esxi
+
+    - name: Wait until ESXi VM is powered off after OS installation
+      community.vmware.vmware_guest_info:
+        hostname: "{{ provision_virtual_esxi_hostname }}"
+        username: "{{ provision_virtual_esxi_username }}"
+        password: "{{ provision_virtual_esxi_password }}"
+        port: "{{ provision_virtual_esxi_port }}"
+        datacenter: "{{ provision_virtual_esxi_datacenter }}"
+        validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
+        name: "{{ provision_virtual_esxi_vms[0].name }}"
+      register: _esxi_power_status
+      until: _esxi_power_status.instance.hw_power_status == 'poweredOff'
+      retries: 30
+      delay: 20
+
+    - name: Power on ESXi VM if it is off
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_state: "poweredon"
+
+    - name: Wait until ESXi VM has an IP address
+      community.vmware.vmware_guest_info:
+        hostname: "{{ provision_virtual_esxi_hostname }}"
+        username: "{{ provision_virtual_esxi_username }}"
+        password: "{{ provision_virtual_esxi_password }}"
+        port: "{{ provision_virtual_esxi_port }}"
+        datacenter: "{{ provision_virtual_esxi_datacenter }}"
+        validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
+        name: "{{ provision_virtual_esxi_vms[0].name }}"
+      register: _esxi_host_check
+      until: _esxi_host_check.instance.ipv4 is defined and _esxi_host_check.instance.ipv4 is not none
+      retries: 30
+      delay: 10
+
+    - name: Check if ESXi is up
+      wait_for:
+        host: "{{ _esxi_host_check.instance.ipv4 }}"
+        port: 22
+        delay: 10
+        timeout: 300
+        state: started
+
+    - name: Add ESXI Host To vCenter Cluster
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.vcenter_host_connection
+      vars:
+        vcenter_host_connection_state: present
+        vcenter_host_connection_esxi_hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+
+    - name: Enable Maintenance Mode
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.esxi_maintenance_mode
+      vars:
+        esxi_maintenance_mode_esxi_hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+        esxi_maintenance_mode_enable: True
+
+    - name: Gather ESXI host facts after enabling maintenance mode
+      community.vmware.vmware_host_facts:
+        hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+        username: "{{ vcenter_host_connection_esxi_username }}"
+        password: "{{ vcenter_host_connection_esxi_password }}"
+        validate_certs: "{{ esxi_maintenance_mode_validate_certs }}"
+      register: esxi_facts
+
+    - name: Assert if ESXI host is in maintenance mode
+      ansible.builtin.assert:
+        that:
+          - esxi_facts.ansible_facts.ansible_in_maintenance_mode == true
+        fail_msg: "ESXI host is not in maintenance mode"
+        success_msg: "ESXI host is in maintenance mode"
+
+    - name: Disable Maintenance Mode
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.esxi_maintenance_mode
+      vars:
+        esxi_maintenance_mode_esxi_hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+        esxi_maintenance_mode_enable: False
+
+    - name: Gather ESXI host facts after disabling maintenance mode
+      community.vmware.vmware_host_facts:
+        hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+        username: "{{ vcenter_host_connection_esxi_username }}"
+        password: "{{ vcenter_host_connection_esxi_password }}"
+        validate_certs: "{{ esxi_maintenance_mode_validate_certs }}"
+      register: esxi_facts
+
+    - name: Assert if ESXI host is out of maintenance mode
+      ansible.builtin.assert:
+        that:
+          - esxi_facts.ansible_facts.ansible_in_maintenance_mode == false
+        fail_msg: "ESXI host is still in maintenance mode"
+        success_msg: "ESXI host is out of maintenance mode"
+
+  always:
+    - name: Remove ESXI Host From vCenter Cluster
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.vcenter_host_connection
+      vars:
+        vcenter_host_connection_state: absent
+        vcenter_host_connection_esxi_hostname: "{{ _esxi_host_check.instance.ipv4 | default('') }}"
+
+    - name: Cleanup Virtual Esxi
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_state: "absent"
+        provision_vm_force: true
+
+    - name: Run task for removing resource pool
+      ansible.builtin.include_tasks: add_or_remove_resource_pool.yml
+      vars:
+        state: absent
