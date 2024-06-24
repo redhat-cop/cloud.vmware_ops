@@ -1,0 +1,13 @@
+---
+galaxy_info:
+  author: Ansible Cloud Content Team (@redhat-cop)
+  description: Deploy an OVF file as a VM on a vCenter or ESXi host
+  company: Red Hat, Inc.
+  license: Apache License 2.0
+  min_ansible_version: "2.13"
+  galaxy_tags:
+    - cloud
+    - operations
+    - vmware
+
+dependencies: []
