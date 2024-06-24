@@ -1,0 +1,12 @@
+# tasks/add_resource_pool.yml
+
+- name: Add or Remove Resource Pool
+  community.vmware.vmware_resource_pool:
+    hostname: "{{ provision_virtual_esxi_hostname }}"
+    username: "{{ provision_virtual_esxi_username }}"
+    password: "{{ provision_virtual_esxi_password }}"
+    datacenter: "{{ provision_virtual_esxi_datacenter }}"
+    cluster: "{{ provision_virtual_esxi_cluster }}"
+    validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
+    resource_pool: "{{ resource_pool_name }}"
+    state: "{{ state }}"
