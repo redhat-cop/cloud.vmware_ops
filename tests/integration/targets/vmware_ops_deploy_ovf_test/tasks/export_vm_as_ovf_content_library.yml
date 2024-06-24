@@ -1,0 +1,60 @@
+---
+- name: Get VM Info
+  community.vmware.vmware_guest_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ deploy_ovf_datacenter_name }}"
+    name: "{{ test_vm_name }}"
+    validate_certs: false
+  register: vm_info
+
+- name: Create Content Library
+  community.vmware.vmware_content_library_manager:
+    hostname: "{{ deploy_ovf_hostname }}"
+    username: "{{ deploy_ovf_username }}"
+    password: "{{ deploy_ovf_password }}"
+    validate_certs: false
+    library_name: "{{ ovf_library }}"
+    library_type: local
+    datastore_name: "{{ deploy_ovf_datastore }}"
+    state: present
+
+- name: Get list of content libraries IDs
+  community.vmware.vmware_content_library_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: false
+  register: content_library_ids
+
+- name: Get content libraries info
+  community.vmware.vmware_content_library_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: false
+    library_id: "{{ item }}"
+  loop: "{{ content_library_ids.content_libs }}"
+  register: content_library_details
+
+- name: Get ID of content library {{ ovf_library }}
+  ansible.builtin.set_fact:
+    content_library_id: "{{ item.content_lib_details[0].library_id }}"
+  when: item.content_lib_details[0].library_name == ovf_library
+  loop: "{{ content_library_details.results }}"
+
+- name: Export VM As OVF To Content Library
+  vmware.vmware_rest.vcenter_ovf_libraryitem:
+    vcenter_hostname: "{{ deploy_ovf_hostname }}"
+    vcenter_username: "{{ deploy_ovf_username }}"
+    vcenter_password: "{{ deploy_ovf_password }}"
+    vcenter_validate_certs: false
+    source:
+      type: VirtualMachine
+      id: "{{ vm_info.instance.moid }}"
+    target:
+      library_id: "{{ content_library_id }}"
+    create_spec:
+      name: "{{ ovf_library_item_name }}"
+    state: present
