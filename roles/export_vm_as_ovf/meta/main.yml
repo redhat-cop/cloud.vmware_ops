@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: Ansible Cloud Content Team (@redhat-cop)
+  description: Export a powered off VM on vCenter or an ESXi host as an OVF file
+  company: Red Hat, Inc.
+  license: GPL-3.0-or-later
+  min_ansible_version: "2.13"
+  galaxy_tags:
+    - infrastructure
+    - vmware
+
+dependencies: []

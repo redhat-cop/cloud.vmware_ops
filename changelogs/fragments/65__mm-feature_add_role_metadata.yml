@@ -1,0 +1,15 @@
+---
+minor_changes:
+  - cluster_settings - add role metadata
+  - content_library - add role metadata
+  - deploy_ovf - add role metadata
+  - esxi_maintenance_mode - add role metadata
+  - export_vm_as_ovf - add role metadata
+  - info - add role metadata
+  - manage_folder - add role metadata
+  - provision_vcenter - add role metadata
+  - provision_virtual_esxi - add role metadata
+  - provision_vm - add role metadata
+  - snapshot_management - add role metadata
+  - system_settings - add role metadata
+  - vcenter_host_connection - add role metadata
