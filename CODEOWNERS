@@ -4,8 +4,8 @@
 # Integration tests permissions
 /tests/integration/ @shellymiron @elsapassaro @prabinovRedhat @anna-savina
 
-# Specific workflow file permissions
-.github/workflows/eco-vcenter-ci.yaml @shellymiron @elsapassaro @prabinovRedhat @anna-savina
+# Workflow files permissions
+.github/workflows/* @shellymiron @elsapassaro @prabinovRedhat @anna-savina
 
 # Scripts directory permissions
 /scripts/ @shellymiron @elsapassaro @anna-savina @prabinovRedhat
