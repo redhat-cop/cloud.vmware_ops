@@ -2,10 +2,10 @@
 *       @bardielle @machacekondra @mikemorency
 
 # Integration tests permissions
-/tests/integration/ @shellymiron @elsapassaro
+/tests/integration/ @shellymiron @elsapassaro @prabinovRedhat @anna-savina
 
 # Specific workflow file permissions
-.github/workflows/eco-vcenter-ci.yaml @shellymiron @elsapassaro
+.github/workflows/eco-vcenter-ci.yaml @shellymiron @elsapassaro @prabinovRedhat @anna-savina
 
 # Scripts directory permissions
-/scripts/ @shellymiron @elsapassaro
+/scripts/ @shellymiron @elsapassaro @anna-savina @prabinovRedhat
