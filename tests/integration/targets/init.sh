@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2155,SC2086
-
+# some comment to check
 export DEFAULT_COLLECTIONS_PATH="$ANSIBLE_COLLECTIONS_PATH/ansible_collections"
 
 # Check if the variable is already set (e.g., in CI)
