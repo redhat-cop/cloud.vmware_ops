@@ -3,6 +3,10 @@
   tags:
     - eco-vcenter-ci
   block:
+    - name: Import common vars
+      ansible.builtin.include_vars:
+        file: ../group_vars.yml
+
     - name: Create Test VM
       community.vmware.vmware_guest:
         hostname: "{{ export_vm_as_ovf_hostname }}"
@@ -11,7 +15,7 @@
         validate_certs: false
         name: "{{ export_vm_as_ovf_vm_name }}"
         state: poweredoff
-        folder: /Eco-Datacenter/vm/e2e-qe
+        folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"
         datacenter: "{{ export_vm_as_ovf_datacenter_name }}"
         disk:
           - size_gb: 5

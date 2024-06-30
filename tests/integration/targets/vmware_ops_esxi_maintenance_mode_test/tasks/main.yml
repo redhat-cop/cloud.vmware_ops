@@ -17,6 +17,10 @@
 - name: Test esxi maintenance mode on vcenter env
   tags: eco-vcenter-ci
   block:
+    - name: Import common vars
+      ansible.builtin.include_vars:
+        file: ../group_vars.yml
+
     - name: Run task for adding resource pool
       ansible.builtin.include_tasks: add_or_remove_resource_pool.yml
       vars:

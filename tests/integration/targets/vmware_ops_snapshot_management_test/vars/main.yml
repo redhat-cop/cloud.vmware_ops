@@ -4,8 +4,8 @@ snapshot_management_username: "{{ vcenter_username }}"
 snapshot_management_password: "{{ vcenter_password }}"
 snapshot_management_validate_certs: false
 
-snapshot_management_folder: "/Eco-Datacenter/vm/e2e-qe"
-snapshot_management_datacenter: "Eco-Datacenter"
+snapshot_management_folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"
+snapshot_management_datacenter: "{{ vcenter_datacenter }}"
 
 vm_snapshots:
 - snapshot_management_snapshot_name: "{{ manage_snapshot_vm_name }}-snapshot-1"
@@ -34,7 +34,7 @@ provision_vm_username: "{{ snapshot_management_username }}"
 provision_vm_password: "{{ snapshot_management_password }}"
 provision_vm_validate_certs: "{{ snapshot_management_validate_certs }}"
 
-provision_vm_cluster: "Eco-Cluster"
+provision_vm_cluster: "{{ vcenter_cluster_name }}"
 provision_vm_folder: "{{ snapshot_management_folder }}"
 provision_vm_datacenter: "{{ snapshot_management_datacenter }}"
 
@@ -46,9 +46,9 @@ provision_vm_cdrom:
     unit_number: 0
     state: present
     type: iso
-    iso_path: "[datastore1] ISO/rhel-9.3-x86_64-dvd.iso"
+    iso_path: "{{ datastore1_rhel_9_3_iso_path }}"
 provision_vm_networks:
-  - name: "VM Network"
+  - name: "{{ vm_network_name }}"
     device_type: "vmxnet3"
     mac: "00:50:56:bd:d2:9e"
     type: "dhcp"

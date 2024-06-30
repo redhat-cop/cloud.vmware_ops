@@ -6,6 +6,10 @@
 
 - name: Perform VM Lifecycle Operations in vCenter Environment
   block:
+  - name: Import common vars
+    ansible.builtin.include_vars:
+      file: ../group_vars.yml
+
   - name: Provision multiple VMs
     loop: "{{ provision_vms }}"
     ansible.builtin.include_tasks: provision_vms_with_validation.yml

@@ -3,6 +3,10 @@
   tags:
     - eco-vcenter-ci
   block:
+    - name: Import common vars
+      ansible.builtin.include_vars:
+        file: ../group_vars.yml
+
     - name: Create Content Library
       ansible.builtin.import_role:
         name: cloud.vmware_ops.content_library

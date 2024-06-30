@@ -5,7 +5,7 @@
     username: "{{ provision_virtual_esxi_username }}"
     password: "{{ provision_virtual_esxi_password }}"
     datacenter: "{{ provision_virtual_esxi_datacenter }}"
-    validate_certs: false
+    validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
     cluster: "{{ provision_virtual_esxi_cluster }}"
     resource_pool: "{{ provision_virtual_esxi_resource_pool }}"
     state: "{{ required_state }}"

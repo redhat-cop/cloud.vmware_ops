@@ -7,6 +7,10 @@
 - name: Run cluster settings role on the vCenter Env
   tags: eco-vcenter-ci
   block:
+    - name: Import common vars
+      ansible.builtin.include_vars:
+        file: ../group_vars.yml
+
     - name: "Create New Cluster: {{ cluster_settings_cluster_name }}"
       community.vmware.vmware_cluster:
         hostname: '{{ cluster_settings_hostname }}'
