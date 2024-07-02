@@ -1,0 +1,13 @@
+---
+# vcenter specific vars
+# please edit according to your vcenter configs
+vcenter_cluster_name: "Eco-Cluster"
+vcenter_datacenter: "Eco-Datacenter"
+vcenter_port: 443
+custom_esxi_8_username: "root"
+custom_esxi_8_password: "!#%135qEt"
+custom_esxi_8_iso_path: "[eco-nfs-datastore-iso] custom_esxi_8.iso"
+datastore1_rhel_8_9_iso_path: "[datastore1] ISO/rhel-8.9-x86_64-boot.iso"
+datastore1_rhel_9_3_iso_path: "[datastore1] ISO/rhel-9.3-x86_64-dvd.iso"
+vm_network_name: "VM Network"
+test_network_name: "TestNetwork"

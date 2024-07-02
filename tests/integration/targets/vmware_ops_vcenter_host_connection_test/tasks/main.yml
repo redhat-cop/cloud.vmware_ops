@@ -2,6 +2,10 @@
 - name: Test vCenter host connection role on vCenter env
   tags: eco-vcenter-ci
   block:
+    - name: Import common vars
+      ansible.builtin.include_vars:
+        file: ../group_vars.yml
+
     - name: Add Resource Pool
       ansible.builtin.include_tasks: manage_resource_pool.yml
       vars:
@@ -21,14 +25,14 @@
         hostname: "{{ vcenter_host_connection_hostname }}"
         username: "{{ vcenter_host_connection_username }}"
         password: "{{ vcenter_host_connection_password }}"
-        validate_certs: false
+        validate_certs: "{{ vcenter_host_connection_validate_certs }}"
         esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
       register: _host_facts
 
     - name: Verify ESXI Host connected to vCenter Cluster
       ansible.builtin.assert:
         that:
-          - _host_facts.ansible_facts.cluster == cluster_name
+          - _host_facts.ansible_facts.cluster == vcenter_host_connection_cluster
           - _host_facts.ansible_facts.ansible_host_connection_state == 'connected'
 
     - name: Remove ESXI Host from vCenter Cluster
@@ -44,7 +48,7 @@
             hostname: "{{ vcenter_host_connection_hostname }}"
             username: "{{ vcenter_host_connection_username }}"
             password: "{{ vcenter_host_connection_password }}"
-            validate_certs: false
+            validate_certs: "{{ vcenter_host_connection_validate_certs }}"
             esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
           register: _no_host_facts
 
@@ -66,7 +70,7 @@
         password: "{{ vcenter_host_connection_password }}"
         datacenter: "{{ vcenter_host_connection_datacenter }}"
         cluster: "{{ vcenter_host_connection_cluster }}"
-        validate_certs: false
+        validate_certs: "{{ vcenter_host_connection_validate_certs }}"
         esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
         esxi_username: "{{ vcenter_host_connection_esxi_username }}"
         esxi_password: "{{ vcenter_host_connection_esxi_password }}"

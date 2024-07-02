@@ -3,7 +3,7 @@ content_library_hostname: "{{ vcenter_hostname }}"
 content_library_username: "{{ vcenter_username }}"
 content_library_password: "{{ vcenter_password }}"
 content_library_validate_certs: false
-content_library_datacenter_name: Eco-Datacenter
+content_library_datacenter_name: "{{ vcenter_datacenter }}"
 
 content_library_datastore_name: "datastore3"
 content_library_type: local

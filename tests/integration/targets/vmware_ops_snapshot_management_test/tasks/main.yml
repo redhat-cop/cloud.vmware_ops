@@ -8,6 +8,10 @@
 
 - name: Test VM snapshot management role in vCenter Environment
   block:
+    - name: Import common vars
+      ansible.builtin.include_vars:
+        file: ../group_vars.yml
+
     - name: Setup test - Provision VM
       ansible.builtin.import_role:
         name: cloud.vmware_ops.provision_vm

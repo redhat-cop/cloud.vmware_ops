@@ -5,9 +5,9 @@ deploy_ovf_hostname: "{{ vcenter_hostname }}"
 deploy_ovf_username: "{{ vcenter_username }}"
 deploy_ovf_password: "{{ vcenter_password }}"
 deploy_ovf_validate_certs: false
-deploy_ovf_datacenter_name: Eco-Datacenter
-deploy_ovf_cluster_name: Eco-Cluster
-deploy_ovf_folder: /Eco-Datacenter/vm/e2e-qe
+deploy_ovf_datacenter_name: "{{ vcenter_datacenter }}"
+deploy_ovf_cluster_name: "{{ vcenter_cluster_name }}"
+deploy_ovf_folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"
 deploy_ovf_datastore: datastore3
 deploy_ovf_power_on: true
 

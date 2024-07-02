@@ -3,6 +3,10 @@
   tags:
     - eco-vcenter-ci
   block:
+    - name: Import common vars
+      ansible.builtin.include_vars:
+        file: ../group_vars.yml
+
     - name: Create Test VM
       community.vmware.vmware_guest:
         hostname: "{{ deploy_ovf_hostname }}"

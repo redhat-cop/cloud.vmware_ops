@@ -1,4 +1,9 @@
 ---
+- name: Import common vars for tests on vCenter Environment
+  ansible.builtin.include_vars:
+    file: ../group_vars.yml
+  tags: eco-vcenter-ci
+
 - name: Create Folder Tree
   loop: "{{ folder_types }}"
   ansible.builtin.include_role:
