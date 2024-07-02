@@ -3,7 +3,7 @@ A role to provision a virtual machine, create associated resources if they don't
 This includes cloning and building from VM templates.
 
 
-## Requirements 
+## Requirements
 N/A
 
 
@@ -57,7 +57,7 @@ N/A
 - **provision_vm_esxi_hostname** (string):
     The ESXi hostname where the virtual machine will run.
     This is a required parameter, if cluster is not set.
-    esxi_hostname and cluster are mutually exclusive parameters.    
+    esxi_hostname and cluster are mutually exclusive parameters.
     This parameter is case sensitive.
 
 - **provision_vm_datacenter** (string):
@@ -71,7 +71,7 @@ N/A
     This parameter is case sensitive.
     If multiple machines are found with same name, this parameter is used to identify
     uniqueness of the virtual machine.
-  
+
 - **provision_vm_datastore** (string):
     Specify datastore or datastore cluster to provision virtual machine.
     This parameter takes precedence over disk.datastore parameter.
@@ -164,7 +164,7 @@ N/A
     For supported customization operating system matrix, (see http://partnerweb.vmware.com/programs/guestOS/guest-os-customization-matrix.pdf)
     All parameters and VMware object names are case sensitive.
     Linux based OSes requires Perl package to be installed for OS customizations.
-    
+
     Element keys:
     * existing_vm:
         type: bool
@@ -306,7 +306,7 @@ N/A
     Shrinking disks is not supported.
     Removing existing disks of the virtual machine is not supported.
     Attributes disk.controller_type, disk.controller_number, disk.unit_number are used to configure multiple types of disk controllers and disks for creating or reconfiguring virtual machine.
-    
+
     Element keys:
     * size:
         description:
@@ -753,6 +753,9 @@ N/A
     - "first" ← (default)
     - "last"
 
+- **provision_vm_is_template** (bool):
+    If true, the VM will be created as a template instead of a regular VM.
+    Default: false
 
 ## Dependencies
 
@@ -770,7 +773,7 @@ Create a ``playbook.yml`` file like this:
   gather_facts: true
 
   tasks:
-    - name: Provision a VM 
+    - name: Provision a VM
       ansible.builtin.import_role:
         name: cloud.vmware_ops.provision_vm
       vars:

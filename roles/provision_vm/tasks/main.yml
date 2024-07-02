@@ -52,4 +52,4 @@
     use_instance_uuid: "{{ provision_vm_use_instance_uuid | d(omit) }}"
     name_match: "{{ provision_vm_name_match | d(omit) }}"
 
-    is_template: false
+    is_template: "{{ provision_vm_is_template }}"
