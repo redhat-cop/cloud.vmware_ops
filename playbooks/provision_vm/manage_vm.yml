@@ -4,3 +4,4 @@
   gather_facts: false
   roles:
     - role: cloud.vmware_ops.provision_vm
+      provision_vm_is_template: false
