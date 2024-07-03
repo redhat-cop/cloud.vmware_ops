@@ -14,28 +14,12 @@
     loop: "{{ provision_vms }}"
     ansible.builtin.include_tasks: provision_vms_with_validation.yml
 
-  - name: Turn one of the provisioned VMs into template
-    loop: "{{ provision_vms_template }}"
-    community.vmware.vmware_guest:
-      hostname: "{{ provision_vm_hostname }}"
-      username: "{{ provision_vm_username }}"
-      password: "{{ provision_vm_password }}"
-      validate_certs: "{{ provision_vm_validate_certs }}"
-      name: "{{ item.provision_vm_name }}"
-      is_template: true
-      folder: "{{ provision_vm_folder }}"
-      datacenter: "{{ provision_vm_datacenter }}"
-
-  - name: Create a VM from the template
-    loop: "{{ provision_vms_from_template }}"
-    ansible.builtin.include_tasks: provision_vms_with_validation.yml
-
   - name: Update one the provisioned VMs
     ansible.builtin.include_tasks: update_vm.yml
 
   always:
     - name: Cleanup VMs and template from the vcenter env
-      loop: "{{ provision_vms + provision_vms_template + provision_vms_from_template }}"
+      loop: "{{ provision_vms }}"
       ansible.builtin.include_tasks: cleanup_vms.yml
 
     - name: Cleanup Network

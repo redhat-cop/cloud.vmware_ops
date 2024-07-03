@@ -15,6 +15,7 @@
     provision_vm_guest_id: "{{ item.provision_vm_guest_id | default(omit) }}"
     provision_vm_datastore: "{{ item.provision_vm_datastore | default(omit) }}"
     provision_vm_template: "{{ item.provision_vm_template | default(omit) }}"
+    provision_vm_is_template: "{{ item.provision_vm_is_template | default(omit) }}"
 
 - name: Run post validations for VMs creation
   block:
