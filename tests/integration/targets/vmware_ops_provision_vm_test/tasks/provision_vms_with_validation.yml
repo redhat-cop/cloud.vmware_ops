@@ -45,3 +45,32 @@
       that:
         - vm_info.virtual_machines[0].datastore_url[0].name == item.provision_vm_disk[0].datastore
     when: "'provision_vm_datastore' not in item"
+
+- name: Run additional post validation for VM template
+  block:
+  - name: Get info on VM template
+    community.vmware.vmware_guest_info:
+      validate_certs: false
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ provision_vm_datacenter }}"
+      folder: "{{ provision_vm_folder }}"
+      name: "{{ item.provision_vm_name }}"
+    register: template_info
+
+  - name: Debug template_info
+    ansible.builtin.debug:
+      var: template_info
+
+  - name: Debug item.provision_vm_is_template
+    ansible.builtin.debug:
+      var: item.provision_vm_is_template
+
+  - name: Check template
+    ansible.builtin.assert:
+      that:
+        - template_info.instance.hw_is_template == item.provision_vm_is_template
+  when:
+    - item.provision_vm_is_template is defined
+    - item.provision_vm_is_template
