@@ -2,3 +2,6 @@ collections:
   - type: git
     name: https://github.com/redhat-cop/cloud.vmware_ops.git
   - name: community.general
+  - name: community.vmware
+    version: ">=4.4.0"
+
