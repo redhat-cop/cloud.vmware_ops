@@ -1,3 +1,0 @@
----
-minor_changes:
-  - export_vm_as_ovf - adding check on ovf file in integration tests for export_vm_as_ovf role

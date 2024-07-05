@@ -1,3 +1,0 @@
----
-minor_changes:
-  - deploy_ovf - added role, playbook, tests for deploying an OVF template to an ESXi or VCenter
