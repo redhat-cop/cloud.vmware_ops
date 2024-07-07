@@ -9,19 +9,8 @@
         file: ../../integration_config.yml
       tags: eco-vcenter-ci
 
-    - name: Import simulator vars
-      ansible.builtin.include_vars:
-        file: vars.yml
-      tags: integration-ci
-
-    - name: Vcsim
-      ansible.builtin.import_role:
-        name: prepare_soap
-      tags: integration-ci
-
     - name: Import cluster_settings role
       ansible.builtin.include_role:
         name: vmware_ops_cluster_settings_test
       tags:
         - eco-vcenter-ci
-        - integration-ci

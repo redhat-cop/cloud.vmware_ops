@@ -9,5 +9,6 @@ dependencies:
     - python3-aiohttp [platform:rpm]
   python:
     - pyvmomi<7.0.3
+    - git+https://github.com/vmware/vsphere-automation-sdk-python.git@v8.0.2.0
   ansible_core:
     package_pip: ansible-core==2.13.13

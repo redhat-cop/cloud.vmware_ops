@@ -1,9 +1,4 @@
 ---
-- name: Test cluster settings role on the vCenter simulator
-  ansible.builtin.import_role:
-    name: cloud.vmware_ops.cluster_settings
-  tags: integration-ci
-
 - name: Run cluster settings role on the vCenter Env
   tags: eco-vcenter-ci
   block:
@@ -13,9 +8,9 @@
 
     - name: "Create New Cluster: {{ cluster_settings_cluster_name }}"
       community.vmware.vmware_cluster:
-        hostname: '{{ cluster_settings_hostname }}'
-        username: '{{ cluster_settings_username }}'
-        password: '{{ cluster_settings_password }}'
+        hostname: "{{ cluster_settings_hostname }}"
+        username: "{{ cluster_settings_username }}"
+        password: "{{ cluster_settings_password }}"
         datacenter_name: "{{ cluster_settings_datacenter_name }}"
         cluster_name: "{{ cluster_settings_cluster_name }}"
         validate_certs: false
@@ -71,9 +66,9 @@
   always:
     - name: "Cleanup Cluster: {{ cluster_settings_cluster_name }}"
       community.vmware.vmware_cluster:
-        hostname: '{{ cluster_settings_hostname }}'
-        username: '{{ cluster_settings_username }}'
-        password: '{{ cluster_settings_password }}'
+        hostname: "{{ cluster_settings_hostname }}"
+        username: "{{ cluster_settings_username }}"
+        password: "{{ cluster_settings_password }}"
         datacenter_name: "{{ cluster_settings_datacenter_name }}"
         cluster_name: "{{ cluster_settings_cluster_name }}"
         state: absent

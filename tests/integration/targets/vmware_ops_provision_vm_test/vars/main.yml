@@ -44,7 +44,7 @@ provision_vms_from_template:
     provision_vm_datastore: "datastore1"
 
 provision_vms:
-# RHEL9 VM
+  # RHEL9 VM
   - provision_vm_name: "qe-provision-vm-rhel-9"
     provision_vm_state: "poweredoff"
     provision_vm_cdrom:
@@ -70,7 +70,7 @@ provision_vms:
       secure_boot: true
     provision_vm_guest_id: "rhel9_64Guest"
     provision_vm_datastore: "datastore1"
-# RHEL8 VM
+  # RHEL8 VM
   - provision_vm_name: "qe-provision-vm-rhel-8"
     provision_vm_state: "poweredon"
     provision_vm_cdrom:
@@ -106,9 +106,9 @@ vm_names_to_update:
   - "{{ vm_update_name }}"
 
 vm_states:
-#  - "rebootguest" # error msg: "VMware tools should be installed for guest shutdown/reboot"
-#  - "shutdownguest" # error msg: "VMware tools should be installed for guest shutdown/reboot"
-#  - "restarted" # test failing because after restart the status is poweredOn again
+  #  - "rebootguest" # error msg: "VMware tools should be installed for guest shutdown/reboot"
+  #  - "shutdownguest" # error msg: "VMware tools should be installed for guest shutdown/reboot"
+  #  - "restarted" # test failing because after restart the status is poweredOn again
   - "poweredon"
   - "suspended"
   - "poweredoff"
