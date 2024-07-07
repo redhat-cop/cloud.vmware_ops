@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - manage_template - Removed playbook because underlying module has a bug and does not support templates
