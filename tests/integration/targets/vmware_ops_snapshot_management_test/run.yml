@@ -15,12 +15,12 @@
       tags: integration-ci
 
     - name: Vcsim
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: prepare_soap
       tags: integration-ci
 
     - name: Import manage VM snapshot role
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: vmware_ops_snapshot_management_test
       tags:
         - eco-vcenter-ci

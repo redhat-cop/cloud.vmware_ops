@@ -20,7 +20,7 @@
       tags: integration-ci
 
     - name: Import provision VM role
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: vmware_ops_provision_vm_test
       tags:
         - eco-vcenter-ci

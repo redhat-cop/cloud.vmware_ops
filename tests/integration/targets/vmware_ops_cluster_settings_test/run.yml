@@ -10,7 +10,7 @@
       tags: eco-vcenter-ci
 
     - name: Import cluster_settings role
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: vmware_ops_cluster_settings_test
       tags:
         - eco-vcenter-ci
