@@ -1,4 +1,6 @@
 ---
+run_on_simulator: false
+
 provision_virtual_esxi_hostname: "{{ vcenter_hostname }}"
 provision_virtual_esxi_username: "{{ vcenter_username }}"
 provision_virtual_esxi_password: "{{ vcenter_password }}"

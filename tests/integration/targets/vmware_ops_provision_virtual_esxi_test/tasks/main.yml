@@ -1,11 +1,11 @@
 ---
 - name: Test Virtual Esxi Provisioning on Simulator
-  tags: integration-ci
+  when: run_on_simulator
   ansible.builtin.include_role:
     name: cloud.vmware_ops.provision_virtual_esxi
 
 - name: Test Virtual Esxi Provisioning on vCenter Env
-  tags: eco-vcenter-ci
+  when: not run_on_simulator
   block:
   - name: Import common vars
     ansible.builtin.include_vars:

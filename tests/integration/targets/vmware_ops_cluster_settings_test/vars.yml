@@ -1,4 +1,6 @@
 ---
+run_on_simulator: true
+
 cluster_settings_hostname: "127.0.0.1"
 cluster_settings_username: "test"
 cluster_settings_password: "test"

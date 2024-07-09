@@ -1,4 +1,6 @@
 # vars.yaml
+run_on_simulator: false
+
 provision_vm_hostname: "{{ vcenter_hostname }}"
 provision_vm_username: "{{ vcenter_username }}"
 provision_vm_password: "{{ vcenter_password }}"

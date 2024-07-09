@@ -1,4 +1,6 @@
 ---
+run_on_simulator: false
+
 manage_folder_hostname: "{{ vcenter_hostname }}"
 manage_folder_username: "{{ vcenter_username }}"
 manage_folder_password: "{{ vcenter_password }}"

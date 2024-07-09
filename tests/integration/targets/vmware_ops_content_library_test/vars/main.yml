@@ -1,4 +1,6 @@
 ---
+run_on_simulator: false
+
 content_library_hostname: "{{ vcenter_hostname }}"
 content_library_username: "{{ vcenter_username }}"
 content_library_password: "{{ vcenter_password }}"

@@ -4,9 +4,10 @@
   ignore_errors: true
   ansible.builtin.import_role:
     name: cloud.vmware_ops.snapshot_management
-  tags: integration-ci
+  when: run_on_simulator
 
 - name: Test VM snapshot management role in vCenter Environment
+  when: not run_on_simulator
   block:
     - name: Import common vars
       ansible.builtin.include_vars:
@@ -49,4 +50,3 @@
       vars:
         provision_vm_state: absent
         provision_vm_force: true
-  tags: eco-vcenter-ci

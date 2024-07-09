@@ -1,7 +1,6 @@
 ---
 - name: Test
-  tags:
-    - eco-vcenter-ci
+  when: not run_on_simulator
   block:
     - name: Import common vars
       ansible.builtin.include_vars:

@@ -1,4 +1,6 @@
 # vars.yaml
+run_on_simulator: false
+
 snapshot_management_hostname: "{{ vcenter_hostname }}"
 snapshot_management_username: "{{ vcenter_username }}"
 snapshot_management_password: "{{ vcenter_password }}"

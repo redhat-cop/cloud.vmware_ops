@@ -1,3 +1,6 @@
+---
+run_on_simulator: true
+
 provision_vm_hostname: "127.0.0.1"
 provision_vm_username: "test"
 provision_vm_password: "test"

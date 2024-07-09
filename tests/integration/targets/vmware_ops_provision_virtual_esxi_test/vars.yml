@@ -1,4 +1,6 @@
 ---
+run_on_simulator: true
+
 provision_virtual_esxi_hostname: "127.0.0.1"
 provision_virtual_esxi_username: "test"
 provision_virtual_esxi_password: "test"

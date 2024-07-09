@@ -1,6 +1,6 @@
 ---
 - name: Test esxi maintenance on simulator
-  tags: integration-ci
+  when: run_on_simulator
   block:
     - name: Enable Maintenance Mode
       ansible.builtin.include_role:
@@ -15,7 +15,7 @@
         esxi_maintenance_mode_enable: False
 
 - name: Test esxi maintenance mode on vcenter env
-  tags: eco-vcenter-ci
+  when: not run_on_simulator
   block:
     - name: Import common vars
       ansible.builtin.include_vars:

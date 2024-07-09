@@ -1,4 +1,6 @@
 ---
+run_on_simulator: true
+
 esxi_maintenance_mode_hostname: "127.0.0.1"
 esxi_maintenance_mode_username: "test"
 esxi_maintenance_mode_password: "test"

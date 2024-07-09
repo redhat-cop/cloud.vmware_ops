@@ -1,5 +1,6 @@
 ---
 # General vars
+run_on_simulator: false
 resource_prefix: host-maintenance 
 resource_pool_name: "{{ resource_prefix }}-pool"
 

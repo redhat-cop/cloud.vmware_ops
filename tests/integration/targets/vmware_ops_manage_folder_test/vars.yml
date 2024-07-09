@@ -1,4 +1,6 @@
 ---
+run_on_simulator: true
+
 manage_folder_hostname: "127.0.0.1"
 manage_folder_username: "test"
 manage_folder_password: "test"

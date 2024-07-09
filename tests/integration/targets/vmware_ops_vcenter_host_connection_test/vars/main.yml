@@ -1,5 +1,6 @@
 ---
 # General
+run_on_simulator: false
 resource_pool_name: "host-connection-test-pool"
 
 # Vars for cloud.vmware_ops.provision_virtual_esxi role
