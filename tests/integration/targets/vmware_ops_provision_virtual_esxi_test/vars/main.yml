@@ -24,4 +24,3 @@ provision_virtual_esxi_disks:
     datastore: datastore1
 provision_virtual_esxi_memory_mb: 10000
 provision_virtual_esxi_cpus: 8
-provision_vm_datastore: "datastore1"
