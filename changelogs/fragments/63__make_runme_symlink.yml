@@ -1,4 +1,0 @@
----
-minor_changes:
-  - general change to the testing structure which duplicate runme.sh for each target
-    instead of recreating it manaully

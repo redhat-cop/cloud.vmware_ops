@@ -1,3 +1,0 @@
----
-minor_changes:
-  - manage_template - add playbook to manage templates using provision_vm role

@@ -1,3 +1,0 @@
----
-minor_changes:
-  - esxi_maintenance_mode test - adding the integartion test for esxi_maintenance_mode role

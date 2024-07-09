@@ -1,6 +1,6 @@
 namespace: cloud
 name: vmware_ops
-version: 1.2.0
+version: 1.3.0
 readme: README.md
 authors:
   - Ansible Cloud Content Team (@redhat-cop)
@@ -19,8 +19,7 @@ build_ignore:
   - tmp
   - context
   - .idea
-dependencies: {
-  "vmware.vmware_rest": ">=2.3.1",
-  "community.vmware": ">=4.4.0",
-  "vmware.vmware": ">=1.0.0",
-}
+dependencies:
+  "vmware.vmware_rest": ">=2.3.1"
+  "community.vmware": ">=4.4.0"
+  "vmware.vmware": ">=1.0.0"

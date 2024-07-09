@@ -4,6 +4,44 @@ Cloud.VMware\_Ops Release Notes
 
 .. contents:: Topics
 
+v1.3.0
+======
+
+Minor Changes
+-------------
+
+- cluster_settings - add role metadata
+- cluster_settings - adding the integration test for cluster settings role
+- content_library - add role metadata
+- content_library - adding role, playbook, and tests for managing content libraries in a vcenter
+- deploy_ovf - add role metadata
+- deploy_ovf - added role, playbook, tests for deploying an OVF template to an ESXi or VCenter
+- esxi_maintenance_mode - add role metadata
+- esxi_maintenance_mode test - adding the integartion test for esxi_maintenance_mode role
+- export_vm_as_ovf - add role metadata
+- export_vm_as_ovf - added role, playbook, tests to export an exisiting VM from VCenter or ESXi as an OVF
+- export_vm_as_ovf - adding check on ovf file in integration tests for export_vm_as_ovf role
+- general change to the testing structure which duplicate runme.sh for each target instead of recreating it manaully
+- info - add role metadata
+- info_test - adding a CI for validated content repo to run on a real vcenter env, and include this test within the pr
+- manage_folder - Added new role, tests, and playbook to create or delete a folder in VCenter
+- manage_folder - add role metadata
+- manage_template - add playbook to manage templates using provision_vm role
+- provision_vcenter - add role metadata
+- provision_virtual_esxi - add role metadata
+- provision_vm - Added parameter to set is_template and defaulted it to false to keep behavior consistent
+- provision_vm - add role metadata
+- snapshot_management - add role metadata
+- system_settings - add role metadata
+- vcenter_host_connection - add role metadata
+- vcenter_host_connection_test - modified vcenter_host_connection_test to run on a real vcenter environment
+
+Bugfixes
+--------
+
+- integration tests - Fixed vsphere automation sdk version in requirements.txt where packages could not properly resolve
+- manage_template - Removed playbook because underlying module has a bug and does not support templates
+
 v1.2.0
 ======
 

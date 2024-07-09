@@ -1,3 +1,0 @@
----
-minor_changes:
-  - content_library - adding role, playbook, and tests for managing content libraries in a vcenter
