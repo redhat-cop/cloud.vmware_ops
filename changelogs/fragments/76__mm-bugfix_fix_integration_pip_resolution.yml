@@ -1,3 +1,0 @@
----
-bugfixes:
-  - integration tests - Fixed vsphere automation sdk version in requirements.txt where packages could not properly resolve

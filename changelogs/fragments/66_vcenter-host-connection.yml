@@ -1,3 +1,0 @@
----
-minor_changes:
-  - vcenter_host_connection_test - modified vcenter_host_connection_test to run on a real vcenter environment

@@ -88,3 +88,63 @@ releases:
     - 43-mm-feature__add-ha-playbooks.yml
     - mm-feature__provision_vcenter_tests.yml
     release_date: '2024-06-02'
+  1.3.0:
+    changes:
+      bugfixes:
+      - integration tests - Fixed vsphere automation sdk version in requirements.txt
+        where packages could not properly resolve
+      - manage_template - Removed playbook because underlying module has a bug and
+        does not support templates
+      minor_changes:
+      - cluster_settings - add role metadata
+      - cluster_settings - adding the integration test for cluster settings role
+      - content_library - add role metadata
+      - content_library - adding role, playbook, and tests for managing content libraries
+        in a vcenter
+      - deploy_ovf - add role metadata
+      - deploy_ovf - added role, playbook, tests for deploying an OVF template to
+        an ESXi or VCenter
+      - esxi_maintenance_mode - add role metadata
+      - esxi_maintenance_mode test - adding the integartion test for esxi_maintenance_mode
+        role
+      - export_vm_as_ovf - add role metadata
+      - export_vm_as_ovf - added role, playbook, tests to export an exisiting VM from
+        VCenter or ESXi as an OVF
+      - export_vm_as_ovf - adding check on ovf file in integration tests for export_vm_as_ovf
+        role
+      - general change to the testing structure which duplicate runme.sh for each
+        target instead of recreating it manaully
+      - info - add role metadata
+      - info_test - adding a CI for validated content repo to run on a real vcenter
+        env, and include this test within the pr
+      - manage_folder - Added new role, tests, and playbook to create or delete a
+        folder in VCenter
+      - manage_folder - add role metadata
+      - manage_template - add playbook to manage templates using provision_vm role
+      - provision_vcenter - add role metadata
+      - provision_virtual_esxi - add role metadata
+      - provision_vm - Added parameter to set is_template and defaulted it to false
+        to keep behavior consistent
+      - provision_vm - add role metadata
+      - snapshot_management - add role metadata
+      - system_settings - add role metadata
+      - vcenter_host_connection - add role metadata
+      - vcenter_host_connection_test - modified vcenter_host_connection_test to run
+        on a real vcenter environment
+    fragments:
+    - 42__eco-vcenter-ci-integration.yml
+    - 47__mm_feature__add_manage_folder.yml
+    - 51__mm-feature__add_content_library.yml
+    - 55__mm-feature_export_vm_as_ovf.yml
+    - 57__mm-feature_deploy-vm-from-ovf.yml
+    - 58__cluster-settings-integration-test.yml
+    - 59__export-vm-as-ovf-integration-test.yml
+    - 62__mm-feature_provision_template.yml
+    - 63__make_runme_symlink.yml
+    - 64_add_maintenance_mode_test.yml
+    - 65__mm-feature_add_role_metadata.yml
+    - 66_vcenter-host-connection.yml
+    - 73__mm-feature_add_provision_vm_template_opt.yml
+    - 76__mm-bugfix_fix_integration_pip_resolution.yml
+    - 77__mm-bugfix_remove_template_playbook.yml
+    release_date: '2024-07-08'

@@ -1,3 +1,0 @@
----
-minor_changes:
-  - provision_vm - Added parameter to set is_template and defaulted it to false to keep behavior consistent
