@@ -21,7 +21,7 @@
       tags: integration-ci
 
     - name: Import provision virtual ESXi role
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: vmware_ops_provision_virtual_esxi_test
       tags:
         - integration-ci

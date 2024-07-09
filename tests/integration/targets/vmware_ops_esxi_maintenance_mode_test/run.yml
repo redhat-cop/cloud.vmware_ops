@@ -20,7 +20,7 @@
       tags: integration-ci
 
     - name: Import esxi maintenance test
-      ansible.builtin.include_role:
+      ansible.builtin.import_role:
         name: vmware_ops_esxi_maintenance_mode_test
       tags:
         - eco-vcenter-ci

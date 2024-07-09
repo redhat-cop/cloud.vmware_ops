@@ -46,8 +46,7 @@
         state: absent
 
 - name: Test
-  tags:
-    - eco-vcenter-ci
+  when: not run_on_simulator
   block:
     - name: Test Deploy OVF From Local Filesystem
       ansible.builtin.import_role:
