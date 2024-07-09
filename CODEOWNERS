@@ -5,7 +5,7 @@
 /tests/integration/ @shellymiron @elsapassaro @prabinovRedhat @anna-savina
 
 # Workflow files permissions
-.github/workflows/* @shellymiron @elsapassaro @prabinovRedhat @anna-savina
+.github/workflows/ @shellymiron @elsapassaro @prabinovRedhat @anna-savina
 
 # Scripts directory permissions
 /scripts/ @shellymiron @elsapassaro @anna-savina @prabinovRedhat
