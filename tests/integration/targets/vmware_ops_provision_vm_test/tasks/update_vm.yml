@@ -36,6 +36,10 @@
     switch: "{{ vswitch_name }}"
     portgroup: "{{ portgroup_name }}"
 
+- name: Wait for {{ portgroup_name }} to propegate to all hosts
+  ansible.builtin.pause:
+    seconds: 30
+
 - name: Update networks of existing VM {{ vm_update_name }}
   ansible.builtin.import_role:
     name: cloud.vmware_ops.provision_vm
