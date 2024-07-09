@@ -1,6 +1,6 @@
 - name: Manage snapshot of existing VM
   ansible.builtin.import_role:
-    name: snapshot_management
+    name: cloud.vmware_ops.snapshot_management
   vars:
     snapshot_management_vm_name: "{{ item.snapshot_management_vm_name | default(omit) }}"
     snapshot_management_state: "{{ item.snapshot_management_state | default(omit) }}"
