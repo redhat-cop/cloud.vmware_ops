@@ -1,6 +1,6 @@
 ---
 - name: Test vCenter host connection role on vCenter env
-  tags: eco-vcenter-ci
+  when: not run_on_simulator 
   block:
     - name: Import common vars
       ansible.builtin.include_vars:
@@ -89,7 +89,7 @@
         required_state: absent
 
 - name: Test vCenter host connection role on simulator
-  tags: integration-ci
+  when: run_on_simulator
   block:
     - name: Add ESXI Host to vCenter Cluster
       ansible.builtin.import_role:

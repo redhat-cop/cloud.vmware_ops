@@ -1,11 +1,14 @@
-    snapshot_management_hostname: "127.0.0.1"
-    snapshot_management_username: "test"
-    snapshot_management_password: "test"
-    snapshot_management_validate_certs: false
-    snapshot_management_folder: "/DC0/vm"
-    snapshot_management_datacenter: "DC0"
-    snapshot_management_vm_name: "DC0_H0_VM0"
-    snapshot_management_port: "8989"
-    snapshot_management_state: present
-    snapshot_management_snapshot_name: "snap1"
-    snapshot_management_snapshot_description: "snap1_description"
+---
+run_on_simulator: true
+
+snapshot_management_hostname: "127.0.0.1"
+snapshot_management_username: "test"
+snapshot_management_password: "test"
+snapshot_management_validate_certs: false
+snapshot_management_folder: "/DC0/vm"
+snapshot_management_datacenter: "DC0"
+snapshot_management_vm_name: "DC0_H0_VM0"
+snapshot_management_port: "8989"
+snapshot_management_state: present
+snapshot_management_snapshot_name: "snap1"
+snapshot_management_snapshot_description: "snap1_description"

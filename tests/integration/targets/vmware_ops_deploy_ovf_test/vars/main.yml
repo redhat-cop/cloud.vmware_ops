@@ -1,4 +1,5 @@
 ---
+run_on_simulator: false
 vmware_deploy_ovf_test_export_dir: /tmp
 
 deploy_ovf_hostname: "{{ vcenter_hostname }}"

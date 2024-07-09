@@ -1,4 +1,6 @@
 ---
+run_on_simulator: false
+
 export_vm_as_ovf_hostname: "{{ vcenter_hostname }}"
 export_vm_as_ovf_username: "{{ vcenter_username }}"
 export_vm_as_ovf_password: "{{ vcenter_password }}"

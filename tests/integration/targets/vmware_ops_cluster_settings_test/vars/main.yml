@@ -1,4 +1,6 @@
 ---
+run_on_simulator: false
+
 cluster_settings_hostname: "{{ vcenter_hostname }}"
 cluster_settings_username: "{{ vcenter_username }}"
 cluster_settings_password: "{{ vcenter_password }}"
