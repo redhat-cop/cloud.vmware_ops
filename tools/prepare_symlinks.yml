@@ -18,4 +18,5 @@
       loop: "{{ target_dirs.files }}"
       when:
         - item.path | basename | regex_search('^vmware_ops_')
+        # the test is excluded because it has a unique runme.sh created manually
         - not item.path | basename | regex_search('vmware_ops_provision_virtual_esxi_test')
