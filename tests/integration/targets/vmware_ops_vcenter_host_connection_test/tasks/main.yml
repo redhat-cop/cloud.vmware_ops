@@ -75,6 +75,10 @@
         esxi_username: "{{ vcenter_host_connection_esxi_username }}"
         esxi_password: "{{ vcenter_host_connection_esxi_password }}"
         state: absent
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false
 
     - name: Remove ESXI VM to cleanup env
       ansible.builtin.include_role:

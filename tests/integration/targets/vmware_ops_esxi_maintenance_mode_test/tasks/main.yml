@@ -124,12 +124,22 @@
         success_msg: "ESXI host is out of maintenance mode"
 
   always:
-    - name: Remove ESXI Host From vCenter Cluster
-      ansible.builtin.import_role:
-        name: cloud.vmware_ops.vcenter_host_connection
-      vars:
-        vcenter_host_connection_state: absent
-        vcenter_host_connection_esxi_hostname: "{{ _esxi_host_check.instance.ipv4 | default('') }}"
+    - name: Remove ESXI Host from vCenter Cluster to cleanup env
+      community.vmware.vmware_host:
+        hostname: "{{ vcenter_host_connection_hostname }}"
+        username: "{{ vcenter_host_connection_username }}"
+        password: "{{ vcenter_host_connection_password }}"
+        datacenter: "{{ vcenter_host_connection_datacenter }}"
+        cluster: "{{ vcenter_host_connection_cluster }}"
+        validate_certs: "{{ vcenter_host_connection_validate_certs }}"
+        esxi_hostname: "{{ _esxi_host_check.instance.ipv4 | default('') }}"
+        esxi_username: "{{ vcenter_host_connection_esxi_username }}"
+        esxi_password: "{{ vcenter_host_connection_esxi_password }}"
+        state: absent
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false
 
     - name: Cleanup Virtual Esxi
       ansible.builtin.include_role:

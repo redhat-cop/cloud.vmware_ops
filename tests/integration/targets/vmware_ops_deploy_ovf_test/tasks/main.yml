@@ -82,6 +82,10 @@
       loop:
         - "{{ vm_name_local_ovf }}"
         - "{{ vm_name_content_library }}"
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false
 
     - name: Delete OVF On Local Filesystem
       ansible.builtin.file:
@@ -97,3 +101,7 @@
         library_name: "{{ ovf_library }}"
         library_type: local
         state: absent
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false
