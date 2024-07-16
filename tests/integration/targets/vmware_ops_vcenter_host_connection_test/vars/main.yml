@@ -1,7 +1,7 @@
 ---
 # General
 run_on_simulator: false
-resource_pool_name: "host-connection-test-pool"
+resource_pool_name: "{{ tiny_prefix }}-host-connection-test-pool"
 
 # Vars for cloud.vmware_ops.provision_virtual_esxi role
 provision_virtual_esxi_hostname: "{{ vcenter_hostname }}"
@@ -15,7 +15,7 @@ provision_virtual_esxi_folder: ""
 provision_virtual_esxi_resource_pool: "{{ resource_pool_name }}"
 provision_virtual_esxi_datastore_iso_path: "{{ custom_esxi_8_iso_path }}"
 provision_virtual_esxi_vms:
-  - name: "vm-host-connection-test"
+  - name: "{{ tiny_prefix }}-vm-host-connection-test"
 provision_virtual_esxi_networks:
   - name: "{{ test_network_name }}"
     device_type: "vmxnet3"

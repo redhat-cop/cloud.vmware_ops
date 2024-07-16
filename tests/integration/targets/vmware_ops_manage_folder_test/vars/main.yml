@@ -1,5 +1,6 @@
 ---
 run_on_simulator: false
+folder_name_pattern: "{{ tiny_prefix }}_production"
 
 manage_folder_hostname: "{{ vcenter_hostname }}"
 manage_folder_username: "{{ vcenter_username }}"

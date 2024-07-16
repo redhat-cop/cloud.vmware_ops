@@ -1,8 +1,8 @@
 ---
 # General vars
 run_on_simulator: false
-resource_prefix: host-maintenance 
-resource_pool_name: "{{ resource_prefix }}-pool"
+
+resource_pool_name: "{{ tiny_prefix }}-host-maintenance-pool"
 
 # Vars for cloud.vmware_ops.provision_virtual_esxi role
 provision_virtual_esxi_hostname: "{{ vcenter_hostname }}"
@@ -16,7 +16,7 @@ provision_virtual_esxi_folder: ""
 provision_virtual_esxi_resource_pool: "{{ resource_pool_name }}"
 provision_virtual_esxi_datastore_iso_path: "{{ custom_esxi_8_iso_path }}"
 provision_virtual_esxi_vms:
-  - name: ci-vcenter-maintenance-test
+  - name: "{{ tiny_prefix }}-vm-esxi_maintenance-test"
 provision_virtual_esxi_networks:
     - name: "{{ test_network_name }}"
       device_type: "vmxnet3"

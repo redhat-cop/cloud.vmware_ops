@@ -18,7 +18,7 @@ vm_snapshots:
   snapshot_management_state: present
   snapshot_management_description: "This is the second snapshot of VM {{ manage_snapshot_vm_name }}"
 
-manage_snapshot_vm_name: "manage-snapshot-vm-rhel-9"
+manage_snapshot_vm_name: "{{ tiny_prefix }}-manage-snapshot-vm-rhel-9"
 
 vm_snapshots_updated:
 - snapshot_management_snapshot_name: "{{ manage_snapshot_vm_name }}-snapshot-1"

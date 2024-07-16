@@ -12,7 +12,7 @@ provision_vm_datacenter: "{{ vcenter_datacenter }}"
 
 # Create VM template
 provision_vms_template:
-  - provision_vm_name: "qe-provision-vm-rhel-9"
+  - provision_vm_name: "{{ tiny_prefix }}-qe-provision-vm-rhel-9"
     provision_vm_state: "poweredoff"
     provision_vm_cdrom:
       - controller_number: 0
@@ -39,14 +39,14 @@ provision_vms_template:
 
 # Provision VMs from template
 provision_vms_from_template:
-  - provision_vm_name: "qe-provision-vm-from-template"
+  - provision_vm_name: "{{ tiny_prefix }}-qe-provision-vm-from-template"
     provision_vm_state: "poweredon"
     provision_vm_template: "{{ provision_vms_template[0].provision_vm_name }}"
     provision_vm_datastore: "datastore1"
 
 provision_vms:
   # RHEL9 VM
-  - provision_vm_name: "qe-provision-vm-rhel-9"
+  - provision_vm_name: "{{ tiny_prefix }}-qe-provision-vm-rhel-9"
     provision_vm_state: "poweredoff"
     provision_vm_cdrom:
       - controller_number: 0
@@ -71,7 +71,7 @@ provision_vms:
     provision_vm_guest_id: "rhel9_64Guest"
     provision_vm_datastore: "datastore1"
   # RHEL8 VM
-  - provision_vm_name: "qe-provision-vm-rhel-8"
+  - provision_vm_name: "{{ tiny_prefix }}-qe-provision-vm-rhel-8"
     provision_vm_state: "poweredon"
     provision_vm_cdrom:
       - controller_number: 0
@@ -101,7 +101,7 @@ vm_update_name: "{{ vm_to_update.provision_vm_name }}"
 vm_update_datastore: "{{ vm_to_update.provision_vm_datastore }}"
 
 vm_names_to_update:
-  - vm_updated_name
+  - "{{ tiny_prefix }}_vm_updated_name"
   - "{{ vm_update_name }}"
 
 vm_states:
@@ -120,7 +120,7 @@ vm_updated_hardware:
   secure_boot: true
 
 vswitch_name: vSwitch0
-portgroup_name: qe-network
+portgroup_name: "{{ tiny_prefix }}-qe-network"
 
 vm_network_to_add:
   - name: "{{ portgroup_name }}"
