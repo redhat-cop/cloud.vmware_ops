@@ -52,7 +52,6 @@ provision_vm_cdrom:
 provision_vm_networks:
   - name: "{{ vm_network_name }}"
     device_type: "vmxnet3"
-    mac: "00:50:56:bd:d2:9e"
     type: "dhcp"
 provision_vm_resource_pool: null
 provision_vm_disk:

@@ -24,7 +24,6 @@
     that:
       - vm_network_info.network_info[index].name == network.name
       - vm_network_info.network_info[index].device_type == network.device_type
-      - vm_network_info.network_info[index].mac_address == network.mac
   loop: "{{ vm_updated_networks }}"
   loop_control:
     loop_var: network
