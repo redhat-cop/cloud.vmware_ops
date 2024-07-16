@@ -1,64 +1,65 @@
 ---
-- name: Import common vars for tests on vCenter Environment
-  ansible.builtin.include_vars:
-    file: ../group_vars.yml
-  when: not run_on_simulator
-
-- name: Create Folder Tree
-  loop: "{{ folder_types }}"
-  ansible.builtin.include_role:
-    name: cloud.vmware_ops.manage_folder
-  vars:
-    manage_folder_state: present
-    manage_folder_folder_name: production/foo/web
-    manage_folder_folder_type: "{{ item }}"
-
-- name: Create Folder Without Managing Full Tree
-  loop: "{{ folder_types }}"
-  ansible.builtin.include_role:
-    name: cloud.vmware_ops.manage_folder
-  vars:
-    manage_folder_state: present
-    manage_folder_folder_name: db
-    manage_folder_parent_folder: production/foo
-    manage_folder_folder_type: "{{ item }}"
-
-- name: Create A Folder With A Slash In It
-  loop: "{{ folder_types }}"
-  ansible.builtin.include_role:
-    name: cloud.vmware_ops.manage_folder
-  vars:
-    manage_folder_state: present
-    manage_folder_folder_name: security/syseng
-    manage_folder_parent_folder: production/foo
-    manage_folder_parse_name_as_path: false
-    manage_folder_folder_type: "{{ item }}"
-
-- name: Get Folder Info
-  community.vmware.vmware_folder_info:
-    hostname: "{{ manage_folder_hostname }}"
-    username: "{{ manage_folder_username }}"
-    password: "{{ manage_folder_password }}"
-    datacenter: "{{ manage_folder_datacenter_name }}"
-    port: "{{ manage_folder_port }}"
-    validate_certs: false
-  delegate_to: localhost
-  register: _folder_info
-
-- name: Check Folders Were Created
-  ansible.builtin.assert:
-    that:
-      - _folder_info.folder_info.hostFolders.subfolders.production.subfolders.foo.subfolders['web'] is defined
-      - _folder_info.folder_info.hostFolders.subfolders.production.subfolders.foo.subfolders['db'] is defined
-      - _folder_info.folder_info.hostFolders.subfolders.production.subfolders.foo.subfolders['security%2fsyseng'] is defined
-    fail_msg: Folder structure does not match expected result.
-
-- name: Run Post Test Operations
+- name: Run Manage folder tests
   block:
+    - name: Import common vars for tests on vCenter Environment
+      ansible.builtin.include_vars:
+        file: ../group_vars.yml
+      when: not run_on_simulator
+
+    - name: Create Folder Tree
+      loop: "{{ folder_types }}"
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.manage_folder
+      vars:
+        manage_folder_state: present
+        manage_folder_folder_name: production/foo/web
+        manage_folder_folder_type: "{{ item }}"
+
+    - name: Create Folder Without Managing Full Tree
+      loop: "{{ folder_types }}"
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.manage_folder
+      vars:
+        manage_folder_state: present
+        manage_folder_folder_name: db
+        manage_folder_parent_folder: production/foo
+        manage_folder_folder_type: "{{ item }}"
+
+    - name: Create A Folder With A Slash In It
+      loop: "{{ folder_types }}"
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.manage_folder
+      vars:
+        manage_folder_state: present
+        manage_folder_folder_name: security/syseng
+        manage_folder_parent_folder: production/foo
+        manage_folder_parse_name_as_path: false
+        manage_folder_folder_type: "{{ item }}"
+
+    - name: Get Folder Info
+      community.vmware.vmware_folder_info:
+        hostname: "{{ manage_folder_hostname }}"
+        username: "{{ manage_folder_username }}"
+        password: "{{ manage_folder_password }}"
+        datacenter: "{{ manage_folder_datacenter_name }}"
+        port: "{{ manage_folder_port }}"
+        validate_certs: false
+      delegate_to: localhost
+      register: _folder_info
+
+    - name: Check Folders Were Created
+      ansible.builtin.assert:
+        that:
+          - _folder_info.folder_info.hostFolders.subfolders.production.subfolders.foo.subfolders['web'] is defined
+          - _folder_info.folder_info.hostFolders.subfolders.production.subfolders.foo.subfolders['db'] is defined
+          - _folder_info.folder_info.hostFolders.subfolders.production.subfolders.foo.subfolders['security%2fsyseng'] is defined
+        fail_msg: Folder structure does not match expected result.
+
+  always:
     - name: Start Cleanup
       ansible.builtin.debug:
         msg: "Running cleanup..."
-  always:
+
     - name: Delete The Whole Tree
       loop: "{{ folder_types }}"
       ansible.builtin.include_role:
