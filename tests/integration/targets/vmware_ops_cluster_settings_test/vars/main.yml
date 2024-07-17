@@ -6,7 +6,7 @@ cluster_settings_username: "{{ vcenter_username }}"
 cluster_settings_password: "{{ vcenter_password }}"
 cluster_settings_validate_certs: false
 cluster_settings_port: "{{ vcenter_port }}"
-cluster_settings_cluster_name: "Test-Cluster"
+cluster_settings_cluster_name: "{{ tiny_prefix }}-Test-Cluster"
 cluster_settings_datacenter_name: "{{ vcenter_datacenter }}"
 
 # DPM

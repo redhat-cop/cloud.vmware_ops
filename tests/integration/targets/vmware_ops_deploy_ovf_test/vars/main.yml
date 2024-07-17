@@ -14,16 +14,16 @@ deploy_ovf_power_on: true
 
 vm_power_status: "{{ 'poweredOn' if deploy_ovf_power_on else 'poweredOff' }}"
 
-test_vm_name: deploy-ovf-vm
+test_vm_name: "{{ tiny_prefix }}-deploy-ovf-vm"
 test_vm_hardware:
   memory_mb: 2000
   num_cpus: 2
 
-ovf_library: deploy-ovf-test-library
-ovf_library_item_name: deploy-ovf-test-template
+ovf_library: "{{ tiny_prefix }}-deploy-ovf-test-library"
+ovf_library_item_name: "{{ tiny_prefix }}-deploy-ovf-test-template"
 
-vm_name_local_ovf: deploy-ovf-test-from-local-ovf
+vm_name_local_ovf: "{{ tiny_prefix }}-deploy-ovf-test-from-local-ovf"
 ovf_template_local: "{{ vmware_deploy_ovf_test_export_dir }}/{{ test_vm_name }}/{{ test_vm_name }}.ovf"
 
-vm_name_content_library: deploy-ovf-test-from-content-library
+vm_name_content_library: "{{ tiny_prefix }}-deploy-ovf-test-from-content-library"
 ovf_template_content_library: "{{ ovf_library_item_name }}"

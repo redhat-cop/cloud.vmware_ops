@@ -49,3 +49,7 @@
         switch: "{{ vswitch_name }}"
         portgroup: "{{ portgroup_name }}"
         state: absent
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false

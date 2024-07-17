@@ -73,3 +73,7 @@
         cluster_name: "{{ cluster_settings_cluster_name }}"
         state: absent
         validate_certs: false
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false

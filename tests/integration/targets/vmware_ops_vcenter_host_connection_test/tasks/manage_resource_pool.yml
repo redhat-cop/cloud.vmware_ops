@@ -9,3 +9,7 @@
     cluster: "{{ provision_virtual_esxi_cluster }}"
     resource_pool: "{{ provision_virtual_esxi_resource_pool }}"
     state: "{{ required_state }}"
+  retries: 5
+  delay: 5
+  register: result
+  until: result.failed == false

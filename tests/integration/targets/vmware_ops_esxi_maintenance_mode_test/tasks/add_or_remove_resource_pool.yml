@@ -10,3 +10,7 @@
     validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
     resource_pool: "{{ resource_pool_name }}"
     state: "{{ state }}"
+  retries: 5
+  delay: 5
+  register: result
+  until: result.failed == false

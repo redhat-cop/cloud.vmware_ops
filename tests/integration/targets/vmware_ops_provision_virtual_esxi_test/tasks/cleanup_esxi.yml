@@ -11,6 +11,7 @@
     provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter }}"
     provision_vm_name: "{{ provision_virtual_esxi_vms[0].name }}"
     provision_vm_state: "poweredoff"
+  ignore_errors: true
 
 - name: Cleanup Virtual Esxi
   ansible.builtin.include_role:
@@ -62,3 +63,7 @@
     cluster: "{{ provision_virtual_esxi_cluster }}"
     resource_pool: "{{ resource_pool_name }}"
     state: absent
+  retries: 5
+  delay: 5
+  register: result
+  until: result.failed == false

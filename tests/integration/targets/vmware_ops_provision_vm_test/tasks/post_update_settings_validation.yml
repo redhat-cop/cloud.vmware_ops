@@ -22,8 +22,8 @@
 - name: "Validate updated network configuration of '{{ vm_update_name }}' VM"
   ansible.builtin.assert:
     that:
-      - vm_network_info.network_info[index].name == network.name
-      - vm_network_info.network_info[index].device_type == network.device_type
+      - vm_network_info.network_info|map(attribute='name')|list is contains network.name
+      - vm_network_info.network_info|map(attribute='device_type')|list is contains network.device_type
   loop: "{{ vm_updated_networks }}"
   loop_control:
     loop_var: network

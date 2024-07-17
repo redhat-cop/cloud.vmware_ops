@@ -28,10 +28,19 @@
 
   always:
     - name: Destroy Content Library
-      ansible.builtin.import_role:
-        name: cloud.vmware_ops.content_library
-      vars:
-        content_library_state: absent
+      community.vmware.vmware_content_library_manager:
+        hostname: "{{ content_library_hostname }}"
+        username: "{{ content_library_username }}"
+        password: "{{ content_library_password }}"
+        validate_certs: "{{ content_library_validate_certs }}"
+        library_name: "{{ content_library_name }}"
+        library_type: "{{ content_library_type }}"
+        datastore_name: "{{ content_library_datastore_name }}"
+        state: absent
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false
 
     - name: Get content libraries info
       ansible.builtin.import_tasks: get_content_library_info.yml
