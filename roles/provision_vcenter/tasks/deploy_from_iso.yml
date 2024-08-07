@@ -21,6 +21,7 @@
     name: libnsl
     state: present
   when: ansible_os_family == 'RedHat'
+  become: true
 
 - name: Deploy vCSA With Local Log Written To /tmp/vcsa.log
   ansible.builtin.shell: >-
