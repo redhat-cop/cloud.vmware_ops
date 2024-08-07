@@ -31,16 +31,15 @@
         name: cloud.vmware_ops.provision_virtual_esxi
 
     - name: Wait until ESXi VM is powered off after OS installation
-      community.vmware.vmware_guest_info:
+      vmware.vmware.guest_info:
         hostname: "{{ provision_virtual_esxi_hostname }}"
         username: "{{ provision_virtual_esxi_username }}"
         password: "{{ provision_virtual_esxi_password }}"
         port: "{{ provision_virtual_esxi_port }}"
-        datacenter: "{{ provision_virtual_esxi_datacenter }}"
         validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
         name: "{{ provision_virtual_esxi_vms[0].name }}"
       register: _esxi_power_status
-      until: _esxi_power_status.instance.hw_power_status == 'poweredOff'
+      until: _esxi_power_status.guests[0].hw_power_status == 'poweredOff'
       retries: 30
       delay: 20
 
@@ -51,22 +50,21 @@
         provision_vm_state: "poweredon"
 
     - name: Wait until ESXi VM has an IP address
-      community.vmware.vmware_guest_info:
+      vmware.vmware.guest_info:
         hostname: "{{ provision_virtual_esxi_hostname }}"
         username: "{{ provision_virtual_esxi_username }}"
         password: "{{ provision_virtual_esxi_password }}"
         port: "{{ provision_virtual_esxi_port }}"
-        datacenter: "{{ provision_virtual_esxi_datacenter }}"
         validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
         name: "{{ provision_virtual_esxi_vms[0].name }}"
       register: _esxi_host_check
-      until: _esxi_host_check.instance.ipv4 is defined and _esxi_host_check.instance.ipv4 is not none
+      until: _esxi_host_check.guests[0].ipv4 is defined and _esxi_host_check.guests[0].ipv4 is not none
       retries: 30
       delay: 10
 
     - name: Check if ESXi is up
       wait_for:
-        host: "{{ _esxi_host_check.instance.ipv4 }}"
+        host: "{{ _esxi_host_check.guests[0].ipv4 }}"
         port: 22
         delay: 10
         timeout: 300
@@ -77,18 +75,18 @@
         name: cloud.vmware_ops.vcenter_host_connection
       vars:
         vcenter_host_connection_state: present
-        vcenter_host_connection_esxi_hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+        vcenter_host_connection_esxi_hostname: "{{ _esxi_host_check.guests[0].ipv4 }}"
 
     - name: Enable Maintenance Mode
       ansible.builtin.import_role:
         name: cloud.vmware_ops.esxi_maintenance_mode
       vars:
-        esxi_maintenance_mode_esxi_hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+        esxi_maintenance_mode_esxi_hostname: "{{ _esxi_host_check.guests[0].ipv4 }}"
         esxi_maintenance_mode_enable: True
 
     - name: Gather ESXI host facts after enabling maintenance mode
       community.vmware.vmware_host_facts:
-        hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+        hostname: "{{ _esxi_host_check.guests[0].ipv4 }}"
         username: "{{ vcenter_host_connection_esxi_username }}"
         password: "{{ vcenter_host_connection_esxi_password }}"
         validate_certs: "{{ esxi_maintenance_mode_validate_certs }}"
@@ -105,12 +103,12 @@
       ansible.builtin.import_role:
         name: cloud.vmware_ops.esxi_maintenance_mode
       vars:
-        esxi_maintenance_mode_esxi_hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+        esxi_maintenance_mode_esxi_hostname: "{{ _esxi_host_check.guests[0].ipv4 }}"
         esxi_maintenance_mode_enable: False
 
     - name: Gather ESXI host facts after disabling maintenance mode
       community.vmware.vmware_host_facts:
-        hostname: "{{ _esxi_host_check.instance.ipv4 }}"
+        hostname: "{{ _esxi_host_check.guests[0].ipv4 }}"
         username: "{{ vcenter_host_connection_esxi_username }}"
         password: "{{ vcenter_host_connection_esxi_password }}"
         validate_certs: "{{ esxi_maintenance_mode_validate_certs }}"
@@ -132,7 +130,7 @@
         datacenter: "{{ vcenter_host_connection_datacenter }}"
         cluster: "{{ vcenter_host_connection_cluster }}"
         validate_certs: "{{ vcenter_host_connection_validate_certs }}"
-        esxi_hostname: "{{ _esxi_host_check.instance.ipv4 | default('') }}"
+        esxi_hostname: "{{ _esxi_host_check.guests[0].ipv4 | default('') }}"
         esxi_username: "{{ vcenter_host_connection_esxi_username }}"
         esxi_password: "{{ vcenter_host_connection_esxi_password }}"
         state: absent
