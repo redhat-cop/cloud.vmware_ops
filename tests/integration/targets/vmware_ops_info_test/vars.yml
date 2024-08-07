@@ -1,12 +1,10 @@
 info_hostname: "127.0.0.1"
 info_username: "user"
 info_password: "pass"
-info_port: "8989"
-info_hostport: "127.0.0.1:1080"
+info_port: "9000"
 info_validate_certs: false
 
-mock_file: "info_test"
-
+prepare_rest_mock_file: "{{ playbook_dir }}/mock.json"
 # workaround till simulator fixed in the next release-
 # check doc in cloud.vmware_ops/roles/cluster_settings
 # for pyvmomi current version limitation

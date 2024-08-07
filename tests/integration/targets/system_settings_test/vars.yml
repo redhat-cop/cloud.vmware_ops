@@ -3,7 +3,7 @@ system_settings_username: "user"
 system_settings_password: "pass"
 system_settings_validate_certs: false
 
-mock_file: "system_settings_test"
+prepare_rest_mock_file: "{{ playbook_dir }}/mock.json"
 
 system_settings_ntp_servers: []
 system_settings_timezone: UTC
