@@ -7,6 +7,8 @@
     validate_certs: "{{ provision_vm_validate_certs }}"
     name: "{{ vm_name }}"
   register: vm_info
+  retries: 3
+  delay: 10
 
 - name: Fail the task if the VM doesn't exist
   ansible.builtin.fail:

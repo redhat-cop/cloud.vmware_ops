@@ -7,6 +7,8 @@
     name: "{{ item }}"
     validate_certs: false
   register: guest_info
+  retries: 3
+  delay: 10
 
 - name: Check Properties Of VM {{ item }}
   ansible.builtin.assert:

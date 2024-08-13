@@ -15,7 +15,8 @@
     validate_certs: "{{ provision_vm_validate_certs }}"
     name: "{{ item.provision_vm_name }}"
   register: vm_info
-  ignore_errors: true
+  retries: 3
+  delay: 10
 
 - name: "Fail the task if the following VM exists: {{ item.provision_vm_name }}"
   ansible.builtin.fail:

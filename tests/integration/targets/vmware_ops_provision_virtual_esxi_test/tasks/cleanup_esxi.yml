@@ -45,7 +45,8 @@
     validate_certs: no
     name: "{{ provision_virtual_esxi_vms[0].name }}"
   register: vm_info
-  ignore_errors: true
+  retries: 3
+  delay: 10
 
 - name: Fail if VM is still present in vCenter
   fail:
