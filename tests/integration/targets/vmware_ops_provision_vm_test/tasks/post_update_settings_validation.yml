@@ -42,10 +42,10 @@
 
 - name: Get VM Guest Name
   community.vmware.vmware_vm_info:
-    vcenter_hostname: "{{ vcenter_hostname }}"
-    vcenter_username: "{{ vcenter_username }}"
-    vcenter_password: "{{ vcenter_password }}"
-    vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
     vm_name: "{{ vm_update_name }}"
   register: guest_name_info
 
