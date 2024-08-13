@@ -52,7 +52,7 @@
 - name: "Validate updated configuration of '{{ vm_update_name }}' VM"
   ansible.builtin.assert:
     that:
-      - guest_name_info.guest_fullname == guest_fullnames[vm_updated_guest_id]
+      - guest_name_info.virtual_machines[0].guest_fullname == guest_fullnames[vm_updated_guest_id]
       - vm_info.guests[0].hw_processor_count == vm_updated_hardware.num_cpus
       - vm_info.guests[0].hw_cores_per_socket == vm_updated_hardware.num_cpu_cores_per_socket
       - vm_info.guests[0].hw_memtotal_mb == vm_updated_hardware.memory_mb
