@@ -1,0 +1,5 @@
+---
+minor_changes:
+  - cluster_settings - Replaced community.vmware.vmware_cluster_drs module with vmware.vmware.cluster_drs module
+  - provision_vcenter - Replaced community.vmware.vmware_guest_info module with vmware.vmware.guest_info module
+  - provision_virtual_esxi - Replaced community.vmware.vmware_guest_info module with vmware.vmware.guest_info module

@@ -28,7 +28,7 @@
       num_cpus: "{{ _esxi.cpus | default(provision_virtual_esxi_cpus) }}"
       boot_firmware: "{{ provision_virtual_esxi_boot_firmware }}"
       nested_virt: true
-  when: _result.instance is not defined or not _result.instance
+  when: not _result.guests
   loop: "{{ _esxi_host_check.results }}"
   loop_control:
     loop_var: _result
@@ -48,30 +48,29 @@
     provision_vm_folder: "{{ provision_virtual_esxi_folder | default(omit) }}"
     provision_vm_name: "{{ _result._esxi.name }}"
     provision_vm_state: poweredon
-  when: _result.instance is not defined or not _result.instance
+  when: not _result.guests
   loop: "{{ _esxi_host_check.results }}"
   loop_control:
     loop_var: _result
     label: _result._esxi.name
 
 - name: Wait for New ESXi Deployment
-  community.vmware.vmware_guest_info:
+  vmware.vmware.guest_info:
     hostname: "{{ provision_virtual_esxi_hostname }}"
     username: "{{ provision_virtual_esxi_username }}"
     password: "{{ provision_virtual_esxi_password }}"
-    datacenter: "{{ provision_virtual_esxi_datacenter | default('') }}"
     port: "{{ provision_virtual_esxi_port | default(omit) }}"
     validate_certs: "{{ provision_virtual_esxi_validate_certs | default(omit) }}"
     name: "{{ _result._esxi.name }}"
-  when: _result.instance is not defined or not _result.instance
+  when: not _result.guests
   loop: "{{ _esxi_host_check.results }}"
   loop_control:
     loop_var: _result
     label: _result._esxi.name
   register: _new_esxi_info
   until: >-
-    _new_esxi_info.instance is defined and
-    (_new_esxi_info.instance.hw_power_status == 'poweredOff' or
-    _new_esxi_info.instance.ipv4 or _new_esxi_info.instance.ipv6)
+    _new_esxi_info.guests and
+    (_new_esxi_info.guests[0].hw_power_status == 'poweredOff' or
+    _new_esxi_info.guests[0].ipv4 or _new_esxi_info.guests[0].ipv6)
   retries: 30
   delay: 15

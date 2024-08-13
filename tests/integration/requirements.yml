@@ -5,4 +5,5 @@ collections:
     version: ">=4.4.0"
   - name: vmware.vmware_rest
   - name: vmware.vmware
+    version: ">=1.4.0"
   - name: containers.podman

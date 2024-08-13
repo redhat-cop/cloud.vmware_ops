@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  gather_facts: false
+  vars:
+    export_vm_as_ovf_vm_name: mmtest-guest-info-{{ e }}
+    vcenter_datacenter: Eco-Datacenter
+  tasks:
+    - name: foo
+      block:
+        - name: Create Test VM
+          community.vmware.vmware_guest:
+            validate_certs: false
+            name: "{{ export_vm_as_ovf_vm_name }}"
+            state: poweredoff
+            folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"
+            datacenter: "{{ vcenter_datacenter }}"
+            disk:
+              - size_gb: 5
+                type: thick
+                autoselect_datastore: True
+            hardware:
+              memory_mb: 2000
+              num_cpus: 2
+            guest_id: rhel9_64Guest
+
+        - name: Wait For VM To Be Created
+          vmware.vmware.guest_info:
+            validate_certs: false
+            name: "{{ export_vm_as_ovf_vm_name }}"
+          register: _wait_for_vm
+      always:
+        - name: Delete
+          community.vmware.vmware_guest:
+            validate_certs: false
+            name: "{{ export_vm_as_ovf_vm_name }}"
+            state: absent

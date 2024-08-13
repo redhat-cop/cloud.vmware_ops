@@ -6,7 +6,7 @@
   tasks:
     - name: Vcsim
       ansible.builtin.import_role:
-        name: prepare_soap
+        name: prepare_combined_vcenter_simulator
 
     - name: Import provision VM role
       ansible.builtin.import_role:

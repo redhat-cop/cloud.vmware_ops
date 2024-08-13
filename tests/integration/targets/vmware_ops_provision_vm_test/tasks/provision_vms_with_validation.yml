@@ -18,29 +18,28 @@
 
 - name: Run post validations for VMs creation
   block:
-  - name: Get info about the VM
-    ansible.builtin.include_tasks:
-      file: get_vm_info.yml
-    vars:
-      vm_name: "{{ item.provision_vm_name }}"
+    - name: Get info about the VM
+      ansible.builtin.include_tasks:
+        file: get_vm_info.yml
+      vars:
+        vm_name: "{{ item.provision_vm_name }}"
 
-  - name: "Validate the properties of the following VM: {{ item.provision_vm_name }}"
-    ansible.builtin.assert:
-      that:
-        - vm_info.virtual_machines[0].guest_name == item.provision_vm_name
-        - vm_info.virtual_machines[0].cluster == provision_vm_cluster
-        - vm_info.virtual_machines[0].datacenter == provision_vm_datacenter
-        - vm_info.virtual_machines[0].folder == provision_vm_folder
-        - vm_info.virtual_machines[0].power_state | lower == item.provision_vm_state
+    - name: "Validate the properties of the following VM: {{ item.provision_vm_name }}"
+      ansible.builtin.assert:
+        that:
+          - vm_info.guests[0].hw_name == item.provision_vm_name
+          - vm_info.guests[0].hw_cluster == provision_vm_cluster
+          - vm_info.guests[0].hw_folder == provision_vm_folder
+          - vm_info.guests[0].hw_power_status | lower == item.provision_vm_state
 
-  - name: "Validate the following VM datastore when datastore was defined in provision_vm_datastore: {{ item.provision_vm_name }}"
-    ansible.builtin.assert:
-      that:
-        - vm_info.virtual_machines[0].datastore_url[0].name == item.provision_vm_datastore
-    when: "'provision_vm_datastore' in item"
+    - name: "Validate the following VM datastore when datastore was defined in provision_vm_datastore: {{ item.provision_vm_name }}"
+      ansible.builtin.assert:
+        that:
+          - vm_info.guests[0].hw_datastores[0] == item.provision_vm_datastore
+      when: "'provision_vm_datastore' in item"
 
-  - name: "Validate the following VM datastore when datastore was defined in provision_vm_disk: {{ item.provision_vm_name }}"
-    ansible.builtin.assert:
-      that:
-        - vm_info.virtual_machines[0].datastore_url[0].name == item.provision_vm_disk[0].datastore
-    when: "'provision_vm_datastore' not in item"
+    - name: "Validate the following VM datastore when datastore was defined in provision_vm_disk: {{ item.provision_vm_name }}"
+      ansible.builtin.assert:
+        that:
+          - vm_info.guests[0].hw_datastores[0] == item.provision_vm_disk[0].datastore
+      when: "'provision_vm_datastore' not in item"

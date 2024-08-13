@@ -16,4 +16,4 @@
 - name: "Validate that VM is in state {{ vm_state }}"
   ansible.builtin.assert:
     that:
-      - vm_info.virtual_machines[0].power_state | lower == vm_state
+      - vm_info.guests[0].hw_power_status | lower == vm_state

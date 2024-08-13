@@ -7,6 +7,8 @@ TINY_PREFIX="test-$(uuidgen | tr -d '-' | cut -c1-4 | tr '[:upper:]' '[:lower:]'
 # Extract the ansible_tags from integration_config.yml
 ANSIBLE_TAGS=$(awk '/ansible_tags/ {print $2}' ../../integration_config.yml)
 
+ansible-galaxy collection list | grep 'vmware\|#'
+
 # Check if the ANSIBLE_TAGS variable is set
 if [[ -n "$ANSIBLE_TAGS" ]]; then
   echo "ANSIBLE_TAGS is set to: $ANSIBLE_TAGS"

@@ -3,26 +3,17 @@
   ansible.builtin.include_tasks: validate_inputs.yml
 
 - name: Check If VCenter Already Exists
-  community.vmware.vmware_guest_info:
+  vmware.vmware.guest_info:
     hostname: "{{ provision_vcenter_hostname }}"
     username: "{{ provision_vcenter_username }}"
     password: "{{ provision_vcenter_password }}"
     port: "{{ provision_vcenter_port | default(omit) }}"
     validate_certs: "{{ provision_vcenter_validate_certs | default(omit) }}"
-    datacenter: "{{ provision_vcenter_vc_target_datacenter | default('') }}"
     name: "{{ provision_vcenter_vm_name }}"
   register: _vcenter_lookup
-  failed_when: false
-
-- name: Fail If There Was An Unexpected Error Looking Up The Guest Info
-  ansible.builtin.fail:
-    msg: "{{ _vcenter_lookup.stderr | default(_vcenter_lookup.msg) }}"
-  when: >-
-    _vcenter_lookup.instance is not defined and
-    _vcenter_lookup.msg is not match("Unable to gather information for non-existing VM .*")
 
 - name: Create Instance From ISO
-  when: _vcenter_lookup.instance is not defined or not _vcenter_lookup.instance
+  when: not _vcenter_lookup.guests
   block:
     - name: Gather Required OS Facts
       ansible.builtin.setup:
