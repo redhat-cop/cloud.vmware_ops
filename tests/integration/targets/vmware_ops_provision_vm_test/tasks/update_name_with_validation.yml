@@ -5,15 +5,18 @@
   vars:
     provision_vm_uuid: "{{ vm_uuid }}"
     provision_vm_name: "{{ item }}"
+    provision_vm_use_instance_uuid: true
 
 - name: Collect information about VM with ID {{ vm_moid }}
-  vmware.vmware_rest.vcenter_vm_info:
-    vcenter_hostname: "{{ vcenter_hostname }}"
-    vcenter_username: "{{ vcenter_username }}"
-    vcenter_password: "{{ vcenter_password }}"
-    vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
-    vm: '{{ vm_moid }}'
+  vmware.vmware.guest_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: "{{ provision_vm_validate_certs }}"
+    moid: "{{ vm_moid }}"
   register: vm_info_updated_name
+  retries: 3
+  delay: 10
 
 - name: Print vm_info_updated_name for {{ vm_moid }}
   ansible.builtin.debug:
@@ -22,4 +25,4 @@
 - name: Validate name of VM with ID {{ vm_moid }}
   ansible.builtin.assert:
     that:
-      - vm_info_updated_name.value.name == vm_name
+      - vm_info_updated_name.guests[0].hw_name == vm_name

@@ -1,13 +1,14 @@
 ---
 - name: Get VM Info
-  community.vmware.vmware_guest_info:
+  vmware.vmware.guest_info:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
-    datacenter: "{{ deploy_ovf_datacenter_name }}"
     name: "{{ test_vm_name }}"
     validate_certs: false
   register: vm_info
+  retries: 3
+  delay: 10
 
 - name: Create Content Library
   community.vmware.vmware_content_library_manager:
@@ -52,7 +53,7 @@
     vcenter_validate_certs: false
     source:
       type: VirtualMachine
-      id: "{{ vm_info.instance.moid }}"
+      id: "{{ vm_info.guests[0].moid }}"
     target:
       library_id: "{{ content_library_id }}"
     create_spec:

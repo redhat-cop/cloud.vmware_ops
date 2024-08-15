@@ -4,13 +4,10 @@
   vars:
     vm_name: "{{ vm_update_name }}"
 
-- name: Set vm_uuid variable
+- name: Set vm id variables
   ansible.builtin.set_fact:
-    vm_uuid: "{{ vm_info.virtual_machines[0].uuid }}"
-
-- name: Set vm_moid variable
-  ansible.builtin.set_fact:
-    vm_moid: "{{ vm_info.virtual_machines[0].moid }}"
+    vm_uuid: "{{ vm_info.guests[0].instance_uuid }}"
+    vm_moid: "{{ vm_info.guests[0].moid }}"
 
 - name: Update existing VM's name and verify the name updated correctly
   loop: "{{ vm_names_to_update }}"

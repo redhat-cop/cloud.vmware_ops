@@ -29,7 +29,7 @@
     provision_vm_force: true
 
 - name: Check if ESXi VM is down
-  command: ping -c 1 -W 5 {{ esxi_host.instance.ipv4 }}
+  command: ping -c 1 -W 5 {{ esxi_host.guests[0].ipv4 }}
   register: ping_check_result
   ignore_errors: true
 
@@ -38,20 +38,20 @@
     ping_not_available: "{{ ping_check_result.rc != 0 }}"
 
 - name: Verify VM absence in vCenter
-  community.vmware.vmware_guest_info:
+  vmware.vmware.guest_info:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
-    datacenter: "{{ provision_virtual_esxi_datacenter }}"
     validate_certs: no
     name: "{{ provision_virtual_esxi_vms[0].name }}"
   register: vm_info
-  ignore_errors: true
+  retries: 3
+  delay: 10
 
 - name: Fail if VM is still present in vCenter
   fail:
     msg: "The VM {{ provision_virtual_esxi_vms[0].name }} is still present in vCenter."
-  when: vm_info.instance is defined
+  when: vm_info.guests[0] is defined
 
 - name: Cleanup Resource Pool
   community.vmware.vmware_resource_pool:

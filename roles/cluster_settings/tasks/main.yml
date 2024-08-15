@@ -27,7 +27,7 @@
   when: cluster_settings_dpm_enable is defined
 
 - name: Configure DRS Settings
-  community.vmware.vmware_cluster_drs:
+  vmware.vmware.cluster_drs:
     hostname: "{{ cluster_settings_hostname }}"
     username: "{{ cluster_settings_username }}"
     password: "{{ cluster_settings_password }}"

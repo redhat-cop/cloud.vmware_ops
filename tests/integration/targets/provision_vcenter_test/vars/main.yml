@@ -3,7 +3,7 @@ provision_vcenter_hostname: "127.0.0.1"
 provision_vcenter_username: "test"
 provision_vcenter_password: "test"
 provision_vcenter_validate_certs: false
-provision_vcenter_port: "8989"
+provision_vcenter_port: "9000"
 provision_vcenter_vm_name: "vcenter-test"
 provision_vcenter_vm_network_mode: dhcp
 provision_vcenter_iso_path: /tmp/test.iso
@@ -16,6 +16,6 @@ provision_vcenter_vm_password: "testPass123!"
 # Since we are mocking the vcenter VM, we also need to mock this
 # and we do that by using the vcsim soap instance (and abusing
 # this variable by including a port/uri)
-provision_vcenter_vm_network_hostname: 127.0.0.1:8989/about
+provision_vcenter_vm_network_hostname: 127.0.0.1:9000/about
 
 provision_vcenter_test_mock_binary_root: /tmp/vcsa-cli-installer

@@ -15,9 +15,9 @@
         file: vars.yml
       tags: integration-ci
 
-    - name: Vcsim
+    - name: Simulate VCenter
       ansible.builtin.import_role:
-        name: prepare_soap
+        name: prepare_combined_vcenter_simulator
       tags: integration-ci
 
     - name: Import provision virtual ESXi role

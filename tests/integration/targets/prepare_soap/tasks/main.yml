@@ -12,11 +12,12 @@
     image: docker.io/vmware/vcsim:latest
     state: started
     recreate: yes
+    network: "{{ prepare_soap_network | default(omit) }}"
     expose:
       - 8989
     ports:
-      - 8989:8989
-#    command: "vcsim -dc 2 -folder 1 -c 2 -ds 4 -pod 1 -nsx 2 -pool 2 -app 1"
+      - "{{ prepare_soap_port }}:8989"
+    command: "{{ prepare_soap_command | default(omit) }}"
 
 - name: Pause
   ansible.builtin.pause:

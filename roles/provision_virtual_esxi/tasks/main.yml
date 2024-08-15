@@ -11,15 +11,13 @@
     fail_msg: Variable must be set when using this role.
 
 - name: Check For Missing Hosts
-  community.vmware.vmware_guest_info:
+  vmware.vmware.guest_info:
     hostname: "{{ provision_virtual_esxi_hostname }}"
     username: "{{ provision_virtual_esxi_username }}"
     password: "{{ provision_virtual_esxi_password }}"
     port: "{{ provision_virtual_esxi_port | default(omit) }}"
-    datacenter: "{{ provision_virtual_esxi_datacenter | default('') }}"
     validate_certs: "{{ provision_virtual_esxi_validate_certs | default(omit) }}"
     name: "{{ _esxi.name }}"
-  failed_when: false
   register: _esxi_host_check
   loop: "{{ provision_virtual_esxi_vms }}"
   loop_control:
@@ -27,9 +25,7 @@
     label: _esxi.name
 
 - name: Include New ESXi Hosts Tasks
-  when: >-
-    (_esxi_host_check.results | selectattr('instance', 'undefined') is any) or
-    (_esxi_host_check.results | selectattr('instance', 'defined') | map(attribute='instance') is not all)
+  when: (_esxi_host_check.results | map(attribute='guests') is not all)
   block:
     - name: Check VM Mandatory Variables Are Defined
       ansible.builtin.assert:
