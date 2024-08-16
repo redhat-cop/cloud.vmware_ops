@@ -26,5 +26,5 @@
 "os": {
     "password": "{{ provision_vcenter_vm_password }}",
     "ssh_enable": {{ provision_vcenter_vm_enable_ssh | bool | to_json }},
-    "ntp_servers": "time.nist.gov"
+    "ntp_servers": "{{ provision_vcenter_vm_ntp_server }}"
 }
