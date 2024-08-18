@@ -1,4 +1,4 @@
-# Export VM As OVF Role
+# export_vm_as_ovf
 
 A role to export a VM from VCenter or ESXi as an OVF. The VM is exported to the local filesystem of the host running the tasks (anisble_host).
 

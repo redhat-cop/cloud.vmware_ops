@@ -1,0 +1,3 @@
+minor_changes:
+  - Fix role names in the README files to be consistent with the ansible-role-template
+  - Fix the example of guest_os in provision_vm README role to use RHEL guest OS

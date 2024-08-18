@@ -1,4 +1,4 @@
-# Content Library Role
+# content_library
 
 A role to manage VMWare content libaries. You can create or delete both local and subscribed content libraries.
 

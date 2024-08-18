@@ -1,4 +1,4 @@
-# Deploy OVF role
+# deploy_ovf
 
 A role to deploy a VM from an OVF file. The OVF can be located on the `ansible_host` filesystem, at a URL, or located in a content library.
 

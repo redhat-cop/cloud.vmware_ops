@@ -1,4 +1,4 @@
-# Provision virtual machine
+# provision_vm
 A role to provision a virtual machine, create associated resources if they don't exist (subnets, vCPU, memory configuration, storage configuration, etc)
 This includes cloning and building from VM templates.
 

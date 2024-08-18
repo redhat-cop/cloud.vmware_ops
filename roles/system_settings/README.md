@@ -1,4 +1,4 @@
-# System settings role
+# system_settings
 
 A role to define system settings for vCenter.
 
