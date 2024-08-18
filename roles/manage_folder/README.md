@@ -1,4 +1,4 @@
-# Manage Folder Role
+# manage_folder
 
 A role to create, delete, or update a folder or folder tree in VCenter.
 

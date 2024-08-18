@@ -1,4 +1,4 @@
-# Cluster settings role
+# cluster_settings
 
 A role to define cluster settings in vCenter.
 
