@@ -2,3 +2,7 @@ collections:
   - type: git
     name: https://github.com/redhat-cop/cloud.vmware_ops.git
   - name: community.general
+  - name: community.vmware
+  - name: vmware.vmware
+  - name: vmware.vmware_rest
+  - name: ansible.posix

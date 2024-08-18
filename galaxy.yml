@@ -23,3 +23,5 @@ dependencies:
   "vmware.vmware_rest": ">=2.3.1"
   "community.vmware": ">=4.4.0"
   "vmware.vmware": ">=1.4.0"
+  "community.general": ">=9.2.0"
+  "ansible.posix": ">=1.5.4"
