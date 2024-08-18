@@ -2,3 +2,4 @@ minor_changes:
   - Fix role names in the README files to be consistent with the ansible-role-template
   - Fix the example of guest_os in provision_vm README role to use RHEL guest OS
   - Update the dependencies collections in galaxy.yml and in the execution-environment/requirements.yml
+  - Update the roles and playbooks in the README in the root directory
