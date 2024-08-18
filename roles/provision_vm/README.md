@@ -793,7 +793,7 @@ Create a ``playbook.yml`` file like this:
         provision_vm_hardware:
           memory_mb: 512
           num_cpus: 4
-        provision_vm_guest_id: "centos64Guest"
+        provision_vm_guest_id: "rhel9_64Guest"
 ```
 
 Run the playbook:
