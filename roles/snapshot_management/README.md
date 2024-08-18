@@ -1,4 +1,4 @@
-# Provision virtual machine
+# snapshot_management
 A role to manages virtual machines snapshots in vCenter.
 This role can be used to create, delete and update snapshot(s) of the given virtual machine.
 
