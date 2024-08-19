@@ -4,6 +4,16 @@ Cloud.VMware\_Ops Release Notes
 
 .. contents:: Topics
 
+v1.4.0
+======
+
+Minor Changes
+-------------
+
+- cluster_settings - Replaced community.vmware.vmware_cluster_drs module with vmware.vmware.cluster_drs module
+- provision_vcenter - Replaced community.vmware.vmware_guest_info module with vmware.vmware.guest_info module
+- provision_virtual_esxi - Replaced community.vmware.vmware_guest_info module with vmware.vmware.guest_info module
+
 v1.3.0
 ======
 
