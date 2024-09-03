@@ -1,14 +1,18 @@
 ---
 version: 3
-additional_build_steps:
-  prepend_base:
-    - RUN dnf config-manager --enable epel
+images:
+  base_image:
+    name: docker.io/redhat/ubi9:latest
 dependencies:
-  galaxy: requirements.yml
-  system:
-    - python3-aiohttp [platform:rpm]
-  python:
-    - pyvmomi<7.0.3
-    - git+https://github.com/vmware/vsphere-automation-sdk-python.git@v8.0.2.0
+  galaxy:
+    collections:
+      - type: git
+        name: https://github.com/redhat-cop/cloud.vmware_ops.git
+  python: requirements.txt
   ansible_core:
-    package_pip: ansible-core==2.13.13
+    package_pip: ansible-core>=2.15.0
+  ansible_runner:
+    package_pip: ansible-runner
+
+additional_build_steps:
+  prepend_base: RUN $PKGMGR install -y git
