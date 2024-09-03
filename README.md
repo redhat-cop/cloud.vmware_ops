@@ -1,67 +1,39 @@
-# cloud.vmware_ops roles/playbooks for VMware
+# Ansible Collection: cloud.vmware_ops
 
-This repository hosts the `cloud.vmware_ops` Ansible Collection.
+This repo hosts the `cloud.vmware_ops` validated Ansible Collection.
 
 The collection includes a variety of Ansible roles and playbooks to help automate the management of VMware.
 
-<!--start requires_ansible-->
-## Ansible version compatibility
+It focuses on playbooks and roles that allow users to quickly and easily perform VMware operations tasks. The playbooks cover common use cases and leverage the roles inside the collection. The roles can be used to create your own playbooks and cover custom use cases for your environment.
 
-This collection has been tested against following Ansible versions: **>=2.14.0**.
+## Requirements
 
-## Python version compatibility
+This repository comes with an execution environment definition. This can be used to quickly build a container image that contains all of the software required to run the playbooks and roles in this repository. See [execution-environment/README.md](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/execution-environment/README.md) for more information.
 
-This collection requires Python 3.9 or greater.
+It is common for people to use `localhost` to run the tasks in this content since most tasks simply interact with the vSphere environment. If you do not use the execution environment, the following requirements are needed on whatever host runs the tasks:
+  - Python 3.9 or greater
+  - Python requirements found in [execution-environment/requirements.txt](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/execution-environment/requirements.txt)
 
-## Included content
+Once the collection is installed, you can install the python requirements using pip: `pip install -r ~/.ansible/collections/ansible_collections/cloud/vmware_ops/execution-environment/requirements.txt`
 
-Click on the name of a role to view that content's documentation:
+### vSphere compatibility
 
-<!--start collection content-->
-### Roles
-Name | Description
---- | ---
-[cloud.vmware_ops.provision_vcenter](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/roles/provision_vcenter/README.md)|A role to provision vCenter on ESXi host.
-[cloud.vmware_ops.provision_vm](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/roles/provision_vm/README.md)|A role to create/manage virtual machines on VMware.
-[cloud.vmware_ops.system_settings](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/roles/system_settings/README.md)|A role to manage system settings on VMware.
-[cloud.vmware_ops.cluster_settings](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/cluster_settings/README.md)|A role to define cluster settings in vCenter.
-[cloud.vmware_ops.content_library](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/content_library/README.md)|A role to manage VMware content libraries.
-[cloud.vmware_ops.deploy_ovf](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/deploy_ovf/README.md)|A role to deploy a VM from an OVF file.
-[cloud.vmware_ops.esxi_maintenance_mode](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/esxi_maintenance_mode/README.md)|Either put an ESXi host in maintenance mode or take the host out of maintenance mode.
-[cloud.vmware_ops.export_vm_as_ovf](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/export_vm_as_ovf/README.md)|A role to export a VM from vCenter or ESXi as an OVF.
-[cloud.vmware_ops.info](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/info/README.md)|A role that gather information from vCenter.
-[cloud.vmware_ops.manage_folder](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/manage_folder/README.md)|A role to create, delete, or update a folder or folder tree in vCenter.
-[cloud.vmware_ops.provision_virtual_esxi](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/provision_virtual_esxi/README.md)|A role to provision one or more virtual ESXi hosts.
-[cloud.vmware_ops.snapshot_management](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/snapshot_management/README.md)|A role to manages virtual machines snapshots in vCenter.
-[cloud.vmware_ops.vcenter_host_connection](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/roles/vcenter_host_connection/README.md)|A role to add, remove, connect, disconnect, or reconnect an ESXi host from a vCenter.
+This collection supports vSphere 7.x and 8.x.
 
-### Playbooks
-Name | Description
---- | ---
-[cloud.vmware_ops.provision_vcenter](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/provision_vcenter/provision_vcsa_on_esxi.yml)|A playbook to provision vCenter on ESXi host.
-[cloud.vmware_ops.system_settings](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/system_settings.yml)|A playbook to manage system settings on VMware.
-[cloud.vmware_ops.cluster_settings](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/cluster_settings)|A set of playbooks to manage cluster settings.
-[cloud.vmware_ops.esxi_management](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/esxi_management)|A set of playbooks to manage ESXi host in a cluster.
-[cloud.vmware_ops.provision_vm](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/provision_vm)|A set of playbooks to manage provisioning VM.
-[cloud.vmware_ops.snapshot_management](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/snapshot_management)|A set of playbooks to manage VM snapshots on vCenter.
-[cloud.vmware_ops.export_vm_as_ovf](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/export_vm_as_ovf.yml)|A playbook to export VM as OVF file.
-[cloud.vmware_ops.info](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/info.yml)|A playbook to gather information from vCenter.
-[cloud.vmware_ops.manage_content_library](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/manage_content_library.yml)|A playbook to manage content libraries in vCenter.
-[cloud.vmware_ops.manage_folder](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/playbooks/manage_folder.yml)|A playbook to manage folders in vCenter.
-<!--end collection content-->
+### Ansible version compatibility
+
+This collection has been tested against following Ansible versions: **>=2.15.0**.
+
 
 ## Installation and Usage
 
-### Requirements
+### Galaxy Requirements
 
-The [community.vmware](https://github.com/ansible-collections/community.vmware) (>=4.4.0),
-[vmware.vmware_rest](https://github.com/ansible-collections/vmware.vmware_rest),
-[vmware.vmware](https://github.com/ansible-collections/vmware.vmware),
-[community.general](https://github.com/ansible-collections/community.general) and
-[ansible.posix](https://github.com/ansible-collections/ansible.posix)
-collections MUST be installed in order for this collection to work.
+Required collections are listed in the `galaxy.yml` and will be installed automatically when this collection is installed.
 
 ### Installation
+
+This content can be installed from git by anyone with access to the repository.
 
 To consume this Validated Content from Automation Hub, please ensure that you add the following lines to your ansible.cfg file.
 
@@ -97,36 +69,107 @@ Once installed, you can reference the cloud.vmware_ops collection content by its
 * [Ansible Using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) for more details.
 
 
-## Contributing to this collection
+## Use Cases
 
-We welcome community contributions to this collection. If you find problems, please open an issue or create a PR against this collection repository.
+* Use Case Name: Create and Modify Cluster Settings and Perform ESXi Maintenance
+  * Actors:
+    * System Admin
+  * Description:
+    * A systems administrator can modify various vCenter cluster settings.
+  * Related Playbooks:
+    * cluster_settings/disable_high_availability.yml
+    * cluster_settings/enable_high_availability.yml
+    * cluster_settings/manage_all_settings.yml
+    * esxi_management/disable_maintenance_mode.yml
+    * esxi_management/enable_maintenance_mode.yml
+  * Roles:
+    * `cloud.vmware_ops.cluster_settings` - Set DPM, DRS, vCLS, HA, and vSAN settings
+    * `cloud.vmware_ops.esxi_maintenance_mode` - Manage the maintenance status of an ESXi host
+  * Flow:
+    - Using the `manage_all_settings` playbook, control a variety of settings in vCenter
+    - Quickly enable or disable high availability on the cluster using the dedicated playbooks
+    - Put an ESXi host in maintenance mode to adjust settings on the host, then add it back into production using the `esxi_maintenance_mode` role
+    - When a new ESXi host or datastore has been added to the cluster, include the `cluster_settings` role to adjust related settings.
 
-### Testing and Development
+* Use Case Name: Create and Manage ESXi Hosts in A Nested VCenter
+  * Actors:
+    * System Admin
+  * Description:
+    * A systems administrator can deploy a virtual vSphere environment for testing or isolation purposes.
+  * Related Playbooks:
+    * esxi_management/add_esxi_host_to_vcenter.yml
+    * esxi_management/remove_esxi_host_from_vcenter.yml
+    * esxi_management/reconnect_esxi_host_in_vcenter.yml
+    * provision_vcenter/provision_vcsa_on_esxi.yml
+    * system_settings.yml
+  * Roles:
+    * `cloud.vmware_ops.provision_virtual_esxi` - Provision a set of virtual ESXi hosts on an existing vSphere environment
+    * `cloud.vmware_ops.vcenter_host_connection` - Manage the connection status of an ESXi host to a vCenter appliance
+    * `cloud.vmware_ops.system_settings` - Manage the system settings of a vCenter appliance
+  * Flow:
+    - Deploy virtual ESXi hosts on an existing cluster using the `provision_virtual_esxi` role
+    - Deploy a vCenter appliance to one of the new virtual hosts using the `provision_vcenter` role or `provision_vcsa_on_esxi` playbook
+    - Add the other virtual ESXi hosts to the new vCenter using the `add_esxi_host_from_vcenter` playbook or `vcenter_host_connection` role
+    - Modify vCenter appliance system settings using the `system_settings` playbook or `system_settings` role
 
-The project uses `ansible-lint` and `black`.
-Assuming this repository is checked out in the proper structure,
-e.g. `collections_root/ansible_collections/cloud/vmware_ops/`, run:
+* Use Case Name: Manage a VM and Export and/or Deploy as an OVF
+  * Actors:
+    * System Admin
+  * Description:
+    * A systems administrator can create or modify an existing VM, export it as an OVF, and deploy the OVF to other clusters.
+  * Related Playbooks:
+    * provision_vm/manage_vm.yml
+    * provision_vm/deploy_ovf.yml
+    * export_vm_as_ovf.yml
+    * snapshot_management/create_snapshot.yml
+    * snapshot_management/remove_all_snapshots.yml
+    * snapshot_management/remove_snapshot.yml
+    * snapshot_management/revert_to_a_snapshot.yml
+  * Roles:
+    * `cloud.vmware_ops.export_vm_as_ovf` - Exports an existing VM as an OVF file
+    * `cloud.vmware_ops.provision_vm` - Create, manage, or delete a VM
+    * `cloud.vmware_ops.snapshot_management` - Manage the snapshots of a VM
+    * `cloud.vmware_ops.manage_folder` - Create or delete a folder
+  * Flow:
+    - Create or adjust a VM to prepare it for export using the `provision_vm` role or `manage_vm` playbook
+    - Optionally take snapshots of the VM using the `snapshot_management` role or `create_snapshot` playbook
+    - Power off the VM using `provision_vm` role or `manage_vm` playbook
+    - Export the VM as an OVF file using the `export_vm_as_ovf` playbook or `export_vm_as_ovf` role
+    - Deploy the VM to a new cluster using the `deploy_ovf` playbook or `provision_vm` role
 
-```shell
-  tox -e linters
-```
 
-Sanity and unit tests are run as normal:
+## Testing
 
-```shell
-  ansible-test sanity
-```
+All releases will meet the following test criteria.
 
-#### Integration Tests
+* 100% success for [Integration](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/tests/integration) tests.
+* 100% success for [Sanity](https://docs.ansible.com/ansible/latest/dev_guide/testing/sanity/index.html#all-sanity-tests) tests as part of [ansible-test](https://docs.ansible.com/ansible/latest/dev_guide/testing.html#run-sanity-tests).
+* 100% success for [ansible-lint](https://ansible.readthedocs.io/projects/lint/) allowing only false positives.
 
-Currently integration tests are using vcsim, which is VMware SOAP API simulator. So no external infrastructure is needed.
-Vcsim is executed in a podman container before the integration test is executed.
+## Contributing
 
-In order to run the integration tests, please follow:
+This community is currently not accepting direct contributions. We encourage you to open [git issues](https://github.com/redhat-cop/cloud.vmware_ops/issues) for bugs, comments or feature requests.
 
-```bash
-make integration
-```
+Refer to the [Ansible community guide](https://docs.ansible.com/ansible/devel/community/index.html).
+
+## Communication
+
+* Join the Ansible forum:
+  * [Get Help](https://forum.ansible.com/c/help/6): get help or help others.
+  * [Posts tagged with 'vmware'](https://forum.ansible.com/tag/vmware): subscribe to participate in collection-related conversations.
+  * [Ansible VMware Automation Working Group](https://forum.ansible.com/g/ansible-vmware): by joining the team you will automatically get subscribed to the posts tagged with ['vmware'](https://forum.ansible.com/tag/vmware).
+  * [Social Spaces](https://forum.ansible.com/c/chat/4): gather and interact with fellow enthusiasts.
+  * [News & Announcements](https://forum.ansible.com/c/news/5): track project-wide announcements including social events.
+
+* The Ansible [Bullhorn newsletter](https://docs.ansible.com/ansible/devel/community/communication.html#the-bullhorn): used to announce releases and important changes.
+
+For more information about communication, see the [Ansible communication guide](https://docs.ansible.com/ansible/devel/community/communication.html).
+
+
+## Support
+
+As Red Hat Ansible [Validated Content](https://catalog.redhat.com/software/search?target_platforms=Red%20Hat%20Ansible%20Automation%20Platform), this collection is entitled to [support](https://access.redhat.com/support/) through [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) (AAP).
+
 
 ## License
 
