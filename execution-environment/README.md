@@ -1,21 +1,31 @@
-## How to use execution environment
+# cloud.vmware_ops Execution Environment (EE)
 
-### Building
+## Building
+
+You can build a container image capable of running the playbooks in this collection using `ansible-builder`.
+You can install it by running `pip install ansible-builder`
+
 To build the execution environment image:
-
 ```bash
-$ export USER=yourdockerusername
-$ ansible-builder build -t quay.io/$USER/vmware:mytest
+# change your working directory to this dir
+cd ./execution-environmnet
+
+# you may need to remove the context dir for a clean build
+rm -rf ./context
+
+ansible-builder build -t my_image_name:my_tag
 ```
 
-This will create container image `quay.io/$USER/vmware:mytest`. You can upload it to quay and use from AAP.
+This will create container image `my_image_name:my_tag`.
+You can then upload it to your container image repository (quay, docker hub, etc) and use from AAP.
 
-### Local test
-To test the image locally using `ansible-runner` execute the image as follows:
 
+## Running Locally
+
+You can run the container image locally `ansible-runner`.
+You can install it by running `pip install ansible-runner`
+
+As an example, you can run the info playbook with no options set using the following command:
 ```bash
-$ export USER=yourdockerusername
-$ ansible-runner run --container-image quay.io/$USER/vmware:mytest runner --inventory localhost, -p cloud.vmware_ops.security
+ansible-runner run --container-image my_image_name:my_tag runner -p cloud.vmware_ops.info /tmp
 ```
-
-This will execute the `security.yml` playbook from playbooks directory. You can test with any playbook from this directory.
