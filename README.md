@@ -106,6 +106,7 @@ Once installed, you can reference the cloud.vmware_ops collection content by its
     * `cloud.vmware_ops.provision_virtual_esxi` - Provision a set of virtual ESXi hosts on an existing vSphere environment
     * `cloud.vmware_ops.vcenter_host_connection` - Manage the connection status of an ESXi host to a vCenter appliance
     * `cloud.vmware_ops.system_settings` - Manage the system settings of a vCenter appliance
+    * `cloud.vmware_ops.provision_vcenter` - Provision a vCenter appliance on an ESXi host or on an existing vCenter cluster
   * Flow:
     - Deploy virtual ESXi hosts on an existing cluster using the `provision_virtual_esxi` role
     - Deploy a vCenter appliance to one of the new virtual hosts using the `provision_vcenter` role or `provision_vcsa_on_esxi` playbook
@@ -130,12 +131,13 @@ Once installed, you can reference the cloud.vmware_ops collection content by its
     * `cloud.vmware_ops.provision_vm` - Create, manage, or delete a VM
     * `cloud.vmware_ops.snapshot_management` - Manage the snapshots of a VM
     * `cloud.vmware_ops.manage_folder` - Create or delete a folder
+    * `cloud.vmware_ops.deploy_ovf` - Deploy an OVF file to an ESXi host or existing vCenter Cluster
   * Flow:
     - Create or adjust a VM to prepare it for export using the `provision_vm` role or `manage_vm` playbook
     - Optionally take snapshots of the VM using the `snapshot_management` role or `create_snapshot` playbook
     - Power off the VM using `provision_vm` role or `manage_vm` playbook
     - Export the VM as an OVF file using the `export_vm_as_ovf` playbook or `export_vm_as_ovf` role
-    - Deploy the VM to a new cluster using the `deploy_ovf` playbook or `provision_vm` role
+    - Deploy the VM from an OVF file using the `deploy_ovf` playbook or `deploy_ovf` role
 
 
 ## Testing
