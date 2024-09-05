@@ -1,6 +1,6 @@
 # Ansible Collection: cloud.vmware_ops
 
-This repo hosts the `cloud.vmware_ops` validated Ansible Collection.
+This repository hosts the `cloud.vmware_ops` validated Ansible Collection.
 
 The collection includes a variety of Ansible roles and playbooks to help automate the management of VMware.
 
@@ -91,7 +91,7 @@ Once installed, you can reference the cloud.vmware_ops collection content by its
     - Put an ESXi host in maintenance mode to adjust settings on the host, then add it back into production using the `esxi_maintenance_mode` role
     - When a new ESXi host or datastore has been added to the cluster, include the `cluster_settings` role to adjust related settings.
 
-* Use Case Name: Create and Manage ESXi Hosts in A Nested VCenter
+* Use Case Name: Create and Manage Virtual ESXi Hosts and a Nested VCenter
   * Actors:
     * System Admin
   * Description:
