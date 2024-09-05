@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  gather_facts: false
+  environment:
+    CONTROLLER_USERNAME: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
+    CONTROLLER_PASSWORD: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
+    CONTROLLER_HOST: "{{ lookup('env', 'CONTROLLER_HOST') }}"
+    CONTROLLER_VERIFY_SSL: false
+  collections:
+    - awx.awx
+  vars:
+    controller_configuration_credentials_secure_logging: false
+    experience_name: vmware_ops
+
+  tasks:
+    - name: Include Setup YAML
+      ansible.builtin.include_vars: "{{ playbook_dir }}/{{ experience_name }}/setup.yml"
+
+    - name: Execute automation controller resource configuration
+      ansible.builtin.include_role:
+        name: infra.controller_configuration.dispatch
+      vars:
+        controller_configuration_async_delay: 1
+        controller_configuration_async_retries: 30
