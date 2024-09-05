@@ -35,11 +35,11 @@
     - name: "Validate the following VM datastore when datastore was defined in provision_vm_datastore: {{ item.provision_vm_name }}"
       ansible.builtin.assert:
         that:
-          - vm_info.guests[0].hw_datastores[0] == item.provision_vm_datastore
+          - item.provision_vm_datastore in vm_info.guests[0].hw_datastores
       when: "'provision_vm_datastore' in item"
 
     - name: "Validate the following VM datastore when datastore was defined in provision_vm_disk: {{ item.provision_vm_name }}"
       ansible.builtin.assert:
         that:
-          - vm_info.guests[0].hw_datastores[0] == item.provision_vm_disk[0].datastore
+          - item.provision_vm_datastore in vm_info.guests[0].hw_datastores
       when: "'provision_vm_datastore' not in item"

@@ -24,7 +24,7 @@ provision_virtual_esxi_networks:
 provision_virtual_esxi_disks:
   - size_gb: 100
     type: thin
-    datastore: datastore1
+    datastore: "{{ shared_storage_01 }}"
 
 # Vars for cloud.vmware_ops.vcenter_host_connection role
 vcenter_host_connection_hostname: "{{ vcenter_hostname }}"
