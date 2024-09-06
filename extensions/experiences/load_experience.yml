@@ -1,11 +1,16 @@
 ---
-- hosts: localhost
+# We have no control over the infra collection needing the collections
+# keyword, hence the ansible-lint noqa tag below
+- name: Load An Experience Into AAP   # noqa: fqcn[keyword]
+  hosts: localhost
   gather_facts: false
-  collections:   # noqa fqcn[keyword]   We have no control over this
+  collections:
     - awx.awx
   vars:
     controller_configuration_credentials_secure_logging: false
     controller_validate_certs: false
+    controller_configuration_async_delay: 1
+    controller_configuration_async_retries: 30
     controller_hostname: "{{ lookup('env', 'CONTROLLER_HOST') }}"
     controller_username: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
     controller_password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
@@ -18,6 +23,3 @@
     - name: Execute automation controller resource configuration
       ansible.builtin.include_role:
         name: infra.controller_configuration.dispatch
-      vars:
-        controller_configuration_async_delay: 1
-        controller_configuration_async_retries: 30
