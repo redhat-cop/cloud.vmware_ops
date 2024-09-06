@@ -1,15 +1,14 @@
 ---
 - hosts: localhost
   gather_facts: false
-  environment:
-    CONTROLLER_USERNAME: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
-    CONTROLLER_PASSWORD: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
-    CONTROLLER_HOST: "{{ lookup('env', 'CONTROLLER_HOST') }}"
-    CONTROLLER_VERIFY_SSL: false
-  collections:
+  collections:   # noqa fqcn[keyword]   We have no control over this
     - awx.awx
   vars:
     controller_configuration_credentials_secure_logging: false
+    controller_validate_certs: false
+    controller_hostname: "{{ lookup('env', 'CONTROLLER_HOST') }}"
+    controller_username: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
+    controller_password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
     experience_name: vmware_ops
 
   tasks:
