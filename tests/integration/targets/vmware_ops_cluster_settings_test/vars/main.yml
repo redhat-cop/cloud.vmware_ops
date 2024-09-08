@@ -25,4 +25,4 @@ cluster_settings_ha_vm_monitoring: vmMonitoringOnly
 
 # vCLS
 cluster_settings_vcls_allowed_datastores:
-  - datastore6
+  - "{{ shared_storage_01 }}"

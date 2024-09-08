@@ -9,7 +9,7 @@ deploy_ovf_validate_certs: false
 deploy_ovf_datacenter_name: "{{ vcenter_datacenter }}"
 deploy_ovf_cluster_name: "{{ vcenter_cluster_name }}"
 deploy_ovf_folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"
-deploy_ovf_datastore: datastore3
+deploy_ovf_datastore: "{{ shared_storage_01 }}"
 deploy_ovf_power_on: true
 
 vm_power_status: "{{ 'poweredOn' if deploy_ovf_power_on else 'poweredOff' }}"
