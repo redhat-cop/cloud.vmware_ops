@@ -1,43 +1,4 @@
-- name: Power off ESXi VM
-  ansible.builtin.include_role:
-    name: cloud.vmware_ops.provision_vm
-  vars:
-    provision_vm_hostname: "{{ provision_virtual_esxi_hostname }}"
-    provision_vm_username: "{{ provision_virtual_esxi_username }}"
-    provision_vm_password: "{{ provision_virtual_esxi_password }}"
-    provision_vm_validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
-    provision_vm_port: "{{ provision_virtual_esxi_port }}"
-    provision_vm_cluster: "{{ provision_virtual_esxi_cluster }}"
-    provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter }}"
-    provision_vm_name: "{{ provision_virtual_esxi_vms[0].name }}"
-    provision_vm_state: "poweredoff"
-  ignore_errors: true
-
-- name: Cleanup Virtual Esxi
-  ansible.builtin.include_role:
-    name: cloud.vmware_ops.provision_vm
-  vars:
-    provision_vm_hostname: "{{ provision_virtual_esxi_hostname }}"
-    provision_vm_username: "{{ provision_virtual_esxi_username }}"
-    provision_vm_password: "{{ provision_virtual_esxi_password }}"
-    provision_vm_validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
-    provision_vm_port: "{{ provision_virtual_esxi_port }}"
-    provision_vm_cluster: "{{ provision_virtual_esxi_cluster }}"
-    provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter }}"
-    provision_vm_name: "{{ provision_virtual_esxi_vms[0].name }}"
-    provision_vm_state: "absent"
-    provision_vm_force: true
-
-- name: Check if ESXi VM is down
-  command: ping -c 1 -W 5 {{ esxi_host.guests[0].ipv4 }}
-  register: ping_check_result
-  ignore_errors: true
-
-- name: Set fact if ping is not available
-  set_fact:
-    ping_not_available: "{{ ping_check_result.rc != 0 }}"
-
-- name: Verify VM absence in vCenter
+- name: Get VM info
   vmware.vmware.guest_info:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
@@ -48,10 +9,64 @@
   retries: 3
   delay: 10
 
-- name: Fail if VM is still present in vCenter
-  fail:
-    msg: "The VM {{ provision_virtual_esxi_vms[0].name }} is still present in vCenter."
+- name: Delete ESXi VM
   when: vm_info.guests[0] is defined
+  block:
+    - name: Power off ESXi VM
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_hostname: "{{ provision_virtual_esxi_hostname }}"
+        provision_vm_username: "{{ provision_virtual_esxi_username }}"
+        provision_vm_password: "{{ provision_virtual_esxi_password }}"
+        provision_vm_validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
+        provision_vm_port: "{{ provision_virtual_esxi_port }}"
+        provision_vm_cluster: "{{ provision_virtual_esxi_cluster }}"
+        provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter }}"
+        provision_vm_folder: "{{ provision_virtual_esxi_folder }}"
+        provision_vm_name: "{{ provision_virtual_esxi_vms[0].name }}"
+        provision_vm_state: "poweredoff"
+
+    - name: Cleanup Virtual Esxi
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.provision_vm
+      vars:
+        provision_vm_hostname: "{{ provision_virtual_esxi_hostname }}"
+        provision_vm_username: "{{ provision_virtual_esxi_username }}"
+        provision_vm_password: "{{ provision_virtual_esxi_password }}"
+        provision_vm_validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
+        provision_vm_port: "{{ provision_virtual_esxi_port }}"
+        provision_vm_cluster: "{{ provision_virtual_esxi_cluster }}"
+        provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter }}"
+        provision_vm_folder: "{{ provision_virtual_esxi_folder }}"
+        provision_vm_name: "{{ provision_virtual_esxi_vms[0].name }}"
+        provision_vm_state: "absent"
+        provision_vm_force: true
+
+    - name: Check if ESXi VM is down
+      command: ping -c 1 -W 5 {{ esxi_host.guests[0].ipv4 }}
+      register: ping_check_result
+      ignore_errors: true
+
+    - name: Set fact if ping is not available
+      set_fact:
+        ping_not_available: "{{ ping_check_result.rc != 0 }}"
+
+    - name: Verify VM absence in vCenter
+      vmware.vmware.guest_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no
+        name: "{{ provision_virtual_esxi_vms[0].name }}"
+      register: vm_info
+      retries: 3
+      delay: 10
+
+    - name: Fail if VM is still present in vCenter
+      fail:
+        msg: "The VM {{ provision_virtual_esxi_vms[0].name }} is still present in vCenter."
+      when: vm_info.guests[0] is defined
 
 - name: Cleanup Resource Pool
   community.vmware.vmware_resource_pool:
