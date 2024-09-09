@@ -25,7 +25,13 @@ You can then upload it to your container image repository (quay, docker hub, etc
 You can run the container image locally using `ansible-runner`.
 You can install it by running `pip install ansible-runner`
 
-As an example, you can run the info playbook with no options set using the following command:
+When specifying playbooks, roles, etc to run you must specify locally available resources. For example, when specifying the path to a playbook, the path must be valid on your localhost and does not need to be valid in the container.
+Assume you checked this repository out to a folder called `/git/vmware_ops`. You could then run the info playbook with no options set using the following command:
+```bash
+ansible-runner run --container-image my_image_name:my_tag -p /git/vmware_ops/playbooks/info.yml /tmp
+```
+
+Alternatively, you can specify the fully qualified collection name of resources you want to run, assuming the collection has been installed on the localhost. For example, the `info` playbook shown above could also be run using:
 ```bash
 ansible-runner run --container-image my_image_name:my_tag -p cloud.vmware_ops.info /tmp
 ```
