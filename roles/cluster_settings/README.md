@@ -4,10 +4,7 @@ A role to define cluster settings in vCenter.
 
 ## Requirements
 
-pyvmomi < 7.0.3
-
-In some cases, the vCLS cluster settings will fail to apply when using pyvmomi version 7.0.3 or greater. If this feature is required, using an earlier version will work.
-Support for version 7.0.3 and higher is planned for the next release of community.vmware (>4.4.0), at which point this restriction will be removed.
+pyvmomi
 
 ## Role Variables
 ### Auth
