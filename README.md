@@ -38,11 +38,13 @@ This content can be installed from git by anyone with access to the repository.
 To consume this Validated Content from Automation Hub, please ensure that you add the following lines to your ansible.cfg file.
 
 ```
+# if you have multiple server configurations (validated content, certified content, public content, etc) you can specify those config
+# section names here as a comma separated list. For example 'server_list = validated,public,my_galaxy
 [galaxy]
-server_list = automation_hub
+server_list = validated
 
-[galaxy_server.automation_hub]
-url=https://cloud.redhat.com/api/automation-hub/
+[galaxy_server.validated]
+url=https://console.redhat.com/api/automation-hub/content/validated/
 auth_url=https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
 token=<SuperSecretToken>
 ```
