@@ -10,7 +10,7 @@ If the user is expected to update some resources after the experience is loaded,
 
 #### VMware Ops - vCenter Credential
 
-This is a credential for VMware vCenter. It securly holds the authentication details for your vCenter while also sharing them with the playbook as environment variables. This makes authentication seemless.
+This is a credential for VMware vCenter. It securely holds the authentication details for your vCenter while also sharing them with the playbook as environment variables. This makes authentication seamless.
 
 You must edit the credential once it has been loaded and update the values for the following attributes:
 - username
