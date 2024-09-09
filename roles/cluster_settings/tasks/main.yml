@@ -89,7 +89,7 @@
   when: cluster_settings_ha_enable is defined
 
 - name: Configure vCLS Datastore Settings
-  community.vmware.vmware_cluster_vcls:
+  vmware.vmware.cluster_vcls:
     hostname: "{{ cluster_settings_hostname }}"
     username: "{{ cluster_settings_username }}"
     password: "{{ cluster_settings_password }}"
