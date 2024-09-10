@@ -15,7 +15,7 @@
     cluster: "{{ deploy_ovf_cluster_name | default(omit) }}"
 
     name: "{{ deploy_ovf_vm_name }}"
-    ovf: "{{ deploy_ovf_template }}"
+    ovf: "{{ deploy_ovf_template | default(omit) }}"
     esxi_hostname: "{{ deploy_ovf_esxi_host | default(omit) }}"
     folder: "{{ deploy_ovf_folder | default(omit) }}"
     resource_pool: "{{ deploy_ovf_resource_pool | default(omit) }}"
