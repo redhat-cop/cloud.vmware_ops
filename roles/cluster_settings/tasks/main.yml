@@ -46,7 +46,7 @@
   when: cluster_settings_drs_enable is defined
 
 - name: Apply DRS Recommendations for Cluster
-  community.vmware.vmware_cluster:
+  community.vmware.vmware_cluster_drs_recommendations:
     hostname: "{{ cluster_settings_hostname }}"
     username: "{{ cluster_settings_username }}"
     password: "{{ cluster_settings_password }}"

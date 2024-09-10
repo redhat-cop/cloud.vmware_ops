@@ -7,7 +7,7 @@
         file: ../group_vars.yml
 
     - name: "Create New Cluster: {{ cluster_settings_cluster_name }}"
-      community.vmware.vmware_cluster:
+      vmware.vmware.cluster:
         hostname: "{{ cluster_settings_hostname }}"
         username: "{{ cluster_settings_username }}"
         password: "{{ cluster_settings_password }}"
@@ -65,7 +65,7 @@
 
   always:
     - name: "Cleanup Cluster: {{ cluster_settings_cluster_name }}"
-      community.vmware.vmware_cluster:
+      vmware.vmware.cluster:
         hostname: "{{ cluster_settings_hostname }}"
         username: "{{ cluster_settings_username }}"
         password: "{{ cluster_settings_password }}"
