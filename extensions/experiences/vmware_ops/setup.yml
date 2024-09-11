@@ -1,0 +1,44 @@
+---
+user_message:
+  - Update the 'VMware Ops - vCenter Credential' credential to include your environments vCenter hostname, username, and password.
+  - Add other connection variables to the 'VMware Ops - localhost' inventory.
+
+controller_credentials:
+  - name: VMware Ops - vCenter Credential
+    credential_type: VMware vCenter
+    organization: Default
+    state: exists
+    inputs:
+      host: REPLACEME
+      username: REPLACEME
+      password: REPLACEME
+
+controller_inventories:
+  - name: VMware Ops - localhost
+    organization: Default
+    variables:
+      vcenter_validate_certs: false
+
+controller_projects:
+  - name: cloud.vmware_ops
+    scm_type: git
+    wait: true
+    scm_url: https://github.com/redhat-cop/cloud.vmware_ops.git
+    scm_clean: true
+    scm_update_on_launch: true
+    scm_update_cache_timeout: 600
+
+controller_hosts:
+  - name: localhost
+    organization: Default
+    inventory: VMware Ops - localhost
+
+controller_templates:
+  - name: VMware Ops - Gather Info
+    job_type: run
+    inventory: VMware Ops - localhost
+    project: cloud.vmware_ops
+    playbook: playbooks/info.yml
+    credentials:
+      - VMware Ops - vCenter Credential
+    survey_enabled: false
