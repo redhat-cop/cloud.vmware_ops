@@ -10,13 +10,21 @@
     quiet: true
     fail_msg: Variable must be set when using this role.
 
-- name: Check Deployment Variables
+- name: Check Non-Library OVF Deployment Variables
   ansible.builtin.assert:
     that: >-
-      (deploy_ovf_url is defined and (deploy_ovf_template is not defined and deploy_ovf_library is not defined)) or
-      (deploy_ovf_url is not defined and (deploy_ovf_template is defined or deploy_ovf_library is defined))
+      (deploy_ovf_url is defined and deploy_ovf_template is not defined) or
+      (deploy_ovf_url is not defined and deploy_ovf_template is defined)
     quiet: true
-    fail_msg: deploy_ovf_url is mutually exclusive with deploy_ovf_template and deploy_ovf_library.
+    fail_msg: One of deploy_ovf_url or deploy_ovf_template is required when deploy_ovf_library is not used.
+  when: deploy_ovf_library is not defined
+
+- name: Check Content Library Deployment Variables
+  ansible.builtin.assert:
+    that: deploy_ovf_template is defined
+    quiet: true
+    fail_msg: deploy_ovf_template is required when deploy_ovf_library is defined.
+  when: deploy_ovf_library is defined
 
 - name: Check Datastore Variables
   ansible.builtin.assert:
