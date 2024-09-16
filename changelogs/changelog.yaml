@@ -160,3 +160,34 @@ releases:
     fragments:
     - 87-replace-community-modules-with-vmware.vmware.yml
     release_date: '2024-08-15'
+  1.5.0:
+    changes:
+      bugfixes:
+      - Fixed various typos and spelling issues in the README.md for this repo
+      minor_changes:
+      - Add variable `provision_vcenter_vm_ntp_server` to handle ntp server
+      - Added unused var `provision_vcenter_vm_network_ip_family` to template with
+        default value of ipv4
+      - Fix role names in the README files to be consistent with the ansible-role-template
+      - Fix the example of guest_os in provision_vm README role to use RHEL guest
+        OS
+      - Set default value of `time.nist.gov`
+      - Update the dependencies collections in galaxy.yml and in the execution-environment/requirements.yml
+      - Update the roles and playbooks in the README in the root directory
+      - cluster_settings - Use the correct module to apply DRS recommendations instead
+        of cluster module
+      - cluster_settings - Use the vmware.vmware.cluster module instead of the community.vmware.vmware_cluster
+        module
+      - cluster_settings - Use the vmware.vmware.cluster_vcls module instead of the
+        community.vmware.vmware_cluster_vcls module
+      - deploy_ovf - Fixed the pre-check assertions for deploy_ovf_template var since
+        it is required with content libraries and optional otherwise
+    fragments:
+    - 90__add_ntp_var.yml
+    - 91__fix_unused_var.yml
+    - 92_issue_fixes.yml
+    - 93__readme_typo_fixes.yml
+    - 97_swap_community_vcls_for_vmware.yml
+    - 98_swap_community_cluster_for_vmware.yml
+    - 99_deploy_ovf_template_required_var.yml
+    release_date: '2024-09-16'

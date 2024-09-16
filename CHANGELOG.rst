@@ -4,6 +4,29 @@ Cloud.VMware\_Ops Release Notes
 
 .. contents:: Topics
 
+v1.5.0
+======
+
+Minor Changes
+-------------
+
+- Add variable `provision_vcenter_vm_ntp_server` to handle ntp server
+- Added unused var `provision_vcenter_vm_network_ip_family` to template with default value of ipv4
+- Fix role names in the README files to be consistent with the ansible-role-template
+- Fix the example of guest_os in provision_vm README role to use RHEL guest OS
+- Set default value of `time.nist.gov`
+- Update the dependencies collections in galaxy.yml and in the execution-environment/requirements.yml
+- Update the roles and playbooks in the README in the root directory
+- cluster_settings - Use the correct module to apply DRS recommendations instead of cluster module
+- cluster_settings - Use the vmware.vmware.cluster module instead of the community.vmware.vmware_cluster module
+- cluster_settings - Use the vmware.vmware.cluster_vcls module instead of the community.vmware.vmware_cluster_vcls module
+- deploy_ovf - Fixed the pre-check assertions for deploy_ovf_template var since it is required with content libraries and optional otherwise
+
+Bugfixes
+--------
+
+- Fixed various typos and spelling issues in the README.md for this repo
+
 v1.4.0
 ======
 
