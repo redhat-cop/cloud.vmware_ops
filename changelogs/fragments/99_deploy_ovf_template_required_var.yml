@@ -1,2 +1,0 @@
-minor_changes:
-  - deploy_ovf - Fixed the pre-check assertions for deploy_ovf_template var since it is required with content libraries and optional otherwise

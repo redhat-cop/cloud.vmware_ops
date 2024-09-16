@@ -1,4 +1,0 @@
----
-minor_changes:
-  - Add variable `provision_vcenter_vm_ntp_server` to handle ntp server
-  - Set default value of `time.nist.gov`

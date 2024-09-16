@@ -1,2 +1,0 @@
-minor_changes:
-  - cluster_settings - Use the vmware.vmware.cluster_vcls module instead of the community.vmware.vmware_cluster_vcls module

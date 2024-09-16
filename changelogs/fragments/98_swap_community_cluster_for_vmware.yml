@@ -1,3 +1,0 @@
-minor_changes:
-  - cluster_settings - Use the vmware.vmware.cluster module instead of the community.vmware.vmware_cluster module
-  - cluster_settings - Use the correct module to apply DRS recommendations instead of cluster module

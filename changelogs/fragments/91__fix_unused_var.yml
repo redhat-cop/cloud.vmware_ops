@@ -1,3 +1,0 @@
----
-minor_changes:
-  - Added unused var `provision_vcenter_vm_network_ip_family` to template with default value of ipv4
