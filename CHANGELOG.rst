@@ -4,6 +4,15 @@ Cloud.VMware\_Ops Release Notes
 
 .. contents:: Topics
 
+v1.5.1
+======
+
+Bugfixes
+--------
+
+- removed experiences setup.yml since experiences are not yet supported
+- specified support is limited in the README since the collection is meant to be customized by customers
+
 v1.5.0
 ======
 

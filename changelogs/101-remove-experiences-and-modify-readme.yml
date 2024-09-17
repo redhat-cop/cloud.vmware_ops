@@ -1,4 +1,0 @@
----
-bugfixes:
-  - removed experiences setup.yml since experiences are not yet supported
-  - specified support is limited in the README since the collection is meant to be customized by customers
