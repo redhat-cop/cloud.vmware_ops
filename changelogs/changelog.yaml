@@ -191,3 +191,11 @@ releases:
     - 98_swap_community_cluster_for_vmware.yml
     - 99_deploy_ovf_template_required_var.yml
     release_date: '2024-09-16'
+  1.5.1:
+    changes:
+      bugfixes:
+      - removed experiences setup.yml since experiences are not yet supported
+      - specified support is limited in the README since the collection is meant to be customized by customers
+    fragments:
+    - 101-remove-experiences-and-modify-readme.yml
+    release_date: '2024-09-17'
