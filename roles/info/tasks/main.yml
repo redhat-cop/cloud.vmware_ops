@@ -31,9 +31,9 @@
 - name: Expose Gathered Facts As Variable vmware_ops_info_outputs
   ansible.builtin.set_fact:
     vmware_ops_info_outputs:
-      license: "{{ __license.licenses | first | default({}) }}"
+      license: "{{ __license.licenses | default([]) }}"
       appliance: "{{ __appliance.appliance | default({}) }}"
-      guest: "{{ __guests.guests | first | default({}) }}"
-      cluster: "{{ __clusters_info.results | map(attribute='clusters') | default({}) }}"
-      storage: "{{ __storage_policy.spbm_profiles | first | default({}) }}"
+      guest: "{{ __guests.guests | default([]) }}"
+      cluster: "{{ _clusters_info.results | default([]) | map(attribute='clusters') }}"
+      storage: "{{ __storage_policy.spbm_profiles | default([]) }}"
   when: info_expose_outputs_as_variable
