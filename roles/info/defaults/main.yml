@@ -1,22 +1,23 @@
 info_validate_certs: true
+info_expose_outputs_as_variable: true
 info_hostport: "{{ info_hostname + ':' + info_port if info_port is defined else info_hostname }}"
 
 # Appliance
 info_appliance_gather: all
-info_appliance_file: "/tmp/appliance-{{ lookup('community.general.random_string', special=false) }}"
+info_appliance_file: "/tmp/vmware_ops_info_appliance"
 
 # Cluster
 info_datacenters: []
-info_cluster_file: "/tmp/cluster-{{ lookup('community.general.random_string', special=false) }}"
+info_cluster_file: "/tmp/vmware_ops_info_cluster"
 
 # Guest
-info_guest_file: "/tmp/guest-{{ lookup('community.general.random_string', special=false) }}"
+info_guest_file: "/tmp/vmware_ops_info_guest"
 
 # License
-info_license_file: "/tmp/license-{{ lookup('community.general.random_string', special=false) }}"
+info_license_file: "/tmp/vmware_ops_info_license"
 
 # Storage
-info_storage_file: "/tmp/storage-{{ lookup('community.general.random_string', special=false) }}"
+info_storage_file: "/tmp/vmware_ops_info_storage"
 
 # Enable
 info_guest: false
