@@ -38,7 +38,7 @@ vmware_ops_info_outputs:
 ```
 
 An abbreviated example of the data returned can be found below:
-```json
+```
 "vmware_ops_info_outputs": {
   "appliance": {
       "access": {
@@ -55,7 +55,6 @@ An abbreviated example of the data returned can be found below:
       "firewall": {
         "inbound": []
       },
-      "networking": {
       .....   # note: this example is abbreviated for conciseness
   },
   "cluster": [
