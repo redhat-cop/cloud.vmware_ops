@@ -1,7 +1,5 @@
 - hosts: localhost
   gather_facts: false
-  collections:
-    - community.general
 
   tasks:
 
