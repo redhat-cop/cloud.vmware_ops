@@ -1,8 +1,8 @@
 # content_library
 
-A role to manage VMWare content libaries. You can create or delete both local and subscribed content libraries.
+A role to manage VMWare content libraries. You can create or delete both local and subscribed content libraries.
 
-## Requirements
+## Dependencies
 
 N/A
 
@@ -63,10 +63,6 @@ N/A
   - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
 
 
-## Dependencies
-
-- community.vmware
-
 ## Example Playbook
 ```yaml
 ---
@@ -89,7 +85,7 @@ N/A
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 ## Author Information
 

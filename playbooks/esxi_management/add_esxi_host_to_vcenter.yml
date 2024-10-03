@@ -1,5 +1,5 @@
 ---
-- name: Playbook To Add An ESXI Host To VCenter
+- name: Playbook To Add An ESXi Host To VCenter
   hosts: all
   gather_facts: false
 

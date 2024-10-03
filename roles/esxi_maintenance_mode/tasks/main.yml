@@ -10,7 +10,7 @@
     quiet: true
     fail_msg: Variable must be set when using this role.
 
-- name: Set ESXI Maintenance Mode
+- name: Set ESXi Maintenance Mode
   community.vmware.vmware_maintenancemode:
     hostname: "{{ esxi_maintenance_mode_hostname }}"
     username: "{{ esxi_maintenance_mode_username }}"

@@ -33,7 +33,7 @@
     switch: "{{ vswitch_name }}"
     portgroup: "{{ portgroup_name }}"
 
-- name: Wait for {{ portgroup_name }} to propegate to all hosts
+- name: Wait for {{ portgroup_name }} to propagate to all hosts
   ansible.builtin.pause:
     seconds: 30
 

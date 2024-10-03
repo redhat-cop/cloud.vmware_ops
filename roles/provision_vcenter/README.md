@@ -2,27 +2,27 @@
 
 Provision a vCenter appliance on an ESXi host, using a vCenter ISO locally or VMX file on a datastore
 
-## Requirements
+## Dependencies
 
-pyvomi
+The vCenter Server Appliance ISO should be accessible from the host running these tasks, not necessarily the host onto which the appliance will be deployed. No customization of the ISO is required.
 
 ## Role Variables
 
 ### Auth
 - **provision_vcenter_hostname**:
-  - str, The hostname of the esxi or vcenter on which you want to deploy the application. Required.
+  - str, The hostname of the ESXi or vCenter on which you want to deploy the application. Required.
 
 - **provision_vcenter_username**:
-  - str, The username to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
+  - str, The username to use to authenticate to the ESXi or vCenter on which you want to deploy the application. Required.
 
 - **provision_vcenter_password**:
-  - str, The password to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
+  - str, The password to use to authenticate to the ESXi or vCenter on which you want to deploy the application. Required.
 
 - **provision_vcenter_port**:
-  - str or int, The port to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
+  - str or int, The port to use to authenticate to the ESXi or vCenter on which you want to deploy the application. Required.
 
 - **provision_vcenter_validate_certs**:
-  - bool, If true then certificates will be validated when connecting to the esxi or vcenter for auth. Optional.
+  - bool, If true then certificates will be validated when connecting to the ESXi or vCenter for auth. Optional.
 
 ### Replication Options
 
@@ -36,7 +36,7 @@ pyvomi
 
 - **provision_vcenter_vc_target_esxi_path**:
   - str, The path/name of the ESXi server on which you want to deploy the appliance. Only required when VM does not exist and you are deploying into an existing vCenter server.
-  - This value should be the name (or path) found in vcenter, which is not necessarily the same as the hostname
+  - This value should be the name (or path) found in vCenter, which is not necessarily the same as the hostname
 
 ### Install Source
 - **provision_vcenter_iso_path**:
@@ -47,13 +47,13 @@ pyvomi
 
 ### VCSA VM
 - **provision_vcenter_vm_name**:
-  - str, The name for the vcenter vm, as seen in the web gui. Required.
+  - str, The name for the vCenter vm, as seen in the web GUI. Required.
 
 - **provision_vcenter_vm_uuid**:
   - str, Specify the full VM UUID if multiple VMs in your cluster have the same name as `provision_vcenter_vm_name`. Optional.
 
 - **provision_vcenter_vm_password**:
-  - str, Specify the password used to access this appliance once its deployed. Required if the VM does not already exist.
+  - str, Specify the password used to access this appliance once it's deployed. Required if the VM does not already exist.
   - This password is used for SSH access (username: root) if its enabled, as well as web GUI access (username: administrator@vsphere.local)
 
 - **provision_vcenter_vm_datastore**:
@@ -67,19 +67,19 @@ pyvomi
   - str, The network hostname (https://your_hostname) for vCenter. DNS should already resolve on the localhost. Required.
 
 - **provision_vcenter_vm_network_mode**:
-  - str, The type of network mode the vcenter vm should use. Can be 'static' or 'dhcp'. Default is 'static'.
+  - str, The type of network mode the vCenter vm should use. Can be 'static' or 'dhcp'. Default is 'static'.
 
 - **provision_vcenter_vm_network_address**:
-  - str, The private IP address the vcenter vm should use. Required if network mode is set to 'static'.
+  - str, The private IP address the vCenter vm should use. Required if network mode is set to 'static'.
 
 - **provision_vcenter_vm_network_prefix**:
-  - str or int, The digit netmask the vcenter vm should use. For example '24'.  Required if network mode is set to 'static'.
+  - str or int, The digit netmask the vCenter vm should use. For example '24'.  Required if network mode is set to 'static'.
 
 - **provision_vcenter_vm_network_gateway**:
-  - str or int, The gateway IP the vcenter vm should use. Required if network mode is set to 'static'.
+  - str or int, The gateway IP the vCenter vm should use. Required if network mode is set to 'static'.
 
 - **provision_vcenter_vm_network_dns**:
-  - list(str), A list of DNS servers the vcenter vm should use. Required if network mode is set to 'static'.
+  - list(str), A list of DNS servers the vCenter vm should use. Required if network mode is set to 'static'.
 
 - **provision_vcenter_vm_ntp_server**:
   - str or int, Server to use for NTP source.
@@ -88,17 +88,14 @@ pyvomi
   - str, The IP family that the VM should use for its network. ipv4 or ipv6. Default is ipv4
 
 - **provision_vcenter_vm_deployment_option**:
-  - str, The deployment "size" for the vcenter appliance. See the VMWare documentation for the accepted values and their requirements. Default is tiny.
+  - str, The deployment "size" for the vCenter appliance. See the VMWare documentation for the accepted values and their requirements. Default is tiny.
 
 - **provision_vcenter_vm_enable_ssh**:
-  - bool, Set to true to enable ssh on the vcenter appliance. Default is true.
+  - bool, Set to true to enable ssh on the vCenter appliance. Default is true.
 
 - **provision_vcenter_vm_enable_ceip**:
-  - bool, Set to true to opt into VMWares Customer Experience Improvement Program. Default is false.
+  - bool, Set to true to opt into VMwares Customer Experience Improvement Program. Default is false.
 
-## Dependencies
-
-- NA
 
 ## Example Playbook
 ```yaml
@@ -134,7 +131,7 @@ License
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 Author Information
 ------------------

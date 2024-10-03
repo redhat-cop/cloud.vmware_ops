@@ -2,7 +2,7 @@
 
 A role to define system settings for vCenter.
 
-## Requirements
+## Dependencies
 
 N/A
 
@@ -45,10 +45,10 @@ N/A
   - List of DNS domains to add/set.
 
 - **system_settings_dns_mode_append**
-  - If `true` items from `system_settings_dns_domains` and `system_settings_dns_servers` will be added to already configured DNS domains/servers. If `false` domains/servers will be overriden.
+  - If `true` items from `system_settings_dns_domains` and `system_settings_dns_servers` will be added to already configured DNS domains/servers. If `false` domains/servers will be overridden.
 
 - **system_settings_dns_hostname**:
-  - Set the hostname of the vcenter.
+  - Set the hostname of the vCenter.
 
 #### NTP
 Note: NTP service will be restarted if configuration is changed.
@@ -95,9 +95,6 @@ Note: NTP service will be restarted if configuration is changed.
 - **system_settings_firewall_rules_append**:
   - If `false` the rules overwrites the existing firewall rules and creates a new rule list. If `true` we append the rules to existing rules. Default is `true`.
 
-## Dependencies
-
-- vmware.vmware_rest
 
 ## Example Playbook
 ```yaml
@@ -113,7 +110,7 @@ Note: NTP service will be restarted if configuration is changed.
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 ## Author Information
 

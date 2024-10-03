@@ -2,9 +2,9 @@
 
 A role to define cluster settings in vCenter.
 
-## Requirements
+## Dependencies
 
-pyvmomi
+N/A
 
 ## Role Variables
 ### Auth
@@ -136,7 +136,7 @@ pyvmomi
   - Used only when `cluster_settings_ha_apd_response` is `restartConservative` or `restartAggressive`.
 
 - **cluster_settings_ha_pdl_response**:
-  - str, VM storage protection setting for storage failures categorized as Permenant Device Loss (PDL).
+  - str, VM storage protection setting for storage failures categorized as Permanent Device Loss (PDL).
   - Options are `disabled`, `warning`, `restartAggressive`
 
 
@@ -169,10 +169,6 @@ pyvmomi
   - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
 
 
-## Dependencies
-
-- vmware.vmware_rest
-
 ## Example Playbook
 ```yaml
 ---
@@ -187,7 +183,7 @@ pyvmomi
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 ## Author Information
 

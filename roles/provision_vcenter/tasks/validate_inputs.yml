@@ -37,7 +37,7 @@
       - provision_vcenter_vm_network_gateway is defined
       - provision_vcenter_vm_network_dns is defined
     quiet: true
-    fail_msg: Variable must be set when deploying vcenter with a static IP.
+    fail_msg: Variable must be set when deploying vCenter with a static IP.
   when: provision_vcenter_vm_network_mode == "static"
 
 - name: Check ISO Is Accessible By Ansible Host

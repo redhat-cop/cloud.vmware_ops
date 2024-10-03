@@ -24,6 +24,6 @@ cluster_settings_vcls_allowed_datastores:
   - LocalDS_0
 #
 # Disabled vSAN tests because they require an SDK
-# from VMWare that is not publically accessible
+# from VMWare that is not publicly accessible
 # vSAN
 # cluster_settings_vsan_enable: False

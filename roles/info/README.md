@@ -1,8 +1,8 @@
 # info
 
-A role that gather information from vCenter.
+A role that gathers information from vCenter.
 
-## Requirements
+## Dependencies
 
 N/A
 
@@ -150,11 +150,6 @@ An abbreviated example of the data returned can be found below:
   - File where to store the gathered data. Default is `/tmp/vmware_ops_info_guest`
   - If set to an empty string or `false`, the data is not written to a file.
 
-## Dependencies
-
-- community.vmware
-- vmware.vmware
-- vmware.vmware_rest
 
 ## Example Playbook
 ```yaml
@@ -185,7 +180,7 @@ An abbreviated example of the data returned can be found below:
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 ## Author Information
 

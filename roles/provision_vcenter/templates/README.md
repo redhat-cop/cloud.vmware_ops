@@ -39,7 +39,7 @@ You can list these sizes by running the command: `./vcsa-cli-installer/lin64/vcs
 
 ## Additional VMware Documentation
 
-VMWare publishes ISO cli information online. It is dependent on the vSphere version, so refering to the commands provided by the ISO may be preferred. <br>
+VMWare publishes ISO cli information online. It is dependent on the vSphere version, so referring to the commands provided by the ISO may be preferred. <br>
 Below are some helpful document names and links to versions of that documentation.
 
 [Prepare Your JSON Configuration File for CLI Deployment](https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vcenter.install.doc/GUID-3683BA76-B08A-4DDB-9CCF-66660F6AD1CF.html)<br>

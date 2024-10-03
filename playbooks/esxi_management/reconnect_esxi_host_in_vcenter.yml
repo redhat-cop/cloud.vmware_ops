@@ -1,5 +1,5 @@
 ---
-- name: Playbook To Reconnect An ESXI Host In VCenter
+- name: Playbook To Reconnect An ESXi Host In VCenter
   hosts: all
   gather_facts: false
 

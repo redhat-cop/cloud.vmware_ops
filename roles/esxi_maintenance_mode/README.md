@@ -1,28 +1,28 @@
 # esxi_maintenance_mode
 
-Either put an ESXI host in maintenance mode or take the host out of maintenance mode.
+Either put an ESXi host in maintenance mode or take the host out of maintenance mode.
 
-## Requirements
+## Dependencies
 
-pyvomi
+N/A
 
 ## Role Variables
 
 ### Auth
 - **esxi_maintenance_mode_hostname**:
-  - str, The hostname of the esxi or vcenter on which you want to deploy the application. Required.
+  - str, The hostname of the ESXi or vCenter on which you want to deploy the application. Required.
 
 - **esxi_maintenance_mode_username**:
-  - str, The username to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
+  - str, The username to use to authenticate to the ESXi or vCenter on which you want to deploy the application. Required.
 
 - **esxi_maintenance_mode_password**:
-  - str, The password to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
+  - str, The password to use to authenticate to the ESXi or vCenter on which you want to deploy the application. Required.
 
 - **esxi_maintenance_mode_port**:
-  - str or int, The port to use to authenticate to the esxi or vcenter on which you want to deploy the application. Required.
+  - str or int, The port to use to authenticate to the ESXi or vCenter on which you want to deploy the application. Required.
 
 - **esxi_maintenance_mode_validate_certs**:
-  - bool, If true then certificates will be validated when connecting to the esxi or vcenter for auth. Optional.
+  - bool, If true then certificates will be validated when connecting to the ESXi or vCenter for auth. Optional.
 
 ### Proxy Options
 
@@ -34,14 +34,14 @@ pyvomi
 
 ### Other Options
 - **esxi_maintenance_mode_enable**:
-  - bool, If true the ESXI host will be put into maintenance mode. If false, the host will be taken out of maintenance mode
+  - bool, If true the ESXi host will be put into maintenance mode. If false, the host will be taken out of maintenance mode
   - Default value is True
 
 - **esxi_maintenance_mode_esxi_hostname**:
-  - str, The hostname of the ESXI host that you want to manage. Required
+  - str, The hostname of the ESXi host that you want to manage. Required
 
 - **esxi_maintenance_mode_evacuate**:
-  - bool, If true, powered off VMs on the ESXI host will be evacuated.
+  - bool, If true, powered off VMs on the ESXi host will be evacuated.
 
 - **esxi_maintenance_mode_timeout**:
   - int, Set the length of time to wait for the host to move into the appropriate maintenance state before throwing an error.
@@ -50,9 +50,6 @@ pyvomi
   - str, Set the VSAN compliance mode for the host to enter.
   - One of `ensureObjectAccessibility`, `evacuateAllData`, `noAction`
 
-## Dependencies
-
-- NA
 
 ## Example Playbook
 ```yaml
@@ -88,7 +85,7 @@ License
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 Author Information
 ------------------

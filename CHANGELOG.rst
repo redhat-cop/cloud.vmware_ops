@@ -61,9 +61,9 @@ Minor Changes
 - esxi_maintenance_mode - add role metadata
 - esxi_maintenance_mode test - adding the integartion test for esxi_maintenance_mode role
 - export_vm_as_ovf - add role metadata
-- export_vm_as_ovf - added role, playbook, tests to export an exisiting VM from VCenter or ESXi as an OVF
+- export_vm_as_ovf - added role, playbook, tests to export an existing VM from VCenter or ESXi as an OVF
 - export_vm_as_ovf - adding check on ovf file in integration tests for export_vm_as_ovf role
-- general change to the testing structure which duplicate runme.sh for each target instead of recreating it manaully
+- general change to the testing structure which duplicate runme.sh for each target instead of recreating it manually
 - info - add role metadata
 - info_test - adding a CI for validated content repo to run on a real vcenter env, and include this test within the pr
 - manage_folder - Added new role, tests, and playbook to create or delete a folder in VCenter
@@ -94,9 +94,9 @@ Minor Changes
 - add_esxi_host_to_vcenter - Added new playbook to add an ESXi host to a vCenter
 - cluster_settings - Added new playbook to modify cluster settings
 - cluster_settings - Added new role for managing different cluster settings including DRM, DRS, vCLS, HA, and vSAN. Added integration tests for role
-- disable_high_availability - Added playbook to disable high availbility in  a vcenter cluster
+- disable_high_availability - Added playbook to disable high availability in  a vcenter cluster
 - disable_maintenance_mode - Added new playbook to disable maintenance mode on an ESXi host
-- enable_high_availability - Added playbook to enable and configure high availbility in a vcenter cluster
+- enable_high_availability - Added playbook to enable and configure high availability in a vcenter cluster
 - enable_maintenance_mode - Added new playbook to enable maintenance mode on an ESXi host
 - esxi_maintenance_mode - Added new role for setting an ESXi host's maintenance mode status. Added integration tests for role
 - info - Fix creation of temporary files

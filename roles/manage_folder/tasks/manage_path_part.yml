@@ -1,5 +1,5 @@
 ---
-- name: Manage VCenter Folder - {{ (_parent | ternary(_parent + '/', '')) + _child }}
+- name: Manage vCenter Folder - {{ (_parent | ternary(_parent + '/', '')) + _child }}
   community.vmware.vcenter_folder:
     hostname: "{{ manage_folder_hostname }}"
     username: "{{ manage_folder_username }}"
