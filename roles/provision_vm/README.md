@@ -41,7 +41,7 @@ N/A
 - **provision_vm_name**  (string, Required):
     - Name of the virtual machine to manage.
     - Virtual machine names in vCenter are not necessarily unique which may be problematic.
-      If multiple virtual machines with same name exists, then `provision_vm_folder` is required parameter to
+      If multiple virtual machines with the same name exist, then `provision_vm_folder` is required parameter to
       identify uniqueness of the virtual machine. You can also set `provision_vm_name_match` to control how multiple matching VM names are handled.
     - The parameter is required if the virtual machine does not already exist.
     - This parameter is case sensitive.
@@ -50,7 +50,7 @@ N/A
     - The instance UUID of the virtual machine to manage.
     - This is required if `provision_vm_name` is not supplied.
     - Note that a supplied UUID will be ignored on virtual machine creation, as VMware creates the UUID internally.
-      If virtual machine does not exists, then this parameter is ignored.
+      If virtual machine does not exist, then this parameter is ignored.
 
 - **provision_vm_cluster** (String):
     - The name of the cluster where the virtual machine will run.
@@ -301,7 +301,7 @@ N/A
     * size:
         - description:
             - Disk storage size.
-            - You should include the storage unit like 100kb, 100mb, etc
+            - You should include the storage unit such as 100kb, 100mb, etc
         - type: str
     * size_kb:
         - description: Disk storage size in kb.
@@ -342,9 +342,9 @@ N/A
         - choices: ['persistent', 'independent_persistent', 'independent_nonpersistent']
         - description:
             - Type of disk mode.
-            - If `persistent` specified, changes are immediately and permanently written to the virtual disk. This is default.
-            - If `independent_persistent` specified, same as persistent, but not affected by snapshots.
-            - If `independent_nonpersistent` specified, changes to virtual disk are made to a redo log and discarded at power off, but not affected by snapshots.
+            - If `persistent` is specified, changes are immediately and permanently written to the virtual disk. This is default.
+            - If `independent_persistent` is specified, same as persistent, but not affected by snapshots.
+            - If `independent_nonpersistent` is specified, changes to virtual disk are made to a redo log and discarded at power off, but not affected by snapshots.
     * controller_type:
         - type: str
         - choices: ['buslogic', 'lsilogic', 'lsilogicsas', 'paravirtual', 'sata', 'nvme']

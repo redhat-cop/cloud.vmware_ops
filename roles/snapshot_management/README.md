@@ -107,7 +107,7 @@ N/A
   - If set to `true` and the virtual machine is powered on, it will quiesce the file system in the virtual machine.
   - Note that VMware Tools are required for this flag.
   - If the virtual machine is powered off or VMware Tools are not available, then this flag is ignored.
-  - If the virtual machine does not provide capability to take quiesce snapshot, then this flag ignored.
+  - If the virtual machine does not provide capability to take quiesce snapshot, then this flag is ignored.
   - default: false
 
 - **snapshot_management_memory_dump**:

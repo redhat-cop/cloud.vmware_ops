@@ -27,7 +27,7 @@ N/A
   - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
 
 - **cluster_settings_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter which contains the cluster to configure.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
 
 ### Cluster settings
 
@@ -83,7 +83,7 @@ N/A
   - str, State of virtual machine health monitoring service. One of `vmAndAppMonitoring`, `vmMonitoringDisabled`, `vmMonitoringOnly`
 
 - **cluster_settings_ha_host_isolation_response**:
-  - str, Indicates whether or VMs should be powered off if a host determines that it is isolated from the rest of the compute resource. One of `none`, `powerOff`, `powerOn`
+  - str, Indicates whether VMs should be powered off if a host determines that it is isolated from the rest of the compute resource. One of `none`, `powerOff`, `powerOn`
 
 - **cluster_settings_ha_slot_based_admission_control**:
   - dict, Configure slot based admission control policy.

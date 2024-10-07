@@ -24,7 +24,7 @@ N/A
   - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
 
 - **manage_folder_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter which contains the cluster to configure.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
 
 ### Other
 - **manage_folder_folder_name**:

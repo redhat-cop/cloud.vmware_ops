@@ -93,7 +93,7 @@ Note: NTP service will be restarted if configuration is changed.
   - Set the ordered list of firewall rules to allow or deny traffic from one or more incoming IP addresses. Within the list of traffic rules, rules are processed in order of appearance, from top to bottom.
 
 - **system_settings_firewall_rules_append**:
-  - If `false` the rules overwrites the existing firewall rules and creates a new rule list. If `true` we append the rules to existing rules. Default is `true`.
+  - If `false` the rules overwrite the existing firewall rules and creates a new rule list. If `true` we append the rules to existing rules. Default is `true`.
 
 
 ## Example Playbook

@@ -27,7 +27,7 @@ N/A
   - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
 
 - **content_library_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter which contains the cluster to configure.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
 
 ### Library
 - **content_library_datastore_name**:
@@ -46,7 +46,7 @@ N/A
   - str, `local` or `subscribed`. Controls if the library will be hosted locally or should subscribe to a remote library
 
 #### Subscribed Library Settings
-- **content_library_ssl_thumbrpint**:
+- **content_library_ssl_thumbprint**:
   - str, The SSL thumbprint of the content library you want to which you want to subscribe.
 
 - **content_library_subscription_url**:

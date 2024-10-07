@@ -1,6 +1,6 @@
 # export_vm_as_ovf
 
-A role to export a VM from vCenter or ESXi as an OVF. The VM is exported to the local filesystem of the host running the tasks (anisble_host).
+A role to export a VM from vCenter or ESXi as an OVF. The VM is exported to the local filesystem of the host running the tasks (ansible_host).
 
 ## Dependencies
 
@@ -27,7 +27,7 @@ N/A
   - The name of the datacenter in vSphere vCenter which contains the VM.
 
 - **export_vm_as_ovf_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter which contains the VM.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
 
 ### VM Options
 - **export_vm_as_ovf_vm_datacenter**:
@@ -73,7 +73,7 @@ N/A
 ## Example Playbook
 ```yaml
 ---
-- name: Export VM To Lolcahost
+- name: Export VM To Localhost
   hosts: localhost
   gather_facts: false
 

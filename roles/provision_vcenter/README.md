@@ -88,7 +88,7 @@ The vCenter Server Appliance ISO should be accessible from the host running thes
   - str, The IP family that the VM should use for its network. ipv4 or ipv6. Default is ipv4
 
 - **provision_vcenter_vm_deployment_option**:
-  - str, The deployment "size" for the vCenter appliance. See the VMWare documentation for the accepted values and their requirements. Default is tiny.
+  - str, The deployment "size" for the vCenter appliance. See the VMware documentation for the accepted values and their requirements. Default is tiny.
 
 - **provision_vcenter_vm_enable_ssh**:
   - bool, Set to true to enable ssh on the vCenter appliance. Default is true.

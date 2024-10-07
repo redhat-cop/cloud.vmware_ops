@@ -21,12 +21,12 @@ N/A
   - bool, Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
 
 - **deploy_ovf_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter or ESXi host.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
 
 
 ### Placement
 - **deploy_ovf_cluster_name**:
-  - str, The name of the cluster in vSphere vCenter to configure. Required if your connecting to a vCenter cluster and `deploy_ovf_esxi_host` is not provided.
+  - str, The name of the cluster in vSphere vCenter to configure. Required if you are connecting to a vCenter cluster and `deploy_ovf_esxi_host` is not provided.
 
 - **deploy_ovf_datacenter_name**:
   - str, Required. The name of the datacenter in vSphere vCenter where the virtual machine should be deployed.
@@ -148,7 +148,7 @@ N/A
       deploy_ovf_datacenter_name: DC1
       deploy_ovf_cluster_name: CL1
       deploy_ovf_vm_name: test-vm
-      deploy_ovf_libarary: my-content-library
+      deploy_ovf_library: my-content-library
       deploy_ovf_template: my-ovf-template
       deploy_ovf_datastore: datastore1
 

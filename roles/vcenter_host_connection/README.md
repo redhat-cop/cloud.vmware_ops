@@ -1,6 +1,6 @@
 # vcenter_host_connection
 
-Add, remove, connect, disconnect, or reconnect an ESXi host from a VCenter
+Add, remove, connect, disconnect, or reconnect an ESXi host from a vCenter
 
 ## Dependencies
 
