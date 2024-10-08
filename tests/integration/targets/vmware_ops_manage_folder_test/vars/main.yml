@@ -7,7 +7,7 @@ manage_folder_username: "{{ vcenter_username }}"
 manage_folder_password: "{{ vcenter_password }}"
 manage_folder_validate_certs: false
 manage_folder_port: "{{ vcenter_port }}"
-manage_folder_datacenter_name: "{{ vcenter_datacenter }}"
+manage_folder_datacenter: "{{ vcenter_datacenter }}"
 folder_types:
   - host
   - vm

@@ -20,13 +20,14 @@ N/A
 - **manage_folder_validate_certs**
   - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
 
-- **manage_folder_datacenter_name**:
-  - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
-
 - **manage_folder_port**:
   - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
 
 ### Other
+- **manage_folder_datacenter**:
+  - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
+  - Aliases: [manage_folder_datacenter]
+
 - **manage_folder_folder_name**:
   - str, required, The name of folder to manage. It can be a single name like `foo` or a path like `foo/bar/buzz`.
 
