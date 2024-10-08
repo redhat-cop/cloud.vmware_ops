@@ -1,5 +1,5 @@
 ---
-- name: Playbook To Put An ESXI Host In Maintenance Mode
+- name: Playbook To Put An ESXi Host In Maintenance Mode
   hosts: all
   gather_facts: false
 

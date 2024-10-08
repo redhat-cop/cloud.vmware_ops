@@ -1,8 +1,8 @@
 # content_library
 
-A role to manage VMWare content libaries. You can create or delete both local and subscribed content libraries.
+A role to manage VMWare content libraries. You can create or delete both local and subscribed content libraries.
 
-## Requirements
+## Dependencies
 
 N/A
 
@@ -27,7 +27,7 @@ N/A
   - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
 
 - **content_library_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter which contains the cluster to configure.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
 
 ### Library
 - **content_library_datastore_name**:
@@ -46,7 +46,7 @@ N/A
   - str, `local` or `subscribed`. Controls if the library will be hosted locally or should subscribe to a remote library
 
 #### Subscribed Library Settings
-- **content_library_ssl_thumbrpint**:
+- **content_library_ssl_thumbprint**:
   - str, The SSL thumbprint of the content library you want to which you want to subscribe.
 
 - **content_library_subscription_url**:
@@ -62,10 +62,6 @@ N/A
 - **content_library_proxy_port**:
   - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
 
-
-## Dependencies
-
-- community.vmware
 
 ## Example Playbook
 ```yaml
@@ -89,7 +85,7 @@ N/A
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 ## Author Information
 

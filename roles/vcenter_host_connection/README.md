@@ -1,28 +1,28 @@
 # vcenter_host_connection
 
-Add, remove, connect, disconnect, or reconnect an ESXi host from a VCenter
+Add, remove, connect, disconnect, or reconnect an ESXi host from a vCenter
 
-## Requirements
+## Dependencies
 
-pyvomi
+N/A
 
 ## Role Variables
 
 ### Auth
 - **vcenter_host_connection_hostname**:
-  - str, The hostname of the vcenter to which you want to connect. Required
+  - str, The hostname of the vCenter to which you want to connect. Required
 
 - **vcenter_host_connection_username**:
-  - str, The username to use to authenticate to the vcenter to which you want to connect. Required
+  - str, The username to use to authenticate to the vCenter to which you want to connect. Required
 
 - **vcenter_host_connection_password**:
-  - str, The password to use to authenticate to the esxi or vcenter to which you want to connect. Required
+  - str, The password to use to authenticate to the ESXi or vCenter to which you want to connect. Required
 
 - **vcenter_host_connection_validate_certs**:
-  - bool, If true then certificates will be validated when connecting to the vcenter for auth. Optional.
+  - bool, If true then certificates will be validated when connecting to the vCenter for auth. Optional.
 
 - **vcenter_host_connection_port**:
-  - int, The port of the vcenter to which you want to connect. Optional.
+  - int, The port of the vCenter to which you want to connect. Optional.
 
 ### Placement
 - **vcenter_host_connection_folder**:
@@ -38,13 +38,13 @@ pyvomi
 - **vcenter_host_connection_state**:
   - str, The connection state of the ESXi host that you want to set. Default is `present`
   - If set to `present`, add the host if host is absent, or update the location of the host if host already exists.
-  - If set to `absent`, remove the host if host is present, or do nothing if host already does not exists.
+  - If set to `absent`, remove the host if host is present, or do nothing if host already does not exist.
   - If set to `add_or_reconnect`, add the host if it's absent else reconnect it and update the location.
   - If set to `reconnect`, then reconnect the host if it's present and update the location.
   - If set to `disconnected`, disconnect the host if the host already exists.
 
 - **vcenter_host_connection_add_connected**:
-  - bool, If true then the host will be connected as soon as its added to vcenter. Optional
+  - bool, If true then the host will be connected as soon as it's added to vCenter. Optional
 
 - **vcenter_host_connection_esxi_hostname**:
   - str, The hostname of the ESXi host that you want to manage. Required
@@ -59,10 +59,10 @@ pyvomi
   - str, The SSL thumbprint for the ESXi host that you want to manage. Optional.
 
 - **vcenter_host_connection_fetch_ssl_thumbprint**:
-  - bool, If true, the ESXi host thumprint will be fetched and trusted prior to adding. Optional.
+  - bool, If true, the ESXi host thumbprint will be fetched and trusted prior to adding. Optional.
 
 - **vcenter_host_connection_force_connection**:
-  - bool, If true, the connection status will be forced even if the host is managed by another vcenter. Optional
+  - bool, If true, the connection status will be forced even if the host is managed by another vCenter. Optional
 
 - **vcenter_host_connection_reconnect_disconnected**:
   - bool, Reconnect disconnected hosts, if the state is present and the host already exists. Optional
@@ -74,10 +74,6 @@ pyvomi
 - **vcenter_host_connection_proxy_port**:
   - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
 
-
-## Dependencies
-
-- NA
 
 ## Example Playbook
 ```yaml
@@ -116,7 +112,7 @@ License
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 Author Information
 ------------------

@@ -2,7 +2,7 @@
 - name: Validate Inputs
   ansible.builtin.include_tasks: validate_inputs.yml
 
-- name: Check If VCenter Already Exists
+- name: Check If vCenter Already Exists
   vmware.vmware.guest_info:
     hostname: "{{ provision_vcenter_hostname }}"
     username: "{{ provision_vcenter_username }}"
@@ -36,7 +36,7 @@
           paths:
             - os_specific_iso_actions
 
-- name: Make Sure VCenter Appliance Is Powered On
+- name: Make Sure vCenter Appliance Is Powered On
   community.vmware.vmware_guest_powerstate:
     hostname: "{{ provision_vcenter_hostname }}"
     username: "{{ provision_vcenter_username }}"

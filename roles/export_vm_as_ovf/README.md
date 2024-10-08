@@ -1,8 +1,8 @@
 # export_vm_as_ovf
 
-A role to export a VM from VCenter or ESXi as an OVF. The VM is exported to the local filesystem of the host running the tasks (anisble_host).
+A role to export a VM from vCenter or ESXi as an OVF. The VM is exported to the local filesystem of the host running the tasks (ansible_host).
 
-## Requirements
+## Dependencies
 
 N/A
 
@@ -27,14 +27,14 @@ N/A
   - The name of the datacenter in vSphere vCenter which contains the VM.
 
 - **export_vm_as_ovf_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter which contains the VM.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the VM.
 
 ### VM Options
 - **export_vm_as_ovf_vm_datacenter**:
   - str, The name of the datacenter that contains the VM that should be exported.
 
 - **export_vm_as_ovf_vm_folder**:
-  - str, The VCenter folder that contains the VM that should be exported. This should be the full folder path
+  - str, The vCenter folder that contains the VM that should be exported. This should be the full folder path
 
 - **export_vm_as_ovf_vm_moid**:
   - str, The MOID of the VM that should be exported.
@@ -70,14 +70,10 @@ N/A
   - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
 
 
-## Dependencies
-
-- community.vmware
-
 ## Example Playbook
 ```yaml
 ---
-- name: Export VM To Lolcahost
+- name: Export VM To Localhost
   hosts: localhost
   gather_facts: false
 
@@ -95,7 +91,7 @@ N/A
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 ## Author Information
 

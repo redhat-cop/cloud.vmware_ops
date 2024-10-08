@@ -2,31 +2,31 @@
 
 A role to deploy a VM from an OVF file. The OVF can be located on the `ansible_host` filesystem, at a URL, or located in a content library.
 
-## Requirements
+## Dependencies
 
 N/A
 
 ## Role Variables
 ### Auth
 - **deploy_ovf_username**:
-  - str, Required. The vSphere vCenter or ESXI host username.
+  - str, Required. The vSphere vCenter or ESXi host username.
 
 - **deploy_ovf_password**:
-  - str, Required. The vSphere vCenter or ESXI host password.
+  - str, Required. The vSphere vCenter or ESXi host password.
 
 - **deploy_ovf_hostname**:
-  - str, Required. The hostname or IP address of the vSphere vCenter or ESXI host.
+  - str, Required. The hostname or IP address of the vSphere vCenter or ESXi host.
 
 - **deploy_ovf_validate_certs**
   - bool, Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
 
 - **deploy_ovf_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter or ESXI host.
+  - str or int, The port used to authenticate to the vSphere vCenter or ESXi host.
 
 
 ### Placement
 - **deploy_ovf_cluster_name**:
-  - str, The name of the cluster in vSphere vCenter to configure. Required if your connecting to a vcenter cluster and `deploy_ovf_esxi_host` is not provided.
+  - str, The name of the cluster in vSphere vCenter to configure. Required if you are connecting to a vCenter cluster and `deploy_ovf_esxi_host` is not provided.
 
 - **deploy_ovf_datacenter_name**:
   - str, Required. The name of the datacenter in vSphere vCenter where the virtual machine should be deployed.
@@ -117,9 +117,6 @@ N/A
 - **deploy_ovf_proxy_port**:
   - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
 
-## Dependencies
-
-- community.vmware
 
 ## Example Playbook
 ```yaml
@@ -151,7 +148,7 @@ N/A
       deploy_ovf_datacenter_name: DC1
       deploy_ovf_cluster_name: CL1
       deploy_ovf_vm_name: test-vm
-      deploy_ovf_libarary: my-content-library
+      deploy_ovf_library: my-content-library
       deploy_ovf_template: my-ovf-template
       deploy_ovf_datastore: datastore1
 
@@ -174,7 +171,7 @@ N/A
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 ## Author Information
 

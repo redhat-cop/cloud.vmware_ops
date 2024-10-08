@@ -2,9 +2,9 @@
 
 A role to define cluster settings in vCenter.
 
-## Requirements
+## Dependencies
 
-pyvmomi
+N/A
 
 ## Role Variables
 ### Auth
@@ -27,7 +27,7 @@ pyvmomi
   - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
 
 - **cluster_settings_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter which contains the cluster to configure.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
 
 ### Cluster settings
 
@@ -83,7 +83,7 @@ pyvmomi
   - str, State of virtual machine health monitoring service. One of `vmAndAppMonitoring`, `vmMonitoringDisabled`, `vmMonitoringOnly`
 
 - **cluster_settings_ha_host_isolation_response**:
-  - str, Indicates whether or VMs should be powered off if a host determines that it is isolated from the rest of the compute resource. One of `none`, `powerOff`, `powerOn`
+  - str, Indicates whether VMs should be powered off if a host determines that it is isolated from the rest of the compute resource. One of `none`, `powerOff`, `powerOn`
 
 - **cluster_settings_ha_slot_based_admission_control**:
   - dict, Configure slot based admission control policy.
@@ -136,7 +136,7 @@ pyvmomi
   - Used only when `cluster_settings_ha_apd_response` is `restartConservative` or `restartAggressive`.
 
 - **cluster_settings_ha_pdl_response**:
-  - str, VM storage protection setting for storage failures categorized as Permenant Device Loss (PDL).
+  - str, VM storage protection setting for storage failures categorized as Permanent Device Loss (PDL).
   - Options are `disabled`, `warning`, `restartAggressive`
 
 
@@ -169,10 +169,6 @@ pyvmomi
   - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
 
 
-## Dependencies
-
-- vmware.vmware_rest
-
 ## Example Playbook
 ```yaml
 ---
@@ -187,7 +183,7 @@ pyvmomi
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 ## Author Information
 

@@ -1,6 +1,6 @@
 ---
-# hardware defaults are chosen based on the minimum requirements to run vcenter,
-# plus a little bit extra for the ESXI system
+# hardware defaults are chosen based on the minimum requirements to run vCenter,
+# plus a little bit extra for the ESXi system
 # https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-upgrade/GUID-752FCA83-1A9B-499E-9C65-D5625351C0B5.html
 provision_virtual_esxi_memory_mb: 18000
 provision_virtual_esxi_cpus: 4

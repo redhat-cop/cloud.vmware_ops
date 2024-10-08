@@ -1,8 +1,8 @@
 # manage_folder
 
-A role to create, delete, or update a folder or folder tree in VCenter.
+A role to create, delete, or update a folder or folder tree in vCenter.
 
-## Requirements
+## Dependencies
 
 N/A
 
@@ -24,7 +24,7 @@ N/A
   - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
 
 - **manage_folder_port**:
-  - str or int, The port to use to authenticate to the vSphere vCenter which contains the cluster to configure.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
 
 ### Other
 - **manage_folder_folder_name**:
@@ -52,9 +52,6 @@ N/A
 - **manage_folder_proxy_port**:
   - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
 
-## Dependencies
-
-- community.vmware
 
 ## Example Playbook
 ```yaml
@@ -121,7 +118,7 @@ N/A
 
 GNU General Public License v3.0 or later
 
-See [LICENCE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
+See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
 ## Author Information
 

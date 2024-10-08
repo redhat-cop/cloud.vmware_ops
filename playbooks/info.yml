@@ -1,4 +1,4 @@
-- name: Gather infomation about VMware
+- name: Gather information about VMware
   hosts: all
   gather_facts: false
 
