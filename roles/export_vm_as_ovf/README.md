@@ -20,18 +20,13 @@ N/A
 - **export_vm_as_ovf_validate_certs**
   - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
 
-- **export_vm_as_ovf_cluster_name**:
-  - The name of the cluster in vSphere vCenter that contains the VM.
-
-- **export_vm_as_ovf_datacenter_name**:
-  - The name of the datacenter in vSphere vCenter which contains the VM.
-
 - **export_vm_as_ovf_port**:
   - str or int, The port used to authenticate to the vSphere vCenter that contains the VM.
 
 ### VM Options
-- **export_vm_as_ovf_vm_datacenter**:
-  - str, The name of the datacenter that contains the VM that should be exported.
+- **export_vm_as_ovf_datacenter**:
+  - The name of the datacenter in vSphere vCenter which contains the VM.
+  - Aliases: [export_vm_as_ovf_datacenter_name]
 
 - **export_vm_as_ovf_vm_folder**:
   - str, The vCenter folder that contains the VM that should be exported. This should be the full folder path
