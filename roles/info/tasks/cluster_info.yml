@@ -26,15 +26,17 @@
   tags:
     - cluster
 
-- name: Make sure directory exists
-  ansible.builtin.file:  # noqa: risky-file-permissions
-    path: "{{ info_cluster_file | dirname }}"
-    state: "directory"
-
-- name: Create JSON file from fetched data
-  ansible.builtin.copy:
-    content: "{{ __clusters_info.results | map(attribute='clusters') | to_json }}"
-    dest: "{{ info_cluster_file }}"
-    mode: "0644"
-  tags:
-    - cluster
+- name: Write Cluster Results To File
+  when: info_cluster_file
+  block:
+    - name: Make sure directory exists
+      ansible.builtin.file: # noqa: risky-file-permissions
+        path: "{{ info_cluster_file | dirname }}"
+        state: "directory"
+    - name: Create JSON file from fetched data
+      ansible.builtin.copy:
+        content: "{{ __clusters_info.results | map(attribute='clusters') | to_json }}"
+        dest: "{{ info_cluster_file }}"
+        mode: "0644"
+      tags:
+        - cluster

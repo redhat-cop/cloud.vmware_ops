@@ -1,8 +1,6 @@
 - name: Run Info Test Tasks
   hosts: localhost
   gather_facts: false
-  collections:
-    - community.general
 
   tasks:
 

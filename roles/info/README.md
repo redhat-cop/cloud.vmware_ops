@@ -1,6 +1,6 @@
 # info
 
-A role that gather information from vcenter.
+A role that gather information from vCenter.
 
 ## Requirements
 
@@ -20,6 +20,93 @@ N/A
 - **info_validate_certs**
   - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
 
+### Output
+- **info_expose_outputs_as_variable**
+  - If set to true, the role will expose the gathered information as a variable which can be used later on in your playbook. The variable is called `vmware_ops_info_outputs`. If set to false, this variable is not set.
+  - The variable and it's attributes (license, appliance, etc) are returned regardless if data was gathered or not. However, if you do not gather information pertaining to an attribute an empty data set is returned.
+  - The empty data set will be the same type as a populated dataset; meaning if the data set is normally a list, an empty list will be returned.
+  - For example, if `info_appliance` is set to `false`, then `vmware_ops_info_outputs.appliance` will be `{}`. If `info_guests` is set to `false`, then `vmware_ops_info_outputs.guests` will be `[]`.
+
+The variable's attributes have the following data types:
+```
+vmware_ops_info_outputs:
+  appliance: dict
+  license: list(str)
+  cluster: list(dict)
+  guest: list(dict)
+  storage: list(dict)
+```
+
+An abbreviated example of the data returned can be found below:
+```
+"vmware_ops_info_outputs": {
+  "appliance": {
+      "access": {
+          "access": {
+                    "consolecli": true,
+                    "dcui": true,
+                    "shell": {
+                        "enabled": "False",
+                        "timeout": "0"
+                    },
+                    "ssh": true
+                }
+            },
+      "firewall": {
+        "inbound": []
+      },
+      .....   # note: this example is abbreviated for conciseness
+  },
+  "cluster": [
+    {
+      "My-Cluster": {
+        "configuration": {
+          "dasConfig": {
+              "enabled": false
+          }
+        },
+        "name": "My-Cluster",
+        "summary": {
+            "totalCpu": 514080
+        }
+      }
+    }
+  ],
+  "guest": [
+    {
+      "advanced_settings": {
+        "cpuid.coresPerSocket.cookie": "1",
+        "ethernet0.pciSlotNumber": "32",
+        "guestinfo.vmtools.buildNumber": "22544099",
+      .....   # note: this example is abbreviated for conciseness
+    },
+  ]
+  "license": [
+    "00000-0AA0A-000AA-000AA-0A0A0",
+  ]
+  "storage": [
+    {
+      "constraints_sub_profiles": [
+        {
+          "rule_set_info": [
+            {
+              "id": "com.vmware.storage.tag.openshift-rh-qfklm.property",
+              "value": [
+                "rh-qfklm"
+              ]
+            }
+          ],
+          "rule_set_name": "Tag based placement"
+        }
+      ],
+      "description": null,
+      "id": "34d58084-5b43-49f7-a29e-fd4b00f9f801",
+      "name": "openshift-storage-policy-rh-qfklm"
+    }
+  ]
+}
+```
+
 ### Appliance
 - **info_appliance**
   - Define whether appliance information should be gathered. Default is `false`.
@@ -28,35 +115,40 @@ N/A
   - Define the sections of the appliance to gather. By default we gather all appliance information.
 
 - **info_appliance_file**
-  - File where to store the gathered data. Default is `/tmp/appliance-{random}`
+  - File where to store the gathered data. Default is `/tmp/vmware_ops_info_appliance`
+  - If set to an empty string or `false`, the data is not written to a file.
 
 ### License
 - **info_license**
   - Define whether license information should be gathered. Default is `false`.
 
 - **info_license_file**
-  - File where to store the gathered data. Default is `/tmp/license-{random}`
+  - File where to store the gathered data. Default is `/tmp/vmware_ops_info_license`
+  - If set to an empty string or `false`, the data is not written to a file.
 
 ### Cluster
 - **info_cluster**
   - Define whether cluster information should be gathered. Default is `false`.
 
 - **info_cluster_file**
-  - File where to store the gathered data. Default is `/tmp/cluster-{random}`
+  - File where to store the gathered data. Default is `/tmp/vmware_ops_info_cluster`
+  - If set to an empty string or `false`, the data is not written to a file.
 
 ### Storage
 - **info_storage**
   - Define whether storage information should be gathered. Default is `false`.
 
 - **info_storage_file**
-  - File where to store the gathered data. Default is `/tmp/storage-{random}`
+  - File where to store the gathered data. Default is `/tmp/vmware_ops_info_storage`
+  - If set to an empty string or `false`, the data is not written to a file.
 
 ### Guest
 - **info_guest**
   - Define whether guest information should be gathered. Default is `false`.
 
 - **info_guest_file**
-  - File where to store the gathered data. Default is `/tmp/guest-{random}`
+  - File where to store the gathered data. Default is `/tmp/vmware_ops_info_guest`
+  - If set to an empty string or `false`, the data is not written to a file.
 
 ## Dependencies
 
@@ -82,6 +174,12 @@ N/A
 
   roles:
     - role: cloud.vmware_ops.info
+
+  tasks:
+    # Note, this variable can contain a lot of data
+    - name: Debug Output Variable
+      ansible.builtin.debug:
+        var: vmware_ops_info_outputs
 ```
 ## License
 

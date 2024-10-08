@@ -2,3 +2,12 @@
 - name: Info role
   ansible.builtin.import_role:
     name: cloud.vmware_ops.info
+
+- name: Check Outputs
+  ansible.builtin.assert:
+    that:
+      - vmware_ops_info_outputs.appliance is defined
+      - vmware_ops_info_outputs.license is defined
+      - vmware_ops_info_outputs.guest is defined
+      - vmware_ops_info_outputs.cluster is defined
+      - vmware_ops_info_outputs.storage is defined

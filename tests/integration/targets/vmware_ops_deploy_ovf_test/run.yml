@@ -1,8 +1,6 @@
 ---
 - hosts: localhost
   gather_facts: no
-  collections:
-    - community.general
 
   tasks:
     - name: Import eco-vcenter credentials
