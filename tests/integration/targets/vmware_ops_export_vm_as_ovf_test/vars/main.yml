@@ -5,7 +5,7 @@ export_vm_as_ovf_hostname: "{{ vcenter_hostname }}"
 export_vm_as_ovf_username: "{{ vcenter_username }}"
 export_vm_as_ovf_password: "{{ vcenter_password }}"
 export_vm_as_ovf_validate_certs: false
-export_vm_as_ovf_datacenter_name: "{{ vcenter_datacenter }}"
+export_vm_as_ovf_datacenter: "{{ vcenter_datacenter }}"
 
 export_vm_as_ovf_export_dir: /tmp/export_vm_as_ovf
 export_vm_as_ovf_vm_name: "{{ tiny_prefix }}-export-vm-as-ovf-test"

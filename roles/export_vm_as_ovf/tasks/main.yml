@@ -13,6 +13,11 @@
     quiet: true
     fail_msg: Variable must be set when using this role.
 
+- name: Map Variable Aliases to Documented Names
+  ansible.builtin.set_fact:
+    export_vm_as_ovf_vm_datacenter: "{{ export_vm_as_ovf_vm_datacenter_name }}"
+  when: export_vm_as_ovf_vm_datacenter_name is defined
+
 - name: Export VM As OVF
   community.vmware.vmware_export_ovf:
     hostname: "{{ export_vm_as_ovf_hostname }}"
@@ -23,7 +28,7 @@
     proxy_host: "{{ export_vm_as_ovf_proxy_host | default(omit) }}"
     proxy_port: "{{ export_vm_as_ovf_proxy_port | default(omit) }}"
 
-    datacenter: "{{ export_vm_as_ovf_vm_datacenter_name | default(omit) }}"
+    datacenter: "{{ export_vm_as_ovf_vm_datacenter | default(omit) }}"
     folder: "{{ export_vm_as_ovf_vm_folder | default(omit) }}"
     name: "{{ export_vm_as_ovf_vm_name | default(omit) }}"
     uuid: "{{ export_vm_as_ovf_vm_uuid | default(omit) }}"
