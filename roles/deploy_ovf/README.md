@@ -21,7 +21,7 @@ N/A
   - bool, Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
 
 - **deploy_ovf_port**:
-  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
+  - str or int, The port used to authenticate to the vSphere vCenter or ESXi host.
 
 
 ### Placement

@@ -27,7 +27,7 @@ N/A
   - The name of the datacenter in vSphere vCenter which contains the VM.
 
 - **export_vm_as_ovf_port**:
-  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the VM.
 
 ### VM Options
 - **export_vm_as_ovf_vm_datacenter**:

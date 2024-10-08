@@ -350,7 +350,7 @@ N/A
         - choices: ['buslogic', 'lsilogic', 'lsilogicsas', 'paravirtual', 'sata', 'nvme']
         - description:
             - Type of disk controller.
-            - Set this type on not supported ESXi or VM hardware version will lead to failure in deployment.
+            - Setting this type on not supported ESXi or VM hardware version will lead to deployment failure.
             - If set to `sata` type, please make sure `controller_number` and `unit_number` do not conflict with sata values in `provison_vm_cdrom`.
     * controller_number:
         - type: int
@@ -383,7 +383,7 @@ N/A
 
 - **provision_vm_force** (boolean):
     - Ignore warnings and complete the actions.
-    - This parameter is useful while removing virtual machine which is powered on state.
+    - This parameter is useful while removing a virtual machine that is the powered on state.
     - Choices:
         - false
         - true
@@ -501,7 +501,7 @@ N/A
         - choices: [ 'bios', 'efi' ]
     * nested_virt:
         - type: bool
-        - description: Enable nested virtualization capabbilities.
+        - description: Enable nested virtualization capabilities.
     * virt_based_security:
         - type: bool
         - description:
@@ -509,7 +509,7 @@ N/A
             - Supported Guest OS are Windows 10 64 bit, Windows Server 2016, Windows Server 2019 and later.
             - The firmware of virtual machine must be EFI and secure boot must be enabled.
             - Virtualization Based Security depends on nested virtualization and Intel Virtualization Technology for Directed I/O.
-            - Deploy on unsupported ESXi, hardware version or firmware may lead to failure or deployed VM with unexpected configurations.
+            - Deploying on unsupported ESXi, hardware version or firmware may lead to failure or deployed VM with unexpected configurations.
     * iommu:
         - type: bool
         - description: Flag to specify if I/O MMU is enabled for this virtual machine.
@@ -712,7 +712,7 @@ N/A
         - description:
             - The label of the virtual NVDIMM device to be removed or configured, e.g., "NVDIMM 1".
             - This parameter is required when `provision_vm_nvdimm.state` is `absent` or `present` to reconfigure NVDIMM device
-              size. When add a new device, please do not set.
+              size. When adding a new device, please do not set.
 
 - **provision_vm_use_instance_uuid** (boolean):
     - Whether to use the VMware instance UUID instead of the BIOS UUID.
