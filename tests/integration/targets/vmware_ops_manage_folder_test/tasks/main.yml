@@ -41,7 +41,7 @@
         hostname: "{{ manage_folder_hostname }}"
         username: "{{ manage_folder_username }}"
         password: "{{ manage_folder_password }}"
-        datacenter: "{{ manage_folder_datacenter_name }}"
+        datacenter: "{{ manage_folder_datacenter }}"
         port: "{{ manage_folder_port }}"
         validate_certs: false
       delegate_to: localhost

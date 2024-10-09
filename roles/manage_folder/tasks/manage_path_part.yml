@@ -8,7 +8,7 @@
     port: "{{ manage_folder_port | default(omit) }}"
     proxy_host: "{{ manage_folder_proxy_host | default(omit) }}"
     proxy_port: "{{ manage_folder_proxy_port | default(omit) }}"
-    datacenter_name: "{{ manage_folder_datacenter_name }}"
+    datacenter_name: "{{ manage_folder_datacenter }}"
     folder_type: "{{ manage_folder_folder_type | default(omit) }}"
     folder_name: "{{ _child }}"
     parent_folder: "{{ _parent or omit }}"

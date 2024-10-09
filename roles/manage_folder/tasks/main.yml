@@ -2,7 +2,7 @@
 - name: Check Mandatory Variables Are Defined
   ansible.builtin.assert:
     that:
-      - manage_folder_datacenter_name is defined
+      - manage_folder_datacenter is defined or manage_folder_datacenter_name is defined
       - manage_folder_folder_name is defined and ((manage_folder_folder_name | length) > 0)
       - manage_folder_hostname is defined
       - manage_folder_username is defined
@@ -14,6 +14,11 @@
   ansible.builtin.fail:
     msg: Folder name should not be absolute. It should be relative to /<datacenter>/<type>
   when: manage_folder_folder_name[0] == '/'
+
+- name: Map Variable Aliases to Documented Names
+  ansible.builtin.set_fact:
+    manage_folder_datacenter: "{{ manage_folder_datacenter_name }}"
+  when: manage_folder_datacenter_name is defined
 
 - name: Manage Full Folder Path
   when: manage_folder_parse_name_as_path
