@@ -26,7 +26,7 @@ N/A
 ### Other
 - **manage_folder_datacenter**:
   - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
-  - Aliases: [manage_folder_datacenter]
+  - Aliases: [manage_folder_datacenter_name]
 
 - **manage_folder_folder_name**:
   - str, required, The name of folder to manage. It can be a single name like `foo` or a path like `foo/bar/buzz`.
