@@ -12,20 +12,31 @@ When deploying a new VM:
 ## Role Variables
 
 ### Auth
+
 - **provision_virtual_esxi_hostname**:
   - str, The name of the ESXi or vCenter on which you want to deploy the vm. Required.
+  - If this variable is not set, the collection level variable `vmware_ops_hostname` will be used. If that variable is not set, the environment variable `VMWARE_HOST` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **provision_virtual_esxi_username**:
   - str, The username to use to authenticate to the ESXi or vCenter on which you want to deploy the vm. Required.
+  - If this variable is not set, the collection level variable `vmware_ops_username` will be used. If that variable is not set, the environment variable `VMWARE_USER` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **provision_virtual_esxi_password**:
   - str, The password to use to authenticate to the ESXi or vCenter on which you want to deploy the vm. Required.
+  - If this variable is not set, the collection level variable `vmware_ops_password` will be used. If that variable is not set, the environment variable `VMWARE_PASSWORD` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **provision_virtual_esxi_validate_certs**:
   - bool, If true then certificates will be validated when connecting to the ESXi or vCenter for auth. Optional.
+  - If this variable is not set, the collection level variable `vmware_ops_validate_certs` will be used. If that variable is not set, the environment variable `VMWARE_VALIDATE_CERTS` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **provision_virtual_esxi_port**:
   - int, The port to use when connecting to the ESXi or vCenter for auth. Optional.
+  - If this variable is not set, the collection level variable `vmware_ops_port` will be used. If that variable is not set, the environment variable `VMWARE_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 ### Placement
 - **provision_virtual_esxi_cluster**:

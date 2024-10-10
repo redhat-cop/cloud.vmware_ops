@@ -1,2 +1,11 @@
 ---
+esxi_maintenance_mode_hostname: "{{ vmware_ops_collection_hostname }}"
+esxi_maintenance_mode_username: "{{ vmware_ops_collection_username }}"
+esxi_maintenance_mode_password: "{{ vmware_ops_collection_password }}"
+esxi_maintenance_mode_validate_certs: "{{ vmware_ops_collection_validate_certs }}"
+esxi_maintenance_mode_port: "{{ vmware_ops_collection_port }}"
+
+esxi_maintenance_mode_proxy_host: "{{ vmware_ops_collection_proxy_host }}"
+esxi_maintenance_mode_proxy_port: "{{ vmware_ops_collection_proxy_port }}"
+
 esxi_maintenance_mode_enable: true

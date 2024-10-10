@@ -1,4 +1,10 @@
-info_validate_certs: true
+---
+info_hostname: "{{ vmware_ops_collection_hostname }}"
+info_username: "{{ vmware_ops_collection_username }}"
+info_password: "{{ vmware_ops_collection_password }}"
+info_validate_certs: "{{ vmware_ops_collection_validate_certs | default(true) }}"
+info_port: "{{ vmware_ops_collection_port }}"
+
 info_expose_outputs_as_variable: true
 info_hostport: "{{ info_hostname + ':' + info_port if info_port is defined else info_hostname }}"
 

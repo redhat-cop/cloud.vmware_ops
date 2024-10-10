@@ -1,2 +1,11 @@
 ---
+content_library_hostname: "{{ vmware_ops_collection_hostname }}"
+content_library_username: "{{ vmware_ops_collection_username }}"
+content_library_password: "{{ vmware_ops_collection_password }}"
+content_library_validate_certs: "{{ vmware_ops_collection_validate_certs }}"
+content_library_port: "{{ vmware_ops_collection_port }}"
+
+content_library_proxy_host: "{{ vmware_ops_collection_proxy_host }}"
+content_library_proxy_port: "{{ vmware_ops_collection_proxy_port }}"
+
 content_library_state: present

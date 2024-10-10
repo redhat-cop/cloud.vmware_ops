@@ -7,21 +7,33 @@ A role to deploy a VM from an OVF file. The OVF can be located on the `ansible_h
 N/A
 
 ## Role Variables
+
 ### Auth
+
 - **deploy_ovf_username**:
   - str, Required. The vSphere vCenter or ESXi host username.
+  - If this variable is not set, the collection level variable `vmware_ops_username` will be used. If that variable is not set, the environment variable `VMWARE_USER` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **deploy_ovf_password**:
   - str, Required. The vSphere vCenter or ESXi host password.
+  - If this variable is not set, the collection level variable `vmware_ops_password` will be used. If that variable is not set, the environment variable `VMWARE_PASSWORD` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **deploy_ovf_hostname**:
   - str, Required. The hostname or IP address of the vSphere vCenter or ESXi host.
+  - If this variable is not set, the collection level variable `vmware_ops_hostname` will be used. If that variable is not set, the environment variable `VMWARE_HOST` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **deploy_ovf_validate_certs**
   - bool, Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
+  - If this variable is not set, the collection level variable `vmware_ops_validate_certs` will be used. If that variable is not set, the environment variable `VMWARE_VALIDATE_CERTS` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **deploy_ovf_port**:
   - str or int, The port used to authenticate to the vSphere vCenter or ESXi host.
+  - If this variable is not set, the collection level variable `vmware_ops_port` will be used. If that variable is not set, the environment variable `VMWARE_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 
 ### Placement
@@ -113,10 +125,14 @@ N/A
 ### Other
 - **deploy_ovf_proxy_host**:
   - str, The hostname of a proxy host that should be used for all HTTPs communication by the role. Optional
+  - The format is a hostname or an IP.
+  - If this variable is not set, the collection level variable `vmware_ops_proxy_host` will be used. If that variable is not set, the environment variable `VMWARE_PROXY_HOST` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **deploy_ovf_proxy_port**:
   - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
-
+  - If this variable is not set, the collection level variable `vmware_ops_proxy_host` will be used. If that variable is not set, the environment variable `VMWARE_PROXY_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 ## Example Playbook
 ```yaml

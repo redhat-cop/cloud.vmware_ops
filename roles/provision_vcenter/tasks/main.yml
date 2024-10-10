@@ -1,4 +1,8 @@
 ---
+- name: Import Collection Level Vars
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/../../vars/main.yml"
+
 - name: Validate Inputs
   ansible.builtin.include_tasks: validate_inputs.yml
 

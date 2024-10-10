@@ -1,0 +1,9 @@
+---
+export_vm_as_ovf_hostname: "{{ vmware_ops_collection_hostname }}"
+export_vm_as_ovf_username: "{{ vmware_ops_collection_username }}"
+export_vm_as_ovf_password: "{{ vmware_ops_collection_password }}"
+export_vm_as_ovf_validate_certs: "{{ vmware_ops_collection_validate_certs }}"
+export_vm_as_ovf_port: "{{ vmware_ops_collection_port }}"
+
+export_vm_as_ovf_proxy_host: "{{ vmware_ops_collection_proxy_host }}"
+export_vm_as_ovf_proxy_port: "{{ vmware_ops_collection_proxy_port }}"
