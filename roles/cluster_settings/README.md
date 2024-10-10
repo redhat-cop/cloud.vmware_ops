@@ -7,29 +7,41 @@ A role to define cluster settings in vCenter.
 N/A
 
 ## Role Variables
+
 ### Auth
+
 - **cluster_settings_username**:
   - The vSphere vCenter username.
+  - If this variable is not set, the collection level variable `vmware_ops_username` will be used. If that variable is not set, the environment variable `VMWARE_USER` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **cluster_settings_password**:
   - The vSphere vCenter password.
+  - If this variable is not set, the collection level variable `vmware_ops_password` will be used. If that variable is not set, the environment variable `VMWARE_PASSWORD` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **cluster_settings_hostname**:
   - The hostname or IP address of the vSphere vCenter.
+  - If this variable is not set, the collection level variable `vmware_ops_hostname` will be used. If that variable is not set, the environment variable `VMWARE_HOST` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **cluster_settings_validate_certs**
   - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
+  - If this variable is not set, the collection level variable `vmware_ops_validate_certs` will be used. If that variable is not set, the environment variable `VMWARE_VALIDATE_CERTS` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
+
+- **cluster_settings_port**:
+  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
+  - If this variable is not set, the collection level variable `vmware_ops_port` will be used. If that variable is not set, the environment variable `VMWARE_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
+
+### Cluster settings
 
 - **cluster_settings_cluster_name**:
   - The name of the cluster in vSphere vCenter to configure.
 
 - **cluster_settings_datacenter_name**:
   - The name of the datacenter in vSphere vCenter which contains the cluster to configure.
-
-- **cluster_settings_port**:
-  - str or int, The port used to authenticate to the vSphere vCenter that contains the cluster to configure.
-
-### Cluster settings
 
 #### Distributed Power Management (DPM)
 

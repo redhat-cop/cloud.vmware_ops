@@ -1,3 +1,7 @@
+- name: Import Collection Level Vars
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/../vars/main.yml"
+
 - name: Configure ntpd
   ansible.builtin.include_tasks: ntpd.yml
 

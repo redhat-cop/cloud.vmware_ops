@@ -9,32 +9,44 @@ N/A
 
 
 ## Role Variables
+
 ### Auth
+
 - **snapshot_management_username**: (string, Required)
   - The vSphere vCenter username.
+  - If this variable is not set, the collection level variable `vmware_ops_username` will be used. If that variable is not set, the environment variable `VMWARE_USER` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **snapshot_management_password**: (string, Required)
   - The vSphere vCenter password.
+  - If this variable is not set, the collection level variable `vmware_ops_password` will be used. If that variable is not set, the environment variable `VMWARE_PASSWORD` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **snapshot_management_hostname**: (string, Required)
   - The hostname or IP address of the vSphere vCenter.
+  - If this variable is not set, the collection level variable `vmware_ops_hostname` will be used. If that variable is not set, the environment variable `VMWARE_HOST` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **snapshot_management_validate_certs** (boolean)
   - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
+  - If this variable is not set, the collection level variable `vmware_ops_validate_certs` will be used. If that variable is not set, the environment variable `VMWARE_VALIDATE_CERTS` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **snapshot_management_port** (integer):
   - The port number of the vSphere vCenter or ESXi server.
-  - If the value is not specified in the task, the value of environment variable VMWARE_PORT will be used instead.
-  - Default: 443
+  - If this variable is not set, the collection level variable `vmware_ops_port` will be used. If that variable is not set, the environment variable `VMWARE_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **snapshot_management_proxy_host** (string):
   - The address of a proxy that will receive all HTTPS requests and relay them.
   - The format is a hostname or an IP.
-  - If the value is not specified in the task, the value of environment variable VMWARE_PROXY_HOST will be used instead.
+  - If this variable is not set, the collection level variable `vmware_ops_proxy_host` will be used. If that variable is not set, the environment variable `VMWARE_PROXY_HOST` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **snapshot_management_proxy_port** (integer):
   - The port of the HTTP proxy that will receive all HTTPS requests and relay them.
-  - If the value is not specified in the task, the value of environment variable VMWARE_PROXY_PORT will be used instead.
+  - If this variable is not set, the collection level variable `vmware_ops_proxy_host` will be used. If that variable is not set, the environment variable `VMWARE_PROXY_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 ### Manage a VM snapshot
 - **snapshot_management_state**:

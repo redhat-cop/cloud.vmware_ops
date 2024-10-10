@@ -1,0 +1,9 @@
+---
+vcenter_host_connection_hostname: "{{ vmware_ops_collection_hostname }}"
+vcenter_host_connection_username: "{{ vmware_ops_collection_username }}"
+vcenter_host_connection_password: "{{ vmware_ops_collection_password }}"
+vcenter_host_connection_validate_certs: "{{ vmware_ops_collection_validate_certs }}"
+vcenter_host_connection_port: "{{ vmware_ops_collection_port }}"
+
+vcenter_host_connection_proxy_host: "{{ vmware_ops_collection_proxy_host }}"
+vcenter_host_connection_proxy_port: "{{ vmware_ops_collection_proxy_port }}"

@@ -1,3 +1,8 @@
+---
+- name: Import Collection Level Vars
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/../vars/main.yml"
+
 - name: License info
   ansible.builtin.include_tasks: license_info.yml
   when: info_license

@@ -1,4 +1,8 @@
 ---
+- name: Import Collection Level Vars
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/../vars/main.yml"
+
 - name: Manage VM
   community.vmware.vmware_guest:
     hostname: "{{ provision_vm_hostname | d(omit) }}"

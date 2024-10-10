@@ -1,4 +1,8 @@
 ---
+- name: Import Collection Level Vars
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/../vars/main.yml"
+
 - name: Manages virtual machines snapshots in vCenter
   community.vmware.vmware_guest_snapshot:
     hostname: "{{ snapshot_management_hostname | d(omit) }}"

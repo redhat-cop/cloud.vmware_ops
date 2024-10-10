@@ -1,3 +1,10 @@
+---
+system_settings_hostname: "{{ vmware_ops_collection_hostname }}"
+system_settings_username: "{{ vmware_ops_collection_username }}"
+system_settings_password: "{{ vmware_ops_collection_password }}"
+system_settings_validate_certs: "{{ vmware_ops_collection_validate_certs }}"
+system_settings_port: "{{ vmware_ops_collection_port }}"
+
 system_settings_resize_storage: false
 system_settings_dns_mode_append: false
 system_settings_proxy: []
