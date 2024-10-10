@@ -10,7 +10,9 @@ It focuses on playbooks and roles that allow users to quickly and easily perform
 
 This repository comes with an execution environment definition. This can be used to quickly build a container image that contains all of the software required to run the playbooks and roles in this repository. See [execution-environment/README.md](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/execution-environment/README.md) for more information.
 
-It is common for people to use `localhost` to run the tasks in this content since most tasks simply interact with the vSphere environment. If you do not use the execution environment, the following requirements are needed on whatever host runs the tasks:
+### Python Requirements
+
+It is common for people to use `localhost` to run the tasks in this content since most tasks simply interact with the vSphere environment. If you do not use the execution environment mentioned above, the following requirements are needed on whatever host runs the tasks:
   - Python 3.9 or greater
   - Python requirements found in [execution-environment/requirements.txt](https://github.com/redhat-cop/cloud.vmware_ops/tree/main/execution-environment/requirements.txt)
 
