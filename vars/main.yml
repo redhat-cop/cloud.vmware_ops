@@ -1,9 +1,9 @@
 ---
-vmware_ops_collection_hostname: "{{ vmware_ops_hostname | default(lookup('ansible.builtin.env', 'VMWARE_HOST')) }}"
-vmware_ops_collection_username: "{{ vmware_ops_username | default(lookup('ansible.builtin.env', 'VMWARE_USER')) }}"
-vmware_ops_collection_password: "{{ vmware_ops_password | default(lookup('ansible.builtin.env', 'VMWARE_PASSWORD')) }}"
-vmware_ops_collection_validate_certs: "{{ vmware_ops_validate_certs | default(lookup('ansible.builtin.env', 'VMWARE_VALIDATE_CERTS')) }}"
-vmware_ops_collection_port: "{{ vmware_ops_port | default(lookup('ansible.builtin.env', 'VMWARE_PORT')) }}"
+vmware_ops_collection_hostname: "{{ vmware_ops_hostname | default(lookup('ansible.builtin.env', 'VMWARE_HOST', default=Undefined)) }}"
+vmware_ops_collection_username: "{{ vmware_ops_username | default(lookup('ansible.builtin.env', 'VMWARE_USER', default=Undefined)) }}"
+vmware_ops_collection_password: "{{ vmware_ops_password | default(lookup('ansible.builtin.env', 'VMWARE_PASSWORD', default=Undefined)) }}"
+vmware_ops_collection_validate_certs: "{{ vmware_ops_validate_certs | default(lookup('ansible.builtin.env', 'VMWARE_VALIDATE_CERTS', default=Undefined)) }}"
+vmware_ops_collection_port: "{{ vmware_ops_port | default(lookup('ansible.builtin.env', 'VMWARE_PORT', default=Undefined)) }}"
 
 vmware_ops_collection_proxy_host: "{{ vmware_ops_proxy_host | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_HOST', default=Undefined)) }}"
-vmware_ops_collection_proxy_port: "{{ vmware_ops_proxy_port | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_PORT')) }}"
+vmware_ops_collection_proxy_port: "{{ vmware_ops_proxy_port | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_PORT', default=Undefined)) }}"
