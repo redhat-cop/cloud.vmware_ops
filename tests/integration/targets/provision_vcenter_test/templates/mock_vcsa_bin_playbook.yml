@@ -9,7 +9,6 @@
         provision_vm_folder: ""
         provision_vm_datacenter: "DC0"
         provision_vm_name: "{{ provision_vcenter_vm_name }}"
-        provision_vm_port: "{{ provision_vcenter_port }}"
         provision_vm_disk:
           - size_gb: 10
             type: thin
