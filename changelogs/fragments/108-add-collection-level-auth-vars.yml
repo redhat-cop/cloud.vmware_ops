@@ -1,0 +1,5 @@
+---
+minor_changes:
+  - >-
+    Added the option to set environment variables or collection level variables for auth to vcenter. This provides users
+    with a more centralizedoption for setting things that all roles use like vCenter hostname, username, password, etc

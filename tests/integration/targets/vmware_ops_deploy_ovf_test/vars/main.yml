@@ -2,10 +2,6 @@
 run_on_simulator: false
 vmware_deploy_ovf_test_export_dir: /tmp
 
-deploy_ovf_hostname: "{{ vcenter_hostname }}"
-deploy_ovf_username: "{{ vcenter_username }}"
-deploy_ovf_password: "{{ vcenter_password }}"
-deploy_ovf_validate_certs: false
 deploy_ovf_datacenter_name: "{{ vcenter_datacenter }}"
 deploy_ovf_cluster_name: "{{ vcenter_cluster_name }}"
 deploy_ovf_folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"

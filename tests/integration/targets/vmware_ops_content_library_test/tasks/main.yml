@@ -29,10 +29,10 @@
   always:
     - name: Destroy Content Library
       community.vmware.vmware_content_library_manager:
-        hostname: "{{ content_library_hostname }}"
-        username: "{{ content_library_username }}"
-        password: "{{ content_library_password }}"
-        validate_certs: "{{ content_library_validate_certs }}"
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         library_name: "{{ content_library_name }}"
         library_type: "{{ content_library_type }}"
         datastore_name: "{{ content_library_datastore_name }}"

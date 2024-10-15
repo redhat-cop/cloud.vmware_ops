@@ -7,10 +7,10 @@
 
 - name: "Get network info about '{{ vm_update_name }}' VM"
   community.vmware.vmware_guest_network:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
-    validate_certs: "{{ provision_vm_validate_certs }}"
+    hostname: "{{ vmware_ops_hostname }}"
+    username: "{{ vmware_ops_username }}"
+    password: "{{ vmware_ops_password }}"
+    validate_certs: "{{ vmware_ops_validate_certs }}"
     uuid: "{{ vm_uuid }}"
     use_instance_uuid: true
     gather_network_info: true
@@ -32,20 +32,20 @@
 
 - name: Retrieve disk information using the disk label
   vmware.vmware_rest.vcenter_vm_hardware_disk_info:
-    vcenter_hostname: "{{ vcenter_hostname }}"
-    vcenter_username: "{{ vcenter_username }}"
-    vcenter_password: "{{ vcenter_password }}"
-    vcenter_validate_certs: "{{ provision_vm_validate_certs }}"
+    vcenter_hostname: "{{ vmware_ops_hostname }}"
+    vcenter_username: "{{ vmware_ops_username }}"
+    vcenter_password: "{{ vmware_ops_password }}"
+    vcenter_validate_certs: "{{ vmware_ops_validate_certs }}"
     vm: "{{ vm_moid }}"
     label: Hard disk 1
   register: disk_info
 
 - name: Get VM Guest Name
   community.vmware.vmware_vm_info:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
-    validate_certs: "{{ provision_vm_validate_certs }}"
+    hostname: "{{ vmware_ops_hostname }}"
+    username: "{{ vmware_ops_username }}"
+    password: "{{ vmware_ops_password }}"
+    validate_certs: "{{ vmware_ops_validate_certs }}"
     vm_name: "{{ vm_update_name }}"
   register: guest_name_info
 

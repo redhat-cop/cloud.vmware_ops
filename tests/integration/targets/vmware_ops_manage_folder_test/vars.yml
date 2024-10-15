@@ -2,11 +2,11 @@
 run_on_simulator: true
 folder_name_pattern: "production"
 
-manage_folder_hostname: "127.0.0.1"
-manage_folder_username: "test"
-manage_folder_password: "test"
-manage_folder_validate_certs: false
-manage_folder_port: "8989"
+vmware_ops_hostname: "127.0.0.1"
+vmware_ops_username: "test"
+vmware_ops_password: "test"
+vmware_ops_validate_certs: false
+vmware_ops_port: "8989"
 manage_folder_datacenter: DC0
 folder_types:
   - host

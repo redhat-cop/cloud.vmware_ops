@@ -9,28 +9,44 @@ N/A
 ## Role Variables
 
 ### Auth
+
 - **esxi_maintenance_mode_hostname**:
   - str, The hostname of the ESXi or vCenter on which you want to deploy the application. Required.
+  - If this variable is not set, the collection level variable `vmware_ops_hostname` will be used. If that variable is not set, the environment variable `VMWARE_HOST` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **esxi_maintenance_mode_username**:
   - str, The username to use to authenticate to the ESXi or vCenter on which you want to deploy the application. Required.
+  - If this variable is not set, the collection level variable `vmware_ops_username` will be used. If that variable is not set, the environment variable `VMWARE_USER` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **esxi_maintenance_mode_password**:
   - str, The password to use to authenticate to the ESXi or vCenter on which you want to deploy the application. Required.
+  - If this variable is not set, the collection level variable `vmware_ops_password` will be used. If that variable is not set, the environment variable `VMWARE_PASSWORD` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **esxi_maintenance_mode_port**:
   - str or int, The port to use to authenticate to the ESXi or vCenter on which you want to deploy the application. Required.
+  - If this variable is not set, the collection level variable `vmware_ops_port` will be used. If that variable is not set, the environment variable `VMWARE_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **esxi_maintenance_mode_validate_certs**:
   - bool, If true then certificates will be validated when connecting to the ESXi or vCenter for auth. Optional.
+  - If this variable is not set, the collection level variable `vmware_ops_validate_certs` will be used. If that variable is not set, the environment variable `VMWARE_VALIDATE_CERTS` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 ### Proxy Options
 
 - **esxi_maintenance_mode_proxy_host**:
   - str, Address of a proxy that will receive all HTTPS requests and relay them.
+  - The format is a hostname or an IP.
+  - If this variable is not set, the collection level variable `vmware_ops_proxy_host` will be used. If that variable is not set, the environment variable `VMWARE_PROXY_HOST` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 - **esxi_maintenance_mode_proxy_port**:
   - int, Port of the HTTP proxy that will receive all HTTPS requests and relay them.
+  - If this variable is not set, the collection level variable `vmware_ops_proxy_host` will be used. If that variable is not set, the environment variable `VMWARE_PROXY_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 ### Other Options
 - **esxi_maintenance_mode_enable**:

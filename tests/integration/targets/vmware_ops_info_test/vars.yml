@@ -1,8 +1,8 @@
-info_hostname: "127.0.0.1"
-info_username: "user"
-info_password: "pass"
-info_port: "9000"
-info_validate_certs: false
+vmware_ops_hostname: "127.0.0.1"
+vmware_ops_username: "test"
+vmware_ops_password: "test"
+vmware_ops_validate_certs: false
+vmware_ops_port: "9000"
 
 prepare_rest_mock_file: "{{ playbook_dir }}/mock.json"
 # workaround till simulator fixed in the next release-

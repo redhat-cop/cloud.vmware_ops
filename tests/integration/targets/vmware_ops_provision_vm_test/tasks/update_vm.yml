@@ -25,10 +25,10 @@
 
 - name: Add port group with network label {{ portgroup_name }}
   community.vmware.vmware_portgroup:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
-    validate_certs: "{{ provision_vm_validate_certs }}"
+    hostname: "{{ vmware_ops_hostname }}"
+    username: "{{ vmware_ops_username }}"
+    password: "{{ vmware_ops_password }}"
+    validate_certs: "{{ vmware_ops_validate_certs }}"
     cluster_name: "{{ provision_vm_cluster }}"
     switch: "{{ vswitch_name }}"
     portgroup: "{{ portgroup_name }}"

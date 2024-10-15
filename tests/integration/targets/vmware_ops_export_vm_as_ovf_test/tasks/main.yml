@@ -8,10 +8,10 @@
 
     - name: Create Test VM
       community.vmware.vmware_guest:
-        hostname: "{{ export_vm_as_ovf_hostname }}"
-        username: "{{ export_vm_as_ovf_username }}"
-        password: "{{ export_vm_as_ovf_password }}"
-        validate_certs: false
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         name: "{{ export_vm_as_ovf_vm_name }}"
         state: poweredoff
         folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"
@@ -41,10 +41,10 @@
   always:
     - name: Destroy Test VM
       community.vmware.vmware_guest:
-        hostname: "{{ export_vm_as_ovf_hostname }}"
-        username: "{{ export_vm_as_ovf_username }}"
-        password: "{{ export_vm_as_ovf_password }}"
-        validate_certs: false
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         name: "{{ export_vm_as_ovf_vm_name }}"
         state: absent
       retries: 5

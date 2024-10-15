@@ -9,20 +9,31 @@ N/A
 ## Role Variables
 
 ### Auth
-- **vcenter_host_connection_hostname**:
-  - str, The hostname of the vCenter to which you want to connect. Required
 
-- **vcenter_host_connection_username**:
-  - str, The username to use to authenticate to the vCenter to which you want to connect. Required
+- **vcenter_host_connection_hostname**: (string, Required)
+  - The hostname or IP address of the vSphere vCenter.
+  - If this variable is not set, the collection level variable `vmware_ops_hostname` will be used. If that variable is not set, the environment variable `VMWARE_HOST` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
-- **vcenter_host_connection_password**:
-  - str, The password to use to authenticate to the ESXi or vCenter to which you want to connect. Required
+- **vcenter_host_connection_username**: (string, Required)
+  - The vSphere vCenter username.
+  - If this variable is not set, the collection level variable `vmware_ops_username` will be used. If that variable is not set, the environment variable `VMWARE_USER` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
-- **vcenter_host_connection_validate_certs**:
-  - bool, If true then certificates will be validated when connecting to the vCenter for auth. Optional.
+- **vcenter_host_connection_password**: (string, Required)
+  - The vSphere vCenter password.
+  - If this variable is not set, the collection level variable `vmware_ops_password` will be used. If that variable is not set, the environment variable `VMWARE_PASSWORD` will be used. At least one of these variables must be set to use this role.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
-- **vcenter_host_connection_port**:
-  - int, The port of the vCenter to which you want to connect. Optional.
+- **vcenter_host_connection_validate_certs** (boolean)
+  - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
+  - If this variable is not set, the collection level variable `vmware_ops_validate_certs` will be used. If that variable is not set, the environment variable `VMWARE_VALIDATE_CERTS` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
+
+- **vcenter_host_connection_port** (integer):
+  - The port number of the vSphere vCenter or ESXi server.
+  - If this variable is not set, the collection level variable `vmware_ops_port` will be used. If that variable is not set, the environment variable `VMWARE_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 ### Placement
 - **vcenter_host_connection_folder**:
@@ -68,11 +79,16 @@ N/A
   - bool, Reconnect disconnected hosts, if the state is present and the host already exists. Optional
 
 ### Other
-- **vcenter_host_connection_proxy_host**:
-  - str, The hostname of a proxy host that should be used for all HTTPs communication by the role. Optional
+- **vcenter_host_connection_proxy_host** (string):
+  - The address of a proxy that will receive all HTTPS requests and relay them.
+  - The format is a hostname or an IP.
+  - If this variable is not set, the collection level variable `vmware_ops_proxy_host` will be used. If that variable is not set, the environment variable `VMWARE_PROXY_HOST` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
-- **vcenter_host_connection_proxy_port**:
-  - str, The port of a proxy host that should be used for all HTTPs communication by the role. Optional
+- **vcenter_host_connection_proxy_port** (integer):
+  - The port of the HTTP proxy that will receive all HTTPS requests and relay them.
+  - If this variable is not set, the collection level variable `vmware_ops_proxy_host` will be used. If that variable is not set, the environment variable `VMWARE_PROXY_PORT` will be used.
+  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 
 ## Example Playbook

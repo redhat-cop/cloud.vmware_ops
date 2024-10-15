@@ -1,4 +1,13 @@
 ---
+manage_folder_hostname: "{{ vmware_ops_collection_hostname }}"
+manage_folder_username: "{{ vmware_ops_collection_username }}"
+manage_folder_password: "{{ vmware_ops_collection_password }}"
+manage_folder_validate_certs: "{{ vmware_ops_collection_validate_certs }}"
+manage_folder_port: "{{ vmware_ops_collection_port }}"
+
+manage_folder_proxy_host: "{{ vmware_ops_collection_proxy_host }}"
+manage_folder_proxy_port: "{{ vmware_ops_collection_proxy_port }}"
+
 manage_folder_state: present
 manage_folder_parent_folder: ""
 manage_folder_parse_name_as_path: true

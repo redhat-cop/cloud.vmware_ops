@@ -1,6 +1,6 @@
 ---
 - name: Test vCenter host connection role on vCenter env
-  when: not run_on_simulator 
+  when: not run_on_simulator
   block:
     - name: Import common vars
       ansible.builtin.include_vars:
@@ -22,10 +22,10 @@
 
     - name: Gather ESXI Host facts
       community.vmware.vmware_host_facts:
-        hostname: "{{ vcenter_host_connection_hostname }}"
-        username: "{{ vcenter_host_connection_username }}"
-        password: "{{ vcenter_host_connection_password }}"
-        validate_certs: "{{ vcenter_host_connection_validate_certs }}"
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
       register: _host_facts
 
@@ -45,10 +45,10 @@
       block:
         - name: Gather ESXI Host facts
           community.vmware.vmware_host_facts:
-            hostname: "{{ vcenter_host_connection_hostname }}"
-            username: "{{ vcenter_host_connection_username }}"
-            password: "{{ vcenter_host_connection_password }}"
-            validate_certs: "{{ vcenter_host_connection_validate_certs }}"
+            hostname: "{{ vmware_ops_hostname }}"
+            username: "{{ vmware_ops_username }}"
+            password: "{{ vmware_ops_password }}"
+            validate_certs: "{{ vmware_ops_validate_certs }}"
             esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
           register: _no_host_facts
 
@@ -65,12 +65,12 @@
   always:
     - name: Remove ESXI Host from vCenter Cluster to cleanup env
       community.vmware.vmware_host:
-        hostname: "{{ vcenter_host_connection_hostname }}"
-        username: "{{ vcenter_host_connection_username }}"
-        password: "{{ vcenter_host_connection_password }}"
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         datacenter: "{{ vcenter_host_connection_datacenter }}"
         cluster: "{{ vcenter_host_connection_cluster }}"
-        validate_certs: "{{ vcenter_host_connection_validate_certs }}"
         esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
         esxi_username: "{{ vcenter_host_connection_esxi_username }}"
         esxi_password: "{{ vcenter_host_connection_esxi_password }}"

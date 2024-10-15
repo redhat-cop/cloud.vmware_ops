@@ -1,14 +1,14 @@
 ---
 run_on_simulator: true
 
-vcenter_host_connection_hostname: "127.0.0.1"
-vcenter_host_connection_username: "test"
-vcenter_host_connection_password: "test"
-vcenter_host_connection_validate_certs: false
-vcenter_host_connection_port: 8989
+vmware_ops_hostname: "127.0.0.1"
+vmware_ops_username: "test"
+vmware_ops_password: "test"
+vmware_ops_validate_certs: false
+vmware_ops_port: "8989"
+
 vcenter_host_connection_cluster: "DC0_C0"
 vcenter_host_connection_datacenter: "DC0"
-
 vcenter_host_connection_esxi_hostname: "127.0.0.1"
 vcenter_host_connection_esxi_username: test
 vcenter_host_connection_esxi_password: test

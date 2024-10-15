@@ -2,11 +2,6 @@
 run_on_simulator: false
 folder_name_pattern: "{{ tiny_prefix }}_production"
 
-manage_folder_hostname: "{{ vcenter_hostname }}"
-manage_folder_username: "{{ vcenter_username }}"
-manage_folder_password: "{{ vcenter_password }}"
-manage_folder_validate_certs: false
-manage_folder_port: "{{ vcenter_port }}"
 manage_folder_datacenter: "{{ vcenter_datacenter }}"
 folder_types:
   - host

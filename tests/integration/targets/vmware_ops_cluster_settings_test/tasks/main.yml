@@ -8,12 +8,12 @@
 
     - name: "Create New Cluster: {{ cluster_settings_cluster_name }}"
       vmware.vmware.cluster:
-        hostname: "{{ cluster_settings_hostname }}"
-        username: "{{ cluster_settings_username }}"
-        password: "{{ cluster_settings_password }}"
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         datacenter_name: "{{ cluster_settings_datacenter_name }}"
         cluster_name: "{{ cluster_settings_cluster_name }}"
-        validate_certs: false
 
     - name: Test Cluster Settings
       ansible.builtin.import_role:
@@ -23,10 +23,10 @@
       block:
         - name: Retrieve Cluster Info
           community.vmware.vmware_cluster_info:
-            hostname: "{{ cluster_settings_hostname }}"
-            username: "{{ cluster_settings_username }}"
-            password: "{{ cluster_settings_password }}"
-            validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
+            hostname: "{{ vmware_ops_hostname }}"
+            username: "{{ vmware_ops_username }}"
+            password: "{{ vmware_ops_password }}"
+            validate_certs: "{{ vmware_ops_validate_certs }}"
             datacenter: "{{ cluster_settings_datacenter_name }}"
           register: cluster_info
 
@@ -66,13 +66,13 @@
   always:
     - name: "Cleanup Cluster: {{ cluster_settings_cluster_name }}"
       vmware.vmware.cluster:
-        hostname: "{{ cluster_settings_hostname }}"
-        username: "{{ cluster_settings_username }}"
-        password: "{{ cluster_settings_password }}"
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         datacenter_name: "{{ cluster_settings_datacenter_name }}"
         cluster_name: "{{ cluster_settings_cluster_name }}"
         state: absent
-        validate_certs: false
       retries: 5
       delay: 5
       register: result
