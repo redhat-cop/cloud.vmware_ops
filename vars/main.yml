@@ -4,11 +4,25 @@
 #  even when the corresponding vmware_ops_ variable was set. To work around this, we use the default filter with the second attribute
 #  set to True. This causes the filter to return a default value if the lookup returns an empty string, i.e. if the env var is not set.
 #
-vmware_ops_collection_hostname: "{{ vmware_ops_hostname | default(lookup('ansible.builtin.env', 'VMWARE_HOST') | default(Undefined, True)) }}"
-vmware_ops_collection_username: "{{ vmware_ops_username | default(lookup('ansible.builtin.env', 'VMWARE_USER') | default(Undefined, True)) }}"
-vmware_ops_collection_password: "{{ vmware_ops_password | default(lookup('ansible.builtin.env', 'VMWARE_PASSWORD') | default(Undefined, True)) }}"
-vmware_ops_collection_validate_certs: "{{ vmware_ops_validate_certs | default(lookup('ansible.builtin.env', 'VMWARE_VALIDATE_CERTS') | default(Undefined, True)) }}"
-vmware_ops_collection_port: "{{ vmware_ops_port | default(lookup('ansible.builtin.env', 'VMWARE_PORT') | default(Undefined, True)) }}"
+vmware_ops_collection_hostname: >-
+  {{ vmware_ops_hostname |
+  default(lookup('ansible.builtin.env', 'VMWARE_HOST') | default(Undefined, True)) }}
+vmware_ops_collection_username: >-
+  {{ vmware_ops_username |
+  default(lookup('ansible.builtin.env', 'VMWARE_USER') | default(Undefined, True)) }}
+vmware_ops_collection_password: >-
+  {{ vmware_ops_password |
+  default(lookup('ansible.builtin.env', 'VMWARE_PASSWORD') | default(Undefined, True)) }}
+vmware_ops_collection_validate_certs: >-
+  {{ vmware_ops_validate_certs |
+  default(lookup('ansible.builtin.env', 'VMWARE_VALIDATE_CERTS') | default(Undefined, True)) }}
+vmware_ops_collection_port: >-
+  {{ vmware_ops_port |
+  default(lookup('ansible.builtin.env', 'VMWARE_PORT') | default(Undefined, True)) }}
 
-vmware_ops_collection_proxy_host: "{{ vmware_ops_proxy_host | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_HOST') | default(Undefined, True)) }}"
-vmware_ops_collection_proxy_port: "{{ vmware_ops_proxy_port | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_PORT') | default(Undefined, True)) }}"
+vmware_ops_collection_proxy_host: >-
+  {{ vmware_ops_proxy_host |
+  default(lookup('ansible.builtin.env', 'VMWARE_PROXY_HOST') | default(Undefined, True)) }}
+vmware_ops_collection_proxy_port: >-
+  {{ vmware_ops_proxy_port |
+  default(lookup('ansible.builtin.env', 'VMWARE_PROXY_PORT') | default(Undefined, True)) }}
