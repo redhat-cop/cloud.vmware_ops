@@ -9,3 +9,6 @@ vmware_ops_port: "8989"
 
 vcenter_host_connection_cluster: "DC0_C0"
 vcenter_host_connection_datacenter: "DC0"
+vcenter_host_connection_esxi_hostname: "127.0.0.1"
+vcenter_host_connection_esxi_username: test
+vcenter_host_connection_esxi_password: test
