@@ -1,10 +1,10 @@
 ---
 - name: "Check snapshot existence for VM {{ manage_snapshot_vm_name }}"
   community.vmware.vmware_guest_snapshot_info:
-    hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
-    validate_certs: "{{ snapshot_management_validate_certs }}"
+    hostname: "{{ vmware_ops_hostname }}"
+    username: "{{ vmware_ops_username }}"
+    password: "{{ vmware_ops_password }}"
+    validate_certs: "{{ vmware_ops_validate_certs }}"
     datacenter: "{{ snapshot_management_datacenter }}"
     folder: "{{ snapshot_management_folder }}"
     name: "{{ manage_snapshot_vm_name }}"

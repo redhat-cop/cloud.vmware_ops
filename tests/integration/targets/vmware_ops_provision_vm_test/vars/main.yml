@@ -1,11 +1,6 @@
 # vars.yaml
 run_on_simulator: false
 
-provision_vm_hostname: "{{ vcenter_hostname }}"
-provision_vm_username: "{{ vcenter_username }}"
-provision_vm_password: "{{ vcenter_password }}"
-provision_vm_validate_certs: false
-
 provision_vm_cluster: "{{ vcenter_cluster_name }}"
 provision_vm_folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"
 provision_vm_datacenter: "{{ vcenter_datacenter }}"

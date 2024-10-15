@@ -38,13 +38,12 @@
 
     - name: Get Folder Info
       community.vmware.vmware_folder_info:
-        hostname: "{{ manage_folder_hostname }}"
-        username: "{{ manage_folder_username }}"
-        password: "{{ manage_folder_password }}"
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
+        port: "{{ vmware_ops_port }}"
         datacenter: "{{ manage_folder_datacenter }}"
-        port: "{{ manage_folder_port }}"
-        validate_certs: false
-      delegate_to: localhost
       register: _folder_info
 
     - name: Check Folders Were Created

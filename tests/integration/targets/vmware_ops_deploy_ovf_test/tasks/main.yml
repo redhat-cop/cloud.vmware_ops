@@ -8,10 +8,10 @@
 
     - name: Create Test VM
       community.vmware.vmware_guest:
-        hostname: "{{ deploy_ovf_hostname }}"
-        username: "{{ deploy_ovf_username }}"
-        password: "{{ deploy_ovf_password }}"
-        validate_certs: false
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         name: "{{ test_vm_name }}"
         state: poweredoff
         folder: "{{ deploy_ovf_folder }}"
@@ -25,10 +25,10 @@
 
     - name: Export VM As OVF To Local Directory
       community.vmware.vmware_export_ovf:
-        hostname: "{{ deploy_ovf_hostname }}"
-        username: "{{ deploy_ovf_username }}"
-        password: "{{ deploy_ovf_password }}"
-        validate_certs: false
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         name: "{{ test_vm_name }}"
         export_dir: "{{ vmware_deploy_ovf_test_export_dir }}"
 
@@ -38,10 +38,10 @@
   always:
     - name: Destroy Test VM
       community.vmware.vmware_guest:
-        hostname: "{{ deploy_ovf_hostname }}"
-        username: "{{ deploy_ovf_username }}"
-        password: "{{ deploy_ovf_password }}"
-        validate_certs: false
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         name: "{{ test_vm_name }}"
         state: absent
 
@@ -72,10 +72,10 @@
   always:
     - name: Destroy Test VMs
       community.vmware.vmware_guest:
-        hostname: "{{ deploy_ovf_hostname }}"
-        username: "{{ deploy_ovf_username }}"
-        password: "{{ deploy_ovf_password }}"
-        validate_certs: false
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         name: "{{ item }}"
         state: absent
         force: true
@@ -94,10 +94,10 @@
 
     - name: Remove Content Library
       community.vmware.vmware_content_library_manager:
-        hostname: "{{ deploy_ovf_hostname }}"
-        username: "{{ deploy_ovf_username }}"
-        password: "{{ deploy_ovf_password }}"
-        validate_certs: false
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
         library_name: "{{ ovf_library }}"
         library_type: local
         state: absent

@@ -1,18 +1,18 @@
 ---
 - name: Get list of content libraries IDs
   community.vmware.vmware_content_library_info:
-    hostname: "{{ content_library_hostname }}"
-    username: "{{ content_library_username }}"
-    password: "{{ content_library_password }}"
-    validate_certs: "{{ content_library_validate_certs }}"
+    hostname: "{{ vmware_ops_hostname }}"
+    username: "{{ vmware_ops_username }}"
+    password: "{{ vmware_ops_password }}"
+    validate_certs: "{{ vmware_ops_validate_certs }}"
   register: content_library_ids
 
 - name: Get content library info
   community.vmware.vmware_content_library_info:
-    hostname: "{{ content_library_hostname }}"
-    username: "{{ content_library_username }}"
-    password: "{{ content_library_password }}"
-    validate_certs: "{{ content_library_validate_certs }}"
+    hostname: "{{ vmware_ops_hostname }}"
+    username: "{{ vmware_ops_username }}"
+    password: "{{ vmware_ops_password }}"
+    validate_certs: "{{ vmware_ops_validate_certs }}"
     library_id: "{{ item }}"
   loop: "{{ content_library_ids.content_libs }}"
   register: content_library_details

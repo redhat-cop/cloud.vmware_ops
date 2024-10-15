@@ -1,11 +1,6 @@
 # vars.yaml
 run_on_simulator: false
 
-snapshot_management_hostname: "{{ vcenter_hostname }}"
-snapshot_management_username: "{{ vcenter_username }}"
-snapshot_management_password: "{{ vcenter_password }}"
-snapshot_management_validate_certs: false
-
 snapshot_management_folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"
 snapshot_management_datacenter: "{{ vcenter_datacenter }}"
 
@@ -30,11 +25,6 @@ vm_snapshots_updated:
   snapshot_management_state: present
   snapshot_management_new_snapshot_name: "snapshot-2-updated"
   snapshot_management_new_description: "This is the updated description for snapshot-2-updated"
-
-provision_vm_hostname: "{{ snapshot_management_hostname }}"
-provision_vm_username: "{{ snapshot_management_username }}"
-provision_vm_password: "{{ snapshot_management_password }}"
-provision_vm_validate_certs: "{{ snapshot_management_validate_certs }}"
 
 provision_vm_cluster: "{{ vcenter_cluster_name }}"
 provision_vm_folder: "{{ snapshot_management_folder }}"

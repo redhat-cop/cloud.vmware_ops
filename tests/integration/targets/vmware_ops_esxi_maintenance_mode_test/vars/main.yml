@@ -5,11 +5,6 @@ run_on_simulator: false
 resource_pool_name: "{{ tiny_prefix }}-host-maintenance-pool"
 
 # Vars for cloud.vmware_ops.provision_virtual_esxi role
-provision_virtual_esxi_hostname: "{{ vcenter_hostname }}"
-provision_virtual_esxi_username: "{{ vcenter_username }}"
-provision_virtual_esxi_password: "{{ vcenter_password }}"
-provision_virtual_esxi_validate_certs: false
-provision_virtual_esxi_port: "{{ vcenter_port }}"
 provision_virtual_esxi_cluster: "{{ vcenter_cluster_name }}"
 provision_virtual_esxi_datacenter: "{{ vcenter_datacenter }}"
 provision_virtual_esxi_folder: ""
@@ -18,39 +13,26 @@ provision_virtual_esxi_datastore_iso_path: "{{ custom_esxi_8_iso_path }}"
 provision_virtual_esxi_vms:
   - name: "{{ tiny_prefix }}-vm-esxi_maintenance-test"
 provision_virtual_esxi_networks:
-    - name: "{{ test_network_name }}"
-      device_type: "vmxnet3"
-      type: "dhcp"
-      mac: "{{ mac_address_esxi_maintenance }}"
+  - name: "{{ test_network_name }}"
+    device_type: "vmxnet3"
+    type: "dhcp"
+    mac: "{{ mac_address_esxi_maintenance }}"
 provision_virtual_esxi_disks:
   - size_gb: 100
     type: thin
     datastore: "{{ shared_storage_01 }}"
 
 # Vars for cloud.vmware_ops.vcenter_host_connection role
-vcenter_host_connection_hostname: "{{ vcenter_hostname }}"
-vcenter_host_connection_username: "{{ vcenter_username }}"
-vcenter_host_connection_password: "{{ vcenter_password }}"
-vcenter_host_connection_validate_certs: false
-vcenter_host_connection_port: "{{ vcenter_port }}"
 vcenter_host_connection_cluster: "{{ vcenter_cluster_name }}"
 vcenter_host_connection_datacenter: "{{ vcenter_datacenter }}"
 vcenter_host_connection_esxi_username: "{{ custom_esxi_8_username }}"
 vcenter_host_connection_esxi_password: "{{ custom_esxi_8_password }}"
 
 # Var for cloud.vmware_ops.provision_vm role
-provision_vm_hostname: "{{ provision_virtual_esxi_hostname }}"
-provision_vm_username: "{{ provision_virtual_esxi_username }}"
-provision_vm_password: "{{ provision_virtual_esxi_password }}"
-provision_vm_validate_certs: false
-provision_vm_port: "{{ provision_virtual_esxi_port }}"
 provision_vm_cluster: "{{ provision_virtual_esxi_cluster }}"
 provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter }}"
 provision_vm_name: "{{ provision_virtual_esxi_vms[0].name }}"
 
 # Vars for esxi_maintenance_mode role
-esxi_maintenance_mode_hostname: "{{ vcenter_hostname }}"
-esxi_maintenance_mode_username: "{{ vcenter_username }}"
-esxi_maintenance_mode_password: "{{ vcenter_password }}"
 esxi_maintenance_mode_validate_certs: false
 esxi_maintenance_mode_port: "{{ vcenter_port }}"

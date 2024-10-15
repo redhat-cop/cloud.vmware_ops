@@ -5,10 +5,10 @@
 
 - name: Wait until ESXI VM is powered off after OS installation
   vmware.vmware.guest_info:
-    hostname: "{{ provision_virtual_esxi_hostname }}"
-    username: "{{ provision_virtual_esxi_username }}"
-    password: "{{ provision_virtual_esxi_password }}"
-    validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
+    hostname: "{{ vmware_ops_hostname }}"
+    username: "{{ vmware_ops_username }}"
+    password: "{{ vmware_ops_password }}"
+    validate_certs: "{{ vmware_ops_validate_certs }}"
     name: "{{ provision_virtual_esxi_vms[0].name }}"
   register: _esxi_power_status
   until: _esxi_power_status.guests[0].hw_power_status == 'poweredOff'
@@ -23,10 +23,10 @@
 
 - name: Wait until ESXI VM has an IP address
   vmware.vmware.guest_info:
-    hostname: "{{ provision_virtual_esxi_hostname }}"
-    username: "{{ provision_virtual_esxi_username }}"
-    password: "{{ provision_virtual_esxi_password }}"
-    validate_certs: "{{ provision_virtual_esxi_validate_certs }}"
+    hostname: "{{ vmware_ops_hostname }}"
+    username: "{{ vmware_ops_username }}"
+    password: "{{ vmware_ops_password }}"
+    validate_certs: "{{ vmware_ops_validate_certs }}"
     name: "{{ provision_virtual_esxi_vms[0].name }}"
   register: esxi_host_info
   until: esxi_host_info.guests[0].ipv4 is defined and esxi_host_info.guests[0].ipv4 is not none

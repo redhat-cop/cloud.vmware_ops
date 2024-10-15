@@ -1,7 +1,3 @@
-info_hostname: "{{ vcenter_hostname }}"
-info_username: "{{ vcenter_username }}"
-info_password: "{{ vcenter_password }}"
-info_validate_certs: false
 info_appliance_file: "/tmp/info_appliance_file"
 info_license_file: "/tmp/info_license_file"
 info_storage_file: "/tmp/info_storage_file"
