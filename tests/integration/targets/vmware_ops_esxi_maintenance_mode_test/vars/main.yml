@@ -32,7 +32,3 @@ vcenter_host_connection_esxi_password: "{{ custom_esxi_8_password }}"
 provision_vm_cluster: "{{ provision_virtual_esxi_cluster }}"
 provision_vm_datacenter: "{{ provision_virtual_esxi_datacenter }}"
 provision_vm_name: "{{ provision_virtual_esxi_vms[0].name }}"
-
-# Vars for esxi_maintenance_mode role
-esxi_maintenance_mode_validate_certs: false
-esxi_maintenance_mode_port: "{{ vcenter_port }}"
