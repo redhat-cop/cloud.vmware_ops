@@ -11,82 +11,85 @@ When deploying a new VM:
 
 ## Role Variables
 
+
 ### Auth
 
-- **provision_virtual_esxi_hostname**:
-  - str, The name of the ESXi or vCenter on which you want to deploy the vm. Required.
-  - If this variable is not set, the collection level variable `vmware_ops_hostname` will be used. If that variable is not set, the environment variable `VMWARE_HOST` will be used. At least one of these variables must be set to use this role.
-  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
+- **provision_virtual_esxi_hostname** (str, required)
+    - The hostname or IP address of the vSphere vCenter or ESXi host.
+    - If this variable is not set, the collection level variable `vmware_ops_hostname` will be used. If that variable is not set, the environment variable `VMWARE_HOST` will be used. At least one of these variables must be set to use this role.
+    - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
-- **provision_virtual_esxi_username**:
-  - str, The username to use to authenticate to the ESXi or vCenter on which you want to deploy the vm. Required.
-  - If this variable is not set, the collection level variable `vmware_ops_username` will be used. If that variable is not set, the environment variable `VMWARE_USER` will be used. At least one of these variables must be set to use this role.
-  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
+- **provision_virtual_esxi_username** (str, required)
+    - The vSphere vCenter or ESXi host username.
+    - If this variable is not set, the collection level variable `vmware_ops_username` will be used. If that variable is not set, the environment variable `VMWARE_USER` will be used. At least one of these variables must be set to use this role.
+    - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
-- **provision_virtual_esxi_password**:
-  - str, The password to use to authenticate to the ESXi or vCenter on which you want to deploy the vm. Required.
-  - If this variable is not set, the collection level variable `vmware_ops_password` will be used. If that variable is not set, the environment variable `VMWARE_PASSWORD` will be used. At least one of these variables must be set to use this role.
-  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
+- **provision_virtual_esxi_password** (str, required)
+    - The vSphere vCenter or ESXi host password.
+    - If this variable is not set, the collection level variable `vmware_ops_password` will be used. If that variable is not set, the environment variable `VMWARE_PASSWORD` will be used. At least one of these variables must be set to use this role.
+    - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
-- **provision_virtual_esxi_validate_certs**:
-  - bool, If true then certificates will be validated when connecting to the ESXi or vCenter for auth. Optional.
-  - If this variable is not set, the collection level variable `vmware_ops_validate_certs` will be used. If that variable is not set, the environment variable `VMWARE_VALIDATE_CERTS` will be used.
-  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
+- **provision_virtual_esxi_validate_certs** (bool)
+    - Allows connection when SSL certificates are not valid. Set to false when certificates are not trusted.
+    - If this variable is not set, the collection level variable `vmware_ops_validate_certs` will be used. If that variable is not set, the environment variable `VMWARE_VALIDATE_CERTS` will be used.
+    - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
-- **provision_virtual_esxi_port**:
-  - int, The port to use when connecting to the ESXi or vCenter for auth. Optional.
-  - If this variable is not set, the collection level variable `vmware_ops_port` will be used. If that variable is not set, the environment variable `VMWARE_PORT` will be used.
-  - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
+- **provision_virtual_esxi_port** (int or str)
+    - The port used to authenticate to the vSphere vCenter or ESXi host.
+    - If this variable is not set, the collection level variable `vmware_ops_port` will be used. If that variable is not set, the environment variable `VMWARE_PORT` will be used.
+    - See the [authentication documentation](https://github.com/redhat-cop/cloud.vmware_ops/blob/main/docs/authentication.md) for examples.
 
 ### Placement
-- **provision_virtual_esxi_cluster**:
-  - str, The name of the cluster in which you want to deploy the new vms.
 
-- **provision_virtual_esxi_datacenter**:
-  - str, The name of the datacenter in which you want to deploy the new vms.
+- **provision_virtual_esxi_cluster** (str)
+    - The name of the cluster in which you want to deploy the new vms.
 
-- **provision_virtual_esxi_resource_pool**:
-  - str, The name of the resource pool in which to place the VMs. It's recommended to use a resource pool and limit the amount of resources these ESXi hosts can use
+- **provision_virtual_esxi_datacenter** (str)
+    - The name of the datacenter in which you want to deploy the new vms.
 
-- **provision_virtual_esxi_folder**:
-  - str, The name of the folder in which to place the VMs
+- **provision_virtual_esxi_resource_pool** (str)
+    - The name of the resource pool in which to place the VMs. It's recommended to use a resource pool and limit the amount of resources these ESXi hosts can use
 
+- **provision_virtual_esxi_folder** (str)
+    - The name of the folder in which to place the VMs
 
 ### VM Options
-- **provision_virtual_esxi_vms**:
-  - list(dict), A list of dictionaries describing the ESXi hosts you want to manage. If no VM exists with the name, a new VM will be created. VMs are created in parallel to save time.
-  - **Members**
-    - name - str, The name of the VM that you want to manage. Required
-    - networks - list(dict), The network definition specific to this VM. If undefined, the value from `provision_virtual_esxi_networks` is used.
-    - disks - list(dict), The disk definition specific to this VM. If undefined, the value from `provision_virtual_esxi_disks` is used.
-    - memory_mb - int, The memory definition specific to this VM. If undefined, the value from `provision_virtual_esxi_memory_mb` is used.
-    - cpus - int, The cpu definition specific to this VM. If undefined, the value from `provision_virtual_esxi_cpus` is used.
 
-- **provision_virtual_esxi_datastore_iso_path**:
-  - str, The datastore path to the ESXi ISO file that new VMs should use to boot. For example, a file in the folder ISO on datastore1 might have the path `[datastore1] ISO\my_esxi_8.iso`
+- **provision_virtual_esxi_vms** (list(dict))
+    - A list of dictionaries describing the ESXi hosts you want to manage. If no VM exists with the name, a new VM will be created. VMs are created in parallel to save time.
+    - **Elements**:
+        - `name` - str, The name of the VM that you want to manage. Required
+        - `networks` - list(dict), The network definition specific to this VM. If undefined, the value from `provision_virtual_esxi_networks` is used.
+        - `disks` - list(dict), The disk definition specific to this VM. If undefined, the value from `provision_virtual_esxi_disks` is used.
+        - `memory_mb` - int, The memory definition specific to this VM. If undefined, the value from `provision_virtual_esxi_memory_mb` is used.
+        - `cpus` - int, The cpu definition specific to this VM. If undefined, the value from `provision_virtual_esxi_cpus` is used.
 
-- **provision_virtual_esxi_networks**:
-  - list(dict), A list of dictionaries describing the network device configs for this VM. Required. You may need to enable promiscuous mode and allow forged transmits on the upstream port group/vSwitch to have a working network downstream. See https://docs.ansible.com/ansible/latest/collections/community/vmware/vmware_guest_module.html#parameter-networks
-  - Default is a DHCP vmxnet3 NIC on 'VM Network'
+- **provision_virtual_esxi_datastore_iso_path** (str)
+    - The datastore path to the ESXi ISO file that new VMs should use to boot. For example, a file in the folder ISO on datastore1 might have the path `[datastore1] ISO\my_esxi_8.iso`
 
-- **provision_virtual_esxi_disks**:
-  - list(dict), A list of dictionaries describing the disk device configs for this VM. See https://docs.ansible.com/ansible/latest/collections/community/vmware/vmware_guest_module.html#parameter-disk
-  - Default is a thin provisioned 100 GB disk
+- **provision_virtual_esxi_networks** (list(dict), required)
+    - A list of dictionaries describing the network device configs for this VM. You may need to enable promiscuous mode and allow forged transmits on the upstream port group/vSwitch to have a working network downstream. See https://docs.ansible.com/ansible/latest/collections/community/vmware/vmware_guest_module.html#parameter-networks
+    - Default is a DHCP vmxnet3 NIC on 'VM Network'
 
-- **provision_virtual_esxi_memory_mb**:
-  - int, The amount of memory to assign to this VM.
-  - Default is 18000
+- **provision_virtual_esxi_disks** (list(dict))
+    - A list of dictionaries describing the disk device configs for this VM. See https://docs.ansible.com/ansible/latest/collections/community/vmware/vmware_guest_module.html#parameter-disk
+    - Default is a thin provisioned 100 GB disk
 
-- **provision_virtual_esxi_cpus**:
-  - int, The number of vCPUs to assign to this VM.
-  - Default is 4
+- **provision_virtual_esxi_memory_mb** (int)
+    - The amount of memory to assign to this VM.
+    - Default is 18000
 
-- **provision_virtual_esxi_boot_firmware**:
-  - str, The type of boot firmware that the VM should be configured to use. 'bios' or 'uefi'
-  - Default value is 'bios'
+- **provision_virtual_esxi_cpus** (int)
+    - The number of vCPUs to assign to this VM.
+    - Default is 4
 
+- **provision_virtual_esxi_boot_firmware** (str)
+    - The type of boot firmware that the VM should be configured to use.
+    - Default value is 'bios'
+    - Choices: [`bios`, `uefi`]
 
-## Example Playbook
+## Examples
+
 ```yaml
 ---
 # In the playbook below, 3 ESXi hosts are created
@@ -118,14 +121,12 @@ When deploying a new VM:
         provision_virtual_esxi_datastore_iso_path: "[nfs-datastore-iso] esxi_8.iso"
 ```
 
-License
--------
+## License
 
 GNU General Public License v3.0 or later
 
 See [LICENSE](https://github.com/ansible-collections/cloud.aws_troubleshooting/blob/main/LICENSE) to see the full text.
 
-Author Information
-------------------
+## Author Information
 
 - Ansible Cloud Content Team
