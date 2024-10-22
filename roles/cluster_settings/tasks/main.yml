@@ -15,7 +15,7 @@
     fail_msg: Variable must be set when using this role.
 
 - name: Configure DPM Settings
-  community.vmware.vmware_cluster_dpm:
+  vmware.vmware.cluster_dpm:
     hostname: "{{ cluster_settings_hostname }}"
     username: "{{ cluster_settings_username }}"
     password: "{{ cluster_settings_password }}"
@@ -23,11 +23,11 @@
     port: "{{ cluster_settings_port | default(omit) }}"
     proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
     proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
-    datacenter_name: "{{ cluster_settings_datacenter_name }}"
-    cluster_name: "{{ cluster_settings_cluster_name }}"
-    enable_dpm: "{{ cluster_settings_dpm_enable | bool }}"
-    default_dpm_behaviour: "{{ cluster_settings_dpm_default_behavior | default(omit) }}"
-    host_power_action_rate: "{{ cluster_settings_dpm_host_power_action_rate | default(omit) }}"
+    datacenter: "{{ cluster_settings_datacenter_name }}"
+    cluster: "{{ cluster_settings_cluster_name }}"
+    enable: "{{ cluster_settings_dpm_enable | bool }}"
+    automation_level: "{{ cluster_settings_dpm_default_behavior | default(omit) }}"
+    recommendation_priority_threshold: "{{ cluster_settings_dpm_host_power_action_rate | default(omit) }}"
   when: cluster_settings_dpm_enable is defined
 
 - name: Configure DRS Settings
@@ -50,7 +50,7 @@
   when: cluster_settings_drs_enable is defined
 
 - name: Apply DRS Recommendations for Cluster
-  community.vmware.vmware_cluster_drs_recommendations:
+  vmware.vmware.cluster_drs_recommendations:
     hostname: "{{ cluster_settings_hostname }}"
     username: "{{ cluster_settings_username }}"
     password: "{{ cluster_settings_password }}"
@@ -58,8 +58,8 @@
     port: "{{ cluster_settings_port | default(omit) }}"
     proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
     proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
-    datacenter_name: "{{ cluster_settings_datacenter_name }}"
-    cluster_name: "{{ cluster_settings_cluster_name }}"
+    datacenter: "{{ cluster_settings_datacenter_name }}"
+    cluster: "{{ cluster_settings_cluster_name }}"
   when: cluster_settings_drs_apply_recommendations
 
 - name: Configure Cluster HA Settings
