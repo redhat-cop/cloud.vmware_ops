@@ -4,7 +4,7 @@
     username: "{{ info_username }}"
     password: "{{ info_password }}"
     port: "{{ info_port | d(omit) }}"
-    validate_certs: "{{ info_validate_certs }}"
+    validate_certs: "{{ info_validate_certs | default(omit) }}"
   register: __storage_policy
 
 - name: Write Storage Policy Results To File
