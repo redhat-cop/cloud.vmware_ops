@@ -42,10 +42,10 @@ When deploying a new VM:
 ### Placement
 
 - **provision_virtual_esxi_cluster** (str)
-    - The name of the cluster in which you want to deploy the new vms.
+    - The name of the cluster in which you want to deploy the new VMs.
 
 - **provision_virtual_esxi_datacenter** (str)
-    - The name of the datacenter in which you want to deploy the new vms.
+    - The name of the datacenter in which you want to deploy the new VMs.
 
 - **provision_virtual_esxi_resource_pool** (str)
     - The name of the resource pool in which to place the VMs. It's recommended to use a resource pool and limit the amount of resources these ESXi hosts can use
@@ -58,11 +58,11 @@ When deploying a new VM:
 - **provision_virtual_esxi_vms** (list(dict))
     - A list of dictionaries describing the ESXi hosts you want to manage. If no VM exists with the name, a new VM will be created. VMs are created in parallel to save time.
     - **Elements**:
-        - `name` - str, The name of the VM that you want to manage. Required
-        - `networks` - list(dict), The network definition specific to this VM. If undefined, the value from `provision_virtual_esxi_networks` is used.
-        - `disks` - list(dict), The disk definition specific to this VM. If undefined, the value from `provision_virtual_esxi_disks` is used.
-        - `memory_mb` - int, The memory definition specific to this VM. If undefined, the value from `provision_virtual_esxi_memory_mb` is used.
-        - `cpus` - int, The cpu definition specific to this VM. If undefined, the value from `provision_virtual_esxi_cpus` is used.
+        - `name`: str, The name of the VM that you want to manage. Required
+        - `networks`: list(dict), The network definition specific to this VM. If undefined, the value from `provision_virtual_esxi_networks` is used.
+        - `disks`: list(dict), The disk definition specific to this VM. If undefined, the value from `provision_virtual_esxi_disks` is used.
+        - `memory_mb`: int, The memory definition specific to this VM. If undefined, the value from `provision_virtual_esxi_memory_mb` is used.
+        - `cpus`: int, The cpu definition specific to this VM. If undefined, the value from `provision_virtual_esxi_cpus` is used.
 
 - **provision_virtual_esxi_datastore_iso_path** (str)
     - The datastore path to the ESXi ISO file that new VMs should use to boot. For example, a file in the folder ISO on datastore1 might have the path `[datastore1] ISO\my_esxi_8.iso`

@@ -1,6 +1,6 @@
 # Authentication Variables
 
-Each role in this collection has its own set of authentication and proxy variables. It is not convnient to set those variables for every role, so there are options to set the variables for all roles in the collection at once.
+Each role in this collection has its own set of authentication and proxy variables. It is not convenient to set those variables for every role, so there are options to set the variables for all roles in the collection at once.
 
 Here is the order of precedence from greatest to least (the first listed variables override all other variables):
 

@@ -84,13 +84,13 @@ Note: NTP service will be restarted if configuration is changed.
 - **system_settings_proxy** (list(dict))
     - A list of proxy configurations.
     - **Elements**
-        - enabled: bool, required, Define if this proxy configuration should be enabled.
-        - url - str, required, Define the URL of the proxy server (including protocol ie. http://...).
-        - port - int or str, required, Define the port of the proxy server.
-        - protocol - str, required, Define the protocol of the proxy server(FTP, HTTP, HTTPS).
-        - state - str, Define if the proxy configuration should be `present` or `absent`.
-        - username - str, Define `username` for the proxy server if proxy requires authentication.
-        - password - str, Define `password` for the proxy server if proxy requires authentication.
+        - `enabled`: bool, required, Define if this proxy configuration should be enabled.
+        - `url`: str, required, Define the URL of the proxy server (including protocol ie. http://...).
+        - `port`: int or str, required, Define the port of the proxy server.
+        - `protocol`: str, required, Define the protocol of the proxy server(FTP, HTTP, HTTPS).
+        - `state`: str, Define if the proxy configuration should be `present` or `absent`.
+        - `username`: str, Define `username` for the proxy server if proxy requires authentication.
+        - `password`: str, Define `password` for the proxy server if proxy requires authentication.
 
 #### Security
 

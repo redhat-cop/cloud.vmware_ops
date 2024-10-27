@@ -38,7 +38,7 @@ N/A
 ### Output
 - **info_expose_outputs_as_variable** (bool)
     - If set to true, the role will expose the gathered information as a variable which can be used later on in your playbook. The variable is called `vmware_ops_info_outputs`. If set to false, this variable is not set.
-    - The variable and it's attributes (license, appliance, etc) are returned regardless if data was gathered or not. However, if you do not gather information pertaining to an attribute an empty data set is returned.
+    - The variable and its attributes (license, appliance, etc) are returned regardless if data was gathered or not. However, if you do not gather information pertaining to an attribute an empty data set is returned.
     - The empty data set will be the same type as a populated dataset; meaning if the data set is normally a list, an empty list will be returned.
     - For example, if `info_appliance` is set to `false`, then `vmware_ops_info_outputs.appliance` will be `{}`. If `info_guests` is set to `false`, then `vmware_ops_info_outputs.guests` will be `[]`.
 
@@ -133,7 +133,7 @@ An abbreviated example of the data returned can be found below:
 
 - **info_appliance_file** (str)
     - File where to store the gathered data. Default is `/tmp/vmware_ops_info_appliance`
-    - If set to an empty string or `false`, the data is not written to a file.
+    - If set to an empty string, the data is not written to a file.
 
 ### License
 
@@ -143,7 +143,7 @@ An abbreviated example of the data returned can be found below:
 
 - **info_license_file** (str)
     - File where to store the gathered data. Default is `/tmp/vmware_ops_info_license`
-    - If set to an empty string or `false`, the data is not written to a file.
+    - If set to an empty string, the data is not written to a file.
 
 ### Cluster
 
@@ -153,7 +153,7 @@ An abbreviated example of the data returned can be found below:
 
 - **info_cluster_file** (str)
     - File where to store the gathered data. Default is `/tmp/vmware_ops_info_cluster`
-    - If set to an empty string or `false`, the data is not written to a file.
+    - If set to an empty string, the data is not written to a file.
 
 ### Storage
 
@@ -163,7 +163,7 @@ An abbreviated example of the data returned can be found below:
 
 - **info_storage_file** (str)
     - File where to store the gathered data. Default is `/tmp/vmware_ops_info_storage`
-    - If set to an empty string or `false`, the data is not written to a file.
+    - If set to an empty string, the data is not written to a file.
 
 ### Guest
 
@@ -174,7 +174,7 @@ An abbreviated example of the data returned can be found below:
 - **info_guest_file** (str)
     - File where to store the gathered data.
     - Default is `/tmp/vmware_ops_info_guest`
-    - If set to an empty string or `false`, the data is not written to a file.
+    - If set to an empty string, the data is not written to a file.
 
 ## Examples
 
