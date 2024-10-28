@@ -117,7 +117,7 @@ N/A
     - This parameter is case sensitive.
     - This parameter is required when using the `provision_vm_linked_clone` parameter.
 
-- **provision_vm_advanced_settings** (list)
+- **provision_vm_advanced_settings** (list(dict))
     - Define a list of advanced settings to be added to the VMX config.
     - Each element in the advanced settings list should include `key` and `value` attributes.
     - Example: `[{key: foo, value: bar}]`
@@ -168,16 +168,16 @@ N/A
     - This parameter is case sensitive.
     - If set, this overrides customization parameter values.
 
-- **provision_vm_customvalues** (list)
+- **provision_vm_customvalues** (list(dict))
     - Define a list of custom values to set on virtual machine.
     - Each element in the list should have a `key` and `value` attribute.
-    - Incorrect key and values will be ignored.
+    - Incorrect keys and values will be ignored.
     - Example `[{key: foo, value: bar}]`
 
 - **provision_vm_delete_from_inventory** (bool)
     - If true the virtual machine's disks will not be deleted when `provision_vm_state` is `absent`, but the VM will still be removed from the vSphere inventory.
 
-- **provision_vm_disk** (list)
+- **provision_vm_disk** (list(dict))
     - A list of disks to add.
     - This parameter is case sensitive.
     - Shrinking disks is not supported.
@@ -209,7 +209,7 @@ N/A
 
 - **provision_vm_force** (bool)
     - Ignore warnings and complete the actions.
-    - This parameter is useful while removing a virtual machine that is the powered on state.
+    - This parameter is useful while removing a virtual machine that is in the powered on state.
 
 - **provision_vm_guest_id** (str)
     - Set the guest ID.
@@ -264,7 +264,7 @@ N/A
     - If this argument is set to a positive integer, the module will wait for the virtual machine to reach the poweredoff state.
     - Default is 0
 
-- **provision_vm_vapp_properties** (list)
+- **provision_vm_vapp_properties** (list(dict))
     - A list of vApp properties.
     - For full list of attributes and types refer to [vApp Properties info](https://vdc-download.vmware.com/vmwb-repository/dcr-public/184bb3ba-6fa8-4574-a767-d0c96e2a38f4/ba9422ef-405c-47dd-8553-e11b619185b2/SDK/vsphere-ws/docs/ReferenceGuide/vim.vApp.PropertyInfo.html)
     - **Elements**
@@ -294,7 +294,7 @@ N/A
     - Default is 300
 
 
-- **provision_vm_networks** (list)
+- **provision_vm_networks** (list(dict))
     - A list of network cards to attach (in the order of the NICs).
     - Removing NICs is not allowed while reconfiguring the virtual machine.
     - All parameters and VMware object names are case sensitive.
