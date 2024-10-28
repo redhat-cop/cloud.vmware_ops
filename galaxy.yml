@@ -1,6 +1,6 @@
 namespace: cloud
 name: vmware_ops
-version: 1.5.1
+version: 1.6.0
 readme: README.md
 authors:
   - Ansible Cloud Content Team (@redhat-cop)

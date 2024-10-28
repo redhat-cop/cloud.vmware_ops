@@ -195,7 +195,42 @@ releases:
     changes:
       bugfixes:
       - removed experiences setup.yml since experiences are not yet supported
-      - specified support is limited in the README since the collection is meant to be customized by customers
+      - specified support is limited in the README since the collection is meant to
+        be customized by customers
     fragments:
     - 101-remove-experiences-and-modify-readme.yml
     release_date: '2024-09-17'
+  1.6.0:
+    changes:
+      bugfixes:
+      - Made it clearer in the collection README where python requirements are documented
+      - export_vm_as_ovf - Removed duplicate vars in docs, changed datacenter var
+        name to match other roles while maintaining backwards compat
+      - fixed typos and grammatical errors in documentation, task names, and changelogs
+      - manage_folder - Fixed the location of variables in docs to match other roles
+      - manage_folder - Updated datacenter var name to match other roles while keeping
+        backwards compat
+      minor_changes:
+      - Added the option to set environment variables or collection level variables
+        for auth to vcenter. This provides users with a more centralizedoption for
+        setting things that all roles use like vCenter hostname, username, password,
+        etc
+      - Standardize role README formatting
+      - cluster_settings - Updated community DPM and DRS recommendation modules to
+        the new vmware.vmware versions
+      - info - Remove redundant default value for info_validate_certs so the role
+        is consistent with others
+      - info - added optional output variable which includes gathered info
+      - info - changed default filenames from randomly generated string to static
+        filename to remove community dependency
+    fragments:
+    - 103-improve-info-role.yml
+    - 104-fix-typos-and-grammar-in-docs.yml
+    - 105-fix-variables in-export-vm-as-ovf.yml
+    - 106-fix-variable-docs-in-manage-folder.yml
+    - 107-document-python-requirements.yml
+    - 108-add-collection-level-auth-vars.yml
+    - 109-standardize-role-readmes.yml
+    - 110-migrate-community-modules.yml
+    - 111-remove-info-validate-certs-default.yml
+    release_date: '2024-10-28'

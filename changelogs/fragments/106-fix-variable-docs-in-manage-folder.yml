@@ -1,4 +1,0 @@
----
-bugfixes:
-  - manage_folder - Fixed the location of variables in docs to match other roles
-  - manage_folder - Updated datacenter var name to match other roles while keeping backwards compat
