@@ -1,3 +1,0 @@
----
-bugfixes:
-  - export_vm_as_ovf - Removed duplicate vars in docs, changed datacenter var name to match other roles while maintaining backwards compat

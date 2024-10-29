@@ -4,6 +4,28 @@ Cloud.VMware\_Ops Release Notes
 
 .. contents:: Topics
 
+v1.6.0
+======
+
+Minor Changes
+-------------
+
+- Added the option to set environment variables or collection level variables for auth to vcenter. This provides users with a more centralizedoption for setting things that all roles use like vCenter hostname, username, password, etc
+- Standardize role README formatting
+- cluster_settings - Updated community DPM and DRS recommendation modules to the new vmware.vmware versions
+- info - Remove redundant default value for info_validate_certs so the role is consistent with others
+- info - added optional output variable which includes gathered info
+- info - changed default filenames from randomly generated string to static filename to remove community dependency
+
+Bugfixes
+--------
+
+- Made it clearer in the collection README where python requirements are documented
+- export_vm_as_ovf - Removed duplicate vars in docs, changed datacenter var name to match other roles while maintaining backwards compat
+- fixed typos and grammatical errors in documentation, task names, and changelogs
+- manage_folder - Fixed the location of variables in docs to match other roles
+- manage_folder - Updated datacenter var name to match other roles while keeping backwards compat
+
 v1.5.1
 ======
 

@@ -1,4 +1,0 @@
----
-minor_changes:
-  - info - changed default filenames from randomly generated string to static filename to remove community dependency
-  - info - added optional output variable which includes gathered info
