@@ -22,7 +22,7 @@
     - name: Post-Deployment Validation
       block:
         - name: Retrieve Cluster Info
-          community.vmware.vmware_cluster_info:
+          vmware.vmware.cluster_info:
             hostname: "{{ vmware_ops_hostname }}"
             username: "{{ vmware_ops_username }}"
             password: "{{ vmware_ops_password }}"
@@ -33,7 +33,7 @@
         - name: Check DRS Settings for Cluster
           ansible.builtin.assert:
             that:
-              - "cluster_info.clusters[cluster_settings_cluster_name].enabled_drs == cluster_settings_drs_enable"
+              - "cluster_info.clusters[cluster_settings_cluster_name].drs_enabled == cluster_settings_drs_enable"
               - "cluster_info.clusters[cluster_settings_cluster_name].drs_default_vm_behavior == cluster_settings_drs_enable_vm_behavior"
               - "cluster_info.clusters[cluster_settings_cluster_name].drs_vmotion_rate == cluster_settings_drs_vmotion_rate"
             quiet: true
@@ -43,7 +43,7 @@
         - name: Check HA Settings for Cluster
           ansible.builtin.assert:
             that:
-              - "cluster_info.clusters[cluster_settings_cluster_name].enable_ha == cluster_settings_ha_enable"
+              - "cluster_info.clusters[cluster_settings_cluster_name].ha_enabled == cluster_settings_ha_enable"
               - "cluster_info.clusters[cluster_settings_cluster_name].ha_host_monitoring == cluster_settings_ha_host_monitoring"
               - "cluster_info.clusters[cluster_settings_cluster_name].ha_vm_monitoring == cluster_settings_ha_vm_monitoring"
             quiet: true
@@ -53,7 +53,7 @@
         - name: Check vSAN Settings for Cluster
           ansible.builtin.assert:
             that:
-              - "cluster_info.clusters[cluster_settings_cluster_name].enabled_vsan == cluster_settings_vsan_enable"
+              - "cluster_info.clusters[cluster_settings_cluster_name].vsan_enabled == cluster_settings_vsan_enable"
               - "cluster_info.clusters[cluster_settings_cluster_name].vsan_auto_claim_storage == cluster_settings_vsan_auto_claim_storage"
             quiet: true
             fail_msg: "vSAN settings are not configured correctly for {{ cluster_settings_cluster_name }}."
