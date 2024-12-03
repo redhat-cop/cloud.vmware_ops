@@ -1,19 +1,58 @@
 ---
-- name: Get cluster info
-  vmware.vmware.cluster_info:
-    hostname: "{{ info_hostname }}"
-    username: "{{ info_username }}"
-    password: "{{ info_password }}"
-    port: "{{ info_port | d(omit) }}"
-    validate_certs: "{{ info_validate_certs | default(omit) }}"
-    schema: vsphere
-    properties:
-      - name
-      - configuration.dasConfig.enabled
-      - summary.totalCpu
-  register: __clusters_info
-  tags:
-    - cluster
+- name: Gather Clusters When No Datacenters Were Provided
+  when: not info_datacenters
+  block:
+    - name: Get clusters
+      vmware.vmware_rest.vcenter_cluster_info:
+        vcenter_hostname: "{{ info_hostport }}"
+        vcenter_username: "{{ info_username }}"
+        vcenter_password: "{{ info_password }}"
+        vcenter_validate_certs: "{{ info_validate_certs | default(omit) }}"
+      register: __clusters
+      tags:
+        - cluster
+    - name: Get cluster info
+      vmware.vmware.cluster_info:
+        hostname: "{{ info_hostname }}"
+        username: "{{ info_username }}"
+        password: "{{ info_password }}"
+        port: "{{ info_port | d(omit) }}"
+        validate_certs: "{{ info_validate_certs | default(omit) }}"
+        cluster: "{{ _cluster_name }}"
+        schema: vsphere
+        properties:
+          - name
+          - configuration.dasConfig.enabled
+          - summary.totalCpu
+      loop: "{{ __clusters.value }}"
+      loop_control:
+        loop_var: _cluster_name
+      register: __clusters_info
+      tags:
+        - cluster
+
+- name: Gather Clusters When Datacenters Were Provided
+  when: info_datacenters
+  block:
+    - name: Get cluster info
+      vmware.vmware.cluster_info:
+        hostname: "{{ info_hostname }}"
+        username: "{{ info_username }}"
+        password: "{{ info_password }}"
+        port: "{{ info_port | d(omit) }}"
+        validate_certs: "{{ info_validate_certs | default(omit) }}"
+        datacenter: "{{ _dc_name }}"
+        schema: vsphere
+        properties:
+          - name
+          - configuration.dasConfig.enabled
+          - summary.totalCpu
+      loop: "{{ info_datacenters }}"
+      loop_control:
+        loop_var: _dc_name
+      register: __clusters_info
+      tags:
+        - cluster
 
 - name: Write Cluster Results To File
   when: info_cluster_file
@@ -24,7 +63,7 @@
         state: "directory"
     - name: Create JSON file from fetched data
       ansible.builtin.copy:
-        content: "{{ __clusters_info.clusters | to_json }}"
+        content: "{{ __clusters_info.results | map(attribute='clusters') | to_json }}"
         dest: "{{ info_cluster_file }}"
         mode: "0644"
       tags:
