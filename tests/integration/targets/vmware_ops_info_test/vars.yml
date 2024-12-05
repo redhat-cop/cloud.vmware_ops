@@ -5,11 +5,8 @@ vmware_ops_validate_certs: false
 vmware_ops_port: "9000"
 
 prepare_rest_mock_file: "{{ playbook_dir }}/mock.json"
-# workaround till simulator fixed in the next release-
-# check doc in cloud.vmware_ops/roles/cluster_settings
-# for pyvmomi current version limitation
-info_cluster: false
-info_license: true
+info_cluster: true
+info_license: false
 info_appliance: false
 info_guest: false
 info_storage: false
