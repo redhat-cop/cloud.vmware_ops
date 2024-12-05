@@ -39,6 +39,6 @@
       license: "{{ __license.licenses | default([]) }}"
       appliance: "{{ __appliance.appliance | default({}) }}"
       guest: "{{ __guests.guests | default([]) }}"
-      cluster: "{{ _clusters_info.results | default([]) | map(attribute='clusters') }}"
+      cluster: "{{ __clusters_info.results | default([]) | map(attribute='clusters') }}"
       storage: "{{ __storage_policy.spbm_profiles | default([]) }}"
   when: info_expose_outputs_as_variable

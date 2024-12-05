@@ -50,9 +50,14 @@
       loop: "{{ info_datacenters }}"
       loop_control:
         loop_var: _dc_name
-      register: __clusters_info
+      register: __dc_clusters_info
       tags:
         - cluster
+    # If we register the task above directly to __clusters_info,
+    # it sets the variable even if the block is skipped.
+    - name: Map Cluster Info To Correct Variable
+      ansible.builtin.set_fact:
+        __clusters_info: "{{ __dc_clusters_info }}"
 
 - name: Write Cluster Results To File
   when: info_cluster_file
