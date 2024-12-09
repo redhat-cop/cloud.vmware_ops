@@ -57,10 +57,7 @@
     # it sets the variable even if the block is skipped.
     - name: Map Cluster Info To Correct Variable
       ansible.builtin.set_fact:
-        __a_clusters_info: "{{ __dc_clusters_info }}"
-
-- debug:
-    var: __clusters_info.results
+        __clusters_info: "{{ __dc_clusters_info }}"
 
 - name: Write Cluster Results To File
   when: info_cluster_file
