@@ -11,3 +11,9 @@
       - vmware_ops_info_outputs.guest is defined
       - vmware_ops_info_outputs.cluster is defined
       - vmware_ops_info_outputs.storage is defined
+
+      - (vmware_ops_info_outputs.appliance.keys() | length > 0) == info_appliance
+      - (vmware_ops_info_outputs.license | length > 0) == info_license
+      - (vmware_ops_info_outputs.guest | length > 0) == info_guest
+      - (vmware_ops_info_outputs.cluster | length > 0) == info_cluster
+      - (vmware_ops_info_outputs.storage | length > 0) == info_storage
