@@ -18,7 +18,7 @@
         password: "{{ info_password }}"
         port: "{{ info_port | d(omit) }}"
         validate_certs: "{{ info_validate_certs | default(omit) }}"
-        cluster: "{{ _cluster_name }}"
+        cluster: "{{ _cluster.name }}"
         schema: vsphere
         properties:
           - name
@@ -26,7 +26,7 @@
           - summary.totalCpu
       loop: "{{ __clusters.value }}"
       loop_control:
-        loop_var: _cluster_name
+        loop_var: _cluster
       register: __clusters_info
       tags:
         - cluster
@@ -50,9 +50,14 @@
       loop: "{{ info_datacenters }}"
       loop_control:
         loop_var: _dc_name
-      register: __clusters_info
+      register: __dc_clusters_info
       tags:
         - cluster
+    # If we register the task above directly to __clusters_info,
+    # it sets the variable even if the block is skipped.
+    - name: Map Cluster Info To Correct Variable
+      ansible.builtin.set_fact:
+        __clusters_info: "{{ __dc_clusters_info }}"
 
 - name: Write Cluster Results To File
   when: info_cluster_file
