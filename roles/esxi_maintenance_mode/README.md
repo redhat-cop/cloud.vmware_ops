@@ -74,7 +74,7 @@ N/A
 - name: Put Host In Maintenance Mode
   hosts: localhost
   roles:
-    - role: esxi_maintenance_mode
+    - role: cloud.vmware_ops.esxi_maintenance_mode
       vars:
         esxi_maintenance_mode_validate_certs: false
         esxi_maintenance_mode_hostname: vcenter.example  # or IP like 192.168.123.5
@@ -87,7 +87,7 @@ N/A
 - name: Take Host Out Of Maintenance Mode
   hosts: localhost
   roles:
-    - role: esxi_maintenance_mode
+    - role: cloud.vmware_ops.esxi_maintenance_mode
       vars:
         esxi_maintenance_mode_validate_certs: false
         esxi_maintenance_mode_hostname: vcenter.example  # or IP like 192.168.123.5
