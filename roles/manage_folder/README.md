@@ -101,7 +101,7 @@ N/A
   tasks:
     - name: Create Folder Trees
       ansible.builtin.include_role:
-        name: manage_folder
+        name: cloud.vmware_ops.manage_folder
       vars:
         manage_folder_state: present
         manage_folder_folder_name: "{{ item }}"
@@ -112,7 +112,7 @@ N/A
 
     - name: Create Folders Without Managing Full Tree
       ansible.builtin.include_role:
-        name: manage_folder
+        name: cloud.vmware_ops.manage_folder
       vars:
         manage_folder_state: present
         manage_folder_folder_name: "{{ item }}"
@@ -123,7 +123,7 @@ N/A
 
     - name: Create A Folder With A Slash In It
       ansible.builtin.include_role:
-        name: manage_folder
+        name: cloud.vmware_ops.manage_folder
       vars:
         manage_folder_state: present
         manage_folder_folder_name: security/syseng
@@ -132,7 +132,7 @@ N/A
 
     - name: Delete The Whole Tree
       ansible.builtin.include_role:
-        name: manage_folder
+        name: cloud.vmware_ops.manage_folder
       vars:
         manage_folder_state: absent
         manage_folder_folder_name: production
