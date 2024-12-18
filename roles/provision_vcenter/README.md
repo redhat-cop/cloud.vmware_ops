@@ -132,7 +132,7 @@ The vCenter Server Appliance ISO should be accessible from the host running thes
 ---
 - hosts: localhost
   roles:
-    - role: provision_vcenter
+    - role: cloud.vmware_ops.provision_vcenter
       vars:
         provision_vcenter_validate_certs: false
         provision_vcenter_hostname: my-esxi-host.example  # or IP like 192.168.123.5
