@@ -1,3 +1,0 @@
----
-minor_changes:
-  - info - updated role to use vmware.vmware version of module instead of community and vmware_rest versions
