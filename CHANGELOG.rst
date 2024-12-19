@@ -4,6 +4,14 @@ Cloud.VMware\_Ops Release Notes
 
 .. contents:: Topics
 
+v1.7.0
+======
+
+Minor Changes
+-------------
+
+- info - updated role to use vmware.vmware version of module instead of community and vmware_rest versions
+
 v1.6.0
 ======
 
