@@ -156,8 +156,8 @@ An abbreviated example of the data returned can be found below:
     - If set to an empty string, the data is not written to a file.
 
 - **info_datacenters** (list(str))
-    - A list of datacenter names used to specify the clusters for which to gather information.
-    - If this variable is not set, information on all vSphere vCenter clusters is gathered (TODO: is this correct?)
+    - A list of datacenter names that will be searched when gathering information about clusters.
+    - If this variable is not set, information on all vSphere vCenter clusters in all datacenters is gathered
 
 ### Storage
 
