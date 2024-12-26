@@ -155,6 +155,10 @@ An abbreviated example of the data returned can be found below:
     - File where to store the gathered data. Default is `/tmp/vmware_ops_info_cluster`
     - If set to an empty string, the data is not written to a file.
 
+- **info_datacenters** (list(str))
+    - A list of datacenter names that will be searched when gathering information about clusters.
+    - If this variable is not set, information on all vSphere vCenter clusters in all datacenters is gathered
+
 ### Storage
 
 - **info_storage** (bool)
@@ -192,6 +196,7 @@ An abbreviated example of the data returned can be found below:
     info_license: true
     info_storage: true
     info_appliance: true
+    info_datacenters: ["datacenter1", "datacenter2"]
 
   roles:
     - role: cloud.vmware_ops.info
