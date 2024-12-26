@@ -38,7 +38,7 @@ provision_vm_cdrom:
     unit_number: 0
     state: present
     type: iso
-    iso_path: "{{ rhel_9_3_iso_path }}"
+    iso_path: "{{ rhel_9_4_iso_path }}"
 provision_vm_networks:
   - name: "{{ vm_network_name }}"
     device_type: "vmxnet3"
