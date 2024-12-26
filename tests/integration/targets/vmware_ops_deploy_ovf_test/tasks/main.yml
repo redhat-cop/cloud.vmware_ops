@@ -16,6 +16,7 @@
         state: poweredoff
         folder: "{{ deploy_ovf_folder }}"
         datacenter: "{{ deploy_ovf_datacenter_name }}"
+        cluster: "{{ vcenter_cluster_name }}"
         disk:
           - size_gb: 5
             type: thick
