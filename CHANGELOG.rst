@@ -4,6 +4,15 @@ Cloud.VMware\_Ops Release Notes
 
 .. contents:: Topics
 
+v1.8.0
+======
+
+Minor Changes
+-------------
+
+- info - added info_datacenters var in documentation to info role
+- upload_iso_to_datastore - Created role intended for uploading local ISO files to a Datastore
+
 v1.7.0
 ======
 

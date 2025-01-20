@@ -244,3 +244,13 @@ releases:
     - 114-update-cluster-info-test.yml
     - 116-fix-role-names-to-FQCN.yml
     release_date: '2024-12-19'
+  1.8.0:
+    changes:
+      minor_changes:
+      - info - added info_datacenters var in documentation to info role
+      - upload_iso_to_datastore - Created role intended for uploading local ISO files
+        to a Datastore
+    fragments:
+    - 118-bugfix-info_datacenters-in-documentation.yml
+    - 120-feature-upload-iso-to-datastore.yml
+    release_date: '2025-01-20'
