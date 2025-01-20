@@ -26,4 +26,3 @@
     datastore: "{{ upload_iso_to_datastore_datastore }}"
     path: "{{ upload_iso_to_datastore_dst }}"
     validate_certs: "{{ upload_iso_to_datastore_validate_certs }}"
-    
