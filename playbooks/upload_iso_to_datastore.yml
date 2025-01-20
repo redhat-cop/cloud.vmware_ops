@@ -1,0 +1,7 @@
+---
+- name: Upload local ISO file to Datastore
+  hosts: all
+  gather_facts: false
+
+  roles:
+    - role: cloud.vmware_ops.upload_iso_to_datastore
