@@ -1,0 +1,29 @@
+---
+- name: Import Collection Level Vars
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/../../vars/main.yml"
+
+- name: Check Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - upload_iso_to_datastore_hostname is defined
+      - upload_iso_to_datastore_username is defined
+      - upload_iso_to_datastore_password is defined
+      - upload_iso_to_datastore_src is defined
+      - upload_iso_to_datastore_dst is defined
+      - upload_iso_to_datastore_datastore is defined
+      - upload_iso_to_datastore_datacenter is defined
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Upload local ISO file to Datastore
+  community.vmware.vsphere_copy:
+    hostname: "{{ upload_iso_to_datastore_hostname }}"
+    username: "{{ upload_iso_to_datastore_username }}"
+    password: "{{ upload_iso_to_datastore_password }}"
+    src: "{{ upload_iso_to_datastore_src }}"
+    datacenter: "{{ upload_iso_to_datastore_datacenter }}"
+    datastore: "{{ upload_iso_to_datastore_datastore }}"
+    path: "{{ upload_iso_to_datastore_dst }}"
+    validate_certs: "{{ upload_iso_to_datastore_validate_certs }}"
+    

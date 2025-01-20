@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: Import eco-vcenter credentials
+      ansible.builtin.include_vars:
+        file: ../../integration_config.yml
+      tags: eco-vcenter-ci
+
+    - name: Import Upload ISO to Datastore role
+      ansible.builtin.import_role:
+        name: vmware_ops_upload_iso_to_datastore_test
+      tags:
+        - eco-vcenter-ci

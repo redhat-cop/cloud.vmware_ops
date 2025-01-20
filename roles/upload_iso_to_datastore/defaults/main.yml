@@ -1,0 +1,9 @@
+---
+upload_iso_to_datastore_hostname: "{{ vmware_ops_collection_hostname }}"
+upload_iso_to_datastore_username: "{{ vmware_ops_collection_username }}"
+upload_iso_to_datastore_password: "{{ vmware_ops_collection_password }}"
+upload_iso_to_datastore_validate_certs: "{{ vmware_ops_collection_validate_certs }}"
+upload_iso_to_datastore_port: "{{ vmware_ops_collection_port }}"
+
+upload_iso_to_datastore_proxy_host: "{{ vmware_ops_collection_proxy_host }}"
+upload_iso_to_datastore_proxy_port: "{{ vmware_ops_collection_proxy_port }}"

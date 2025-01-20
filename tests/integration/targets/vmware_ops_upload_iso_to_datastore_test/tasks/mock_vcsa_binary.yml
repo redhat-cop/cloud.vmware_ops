@@ -1,0 +1,12 @@
+---
+- name: Create Mock VCSA Deployment Binary Path
+  ansible.builtin.file:
+    path: "{{ upload_iso_to_datastore_test_mock_binary_root }}/lin64"
+    state: directory
+
+- name: Create Mock VCSA ISO file
+  community.general.iso_create:
+    src_files:
+      - "{{ upload_iso_to_datastore_test_mock_binary_root }}"
+    dest_iso: "{{ upload_iso_to_datastore_src }}"
+    interchange_level: 4
