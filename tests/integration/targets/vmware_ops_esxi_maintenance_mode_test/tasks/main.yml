@@ -41,7 +41,7 @@
         esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
         esxi_username: "{{ custom_esxi_8_username }}"
         esxi_password: "{{ custom_esxi_8_password }}"
-        state: pesent
+        state: present
 
     - name: Disable Maintenance Mode
       ansible.builtin.import_role:
@@ -53,8 +53,8 @@
     - name: Gather ESXI host facts after disabling maintenance mode
       community.vmware.vmware_host_facts:
         hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
-        username: "{{ vcenter_host_connection_esxi_username }}"
-        password: "{{ vcenter_host_connection_esxi_password }}"
+        username: "{{ custom_esxi_8_username }}"
+        password: "{{ custom_esxi_8_password }}"
         validate_certs: "{{ vmware_ops_validate_certs }}"
       register: esxi_facts
 

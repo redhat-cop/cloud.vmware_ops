@@ -65,6 +65,16 @@
             msg: ESXI Host doesn't exist as expected
 
   always:
+    - name: Enable Maintenance Mode
+      vmware.vmware.esxi_maintenance_mode:
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
+        port: "{{ vmware_ops_port }}"
+        esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
+        enable_maintenance_mode: true
+      when: deployed_esxi_ips is defined
     - name: Remove ESXI Host from vCenter Cluster to cleanup env
       vmware.vmware.esxi_host:
         hostname: "{{ vmware_ops_hostname }}"
