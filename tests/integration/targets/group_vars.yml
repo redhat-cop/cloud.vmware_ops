@@ -3,6 +3,8 @@
 # please edit according to your vcenter configs
 vcenter_cluster_name: "Eco-Cluster"
 vcenter_datacenter: "Eco-Datacenter"
+vcenter_resource_pool: "Resources"
+
 custom_esxi_8_username: "root"
 custom_esxi_8_password: "!#%135qEt"
 custom_esxi_8_iso_path: "[eco-nfs-datastore-iso] custom_esxi_8.iso"

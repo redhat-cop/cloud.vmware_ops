@@ -2,23 +2,24 @@
 - name: Test vCenter host connection role on vCenter env
   when: not run_on_simulator
   block:
-    - name: Import common vars
-      ansible.builtin.include_vars:
-        file: ../group_vars.yml
-
-    - name: Add Resource Pool
-      ansible.builtin.include_tasks: manage_resource_pool.yml
+    - name: Deploy Test ESXi
+      ansible.builtin.import_role:
+        name: prepare_deploy_esxi_host
       vars:
-        required_state: present
-
-    - name: Provision ESXI VM and set ESXI hostname
-      ansible.builtin.include_tasks: provision_esxi.yml
+        vcenter_hostname: "{{ vmware_ops_hostname }}"
+        vcenter_username: "{{ vmware_ops_username }}"
+        vcenter_password: "{{ vmware_ops_password }}"
+        vcenter_validate_certs: false
+        deploy_esxi_host_resource_pool_name: "{{ resource_pool_name }}"
+        deploy_esxi_host_name: "{{ test_esxi_vm_name }}"
+        deploy_esxi_host_state: present
 
     - name: Add ESXI Host to vCenter Cluster
       ansible.builtin.import_role:
         name: cloud.vmware_ops.vcenter_host_connection
       vars:
         vcenter_host_connection_state: present
+        vcenter_host_connection_esxi_hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
 
     - name: Gather ESXI Host facts
       community.vmware.vmware_host_facts:
@@ -26,7 +27,7 @@
         username: "{{ vmware_ops_username }}"
         password: "{{ vmware_ops_password }}"
         validate_certs: "{{ vmware_ops_validate_certs }}"
-        esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
+        esxi_hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
       register: _host_facts
 
     - name: Verify ESXI Host connected to vCenter Cluster
@@ -40,6 +41,7 @@
         name: cloud.vmware_ops.vcenter_host_connection
       vars:
         vcenter_host_connection_state: absent
+        vcenter_host_connection_esxi_hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
 
     - name: Ensure ESXI Host removed from vCenter Cluster
       block:
@@ -49,7 +51,7 @@
             username: "{{ vmware_ops_username }}"
             password: "{{ vmware_ops_password }}"
             validate_certs: "{{ vmware_ops_validate_certs }}"
-            esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
+            esxi_hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
           register: _no_host_facts
 
         - name: Force failure if ESXI Host was found
@@ -70,24 +72,20 @@
         password: "{{ vmware_ops_password }}"
         validate_certs: "{{ vmware_ops_validate_certs }}"
         datacenter: "{{ vcenter_host_connection_datacenter }}"
-        esxi_host_name: "{{ vcenter_host_connection_esxi_hostname }}"
+        esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
         state: absent
-      retries: 5
-      delay: 5
-      register: result
-      until: result.failed == false
-
-    - name: Remove ESXI VM to cleanup env
-      ansible.builtin.include_role:
-        name: cloud.vmware_ops.provision_vm
+      when: deployed_esxi_ips is defined
+    - name: Remove Test ESXi
+      ansible.builtin.import_role:
+        name: prepare_deploy_esxi_host
       vars:
-        provision_vm_state: absent
-        provision_vm_force: true
-
-    - name: Remove Resource Pool to cleanup env
-      ansible.builtin.include_tasks: manage_resource_pool.yml
-      vars:
-        required_state: absent
+        vcenter_hostname: "{{ vmware_ops_hostname }}"
+        vcenter_username: "{{ vmware_ops_username }}"
+        vcenter_password: "{{ vmware_ops_password }}"
+        vcenter_validate_certs: false
+        deploy_esxi_host_resource_pool_name: "{{ resource_pool_name }}"
+        deploy_esxi_host_name: "{{ test_esxi_vm_name }}"
+        deploy_esxi_host_state: absent
 
 - name: Test vCenter host connection role on simulator
   when: run_on_simulator
