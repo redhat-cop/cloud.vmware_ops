@@ -94,13 +94,12 @@
         path: "{{ ovf_template_local | dirname }}"
 
     - name: Remove Content Library
-      community.vmware.vmware_content_library_manager:
+      vmware.vmware.local_content_library:
         hostname: "{{ vmware_ops_hostname }}"
         username: "{{ vmware_ops_username }}"
         password: "{{ vmware_ops_password }}"
         validate_certs: "{{ vmware_ops_validate_certs }}"
         library_name: "{{ ovf_library }}"
-        library_type: local
         state: absent
       retries: 5
       delay: 5

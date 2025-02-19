@@ -8,7 +8,6 @@ custom_esxi_8_password: "!#%135qEt"
 custom_esxi_8_iso_path: "[eco-nfs-datastore-iso] custom_esxi_8.iso"
 rhel_8_9_iso_path: "[eco-nfs-datastore-iso] rhel-8.9-x86_64-boot.iso"
 rhel_9_4_iso_path: "[eco-nfs-datastore-iso] rhel-9.4-x86_64-boot.iso"
-shared_storage_01: "eco-iscsi-ds1"
 vm_network_name: "VM Network"
 test_network_name: "TestNetwork"
 
@@ -22,3 +21,11 @@ mac_address_host_connection: "00:50:56:8b:ea:f0"
 mac_address_provision_virtual_esxi: "00:50:56:8b:95:ff"
 # used in esxi_maintenance_mode_test
 mac_address_esxi_maintenance: "00:50:56:8b:93:a5"
+
+shared_storage_01: "eco-iscsi-ds1"
+shared_storage_02: "eco-iscsi-ds2"
+
+ci_resources_content_library: ansible_ci_test_resources
+esxi_content_library_template: esxi-8
+rhel9_content_library_ovf: rhel9-ovf
+rhel9_content_library_template: rhel9-template

@@ -40,7 +40,7 @@
   when: deploy_ovf_library is not defined
 
 - name: Deploy Virtual Machine From OVF Template in Content Library
-  community.vmware.vmware_content_deploy_ovf_template:
+  vmware.vmware.deploy_content_library_ovf:
     hostname: "{{ deploy_ovf_hostname }}"
     username: "{{ deploy_ovf_username }}"
     password: "{{ deploy_ovf_password }}"
@@ -50,16 +50,12 @@
     proxy_port: "{{ deploy_ovf_proxy_port | default(omit) }}"
     datacenter: "{{ deploy_ovf_datacenter_name }}"
     cluster: "{{ deploy_ovf_cluster_name | default(omit) }}"
-
-    name: "{{ deploy_ovf_vm_name }}"
-    template: "{{ deploy_ovf_template }}"
-    host: "{{ deploy_ovf_esxi_host | default(omit) }}"
-    folder: "{{ deploy_ovf_folder | default(omit) }}"
+    vm_name: "{{ deploy_ovf_vm_name }}"
+    library_item_name: "{{ deploy_ovf_template }}"
+    vm_folder: "{{ deploy_ovf_folder | default(omit) }}"
     resource_pool: "{{ deploy_ovf_resource_pool | default(omit) }}"
     datastore: "{{ deploy_ovf_datastore | default(omit) }}"
     datastore_cluster: "{{ deploy_ovf_datastore_cluster | default(omit) }}"
-
-    library: "{{ deploy_ovf_library | default(omit) }}"
-    log_level: "{{ deploy_ovf_log_level | default(omit) }}"
+    library_name: "{{ deploy_ovf_library | default(omit) }}"
     storage_provisioning: "{{ deploy_ovf_storage_provisioning | default(omit) }}"
   when: deploy_ovf_library is defined

@@ -12,14 +12,13 @@
   delay: 10
 
 - name: Create Content Library
-  community.vmware.vmware_content_library_manager:
+  vmware.vmware.local_content_library:
     hostname: "{{ vmware_ops_hostname }}"
     username: "{{ vmware_ops_username }}"
     password: "{{ vmware_ops_password }}"
     validate_certs: "{{ vmware_ops_validate_certs }}"
     port: "{{ vmware_ops_port }}"
     library_name: "{{ ovf_library }}"
-    library_type: local
     datastore_name: "{{ deploy_ovf_datastore }}"
     state: present
 

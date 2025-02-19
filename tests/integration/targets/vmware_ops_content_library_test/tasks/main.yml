@@ -27,20 +27,32 @@
       loop: "{{ content_library_details.results }}"
 
   always:
-    - name: Destroy Content Library
-      community.vmware.vmware_content_library_manager:
+    - name: Destroy Local Content Library
+      vmware.vmware.local_content_library:
         hostname: "{{ vmware_ops_hostname }}"
         username: "{{ vmware_ops_username }}"
         password: "{{ vmware_ops_password }}"
         validate_certs: "{{ vmware_ops_validate_certs }}"
         library_name: "{{ content_library_name }}"
-        library_type: "{{ content_library_type }}"
-        datastore_name: "{{ content_library_datastore_name }}"
         state: absent
       retries: 5
       delay: 5
       register: result
       until: result.failed == false
+      when: content_library_type = 'local'
+    - name: Destroy Subscribed Content Library
+      vmware.vmware.subscribed_content_library:
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
+        library_name: "{{ content_library_name }}"
+        state: absent
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false
+      when: content_library_type = 'subscribed'
 
     - name: Get content libraries info
       ansible.builtin.import_tasks: get_content_library_info.yml
