@@ -31,7 +31,7 @@
         name: cloud.vmware_ops.manage_folder
       vars:
         manage_folder_state: present
-        manage_folder_folder_name: security/syseng
+        manage_folder_folder_name: security%2Fsyseng
         manage_folder_parent_folder: "{{ folder_name_pattern }}/foo"
         manage_folder_parse_name_as_path: false
         manage_folder_folder_type: "{{ item }}"
