@@ -5,6 +5,7 @@ run_on_simulator: false
 resource_pool_name: "{{ tiny_prefix }}-host-maintenance-pool"
 
 # Vars for cloud.vmware_ops.provision_virtual_esxi role
+test_esxi_vm_name: "{{ tiny_prefix }}-vm-esxi_maintenance-test"
 provision_virtual_esxi_cluster: "{{ vcenter_cluster_name }}"
 provision_virtual_esxi_datacenter: "{{ vcenter_datacenter }}"
 provision_virtual_esxi_folder: ""
