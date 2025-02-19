@@ -81,7 +81,7 @@
         enable: "{{ cluster_settings_ha_enable }}"
         advanced_settings: "{{ cluster_settings_ha_advanced_settings | default(omit) }}"
         host_failure_response:
-          restart_vms: "{{ cluster_settings_ha_host_monitoring | default(omit) }}"
+          restart_vms: "{{ (cluster_settings_ha_host_monitoring == 'enabled') | ternary(True, False, omit) }}"
           default_vm_restart_priority: "{{ cluster_settings_ha_restart_priority | default(omit) }}"
         host_isolation_response: "{{ cluster_settings_ha_host_isolation_response | default(omit) }}"
         admission_control_policy: "{{ _ac_policy | default(omit) }}"

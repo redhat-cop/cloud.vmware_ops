@@ -39,7 +39,7 @@
       delay: 5
       register: result
       until: result.failed == false
-      when: content_library_type = 'local'
+      when: content_library_type == 'local'
     - name: Destroy Subscribed Content Library
       vmware.vmware.subscribed_content_library:
         hostname: "{{ vmware_ops_hostname }}"
@@ -52,7 +52,7 @@
       delay: 5
       register: result
       until: result.failed == false
-      when: content_library_type = 'subscribed'
+      when: content_library_type == 'subscribed'
 
     - name: Get content libraries info
       ansible.builtin.import_tasks: get_content_library_info.yml

@@ -36,7 +36,7 @@
         password: "{{ vmware_ops_password }}"
         validate_certs: "{{ vmware_ops_validate_certs }}"
         port: "{{ vmware_ops_port }}"
-        datacenter: "{{ vcenter_host_connection_datacenter }}"
+        datacenter: "{{ vcenter_datacenter }}"
         cluster: "{{ vcenter_cluster_name }}"
         esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
         esxi_username: "{{ custom_esxi_8_username }}"
@@ -75,8 +75,8 @@
     - name: Gather ESXI host facts after enabling maintenance mode
       community.vmware.vmware_host_facts:
         hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
-        username: "{{ vcenter_host_connection_esxi_username }}"
-        password: "{{ vcenter_host_connection_esxi_password }}"
+        username: "{{ custom_esxi_8_username }}"
+        password: "{{ custom_esxi_8_password }}"
         validate_certs: "{{ vmware_ops_validate_certs }}"
       register: esxi_facts
 
@@ -105,7 +105,7 @@
         password: "{{ vmware_ops_password }}"
         validate_certs: "{{ vmware_ops_validate_certs }}"
         port: "{{ vmware_ops_port }}"
-        datacenter: "{{ vcenter_host_connection_datacenter }}"
+        datacenter: "{{ vcenter_datacenter }}"
         esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
         state: absent
       when: deployed_esxi_ips is defined

@@ -46,6 +46,10 @@
         datacenter: "{{ manage_folder_datacenter }}"
       register: _folder_info
 
+    - name: Debug Output
+      ansible.builtin.debug:
+        var: _folder_info
+
     - name: Check Folders Were Created
       ansible.builtin.assert:
         that:
