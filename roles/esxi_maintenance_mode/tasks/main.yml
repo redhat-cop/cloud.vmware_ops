@@ -15,7 +15,7 @@
     fail_msg: Variable must be set when using this role.
 
 - name: Set ESXi Maintenance Mode
-  community.vmware.vmware_maintenancemode:
+  vmware.vmware.esxi_maintenance_mode:
     hostname: "{{ esxi_maintenance_mode_hostname }}"
     username: "{{ esxi_maintenance_mode_username }}"
     password: "{{ esxi_maintenance_mode_password }}"
@@ -23,8 +23,8 @@
     validate_certs: "{{ esxi_maintenance_mode_validate_certs | default(omit) }}"
     proxy_host: "{{ esxi_maintenance_mode_proxy_host | default(omit) }}"
     proxy_port: "{{ esxi_maintenance_mode_proxy_port | default(omit) }}"
-    esxi_hostname: "{{ esxi_maintenance_mode_esxi_hostname }}"
+    esxi_host_name: "{{ esxi_maintenance_mode_esxi_hostname }}"
     evacuate: "{{ esxi_maintenance_mode_evacuate | default(omit) }}"
-    state: "{{ esxi_maintenance_mode_enable | ternary('present', 'absent') }}"
+    enable_maintenance_mode: "{{ esxi_maintenance_mode_enable }}"
     timeout: "{{ esxi_maintenance_mode_timeout | default(omit) }}"
-    vsan: "{{ esxi_maintenance_mode_vsan | default(omit) }}"
+    vsan_compliance_mode: "{{ esxi_maintenance_mode_vsan | default(omit) }}"

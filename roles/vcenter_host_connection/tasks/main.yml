@@ -26,8 +26,8 @@
     vcenter_host_connection_state is not defined or
     vcenter_host_connection_state in ['present', 'add_or_reconnect']
 
-- name: Manage ESXi Host Connection To vCenter
-  community.vmware.vmware_host:
+- name: Manage ESXi Host Membership In vCenter
+  vmware.vmware.esxi_host:
     hostname: "{{ vcenter_host_connection_hostname }}"
     username: "{{ vcenter_host_connection_username }}"
     password: "{{ vcenter_host_connection_password }}"
@@ -38,14 +38,30 @@
     proxy_host: "{{ vcenter_host_connection_proxy_host | default(omit) }}"
     proxy_port: "{{ vcenter_host_connection_proxy_port | default(omit) }}"
     validate_certs: "{{ vcenter_host_connection_validate_certs | default(omit) }}"
-
-    add_connected: "{{ vcenter_host_connection_add_connected | default(omit) }}"
-    force_connection: "{{ vcenter_host_connection_force_connection | default(omit) }}"
-    reconnect_disconnected: "{{ vcenter_host_connection_reconnect_disconnected | default(omit) }}"
+    force_add: "{{ vcenter_host_connection_force_connection | default(omit) }}"
     state: "{{ vcenter_host_connection_state | default(omit) }}"
-
-    esxi_hostname: "{{ vcenter_host_connection_esxi_hostname | default(omit) }}"
+    esxi_host_name: "{{ vcenter_host_connection_esxi_hostname | default(omit) }}"
     esxi_username: "{{ vcenter_host_connection_esxi_username | default(omit) }}"
     esxi_password: "{{ vcenter_host_connection_esxi_password | default(omit) }}"
-    esxi_ssl_thumbprint: "{{ vcenter_host_connection_esxi_ssl_thumbprint | default(omit) }}"
-    fetch_ssl_thumbprint: "{{ vcenter_host_connection_fetch_ssl_thumbprint | default(omit) }}"
+    ssl_thumbprint: "{{ vcenter_host_connection_esxi_ssl_thumbprint | default(omit) }}"
+  when: vcenter_host_connection_state is not defined or vcenter_host_connection_state in ['present', 'absent']
+
+- name: Manage ESXi Host Connection To vCenter
+  vmware.vmware.esxi_connection:
+    hostname: "{{ vcenter_host_connection_hostname }}"
+    username: "{{ vcenter_host_connection_username }}"
+    password: "{{ vcenter_host_connection_password }}"
+    datacenter_name: "{{ vcenter_host_connection_datacenter }}"
+    port: "{{ vcenter_host_connection_port | default(omit) }}"
+    proxy_host: "{{ vcenter_host_connection_proxy_host | default(omit) }}"
+    proxy_port: "{{ vcenter_host_connection_proxy_port | default(omit) }}"
+    validate_certs: "{{ vcenter_host_connection_validate_certs | default(omit) }}"
+    esxi_host_name: "{{ vcenter_host_connection_esxi_hostname | default(omit) }}"
+    state: "{{ _remapped_state }}"
+  vars:
+    _remapped_state: >-
+      {{
+      'disconnected' if (vcenter_host_connection_state | default('connected')) in
+      ['absent', 'disconnected'] else
+      'connected'
+      }}

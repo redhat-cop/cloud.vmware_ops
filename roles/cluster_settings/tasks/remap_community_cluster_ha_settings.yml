@@ -1,0 +1,22 @@
+---
+# We need to remap options from the community module to the vmware.vmware module.
+# Changing these inputs would require a major release for cloud.vmware_ops otherwise
+- name: Remap cluster_settings_ha_slot_based_admission_control
+  ansible.builtin.set_fact:
+    _ac_policy: vm_slots
+    _ac_failover: "{{ cluster_settings_ha_slot_based_admission_control.failover_level }}"
+  when: cluster_settings_ha_slot_based_admission_control is defined
+
+- name: Remap cluster_settings_ha_reservation_based_admission_control
+  ansible.builtin.set_fact:
+    _ac_policy: cluster_resource
+    _ac_failover: "{{ cluster_settings_ha_reservation_based_admission_control.failover_level }}"
+    _ac_cpu: "{{ cluster_settings_ha_reservation_based_admission_control.cpu_failover_resources_percent | default(omit) }}"
+    _ac_memory: "{{ cluster_settings_ha_reservation_based_admission_control.memory_failover_resources_percent | default(omit) }}"
+  when: cluster_settings_ha_reservation_based_admission_control is defined
+
+- name: Remap cluster_settings_ha_failover_host_admission_control
+  ansible.builtin.set_fact:
+    _ac_policy: dedicated_host
+    _ac_hosts: "{{ cluster_settings_ha_failover_host_admission_control.failover_hosts }}"
+  when: cluster_settings_ha_failover_host_admission_control is defined

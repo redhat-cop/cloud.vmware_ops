@@ -64,16 +64,13 @@
 
   always:
     - name: Remove ESXI Host from vCenter Cluster to cleanup env
-      community.vmware.vmware_host:
+      vmware.vmware.esxi_host:
         hostname: "{{ vmware_ops_hostname }}"
         username: "{{ vmware_ops_username }}"
         password: "{{ vmware_ops_password }}"
         validate_certs: "{{ vmware_ops_validate_certs }}"
         datacenter: "{{ vcenter_host_connection_datacenter }}"
-        cluster: "{{ vcenter_host_connection_cluster }}"
-        esxi_hostname: "{{ vcenter_host_connection_esxi_hostname }}"
-        esxi_username: "{{ vcenter_host_connection_esxi_username }}"
-        esxi_password: "{{ vcenter_host_connection_esxi_password }}"
+        esxi_host_name: "{{ vcenter_host_connection_esxi_hostname }}"
         state: absent
       retries: 5
       delay: 5

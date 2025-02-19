@@ -63,34 +63,43 @@
   when: cluster_settings_drs_apply_recommendations
 
 - name: Configure Cluster HA Settings
-  community.vmware.vmware_cluster_ha:
-    hostname: "{{ cluster_settings_hostname }}"
-    username: "{{ cluster_settings_username }}"
-    password: "{{ cluster_settings_password }}"
-    validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
-    port: "{{ cluster_settings_port | default(omit) }}"
-    proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
-    proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
-    datacenter_name: "{{ cluster_settings_datacenter_name }}"
-    cluster_name: "{{ cluster_settings_cluster_name }}"
-    enable: "{{ cluster_settings_ha_enable }}"
-    ha_host_monitoring: "{{ cluster_settings_ha_host_monitoring | default(omit) }}"
-    ha_vm_monitoring: "{{ cluster_settings_ha_vm_monitoring | default(omit) }}"
-    host_isolation_response: "{{ cluster_settings_ha_host_isolation_response | default(omit) }}"
-    slot_based_admission_control: "{{ cluster_settings_ha_slot_based_admission_control | default(omit) }}"
-    reservation_based_admission_control: "{{ cluster_settings_ha_reservation_based_admission_control | default(omit) }}"
-    failover_host_admission_control: "{{ cluster_settings_ha_failover_host_admission_control | default(omit) }}"
-    ha_vm_failure_interval: "{{ cluster_settings_ha_vm_failure_interval | default(omit) }}"
-    ha_vm_min_up_time: "{{ cluster_settings_ha_vm_min_up_time | default(omit) }}"
-    ha_vm_max_failures: "{{ cluster_settings_ha_vm_max_failures | default(omit) }}"
-    ha_vm_max_failure_window: "{{ cluster_settings_ha_vm_max_failure_window | default(omit) }}"
-    ha_restart_priority: "{{ cluster_settings_ha_restart_priority | default(omit) }}"
-    advanced_settings: "{{ cluster_settings_ha_advanced_settings | default(omit) }}"
-    apd_response: "{{ cluster_settings_ha_apd_response | default(omit) }}"
-    apd_delay: "{{ cluster_settings_ha_apd_delay | default(omit) }}"
-    apd_reaction: "{{ cluster_settings_ha_apd_reaction | default(omit) }}"
-    pdl_response: "{{ cluster_settings_ha_pdl_response | default(omit) }}"
   when: cluster_settings_ha_enable is defined
+  block:
+    - name: Re-Map HA Inputs
+      ansible.builtin.include_tasks: remap_community_cluster_ha_settings.yml
+    - name: Configure Cluster HA
+      vmware.vmware.cluster_ha:
+        hostname: "{{ cluster_settings_hostname }}"
+        username: "{{ cluster_settings_username }}"
+        password: "{{ cluster_settings_password }}"
+        validate_certs: "{{ cluster_settings_validate_certs | default(omit) }}"
+        port: "{{ cluster_settings_port | default(omit) }}"
+        proxy_host: "{{ cluster_settings_proxy_host | default(omit) }}"
+        proxy_port: "{{ cluster_settings_proxy_port | default(omit) }}"
+        datacenter_name: "{{ cluster_settings_datacenter_name }}"
+        cluster_name: "{{ cluster_settings_cluster_name }}"
+        enable: "{{ cluster_settings_ha_enable }}"
+        advanced_settings: "{{ cluster_settings_ha_advanced_settings | default(omit) }}"
+        host_failure_response:
+          restart_vms: "{{ cluster_settings_ha_host_monitoring | default(omit) }}"
+          default_vm_restart_priority: "{{ cluster_settings_ha_restart_priority | default(omit) }}"
+        host_isolation_response: "{{ cluster_settings_ha_host_isolation_response | default(omit) }}"
+        admission_control_policy: "{{ _ac_policy | default(omit) }}"
+        admission_control_failover_level: "{{ _ac_failover | default(omit) }}"
+        admission_control_cpu_reserve_percentage: "{{ _ac_cpu | default(omit) }}"
+        admission_control_memory_reserve_percentage: "{{ _ac_memory | default(omit) }}"
+        admission_control_dedicated_hosts: "{{ _ac_hosts | default(omit) }}"
+        vm_monitoring:
+          mode: "{{ cluster_settings_ha_vm_monitoring | default(omit) }}"
+          failure_interval: "{{ cluster_settings_ha_vm_failure_interval | default(omit) }}"
+          minimum_uptime: "{{ cluster_settings_ha_vm_min_up_time | default(omit) }}"
+          maximum_resets: "{{ cluster_settings_ha_vm_max_failures | default(omit) }}"
+          maximum_resets_window: "{{ cluster_settings_ha_vm_max_failure_window | default(omit) }}"
+        storage_apd_response:
+          mode: "{{ cluster_settings_ha_apd_response | default(omit) }}"
+          delay: "{{ cluster_settings_ha_apd_delay | default(omit) }}"
+          restart_vms: "{{ cluster_settings_ha_apd_reaction | default(omit) }}"
+        storage_pdl_response_mode: "{{ cluster_settings_ha_pdl_response | default(omit) }}"
 
 - name: Configure vCLS Datastore Settings
   vmware.vmware.cluster_vcls:
