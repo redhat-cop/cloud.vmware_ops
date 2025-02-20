@@ -47,11 +47,6 @@
   when: vcenter_host_connection_state is not defined or vcenter_host_connection_state in ['present', 'absent']
   register: _host_membership
 
-- name: Pause When Host Was Just Added   # noqa no-handler
-  ansible.builtin.pause:
-    seconds: 10
-  when: _host_membership is changed
-
 - name: Manage ESXi Host Connection To vCenter
   vmware.vmware.esxi_connection:
     hostname: "{{ vcenter_host_connection_hostname }}"
@@ -64,6 +59,7 @@
     validate_certs: "{{ vcenter_host_connection_validate_certs | default(omit) }}"
     esxi_host_name: "{{ vcenter_host_connection_esxi_hostname | default(omit) }}"
     state: "{{ _remapped_state }}"
+  when: vcenter_host_connection_state != 'absent'   # if state is absent, we removed the host above
   vars:
     _remapped_state: >-
       {{
