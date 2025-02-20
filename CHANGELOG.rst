@@ -4,6 +4,14 @@ Cloud.VMware\_Ops Release Notes
 
 .. contents:: Topics
 
+v1.9.0
+======
+
+Minor Changes
+-------------
+
+- update community.vmware modules to their vmware.vmware counterparts across the roles and tests
+
 v1.8.0
 ======
 

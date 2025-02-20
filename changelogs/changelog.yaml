@@ -254,3 +254,11 @@ releases:
     - 118-bugfix-info_datacenters-in-documentation.yml
     - 120-feature-upload-iso-to-datastore.yml
     release_date: '2025-01-20'
+  1.9.0:
+    changes:
+      minor_changes:
+      - update community.vmware modules to their vmware.vmware counterparts across
+        the roles and tests
+    fragments:
+    - 122-update-community-module-refs.yml
+    release_date: '2025-02-20'
