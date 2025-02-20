@@ -45,6 +45,12 @@
     esxi_password: "{{ vcenter_host_connection_esxi_password | default(omit) }}"
     ssl_thumbprint: "{{ vcenter_host_connection_esxi_ssl_thumbprint | default(omit) }}"
   when: vcenter_host_connection_state is not defined or vcenter_host_connection_state in ['present', 'absent']
+  register: _host_membership
+
+- name: Pause When Host Was Just Added
+  ansible.builtin.pause:
+    seconds: 10
+  when: _host_membership is changed
 
 - name: Manage ESXi Host Connection To vCenter
   vmware.vmware.esxi_connection:

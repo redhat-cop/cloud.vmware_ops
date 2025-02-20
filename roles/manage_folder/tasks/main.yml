@@ -23,14 +23,6 @@
   ansible.builtin.set_fact:
     _folder_path: "{{ manage_folder_parent_folder.rstrip('/') }}/{{ manage_folder_folder_name.lstrip('/') }}"
 
-- name: debug
-  ansible.builtin.debug:
-    var: manage_folder_folder_type
-
-- name: debug2
-  ansible.builtin.debug:
-    var: _folder_path
-
 - name: Manage vCenter Folder
   vmware.vmware.folder:
     hostname: "{{ manage_folder_hostname }}"

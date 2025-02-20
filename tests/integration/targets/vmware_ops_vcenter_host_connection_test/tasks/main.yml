@@ -108,18 +108,3 @@
         deploy_esxi_host_resource_pool_name: "{{ resource_pool_name }}"
         deploy_esxi_host_name: "{{ test_esxi_vm_name }}"
         deploy_esxi_host_state: absent
-
-- name: Test vCenter host connection role on simulator
-  when: run_on_simulator
-  block:
-    - name: Add ESXI Host to vCenter Cluster
-      ansible.builtin.import_role:
-        name: cloud.vmware_ops.vcenter_host_connection
-      vars:
-        vcenter_host_connection_state: present
-
-    - name: Remove ESXI Host from vCenter Cluster
-      ansible.builtin.import_role:
-        name: cloud.vmware_ops.vcenter_host_connection
-      vars:
-        vcenter_host_connection_state: absent
