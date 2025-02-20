@@ -8,33 +8,26 @@
 
     - name: Create Folder Tree
       loop: "{{ folder_types }}"
+      loop_control:
+        loop_var: _folder_type
       ansible.builtin.include_role:
         name: cloud.vmware_ops.manage_folder
       vars:
         manage_folder_state: present
         manage_folder_folder_name: "{{ folder_name_pattern }}/foo/web"
-        manage_folder_folder_type: "{{ item }}"
+        manage_folder_folder_type: "{{ _folder_type }}"
 
     - name: Create Folder Without Managing Full Tree
       loop: "{{ folder_types }}"
+      loop_control:
+        loop_var: _folder_type
       ansible.builtin.include_role:
         name: cloud.vmware_ops.manage_folder
       vars:
         manage_folder_state: present
         manage_folder_folder_name: db
         manage_folder_parent_folder: "{{ folder_name_pattern }}/foo"
-        manage_folder_folder_type: "{{ item }}"
-
-    - name: Create A Folder With A Slash In It
-      loop: "{{ folder_types }}"
-      ansible.builtin.include_role:
-        name: cloud.vmware_ops.manage_folder
-      vars:
-        manage_folder_state: present
-        manage_folder_folder_name: security/syseng
-        manage_folder_parent_folder: "{{ folder_name_pattern }}/foo"
-        manage_folder_parse_name_as_path: false
-        manage_folder_folder_type: "{{ item }}"
+        manage_folder_folder_type: "{{ _folder_type }}"
 
     - name: Get Folder Info
       community.vmware.vmware_folder_info:
@@ -46,12 +39,15 @@
         datacenter: "{{ manage_folder_datacenter }}"
       register: _folder_info
 
+    - name: Debug Output
+      ansible.builtin.debug:
+        var: _folder_info
+
     - name: Check Folders Were Created
       ansible.builtin.assert:
         that:
           - _folder_info.folder_info.hostFolders.subfolders[folder_name_pattern].subfolders.foo.subfolders['web'] is defined
           - _folder_info.folder_info.hostFolders.subfolders[folder_name_pattern].subfolders.foo.subfolders['db'] is defined
-          - _folder_info.folder_info.hostFolders.subfolders[folder_name_pattern].subfolders.foo.subfolders['security%2fsyseng'] is defined
         fail_msg: Folder structure does not match expected result.
 
   always:

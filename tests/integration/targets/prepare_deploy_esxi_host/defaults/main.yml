@@ -1,0 +1,2 @@
+---
+deploy_esxi_host_state: present
