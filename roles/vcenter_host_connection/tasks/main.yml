@@ -47,7 +47,7 @@
   when: vcenter_host_connection_state is not defined or vcenter_host_connection_state in ['present', 'absent']
   register: _host_membership
 
-- name: Pause When Host Was Just Added
+- name: Pause When Host Was Just Added   # noqa no-handler
   ansible.builtin.pause:
     seconds: 10
   when: _host_membership is changed
