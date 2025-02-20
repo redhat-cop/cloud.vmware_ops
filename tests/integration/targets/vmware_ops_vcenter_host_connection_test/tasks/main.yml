@@ -36,6 +36,17 @@
           - _host_facts.ansible_facts.cluster == vcenter_host_connection_cluster
           - _host_facts.ansible_facts.ansible_host_connection_state == 'connected'
 
+    - name: Enable Maintenance Mode
+      vmware.vmware.esxi_maintenance_mode:
+        hostname: "{{ vmware_ops_hostname }}"
+        username: "{{ vmware_ops_username }}"
+        password: "{{ vmware_ops_password }}"
+        validate_certs: "{{ vmware_ops_validate_certs }}"
+        port: "{{ vmware_ops_port }}"
+        esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
+        enable_maintenance_mode: true
+      register: _enabled_maint
+
     - name: Remove ESXI Host from vCenter Cluster
       ansible.builtin.import_role:
         name: cloud.vmware_ops.vcenter_host_connection
@@ -74,7 +85,8 @@
         port: "{{ vmware_ops_port }}"
         esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
         enable_maintenance_mode: true
-      when: deployed_esxi_ips is defined
+      ignore_errors: true
+      when: deployed_esxi_ips is defined and _enabled_maint is not defined
     - name: Remove ESXI Host from vCenter Cluster to cleanup env
       vmware.vmware.esxi_host:
         hostname: "{{ vmware_ops_hostname }}"
