@@ -18,8 +18,7 @@
   when: not run_on_simulator
   block:
     - name: Deploy Test ESXi
-      ansible.builtin.import_role:
-        name: prepare_deploy_esxi_host
+      ansible.builtin.import_tasks: ../../prepare_deploy_esxi_host/tasks/main.yml
       vars:
         vcenter_hostname: "{{ vmware_ops_hostname }}"
         vcenter_username: "{{ vmware_ops_username }}"
@@ -110,8 +109,7 @@
         state: absent
       when: deployed_esxi_ips is defined
     - name: Remove Test ESXi
-      ansible.builtin.import_role:
-        name: prepare_deploy_esxi_host
+      ansible.builtin.import_tasks: ../../prepare_deploy_esxi_host/tasks/main.yml
       vars:
         vcenter_hostname: "{{ vmware_ops_hostname }}"
         vcenter_username: "{{ vmware_ops_username }}"
