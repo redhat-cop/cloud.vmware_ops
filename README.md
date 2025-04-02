@@ -24,7 +24,7 @@ This collection supports vSphere 7.x and 8.x.
 
 ### Ansible version compatibility
 
-This collection has been tested against following Ansible versions: **>=2.15.0**.
+This collection has been tested against following Ansible versions: **>=2.16.0**.
 
 
 ## Installation and Usage
