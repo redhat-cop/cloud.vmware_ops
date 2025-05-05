@@ -8,7 +8,7 @@ QUAY_TAG ?= latest
 
 .PHONY: install-python-packages
 install-python-packages:
-	pip3 install -r tests/integration/requirements.txt
+	pip3 install -r tests/integration/requirements.txt --force
 
 .PHONY: install-ansible-collections
 install-ansible-collections:
@@ -32,7 +32,7 @@ integration: install-python-packages install-ansible-collections prepare_symlink
 	ansible-test integration --no-temp-workdir
 
 .PHONY: eco-vcenter-ci
-eco-vcenter-ci: install-ansible-collections prepare_symlinks
+eco-vcenter-ci: install-python-packages install-ansible-collections prepare_symlinks
 	@[ -f /tmp/vmware_ops_tests_report.txt ] && rm /tmp/vmware_ops_tests_report.txt || true; \
 	@failed=0; \
 	total=0; \
