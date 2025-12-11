@@ -1,0 +1,47 @@
+---
+- name: Test
+  when: run_on_vcenter
+  block:
+    - name: Create Test VM
+      community.vmware.vmware_guest:
+        name: "{{ export_vm_as_ovf_vm_name }}"
+        cluster: "{{ vcenter_cluster_name }}"
+        state: poweredoff
+        folder: "/{{ vcenter_datacenter }}/vm/e2e-qe"
+        datacenter: "{{ export_vm_as_ovf_datacenter }}"
+        disk:
+          - size_gb: 5
+            type: thick
+            autoselect_datastore: True
+        hardware:
+          memory_mb: 2000
+          num_cpus: 2
+        guest_id: rhel9_64Guest
+
+    - name: Test Export VM As OVF
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.export_vm_as_ovf
+
+    - name: Check that OVF file is present
+      ansible.builtin.stat:
+        path: "{{ export_vm_as_ovf_export_dir }}/{{ export_vm_as_ovf_vm_name }}/{{ export_vm_as_ovf_vm_name }}.ovf"
+      register: ovf_path
+
+    - name: Fail if OVF file is not present
+      ansible.builtin.assert:
+        that: ovf_path.stat.exists
+
+  always:
+    - name: Destroy Test VM
+      community.vmware.vmware_guest:
+        name: "{{ export_vm_as_ovf_vm_name }}"
+        state: absent
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false
+
+    - name: Delete Exported OVF
+      ansible.builtin.file:
+        state: absent
+        path: "{{ export_vm_as_ovf_export_dir }}"

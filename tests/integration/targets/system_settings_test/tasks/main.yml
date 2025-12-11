@@ -1,4 +1,0 @@
----
-- name: System settings role
-  ansible.builtin.import_role:
-    name: cloud.vmware_ops.system_settings

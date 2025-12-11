@@ -1,8 +1,0 @@
----
-run_on_simulator: false
-
-content_library_datacenter_name: "{{ vcenter_datacenter }}"
-content_library_datastore_name: "{{ shared_storage_01 }}"
-content_library_type: local
-content_library_name: "{{ tiny_prefix }}-eco-vcenter-ci-vmware-content-library-test"
-content_library_description: "Test content library"

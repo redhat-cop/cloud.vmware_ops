@@ -1,9 +1,0 @@
----
-run_on_simulator: true
-
-vmware_ops_hostname: "127.0.0.1"
-vmware_ops_username: "test"
-vmware_ops_password: "test"
-vmware_ops_validate_certs: false
-vmware_ops_port: "9000"
-esxi_maintenance_mode_esxi_hostname: DC0_C0_H2

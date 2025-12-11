@@ -1,0 +1,15 @@
+---
+- name: Test esxi maintenance on simulator
+  environment: "{{ environment_auth_vars }}"
+  block:
+    - name: Enable Maintenance Mode
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.esxi_maintenance_mode
+      vars:
+        esxi_maintenance_mode_enable: True
+
+    - name: Disable Maintenance Mode
+      ansible.builtin.include_role:
+        name: cloud.vmware_ops.esxi_maintenance_mode
+      vars:
+        esxi_maintenance_mode_enable: False

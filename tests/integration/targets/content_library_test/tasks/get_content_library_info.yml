@@ -1,0 +1,10 @@
+---
+- name: Get list of content libraries IDs
+  community.vmware.vmware_content_library_info: {}
+  register: content_library_ids
+
+- name: Get content library info
+  community.vmware.vmware_content_library_info:
+    library_id: "{{ item }}"
+  loop: "{{ content_library_ids.content_libs }}"
+  register: content_library_details
