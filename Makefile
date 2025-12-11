@@ -23,6 +23,11 @@ tests/integration/integration_config.yml:
 	chmod +x ./tests/integration/generate_integration_config.sh; \
 	./tests/integration/generate_integration_config.sh
 
+.PHONY: sanity
+sanity: upgrade-collections
+	cd ~/.ansible/collections/ansible_collections/vmware/vmware; \
+	ansible-test sanity -v --color --coverage --junit --docker default
+
 .PHONY: integration
 integration: install-integration-reqs upgrade-collections
 	cd ~/.ansible/collections/ansible_collections/cloud/vmware_ops; \
