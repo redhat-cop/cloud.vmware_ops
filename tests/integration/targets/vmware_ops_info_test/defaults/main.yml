@@ -1,0 +1,9 @@
+info_appliance_file: "/tmp/info_appliance_file"
+info_license_file: "/tmp/info_license_file"
+info_storage_file: "/tmp/info_storage_file"
+info_guest_file: "/tmp/guest_info_file"
+info_cluster: false
+info_license: false
+info_appliance: false
+info_guest: false
+info_storage: false

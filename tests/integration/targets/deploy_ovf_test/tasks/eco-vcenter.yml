@@ -1,0 +1,56 @@
+---
+- name: Test
+  environment: "{{ environment_auth_vars }}"
+  block:
+    - name: Setup
+      ansible.builtin.include_tasks: eco-vcenter-setup.yml
+
+    - name: Test Deploy OVF From Local Filesystem
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.deploy_ovf
+      vars:
+        deploy_ovf_vm_name: "{{ vm_name_local_ovf }}"
+        deploy_ovf_template: "{{ ovf_template_local }}"
+
+    - name: Test Deploy OVF From Content Library
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.deploy_ovf
+      vars:
+        deploy_ovf_vm_name: "{{ vm_name_content_library }}"
+        deploy_ovf_template: "{{ ovf_template_content_library }}"
+        deploy_ovf_library: "{{ ovf_library }}"
+
+    - name: Check VMs Properties
+      ansible.builtin.include_tasks: test_deploy_ovf.yml
+      loop:
+        - "{{ vm_name_local_ovf }}"
+        - "{{ vm_name_content_library }}"
+
+  always:
+    - name: Destroy Test VMs
+      community.vmware.vmware_guest:
+        name: "{{ item }}"
+        state: absent
+        force: true
+      loop:
+        - "{{ test_vm_name }}"
+        - "{{ vm_name_local_ovf }}"
+        - "{{ vm_name_content_library }}"
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false
+
+    - name: Delete OVF On Local Filesystem
+      ansible.builtin.file:
+        state: absent
+        path: "{{ ovf_template_local | dirname }}"
+
+    - name: Remove Content Library
+      vmware.vmware.local_content_library:
+        library_name: "{{ ovf_library }}"
+        state: absent
+      retries: 5
+      delay: 5
+      register: result
+      until: result.failed == false

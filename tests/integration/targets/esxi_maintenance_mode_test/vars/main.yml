@@ -1,5 +1,0 @@
----
-# General vars
-run_on_simulator: false
-resource_pool_name: "{{ tiny_prefix }}-host-maintenance-pool"
-test_esxi_vm_name: "{{ tiny_prefix }}-vm-esxi_maintenance-test"

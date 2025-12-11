@@ -1,3 +1,0 @@
----
-prepare_rest_port: 1080
-prepare_rest_mock_file: "{{ role_path }}/files/default_mock.json"

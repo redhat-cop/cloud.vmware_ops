@@ -1,0 +1,78 @@
+---
+- name: Test vCenter host connection role on vCenter env
+  environment: "{{ environment_auth_vars }}"
+  block:
+    - name: Deploy Test ESXi
+      ansible.builtin.import_tasks: ../../prepare_deploy_esxi_host/tasks/main.yml
+      vars:
+        deploy_esxi_host_resource_pool_name: "{{ resource_pool_name }}"
+        deploy_esxi_host_name: "{{ test_esxi_vm_name }}"
+        deploy_esxi_host_state: present
+
+    - name: Add ESXI Host to vCenter Cluster
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.vcenter_host_connection
+      vars:
+        vcenter_host_connection_state: present
+        vcenter_host_connection_esxi_hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
+
+    - name: Gather ESXI Host facts
+      community.vmware.vmware_host_facts:
+        esxi_hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
+      register: _host_facts
+
+    - name: Verify ESXI Host connected to vCenter Cluster
+      ansible.builtin.assert:
+        that:
+          - _host_facts.ansible_facts.cluster == vcenter_host_connection_cluster
+          - _host_facts.ansible_facts.ansible_host_connection_state == 'connected'
+
+    - name: Enable Maintenance Mode
+      vmware.vmware.esxi_maintenance_mode:
+        esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
+        enable_maintenance_mode: true
+      register: _enabled_maint
+
+    - name: Remove ESXI Host from vCenter Cluster
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.vcenter_host_connection
+      vars:
+        vcenter_host_connection_state: absent
+        vcenter_host_connection_esxi_hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
+
+    - name: Ensure ESXI Host removed from vCenter Cluster
+      block:
+        - name: Gather ESXI Host facts
+          community.vmware.vmware_host_facts:
+            esxi_hostname: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
+          register: _no_host_facts
+
+        - name: Force failure if ESXI Host was found
+          ansible.builtin.fail:
+            msg: "'{{ vcenter_host_connection_esxi_hostname }}' host exists, collected info is '{{ _no_host_facts }}'"
+
+      rescue:
+        - name: ESXI Host doesn't exist as expected
+          when: _no_host_facts.msg is contains 'not found'
+          ansible.builtin.debug:
+            msg: ESXI Host doesn't exist as expected
+
+  always:
+    - name: Enable Maintenance Mode
+      vmware.vmware.esxi_maintenance_mode:
+        esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
+        enable_maintenance_mode: true
+      ignore_errors: true
+      when: deployed_esxi_ips is defined and _enabled_maint is not defined
+    - name: Remove ESXI Host from vCenter Cluster to cleanup env
+      vmware.vmware.esxi_host:
+        datacenter: "{{ vcenter_host_connection_datacenter }}"
+        esxi_host_name: "{{ deployed_esxi_ips[test_esxi_vm_name] }}"
+        state: absent
+      when: deployed_esxi_ips is defined
+    - name: Remove Test ESXi
+      ansible.builtin.import_tasks: ../../prepare_deploy_esxi_host/tasks/main.yml
+      vars:
+        deploy_esxi_host_resource_pool_name: "{{ resource_pool_name }}"
+        deploy_esxi_host_name: "{{ test_esxi_vm_name }}"
+        deploy_esxi_host_state: absent

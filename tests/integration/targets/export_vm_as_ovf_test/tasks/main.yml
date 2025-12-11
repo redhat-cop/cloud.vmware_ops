@@ -1,17 +1,9 @@
 ---
 - name: Test
-  when: not run_on_simulator
+  when: run_on_vcenter
   block:
-    - name: Import common vars
-      ansible.builtin.include_vars:
-        file: ../group_vars.yml
-
     - name: Create Test VM
       community.vmware.vmware_guest:
-        hostname: "{{ vmware_ops_hostname }}"
-        username: "{{ vmware_ops_username }}"
-        password: "{{ vmware_ops_password }}"
-        validate_certs: "{{ vmware_ops_validate_certs }}"
         name: "{{ export_vm_as_ovf_vm_name }}"
         cluster: "{{ vcenter_cluster_name }}"
         state: poweredoff
@@ -42,10 +34,6 @@
   always:
     - name: Destroy Test VM
       community.vmware.vmware_guest:
-        hostname: "{{ vmware_ops_hostname }}"
-        username: "{{ vmware_ops_username }}"
-        password: "{{ vmware_ops_password }}"
-        validate_certs: "{{ vmware_ops_validate_certs }}"
         name: "{{ export_vm_as_ovf_vm_name }}"
         state: absent
       retries: 5

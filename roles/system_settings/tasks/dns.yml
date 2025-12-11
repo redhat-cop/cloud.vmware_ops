@@ -1,5 +1,5 @@
 - name: Manage DNS servers
-  when: system_settings_dns_mode is defined or system_settings_dns_servers is defined
+  when: system_settings_dns_servers is defined
   block:
     - name: Append the DNS servers
       vmware.vmware_rest.appliance_networking_dns_servers:

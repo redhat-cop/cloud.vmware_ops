@@ -1,11 +1,6 @@
 ---
 - name: Get VM Info
   vmware.vmware.guest_info:
-    hostname: "{{ vmware_ops_hostname }}"
-    username: "{{ vmware_ops_username }}"
-    password: "{{ vmware_ops_password }}"
-    validate_certs: "{{ vmware_ops_validate_certs }}"
-    port: "{{ vmware_ops_port }}"
     name: "{{ test_vm_name }}"
   register: vm_info
   retries: 3
@@ -13,31 +8,16 @@
 
 - name: Create Content Library
   vmware.vmware.local_content_library:
-    hostname: "{{ vmware_ops_hostname }}"
-    username: "{{ vmware_ops_username }}"
-    password: "{{ vmware_ops_password }}"
-    validate_certs: "{{ vmware_ops_validate_certs }}"
-    port: "{{ vmware_ops_port }}"
     library_name: "{{ ovf_library }}"
     datastore_name: "{{ deploy_ovf_datastore }}"
     state: present
 
 - name: Get list of content libraries IDs
   community.vmware.vmware_content_library_info:
-    hostname: "{{ vmware_ops_hostname }}"
-    username: "{{ vmware_ops_username }}"
-    password: "{{ vmware_ops_password }}"
-    validate_certs: "{{ vmware_ops_validate_certs }}"
-    port: "{{ vmware_ops_port }}"
   register: content_library_ids
 
 - name: Get content libraries info
   community.vmware.vmware_content_library_info:
-    hostname: "{{ vmware_ops_hostname }}"
-    username: "{{ vmware_ops_username }}"
-    password: "{{ vmware_ops_password }}"
-    validate_certs: "{{ vmware_ops_validate_certs }}"
-    port: "{{ vmware_ops_port }}"
     library_id: "{{ item }}"
   loop: "{{ content_library_ids.content_libs }}"
   register: content_library_details
@@ -50,10 +30,6 @@
 
 - name: Export VM As OVF To Content Library
   vmware.vmware_rest.vcenter_ovf_libraryitem:
-    vcenter_hostname: "{{ vmware_ops_hostname }}"
-    vcenter_username: "{{ vmware_ops_username }}"
-    vcenter_password: "{{ vmware_ops_password }}"
-    vcenter_validate_certs: "{{ vmware_ops_validate_certs }}"
     source:
       type: VirtualMachine
       id: "{{ vm_info.guests[0].moid }}"

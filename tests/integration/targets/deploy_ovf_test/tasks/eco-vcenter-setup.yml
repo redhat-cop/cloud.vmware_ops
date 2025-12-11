@@ -1,0 +1,22 @@
+---
+- name: Create Test VM
+  community.vmware.vmware_guest:
+    name: "{{ test_vm_name }}"
+    state: poweredoff
+    folder: "{{ deploy_ovf_folder }}"
+    datacenter: "{{ deploy_ovf_datacenter_name }}"
+    cluster: "{{ vcenter_cluster_name }}"
+    disk:
+      - size_gb: 5
+        type: thick
+        autoselect_datastore: True
+    hardware: "{{ test_vm_hardware }}"
+    guest_id: rhel9_64Guest
+
+- name: Export VM As OVF To Local Directory
+  community.vmware.vmware_export_ovf:
+    name: "{{ test_vm_name }}"
+    export_dir: "{{ vmware_deploy_ovf_test_export_dir }}"
+
+- name: Export VM As OVF To Content Library
+  ansible.builtin.import_tasks: export_vm_as_ovf_content_library.yml

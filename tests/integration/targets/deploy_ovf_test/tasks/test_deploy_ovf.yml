@@ -1,10 +1,6 @@
 ---
 - name: Get VM Info
   vmware.vmware.guest_info:
-    hostname: "{{ vmware_ops_hostname }}"
-    username: "{{ vmware_ops_username }}"
-    password: "{{ vmware_ops_password }}"
-    validate_certs: "{{ vmware_ops_validate_certs }}"
     name: "{{ item }}"
   register: guest_info
   retries: 3

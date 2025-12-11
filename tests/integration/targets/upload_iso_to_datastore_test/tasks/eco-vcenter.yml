@@ -1,0 +1,45 @@
+---
+- name: Create ISO Mocks
+  block:
+    - name: Mock VCSA Binary
+      ansible.builtin.include_tasks: mock_vcsa_binary.yml
+  always:
+    - name: Clean Up Temp Files
+      ansible.builtin.file:
+        path: "{{ upload_iso_to_datastore_test_mock_binary_root }}"
+        state: absent
+
+- name: Test ISO Upload to Datastore
+  block:
+    - name: Upload ISO to Datastore
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.upload_iso_to_datastore
+
+    - name: Attempt to recreate ISO file
+      community.vmware.vsphere_file:
+        datacenter: "{{ upload_iso_to_datastore_datacenter }}"
+        datastore: "{{ upload_iso_to_datastore_datastore }}"
+        path: "{{ upload_iso_to_datastore_dst }}"
+        state: file
+      ignore_errors: true
+      register: file_result
+
+    - name: Check ISO was copied to Datastore
+      ansible.builtin.assert:
+        that:
+          - file_result is not changed
+        quiet: true
+        fail_msg: Copy of ISO was unsuccessful
+
+  always:
+    - name: Clean Up Temp ISO
+      ansible.builtin.file:
+        path: "{{ upload_iso_to_datastore_src }}"
+        state: absent
+
+    - name: Delete ISO file from Datastore
+      community.vmware.vsphere_file:
+        state: absent
+        datacenter: "{{ upload_iso_to_datastore_datacenter }}"
+        datastore: "{{ upload_iso_to_datastore_datastore }}"
+        path: "{{ upload_iso_to_datastore_dst }}"
