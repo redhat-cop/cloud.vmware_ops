@@ -1,0 +1,6 @@
+---
+- name: Deploy windows template
+  hosts: all
+  gather_facts: false
+  roles:
+    - roles: cloud.vmware_ops.deploy_custom_windows_template

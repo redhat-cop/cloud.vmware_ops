@@ -3,3 +3,4 @@ podman
 requests
 pycdlib
 ansible-core
+pywinrm
