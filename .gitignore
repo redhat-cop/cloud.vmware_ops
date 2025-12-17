@@ -56,6 +56,7 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+.ansible/
 
 # Integration tests
 tests/integration/integration_config.yml

@@ -1,0 +1,26 @@
+---
+vm_name: "{{ tiny_prefix }}-custom-win-test"
+post_customization_action: reboot
+gui_run_once_commands:
+  - powershell -command "winrm quickconfig /force"
+  - powershell -command "set-netfirewallprofile -profile domain,private,public -enabled false"
+  - powershell -Command "new-item -path c:\pstest.txt -type file"
+  - shutdown -r
+auto_logon: true
+auto_logon_count: 1
+workgroup: ANSIBLE
+sysprep_password: password123!@#
+sysprep_hostname: win-ansible
+users_full_name: test
+users_org_name: test
+global_dns_servers:
+  - "8.8.8.8"
+global_dns_resolution_suffixes:
+  - "example.com"
+nic_specific_settings:
+  - ipv4: {}
+    ipv6:
+      gateways:
+        - "fe80::3ca1:e11c:a903:d6f1"
+      subnet_mask: 64
+      address: "fe80::3ca1:e11c:a903:d6f1"

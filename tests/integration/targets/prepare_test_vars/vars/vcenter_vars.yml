@@ -33,3 +33,4 @@ ci_resources_content_library: ansible_ci_test_resources
 esxi_content_library_template: esxi-8
 rhel9_content_library_ovf: rhel9-ovf
 rhel9_content_library_template: rhel9-template
+windows2022_content_library_template: win-2022

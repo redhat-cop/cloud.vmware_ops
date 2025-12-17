@@ -1,0 +1,107 @@
+---
+- name: Import Collection Level Vars
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/../../vars/main.yml"
+
+- name: Check General Mandatory Variables Are Defined
+  ansible.builtin.assert:
+    that:
+      - deploy_custom_windows_template_hostname is defined
+      - deploy_custom_windows_template_username is defined
+      - deploy_custom_windows_template_password is defined
+      - deploy_custom_windows_template_datacenter is defined
+      - deploy_custom_windows_template_cluster is defined or deploy_custom_windows_resource_pool is defined
+      - deploy_custom_windows_template_library_name is defined
+      - deploy_custom_windows_template_library_item_name is defined
+      - deploy_custom_windows_template_vm_name is defined
+      - deploy_custom_windows_template_sysprep_password is defined
+    quiet: true
+    fail_msg: Variable must be set when using this role.
+
+- name: Deploy vm from template
+  vmware.vmware.deploy_content_library_ovf:
+    hostname: "{{ deploy_custom_windows_template_hostname }}"
+    username: "{{ deploy_custom_windows_template_username }}"
+    password: "{{ deploy_custom_windows_template_password }}"
+    port: "{{ deploy_custom_windows_template_port | default(omit) }}"
+    proxy_host: "{{ deploy_custom_windows_template_proxy_host | default(omit) }}"
+    proxy_port: "{{ deploy_custom_windows_template_proxy_port | default(omit) }}"
+    validate_certs: "{{ deploy_custom_windows_template_validate_certs | default(omit) }}"
+    datacenter: "{{ deploy_custom_windows_template_datacenter }}"
+    cluster: "{{ deploy_custom_windows_template_cluster | default(omit) }}"
+    library_name: "{{ deploy_custom_windows_template_library_name }}"
+    library_item_name: "{{ deploy_custom_windows_template_library_item_name }}"
+    vm_name: "{{ deploy_custom_windows_template_vm_name }}"
+    vm_folder: "{{ deploy_custom_windows_template_vm_folder | default(omit) }}"
+    resource_pool: "{{ deploy_custom_windows_template_resource_pool | default(omit) }}"
+    datastore: "{{ deploy_custom_windows_template_datastore | default(omit) }}"
+  register: _deploy_custom_windows_template_vm_result
+
+- name: Customize vm
+  when: _deploy_custom_windows_template_vm_result is ansible.builtin.changed or deploy_custom_windows_template_force_customization
+  block:
+    - name: Determine domain inputs
+      ansible.builtin.set_fact:
+        _deploy_custom_windows_template_domain_inputs:
+          join_user_name: "{{ deploy_custom_windows_template_domain_join_user }}"
+          join_user_password: "{{ deploy_custom_windows_template_domain_join_pass }}"
+          name: "{{ deploy_custom_windows_template_domain_join_name }}"
+          ou: "{{ deploy_custom_windows_template_domain_join_ou | default(omit) }}"
+      when: deploy_custom_windows_template_domain_join_name is defined
+
+    - name: Ensure secure boot is disabled
+      vmware.vmware.vm:
+        hostname: "{{ deploy_custom_windows_template_hostname }}"
+        username: "{{ deploy_custom_windows_template_username }}"
+        password: "{{ deploy_custom_windows_template_password }}"
+        port: "{{ deploy_custom_windows_template_port | default(omit) }}"
+        proxy_host: "{{ deploy_custom_windows_template_proxy_host | default(omit) }}"
+        proxy_port: "{{ deploy_custom_windows_template_proxy_port | default(omit) }}"
+        validate_certs: "{{ deploy_custom_windows_template_validate_certs | default(omit) }}"
+        moid: "{{ _deploy_custom_windows_template_vm_result.vm.moid }}"
+        vm_options:
+          enable_secure_boot: false
+
+    - name: Apply customizations to vm
+      vmware.vmware.vm_apply_customization:
+        hostname: "{{ deploy_custom_windows_template_hostname }}"
+        username: "{{ deploy_custom_windows_template_username }}"
+        password: "{{ deploy_custom_windows_template_password }}"
+        port: "{{ deploy_custom_windows_template_port | default(omit) }}"
+        proxy_host: "{{ deploy_custom_windows_template_proxy_host | default(omit) }}"
+        proxy_port: "{{ deploy_custom_windows_template_proxy_port | default(omit) }}"
+        validate_certs: "{{ deploy_custom_windows_template_validate_certs | default(omit) }}"
+        moid: "{{ _deploy_custom_windows_template_vm_result.vm.moid }}"
+
+        windows_sysprep:
+          post_customization_action: "{{ deploy_custom_windows_template_post_customization_action }}"
+          gui_run_once_commands: "{{ deploy_custom_windows_template_gui_run_once_commands }}"
+          auto_logon: "{{ deploy_custom_windows_template_auto_logon }}"
+          auto_logon_count: "{{ deploy_custom_windows_template_auto_logon_count }}"
+          password: "{{ deploy_custom_windows_template_sysprep_password }}"
+          hostname: "{{ deploy_custom_windows_template_sysprep_hostname | default(omit) }}"
+          workgroup: "{{ deploy_custom_windows_template_workgroup | default(omit) }}"
+          users_full_name: "{{ deploy_custom_windows_template_users_full_name }}"
+          users_org_name: "{{ deploy_custom_windows_template_users_org_name }}"
+          product_id: "{{ deploy_custom_windows_template_users_product_id }}"
+          domain: "{{ _deploy_custom_windows_template_domain_inputs | default(omit) }}"
+
+        global_dns:
+          servers: "{{ deploy_custom_windows_template_global_dns_servers }}"
+          resolution_suffixes: "{{ deploy_custom_windows_template_global_dns_resolution_suffixes }}"
+
+        nic_specific_settings: "{{ deploy_custom_windows_template_nic_specific_settings | default(omit) }}"
+
+
+- name: Power on vm
+  vmware.vmware.vm_powerstate:
+    hostname: "{{ deploy_custom_windows_template_hostname }}"
+    username: "{{ deploy_custom_windows_template_username }}"
+    password: "{{ deploy_custom_windows_template_password }}"
+    port: "{{ deploy_custom_windows_template_port | default(omit) }}"
+    proxy_host: "{{ deploy_custom_windows_template_proxy_host | default(omit) }}"
+    proxy_port: "{{ deploy_custom_windows_template_proxy_port | default(omit) }}"
+    validate_certs: "{{ deploy_custom_windows_template_validate_certs | default(omit) }}"
+    moid: "{{ _deploy_custom_windows_template_vm_result.vm.moid }}"
+    datacenter: "{{ deploy_custom_windows_template_datacenter }}"
+    state: powered-on

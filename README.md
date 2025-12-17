@@ -144,6 +144,30 @@ Once installed, you can reference the cloud.vmware_ops collection content by its
     - Deploy the VM from an OVF file using the `deploy_ovf` playbook or `deploy_ovf` role
 
 
+* Use Case Name: Deploy an OVF and customize the VM
+  * Actors:
+    * System Admin
+  * Description:
+    * A systems administrator can deploy a VM from a template, customize the hardware, and customize the OS.
+  * Related Playbooks:
+    * deploy_custom_windows_template.yml
+    * provision_vm/deploy_ovf.yml
+  * Roles:
+    * `cloud.vmware_ops.deploy_custom_windows_template` - Deploy a windows template and customize it
+    * `cloud.vmware_ops.deploy_ovf` - Deploy an OVF file to an ESXi host or existing vCenter Cluster
+  * Flow:
+    - Deploy a vm from a template using the `vmware.vmware.deploy_content_library_ovf`
+    - Perform hardware customization using the `vmware.vmware.vm` module. Optionally, only do this step when
+      the previous task reports a change (indicating a new VM)
+    - Apply a customization spec (cloudinit, windows sysprep, unix scripts) using the
+      `vmware.vmware.vm_apply_customization` module. Optionally, only do this step when the previous deploy task
+      reports a change (indicating a new VM)
+    - Power on the VM using the `vmware.vmware.vm_powerstate` module
+    - Wait for VMTools to report the VMs IP using the `vmware.vmware.guest_info` module.
+    - Add the new host to the playbook using the `ansible.builtin.add_host` module.
+    - Run new tasks or plays against the new host.
+
+
 ## Testing
 
 All releases will meet the following test criteria.

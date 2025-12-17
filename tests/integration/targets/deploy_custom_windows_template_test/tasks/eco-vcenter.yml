@@ -1,0 +1,95 @@
+---
+- name: Check for product id
+  ansible.builtin.assert:
+    that: product_id is defined
+    fail_msg: Set the extra var 'product_id' to a valid license key to run this test.
+
+- name: Test
+  environment: "{{ environment_auth_vars }}"
+  block:
+    - name: Deploy and customize windows template
+      ansible.builtin.import_role:
+        name: cloud.vmware_ops.deploy_custom_windows_template
+      vars:
+        deploy_custom_windows_template_hostname: "{{ vmware_ops_collection_hostname }}"
+        deploy_custom_windows_template_username: "{{ vmware_ops_collection_username }}"
+        deploy_custom_windows_template_password: "{{ vmware_ops_collection_password }}"
+        deploy_custom_windows_template_validate_certs: "{{ vmware_ops_collection_validate_certs }}"
+        deploy_custom_windows_template_port: "{{ vmware_ops_collection_port }}"
+        deploy_custom_windows_template_datacenter: "{{ vcenter_datacenter }}"
+        deploy_custom_windows_template_cluster: "{{ vcenter_cluster_name }}"
+        deploy_custom_windows_template_library_name: "{{ ci_resources_content_library }}"
+        deploy_custom_windows_template_library_item_name: "{{ windows2022_content_library_template }}"
+        deploy_custom_windows_template_vm_name: "{{ vm_name }}"
+        deploy_custom_windows_template_post_customization_action: "{{ post_customization_action }}"
+        deploy_custom_windows_template_gui_run_once_commands: "{{ gui_run_once_commands }}"
+        deploy_custom_windows_template_auto_logon: "{{ auto_logon }}"
+        deploy_custom_windows_template_auto_logon_count: "{{ auto_logon_count }}"
+        deploy_custom_windows_template_workgroup: "{{ workgroup }}"
+        deploy_custom_windows_template_sysprep_password: "{{ sysprep_password }}"
+        deploy_custom_windows_template_sysprep_hostname: "{{ sysprep_hostname }}"
+        deploy_custom_windows_template_users_full_name: "{{ users_full_name }}"
+        deploy_custom_windows_template_users_org_name: "{{ users_org_name }}"
+        deploy_custom_windows_template_users_product_id: "{{ product_id }}"
+        deploy_custom_windows_template_global_dns_servers: "{{ global_dns_servers }}"
+        deploy_custom_windows_template_global_dns_resolution_suffixes: "{{ global_dns_resolution_suffixes }}"
+        deploy_custom_windows_template_nic_specific_settings: "{{ nic_specific_settings }}"
+        deploy_custom_windows_template_force_customization: false
+
+    # Host will get an IP in the middle of customization, so even once this succeeds the host is not
+    # ready.
+    - name: Wait for vm to get IP
+      vmware.vmware.guest_info:
+        name: "{{ vm_name }}"
+      register: _vm_info
+      until: _vm_info.guests[0].ipv4 is defined and _vm_info.guests[0].ipv4 is string
+      retries: 20
+      delay: 5
+
+    - name: Add host
+      ansible.builtin.add_host:
+        name: "{{ vm_name }}"
+        ansible_host: "{{ _vm_info.guests[0].ipv4 }}"
+        ansible_user: Administrator
+        ansible_password: "{{ sysprep_password }}"
+        ansible_connection: winrm
+        ansible_winrm_transport: ntlm
+        ansible_winrm_server_cert_validation: ignore
+        ansible_winrm_port: 5985
+
+    - name: Test host
+      delegate_to: "{{ vm_name }}"
+      block:
+        # Once the host has executed the post customization commands and rebooted, it should be ready
+        # to be connected to.
+        - name: Wait for connection
+          ansible.builtin.wait_for_connection:
+            delay: 240
+            timeout: 120
+            sleep: 5
+            connect_timeout: 30
+        - name: Gather facts
+          ansible.builtin.setup: {}
+        - name: Get workgroup name
+          ansible.windows.win_shell: |
+            (Get-CimInstance Win32_ComputerSystem).Domain
+          register: _workgroup_name
+        - name: Check for test file
+          ansible.windows.win_stat:
+            path: "c:\\pstest.txt"
+          register: _test_file
+        - name: Assertions
+          ansible.builtin.assert:
+            that:
+              - _test_file.stat.exists
+              - ansible_facts['hostname'] == sysprep_hostname
+              - workgroup in _workgroup_name.stdout
+
+  always:
+    - name: Remove vm
+      vmware.vmware.vm:
+        name: "{{ vm_name }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        cluster: "{{ vcenter_cluster_name }}"
+        state: absent
+        allow_power_cycling: true
