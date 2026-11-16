@@ -7,14 +7,18 @@
   ansible.builtin.include_tasks: validate_inputs.yml
 
 - name: Check If vCenter Already Exists
-  vmware.vmware.guest_info:
+  community.vmware.vmware_vm_info:
     hostname: "{{ provision_vcenter_hostname }}"
     username: "{{ provision_vcenter_username }}"
     password: "{{ provision_vcenter_password }}"
     port: "{{ provision_vcenter_port | default(omit) }}"
     validate_certs: "{{ provision_vcenter_validate_certs | default(omit) }}"
-    name: "{{ provision_vcenter_vm_name }}"
-  register: _vcenter_lookup
+  register: _vcenter_vm_lookup
+
+- name: Set vCenter Lookup Result
+  ansible.builtin.set_fact:
+    _vcenter_lookup:
+      guests: "{{ _vcenter_vm_lookup.virtual_machines | default([]) | selectattr('guest_name', 'equalto', provision_vcenter_vm_name) | list }}"
 
 - name: Create Instance From ISO
   when: not _vcenter_lookup.guests
